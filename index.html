@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Прототип главной страницы ADSPACE Group — рекламной экосистемы для подбора, расчёта и заказа рекламы."
+    />
+    <meta name="theme-color" content="#EB2246" />
+    <title>ADSPACE Group — просто выбрать, легко заказать</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
+    <link rel="stylesheet" href="mono.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">К содержанию</a>
+
+    <!-- ───────────────────────── ШАПКА ───────────────────────── -->
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="ADSPACE Group — на главную">
+        <img src="assets/logo-adspace-group.svg" alt="ADSPACE Group" width="1105" height="118" />
+      </a>
+
+      <div class="city-select">
+        <label class="sr-only" for="city-select-desktop">Город</label>
+        <select id="city-select-desktop" data-city-select>
+          <option value="krasnodar">Краснодар</option>
+          <option value="rostov">Ростов-на-Дону</option>
+          <option value="moscow">Москва</option>
+          <option value="sochi">Сочи</option>
+          <option value="kazan">Казань</option>
+        </select>
+      </div>
+
+      <nav class="desktop-nav" aria-label="Основная навигация">
+        <a href="#promos">Акции</a>
+        <a href="#builder">Конструктор</a>
+        <a href="#solutions">Решения</a>
+        <a href="#cases">Кейсы</a>
+        <a href="#platform">Платформа</a>
+        <a href="#company">О компании</a>
+      </nav>
+
+      <div class="header-side">
+        <a class="header-phone" href="tel:+74951876485" data-tentative="номер требует подтверждения"
+          >+7 495 187-64-85</a
+        >
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span class="sr-only">Открыть меню</span>
+        </button>
+      </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Мобильная навигация" hidden>
+      <div class="city-select city-select--mobile">
+        <label class="sr-only" for="city-select-mobile">Город</label>
+        <select id="city-select-mobile" data-city-select>
+          <option value="krasnodar">Краснодар</option>
+          <option value="rostov">Ростов-на-Дону</option>
+          <option value="moscow">Москва</option>
+          <option value="sochi">Сочи</option>
+          <option value="kazan">Казань</option>
+        </select>
+      </div>
+      <a href="#promos">Акции</a>
+      <a href="#builder">Конструктор</a>
+      <a href="#solutions">Решения</a>
+      <a href="#cases">Кейсы</a>
+      <a href="#platform">Платформа</a>
+      <a href="#company">О компании</a>
+      <a href="#contact">Контакты</a>
+      <a class="mobile-menu-phone" href="tel:+74951876485">+7 495 187-64-85</a>
+    </nav>
+
+    <main id="main">
+      <!-- ─────────────────── 01 · ПЕРВЫЙ ЭКРАН ─────────────────── -->
+      <section class="hero section-shell" id="top">
+        <div class="hero-banner" aria-hidden="true">
+          <div class="hero-banner-track">
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <!-- набор дублирован для бесшовной прокрутки -->
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow"><span class="status-dot"></span> Рекламная экосистема · 24/7</p>
+            <h1>Просто&nbsp;выбрать<br /><strong>Легко&nbsp;заказать</strong></h1>
+            <p class="hero-lead">
+              Подбираем, рассчитываем и запускаем рекламные кампании по всей России — от одной
+              поверхности до комплексного медиаплана. В одном окне.
+            </p>
+            <div class="button-row">
+              <a class="button button--primary" href="#builder"
+                >Подобрать рекламную кампанию <span aria-hidden="true">↗</span></a
+              >
+              <a class="button button--dark" href="#presentation"
+                >Скачать презентацию <span aria-hidden="true">↓</span></a
+              >
+            </div>
+            <ul class="hero-proof">
+              <li><b>01</b> Все форматы — один договор</li>
+              <li><b>02</b> Расчёт, а не «примерно»</li>
+              <li><b>03</b> Медиаплан за минуту</li>
+            </ul>
+          </div>
+
+          <!-- Медиаобласть: несколько сюжетов, объясняющих продукт за 10–15 секунд -->
+          <div class="hero-stage reveal" data-stage aria-label="Что можно сделать на сайте">
+            <div class="stage-top">
+              <span class="stage-kicker">Что здесь можно сделать</span>
+            </div>
+
+            <div class="stage-screen" data-stage-screen>
+              <!-- сцена 1 — наружная реклама -->
+              <div class="scene scene--outdoor is-active" data-scene="outdoor">
+                <div class="scene-grid" aria-hidden="true"></div>
+                <div class="billboard">
+                  <div class="billboard-screen">ВАШ<br />БРЕНД</div>
+                  <div class="billboard-leg"></div>
+                </div>
+                <span class="chip chip--a">Подбор рекламы в пару кликов</span>
+                <span class="chip chip--b">Суперсайт 15×5 · свободно с 01.09</span>
+              </div>
+
+              <!-- сцена 2 — indoor и лифты -->
+              <div class="scene scene--indoor" data-scene="indoor">
+                <div class="lift">
+                  <div class="lift-doors"><i></i><i></i></div>
+                  <div class="lift-panel"><span>AD</span><b>SPACE</b></div>
+                </div>
+                <span class="chip chip--a">1 240 лифтов в районе</span>
+                <span
+                  class="chip chip--b"
+                  data-demo="в финале: карта секторов лифта и превью макета на месте"
+                  >Бронирование стенда онлайн</span
+                >
+              </div>
+
+              <!-- сцена 3 — радио и ТВ -->
+              <div class="scene scene--broadcast" data-scene="broadcast">
+                <div class="wave" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                  ><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="tv-frame"><span>TV</span></div>
+                <span class="chip chip--a">Рейтинги и охват аудитории</span>
+                <span class="chip chip--b" data-tentative="показатель демонстрационный"
+                  >База дикторов · 120+ голосов</span
+                >
+              </div>
+
+              <!-- сцена 4 — калькулятор -->
+              <div class="scene scene--calc" data-scene="calc">
+                <div class="calc-ui">
+                  <div class="calc-row"><span>Формат</span><b>Outdoor · 3×6</b></div>
+                  <div class="calc-row"><span>Период</span><b>30 дней</b></div>
+                  <div class="calc-row"><span>Поверхностей</span><b>18</b></div>
+                  <div class="calc-total"><span>Итого</span><b data-count-to="540000">0 ₽</b></div>
+                </div>
+                <span class="chip chip--b">расчёт онлайн</span>
+              </div>
+
+              <!-- сцена 5 — медиаплан -->
+              <div class="scene scene--plan" data-scene="plan">
+                <div class="plan-ui">
+                  <div class="plan-row"><span>Outdoor</span><i style="--s: 0%; --w: 68%"></i></div>
+                  <div class="plan-row"><span>DOOH</span><i style="--s: 12%; --w: 46%"></i></div>
+                  <div class="plan-row"><span>Radio</span><i style="--s: 28%; --w: 52%"></i></div>
+                  <div class="plan-row"><span>Indoor</span><i style="--s: 8%; --w: 34%"></i></div>
+                </div>
+                <span class="chip chip--a">Медиаплан · 4 канала</span>
+              </div>
+
+              <!-- сцена 6 — онлайн-бронирование -->
+              <div class="scene scene--booking" data-scene="booking">
+                <div class="booking-ui">
+                  <div class="booking-row"><span>Ленина / 42</span><b class="ok">свободно</b></div>
+                  <div class="booking-row"><span>Проспект Мира</span><b class="ok">свободно</b></div>
+                  <div class="booking-row is-taken"><span>ТЦ «Галерея»</span><b>занято</b></div>
+                  <div class="booking-row is-picked">
+                    <span>Кутузовский, 12</span><b class="ok">в корзине</b>
+                  </div>
+                </div>
+                <span class="chip chip--b">бронирование онлайн</span>
+              </div>
+            </div>
+
+            <div class="stage-bottom">
+              <div class="stage-caption">
+                <strong data-stage-title>Наружная реклама</strong>
+              </div>
+              <div class="stage-dots" role="tablist" aria-label="Сюжеты">
+                <button role="tab" type="button" data-stage-dot="outdoor" aria-selected="true">
+                  <span class="sr-only">Наружная реклама</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="indoor" aria-selected="false">
+                  <span class="sr-only">Indoor и лифты</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="broadcast" aria-selected="false">
+                  <span class="sr-only">Радио и ТВ</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="calc" aria-selected="false">
+                  <span class="sr-only">Калькулятор</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="plan" aria-selected="false">
+                  <span class="sr-only">Медиаплан</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="booking" aria-selected="false">
+                  <span class="sr-only">Онлайн-бронирование</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Живой баннер: свежий инвентарь по выбранному городу -->
+        <div class="city-ticker reveal" data-city-ticker>
+          <span class="ticker-dot" aria-hidden="true"></span>
+          <p>
+            <b data-ticker-count>10</b> новых поверхностей
+            <b data-ticker-city>в Краснодаре</b> — заходи, выбирай
+          </p>
+          <a class="text-link" href="#builder" data-tentative="счётчик демонстрационный"
+            >Смотреть <span aria-hidden="true">↗</span></a
+          >
+        </div>
+
+        <!-- Масштаб компании: компактная полоса под первым экраном -->
+        <div class="metric-strip reveal" aria-label="Масштаб компании">
+          <div data-tentative="показатель не подтверждён">
+            <strong>11+</strong><span>лет на рынке</span>
+          </div>
+          <div data-tentative="показатель не подтверждён">
+            <strong>70+</strong><span>городов присутствия</span>
+          </div>
+          <div data-tentative="показатель не подтверждён">
+            <strong>12 400</strong><span>рекламных поверхностей</span>
+          </div>
+          <div data-tentative="показатель не подтверждён">
+            <strong>9</strong><span>рекламных каналов</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 02 · АКЦИИ ─────────────────── -->
+      <section class="promos" id="promos" aria-labelledby="promos-title">
+        <div class="section-shell">
+          <div class="section-heading reveal">
+            <div>
+              <p class="eyebrow">Актуально сейчас</p>
+              <h2 id="promos-title">Акции и спец&shy;предложения</h2>
+            </div>
+            <div class="heading-aside">
+              <div class="slider-controls">
+                <button type="button" data-promo-prev aria-label="Предыдущие акции">
+                  <span aria-hidden="true">←</span>
+                </button>
+                <span class="slider-counter"><b data-promo-current>01</b> / 05</span>
+                <button type="button" data-promo-next aria-label="Следующие акции">
+                  <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="promo-track reveal" data-promo-track tabindex="0" aria-label="Список акций">
+          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
+            <div class="promo-art promo-art--hotel" aria-hidden="true">
+              <span class="promo-figure">5★</span>
+              <div class="art-hotel"></div>
+              <span class="art-caption">Premium / Moscow</span>
+            </div>
+            <div class="promo-copy">
+              <span class="promo-tag">Спецразмещение</span>
+              <h3>Реклама в отелях 5 звёзд</h3>
+              <p>Контакт с платёжеспособной аудиторией в точках спокойного внимания.</p>
+              <dl class="promo-meta">
+                <div><dt>Формат</dt><dd>Indoor · Digital</dd></div>
+                <div><dt>География</dt><dd>Москва</dd></div>
+                <div><dt>Период</dt><dd>сентябрь — ноябрь</dd></div>
+              </dl>
+              <a class="text-link" href="#contact"
+                >Получить предложение <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </article>
+
+          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
+            <div class="promo-art promo-art--stadium" aria-hidden="true">
+              <span class="promo-figure">90'</span>
+              <div class="art-stadium"></div>
+              <span class="art-caption">Season 26/27</span>
+            </div>
+            <div class="promo-copy">
+              <span class="promo-tag">Старт сезона</span>
+              <h3>Бренд на стадионе</h3>
+              <p>Размещение в спортивных событиях с высокой эмоциональной вовлечённостью.</p>
+              <dl class="promo-meta">
+                <div><dt>Формат</dt><dd>Indoor · Event</dd></div>
+                <div><dt>География</dt><dd>ЮФО</dd></div>
+                <div><dt>Период</dt><dd>сезон 2026/27</dd></div>
+              </dl>
+              <a class="text-link" href="#contact"
+                >Узнать условия <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </article>
+
+          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
+            <div class="promo-art promo-art--dev" aria-hidden="true">
+              <span class="promo-figure">ЖК</span>
+              <div class="art-dev"><i></i><i></i><i></i></div>
+              <span class="art-caption">Developers pack</span>
+            </div>
+            <div class="promo-copy">
+              <span class="promo-tag">Для девелоперов</span>
+              <h3>Пакет на старт продаж</h3>
+              <p>Наружная реклама у объекта, лифты в радиусе и радио на весь город.</p>
+              <dl class="promo-meta">
+                <div><dt>Формат</dt><dd>Outdoor · Indoor · Radio</dd></div>
+                <div><dt>География</dt><dd>город целиком</dd></div>
+                <div><dt>Период</dt><dd>от 2 месяцев</dd></div>
+              </dl>
+              <a class="text-link" href="#builder"
+                >Подобрать размещение <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </article>
+
+          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
+            <div class="promo-art promo-art--season" aria-hidden="true">
+              <span class="promo-figure">−15%</span>
+              <div class="art-season"></div>
+              <span class="art-caption">Autumn rate</span>
+            </div>
+            <div class="promo-copy">
+              <span class="promo-tag">Сезонное</span>
+              <h3>Осенний тариф на щиты 3×6</h3>
+              <p>Скидка за длительный период при бронировании до конца месяца.</p>
+              <dl class="promo-meta">
+                <div><dt>Формат</dt><dd>Outdoor 3×6</dd></div>
+                <div><dt>География</dt><dd>10 городов</dd></div>
+                <div><dt>Период</dt><dd>до 30.09</dd></div>
+              </dl>
+              <a class="text-link" href="#contact"
+                >Получить предложение <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </article>
+
+          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
+            <div class="promo-art promo-art--federal" aria-hidden="true">
+              <span class="promo-figure">РФ</span>
+              <div class="art-federal"><i></i><i></i></div>
+              <span class="art-caption">Federal mix</span>
+            </div>
+            <div class="promo-copy">
+              <span class="promo-tag">Федеральный пакет</span>
+              <h3>Одна кампания — вся страна</h3>
+              <p>Единый медиаплан, один договор и управляемый запуск по регионам.</p>
+              <dl class="promo-meta">
+                <div><dt>Формат</dt><dd>Mix 360°</dd></div>
+                <div><dt>География</dt><dd>Россия</dd></div>
+                <div><dt>Период</dt><dd>по согласованию</dd></div>
+              </dl>
+              <a class="text-link" href="#builder"
+                >Подобрать размещение <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 03 · КОНСТРУКТОР ─────────────────── -->
+      <section class="builder" id="builder" aria-labelledby="builder-title">
+        <div class="section-shell">
+          <div class="builder-heading reveal">
+            <p class="eyebrow eyebrow--light">Конструктор кампании</p>
+            <h2 id="builder-title">Соберите кампанию под вашу задачу</h2>
+            <p class="builder-sub">
+              Четыре параметра — и система сама предложит медиамикс, бюджет и период. Без звонка.
+            </p>
+          </div>
+
+          <form class="builder-form reveal" data-builder-form novalidate>
+            <div class="field">
+              <span class="field-label">01 / Тип бизнеса</span>
+              <select name="business" data-builder-input>
+                <option value="local">Локальный бизнес</option>
+                <option value="developer">Девелопмент</option>
+                <option value="network">Сетевая компания</option>
+                <option value="fmcg">FMCG</option>
+                <option value="auto">Автодилер</option>
+                <option value="mall">Торговый центр</option>
+              </select>
+            </div>
+            <div class="field">
+              <span class="field-label">02 / Цель кампании</span>
+              <select name="goal" data-builder-input>
+                <option value="clients">Привлечь клиентов</option>
+                <option value="awareness">Повысить узнаваемость</option>
+                <option value="launch">Запустить новый продукт</option>
+                <option value="sales">Увеличить продажи</option>
+              </select>
+            </div>
+            <div class="field">
+              <span class="field-label">03 / География</span>
+              <select name="geo" data-builder-input>
+                <option value="district">Один район</option>
+                <option value="city">Весь город</option>
+                <option value="cities">Несколько городов</option>
+                <option value="russia">Вся Россия</option>
+              </select>
+            </div>
+            <div class="field field--budget">
+              <span class="field-label"
+                >04 / Бюджет <output data-budget-output>500 000 ₽</output></span
+              >
+              <div class="budget-track">
+                <input
+                  type="range"
+                  name="budget"
+                  min="100000"
+                  max="5000000"
+                  step="50000"
+                  value="500000"
+                  data-builder-input
+                  aria-label="Бюджет кампании"
+                />
+              </div>
+            </div>
+            <button class="builder-submit" type="submit">
+              Собрать рекламную кампанию <span aria-hidden="true">↗</span>
+            </button>
+          </form>
+
+          <!-- Предварительный результат: раскрывается внутри страницы -->
+          <div class="builder-result" data-builder-result hidden>
+            <div class="result-head">
+              <div>
+                <span class="result-kicker">Предварительный медиаплан</span>
+                <h3 data-result-title>Indoor + DOOH</h3>
+                <p data-result-desc>Точное локальное покрытие рядом с точкой продаж.</p>
+              </div>
+              <button type="button" data-result-close aria-label="Свернуть результат">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+
+            <div class="result-body" aria-live="polite">
+              <div class="result-mix">
+                <span class="result-label">Медиамикс</span>
+                <ul data-result-mix></ul>
+              </div>
+
+              <div class="result-facts">
+                <span class="result-label">Параметры</span>
+                <dl>
+                  <div><dt>Бюджет</dt><dd data-result-budget>500 000 ₽</dd></div>
+                  <div><dt>Период</dt><dd data-result-period>30 дней</dd></div>
+                  <div><dt>География</dt><dd data-result-geo>Один район</dd></div>
+                  <div>
+                    <dt>Прогноз контактов</dt>
+                    <dd data-result-reach data-tentative="расчёт демонстрационный">1,2 млн</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+
+            <div class="result-foot">
+              <p class="result-note">
+                <span aria-hidden="true">!</span> Расчёт предварительный. Доступность конкретных
+                поверхностей подтверждает менеджер — статусы части инвентаря приходят от операторов.
+              </p>
+              <a class="button button--primary" href="#contact"
+                >Получить полный расчёт <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+
+          <!-- Как работает система -->
+          <div class="process reveal" aria-label="Как работает система">
+            <div class="process-step"><b>01</b><span>Вы описываете задачу</span></div>
+            <div class="process-step"><b>02</b><span>Система подбирает форматы</span></div>
+            <div class="process-step"><b>03</b><span>Вы получаете медиаплан</span></div>
+            <div class="process-step process-step--muted">
+              <b>04</b><span>Менеджер подтверждает размещение</span>
+            </div>
+            <div class="process-step process-step--muted"><b>05</b><span>Кампания запускается</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 04 · РЕКЛАМНЫЕ РЕШЕНИЯ ─────────────────── -->
+      <section class="solutions section-shell" id="solutions" aria-labelledby="solutions-title">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Рекламные решения</p>
+            <h2 id="solutions-title">Все каналы<br />Одна система</h2>
+          </div>
+          <div class="heading-aside">
+            <p>
+              Подбираем форматы не по привычке, а под задачу, аудиторию и географию. Наведите на
+              направление — покажем, о чём оно.
+            </p>
+          </div>
+        </div>
+
+        <div class="solutions-grid reveal">
+          <div class="solution-preview" data-preview aria-live="polite">
+            <div class="preview-canvas" data-preview-canvas data-kind="outdoor">
+              <div class="pv pv--outdoor"><span>AD<br />SPACE</span><i></i></div>
+              <div class="pv pv--digital"><i></i><i></i><i></i></div>
+              <div class="pv pv--radio"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="pv pv--tv"><span>ТВ</span></div>
+              <div class="pv pv--transit"><i></i><b></b><b></b></div>
+              <div class="pv pv--indoor"><i></i><i></i></div>
+              <div class="pv pv--lift"><i></i><span>▲</span></div>
+              <div class="pv pv--production"><i></i><b></b></div>
+            </div>
+            <div class="preview-meta">
+              <span class="preview-index" data-preview-index>01 / 08</span>
+              <strong data-preview-title>Outdoor</strong>
+              <p data-preview-desc>
+                Щиты, суперсайты и городские конструкции — максимальный охват и вес бренда.
+              </p>
+            </div>
+          </div>
+
+          <ul class="solution-list" data-solution-list>
+            <li>
+              <button
+                class="is-active"
+                type="button"
+                data-solution="outdoor"
+                data-title="Outdoor"
+                data-desc="Щиты, суперсайты и городские конструкции — максимальный охват и вес бренда."
+                aria-expanded="true"
+              >
+                <span class="sol-num">01</span><strong>Outdoor</strong>
+                <i aria-hidden="true">↗</i>
+              </button>
+              <p class="sol-mobile-desc">
+                Щиты, суперсайты и городские конструкции — максимальный охват и вес бренда.
+              </p>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-solution="digital"
+                data-title="Digital / DOOH"
+                data-desc="Цифровые экраны с гибким расписанием: меняем сообщение по дням и часам."
+                aria-expanded="false"
+              >
+                <span class="sol-num">02</span><strong>Digital / DOOH</strong>
+                <i aria-hidden="true">↗</i>
+              </button>
+              <p class="sol-mobile-desc">
+                Цифровые экраны с гибким расписанием: меняем сообщение по дням и часам.
+              </p>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-solution="radio"
+                data-title="Radio"
+                data-desc="Голос бренда в машине и на работе. Частотный контакт на весь город."
+                aria-expanded="false"
+              >
+                <span class="sol-num">03</span><strong>Radio</strong>
+                <i aria-hidden="true">↗</i>
+              </button>
+              <p class="sol-mobile-desc">
+                Голос бренда в машине и на работе. Частотный контакт на весь город.
+              </p>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-solution="tv"
+                data-title="TV"
+                data-desc="Федеральные и региональные каналы: доверие, охват и статус бренда."
+                aria-expanded="false"
+              >
+                <span class="sol-num">04</span><strong>TV</strong>
+                <i aria-hidden="true">↗</i>
+              </button>
+              <p class="sol-mobile-desc">
+                Федеральные и региональные каналы: доверие, охват и статус бренда.
+              </p>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-solution="transit"
+                data-title="Transit"
+                data-desc="Транспорт и метро — реклама, которая едет по маршрутам вашей аудитории."
+                aria-expanded="false"
+              >
+                <span class="sol-num">05</span><strong>Transit</strong>
+                <i aria-hidden="true">↗</i>
+              </button>
+              <p class="sol-mobile-desc">
+                Транспорт и метро — реклама, которая едет по маршрутам вашей аудитории.
+              </p>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-solution="indoor"
+                data-title="Indoor"
+                data-desc="ТЦ, бизнес-центры, фитнес и кинотеатры — контакт в нужном контексте."
+                aria-expanded="false"
+              >
+                <span class="sol-num">06</span><strong>Indoor</strong>
+                <i aria-hidden="true">↗</i>
+              </button>
+              <p class="sol-mobile-desc">
+                ТЦ, бизнес-центры, фитнес и кинотеатры — контакт в нужном контексте.
+              </p>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-solution="lift"
+                data-title="Реклама в лифтах"
+                data-desc="Дом за домом: точная работа с районом и ежедневный повторный контакт."
+                aria-expanded="false"
+              >
+                <span class="sol-num">07</span><strong>Реклама в лифтах</strong>
+                <i aria-hidden="true">↗</i>
+              </button>
+              <p class="sol-mobile-desc">
+                Дом за домом: точная работа с районом и ежедневный повторный контакт.
+              </p>
+            </li>
+            <li>
+              <button
+                type="button"
+                data-solution="production"
+                data-title="Production"
+                data-desc="Аудио- и видеопродакшен, дизайн макетов, печать и монтаж — под ключ."
+                aria-expanded="false"
+              >
+                <span class="sol-num">08</span><strong>Production</strong>
+                <i aria-hidden="true">↗</i>
+              </button>
+              <p class="sol-mobile-desc">
+                Аудио- и видеопродакшен, дизайн макетов, печать и монтаж — под ключ.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 05 · ТОЧНЫЙ РАСЧЁТ ─────────────────── -->
+      <section class="accuracy" aria-labelledby="accuracy-title">
+        <div class="section-shell accuracy-grid">
+          <div class="accuracy-copy reveal">
+            <p class="eyebrow eyebrow--light">Точный расчёт</p>
+            <h2 id="accuracy-title">Не «примерно»<br />По делу</h2>
+            <p>
+              Считаем размещение, количество поверхностей, сроки, производство, печать, монтаж и
+              дизайн макетов. Скидки за объём и период учитываются в смете сразу.
+            </p>
+            <a class="button button--light" href="#builder"
+              >Рассчитать рекламу <span aria-hidden="true">↗</span></a
+            >
+          </div>
+
+          <div class="cost-card reveal" data-tentative="суммы демонстрационные">
+            <div class="cost-head"><span>Смета кампании</span><span>AD / 2608</span></div>
+            <div class="cost-total"><small>Итого за 30 дней</small><strong>540 000 ₽</strong></div>
+            <div class="cost-lines">
+              <div class="cost-line">
+                <span>Размещение</span><b>72%</b>
+                <i style="--w: 72%"></i>
+              </div>
+              <div class="cost-line">
+                <span>Производство и печать</span><b>12%</b>
+                <i style="--w: 12%"></i>
+              </div>
+              <div class="cost-line">
+                <span>Монтаж и контроль</span><b>10%</b>
+                <i style="--w: 10%"></i>
+              </div>
+              <div class="cost-line">
+                <span>Дизайн макетов</span><b>6%</b>
+                <i style="--w: 6%"></i>
+              </div>
+            </div>
+            <div class="cost-foot">
+              <span class="cost-badge">−12%</span>
+              <span>скидка за объём и период уже в смете</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-shell geo-block reveal">
+          <div class="geo-head">
+            <span class="result-label">География присутствия</span>
+            <div class="geo-toggle" role="group" aria-label="Область охвата">
+              <button class="is-active" type="button" data-geo="ufo">ЮФО</button>
+              <button type="button" data-geo="rf">Россия</button>
+            </div>
+          </div>
+          <div class="geo-body">
+            <div class="geo-map" data-geo-map data-mode="ufo" aria-hidden="true"></div>
+            <div class="geo-stats">
+              <div data-tentative="показатель не подтверждён">
+                <b data-geo-cities>18</b><span>городов</span>
+              </div>
+              <div data-tentative="показатель не подтверждён">
+                <b data-geo-surfaces>3 900</b><span>поверхностей</span>
+              </div>
+              <div data-tentative="показатель не подтверждён">
+                <b data-geo-operators>24</b><span>оператора</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 06 · КЕЙСЫ И КЛИЕНТЫ ─────────────────── -->
+      <section class="cases section-shell" id="cases" aria-labelledby="cases-title">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Кейсы и клиенты</p>
+            <h2 id="cases-title">Кампании,<br />которые замечают</h2>
+          </div>
+          <div class="heading-aside">
+            <a class="text-link text-link--dark" href="#contact"
+              >Смотреть все кейсы <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+
+        <div class="case-grid reveal">
+          <article class="case-card case-card--wide" data-tentative="кейс демонстрационный">
+            <div class="case-visual case-visual--dev">
+              <b>14,8 млн</b><small>контактов за 2 месяца</small>
+            </div>
+            <div class="case-info">
+              <span class="case-meta">Девелопмент · 2026</span>
+              <h3>Старт продаж жилого квартала</h3>
+              <p class="case-task">
+                Задача: обеспечить узнаваемость нового ЖК на старте и привести трафик в офис продаж.
+              </p>
+              <ul class="case-formats">
+                <li>Outdoor</li>
+                <li>DOOH</li>
+                <li>Radio</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="case-card" data-tentative="кейс демонстрационный">
+            <div class="case-visual case-visual--retail"><b>+38%</b><small>трафик в точках</small></div>
+            <div class="case-info">
+              <span class="case-meta">Сетевой ритейл · 2026</span>
+              <h3>Локальный запуск в трёх районах</h3>
+              <p class="case-task">Задача: поднять посещаемость новых магазинов у дома.</p>
+              <ul class="case-formats">
+                <li>Indoor</li>
+                <li>Лифты</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="case-card" data-tentative="кейс демонстрационный">
+            <div class="case-visual case-visual--auto"><b>×2,1</b><small>заявок на тест-драйв</small></div>
+            <div class="case-info">
+              <span class="case-meta">Автодилер · 2025</span>
+              <h3>Вывод новой модели в регионе</h3>
+              <p class="case-task">Задача: собрать заявки на тест-драйв в течение месяца.</p>
+              <ul class="case-formats">
+                <li>Transit</li>
+                <li>Radio</li>
+                <li>DOOH</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <div class="clients reveal" data-tentative="список клиентов не подтверждён">
+          <span class="result-label">С нами работают</span>
+          <ul class="client-row" aria-label="Логотипы клиентов">
+            <li>Клиент 01</li>
+            <li>Клиент 02</li>
+            <li>Клиент 03</li>
+            <li>Клиент 04</li>
+            <li>Клиент 05</li>
+            <li>Клиент 06</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 07 · ДЛЯ КОГО ─────────────────── -->
+      <section class="segments section-shell" id="segments" aria-labelledby="segments-title">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Для кого</p>
+            <h2 id="segments-title">Под какие задачи<br />собираем рекламу</h2>
+          </div>
+          <div class="heading-aside">
+            <p>У каждого сегмента свой сценарий: свои форматы, своя география и своя логика расчёта.</p>
+          </div>
+        </div>
+
+        <ul class="segment-grid reveal">
+          <li>
+            <span class="seg-num">01</span>
+            <h3>Локальный бизнес</h3>
+            <p>Один район, точка продаж, повторный контакт.</p>
+            <span class="seg-formats">Лифты · Indoor</span>
+          </li>
+          <li>
+            <span class="seg-num">02</span>
+            <h3>Сетевые компании</h3>
+            <p>Несколько городов, единый стандарт коммуникации.</p>
+            <span class="seg-formats">Outdoor · DOOH · Radio</span>
+          </li>
+          <li>
+            <span class="seg-num">03</span>
+            <h3>Девелоперы</h3>
+            <p>Старт продаж, объект на карте, поток в офис.</p>
+            <span class="seg-formats">Outdoor · Radio · Лифты</span>
+          </li>
+          <li>
+            <span class="seg-num">04</span>
+            <h3>Автодилеры</h3>
+            <p>Сезонные акции и заявки на тест-драйв.</p>
+            <span class="seg-formats">Transit · DOOH</span>
+          </li>
+          <li>
+            <span class="seg-num">05</span>
+            <h3>FMCG</h3>
+            <p>Массовый охват и поддержка полки в сезон.</p>
+            <span class="seg-formats">TV · Outdoor · Radio</span>
+          </li>
+          <li>
+            <span class="seg-num">06</span>
+            <h3>ТЦ и кинотеатры</h3>
+            <p>Трафик к открытию, событиям и распродажам.</p>
+            <span class="seg-formats">Indoor · DOOH</span>
+          </li>
+          <li>
+            <span class="seg-num">07</span>
+            <h3>Крупные рекламодатели</h3>
+            <p>Федеральный медиаплан в одном окне.</p>
+            <span class="seg-formats">Mix 360°</span>
+          </li>
+          <li>
+            <span class="seg-num">08</span>
+            <h3>Владельцы инвентаря</h3>
+            <p>Продажи площадок и учёт размещений в платформе.</p>
+            <span class="seg-formats">Платформа</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ─────────────────── 08 · КОМПАНИЯ И ИНДУСТРИЯ ─────────────────── -->
+      <section class="company section-shell" id="company" aria-labelledby="company-title">
+        <div class="company-grid">
+          <div class="company-copy reveal">
+            <p class="eyebrow">Мы в индустрии</p>
+            <h2 id="company-title">Рекламная компания,<br />которая стала системой</h2>
+            <p>
+              ADSPACE Group начинали с наружной рекламы и собственной платформы по подбору
+              поверхностей. Сегодня вокруг неё собираются остальные направления — от радио и ТВ до
+              продакшена, чтобы клиент проходил весь путь в одном месте.
+            </p>
+            <a
+              class="button button--dark"
+              href="#"
+              data-tentative="страница «О компании» пока не спроектирована"
+              >Подробнее о компании <span aria-hidden="true">↗</span></a
+            >
+          </div>
+
+          <figure class="team-photo reveal" data-demo="место под фотосъёмку команды">
+            <div class="team-frame">
+              <span class="team-label">Фото команды</span>
+              <span class="team-hint">съёмка запланирована</span>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 09 · ПЛАТФОРМА ─────────────────── -->
+      <section class="platform" id="platform" aria-labelledby="platform-title">
+        <div class="section-shell">
+          <div class="platform-heading reveal">
+            <p class="eyebrow eyebrow--light">Платформа и экосистема</p>
+            <h2 id="platform-title">Работает с двух сторон</h2>
+          </div>
+
+          <div class="platform-split">
+            <div class="platform-side reveal">
+              <span class="platform-role">Рекламодателю</span>
+              <ul>
+                <li>Самостоятельный подбор форматов</li>
+                <li>Точный расчёт и медиаплан</li>
+                <li>Единое окно по всем каналам</li>
+                <li>Быстрый запуск кампании</li>
+              </ul>
+              <a class="button button--light" href="#builder"
+                >Подобрать кампанию <span aria-hidden="true">↗</span></a
+              >
+              <div class="platform-visual" aria-hidden="true"><span>Экран платформы</span></div>
+            </div>
+
+            <div class="platform-side reveal">
+              <span class="platform-role">Партнёру и владельцу инвентаря</span>
+              <ul>
+                <li>Добавление площадок и поверхностей</li>
+                <li>Обновление статусов, в том числе по API</li>
+                <li>Учёт проданных размещений</li>
+                <li>Личный кабинет и синхронизация данных</li>
+              </ul>
+              <a class="button button--light" href="#contact"
+                >Стать партнёром <span aria-hidden="true">↗</span></a
+              >
+              <div class="platform-visual" aria-hidden="true"><span>Экран платформы</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 10 · ПРЕЗЕНТАЦИЯ ─────────────────── -->
+      <section class="presentation section-shell" id="presentation" aria-labelledby="presentation-title">
+        <div class="presentation-card reveal">
+          <div class="pres-copy">
+            <p class="eyebrow">Материалы</p>
+            <h2 id="presentation-title">Все возможности ADSPACE — в одном файле</h2>
+            <p>Форматы, география, инвентарь, примеры медиапланов и условия работы.</p>
+          </div>
+          <div class="pres-action">
+            <button class="pres-button" type="button" data-presentation>
+              Скачать презентацию <span aria-hidden="true">↓</span>
+            </button>
+            <small class="pres-meta" data-tentative="файл презентации ещё не передан"
+              >PDF · обновлено 20.08.2026 · ≈12 МБ</small
+            >
+          </div>
+          <p class="pres-status" data-presentation-status role="status"></p>
+        </div>
+      </section>
+
+      <!-- ─────────────────── 11 · ФИНАЛЬНЫЙ CTA ─────────────────── -->
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="section-shell contact-grid">
+          <div class="contact-copy reveal">
+            <p class="eyebrow eyebrow--light">Начнём</p>
+            <h2 id="contact-title">Расскажите задачу<br /><strong>Остальное соберём</strong></h2>
+            <p class="contact-lead">Отвечаем в рабочее время в течение 15 минут.</p>
+            <ul class="contact-info">
+              <li>
+                <small>Телефон</small>
+                <a href="tel:+74951876485" data-tentative="номер требует подтверждения"
+                  >+7 495 187-64-85</a
+                >
+              </li>
+              <li>
+                <small>Почта</small>
+                <a href="mailto:hello@adspace.group" data-tentative="адрес требует подтверждения"
+                  >hello@adspace.group</a
+                >
+              </li>
+              <li><small>Время ответа</small><span>Пн–Пт, 09:00–19:00</span></li>
+            </ul>
+          </div>
+
+          <form class="contact-form reveal" data-contact-form novalidate>
+            <label class="field">
+              <span class="field-label">Ваше имя</span>
+              <input type="text" name="name" placeholder="Как к вам обращаться?" required />
+            </label>
+            <label class="field">
+              <span class="field-label">Телефон или Telegram</span>
+              <input type="text" name="contact" placeholder="+7 999 000-00-00" required />
+            </label>
+            <label class="field field--wide">
+              <span class="field-label">Коротко о задаче</span>
+              <textarea name="task" rows="3" placeholder="Что и где планируете рекламировать?"></textarea>
+            </label>
+            <button class="button button--primary" type="submit">
+              Обсудить проект <span aria-hidden="true">↗</span>
+            </button>
+            <p class="form-status" data-form-status role="status"></p>
+            <p class="form-legal">
+              Нажимая кнопку, вы соглашаетесь с
+              <a href="#" data-tentative="документ не передан">политикой конфиденциальности</a>.
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-shell footer-grid">
+        <div class="footer-brand">
+          <img src="assets/logo-adspace-group.svg" alt="ADSPACE Group" width="1105" height="118" />
+          <p>Просто выбрать. Легко заказать.</p>
+        </div>
+        <div>
+          <small>Навигация</small>
+          <a href="#promos">Акции</a><a href="#builder">Конструктор</a><a href="#solutions">Решения</a>
+          <a href="#cases">Кейсы</a><a href="#platform">Платформа</a>
+        </div>
+        <div>
+          <small>Контакты</small>
+          <a href="tel:+74951876485">+7 495 187-64-85</a>
+          <a href="mailto:hello@adspace.group">hello@adspace.group</a>
+        </div>
+        <div>
+          <small>Документы</small>
+          <a href="#" data-tentative="документ не передан">Политика конфиденциальности</a>
+          <span data-tentative="юридические данные не подтверждены">ООО «АДСПЕЙС ГРУПП»</span>
+          <span>© 2026 ADSPACE Group</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,291 @@
+/* =========================================================
+   ЧЁРНО-БЕЛЫЙ РЕЖИМ (временный слой поверх styles.css)
+
+   Прототип показывается заказчику как вайрфрейм: структура, логика
+   и состояния — без цвета и без каких-либо изображений, даже
+   схематичных чёрно-белых. Любое место под фото/видео/иллюстрацию —
+   плоский серый прямоугольник с подписью, что здесь будет.
+
+   Функциональные элементы интерфейса (калькулятор, медиаплан, список
+   бронирования, смета, панель платформы) — это не «картинки», а
+   демонстрация логики экрана, поэтому они остаются.
+
+   Чтобы вернуть цветную версию — удалите <link> на этот файл
+   в index.html. Ничего больше править не нужно.
+   ========================================================= */
+
+:root {
+  --paper: #f1f1f1;
+  --white: #ffffff;
+  --ink: #161616;
+  --muted: #5e5e5e;
+  --line: #cfcfcf;
+  --line-dark: #3d3d3d;
+  --graphite: #1c1c1c;
+  --graphite-2: #2a2a2a;
+
+  /* акцент на светлом фоне — чёрный; на тёмном подменяется ниже */
+  --red: #161616;
+  --red-dark: #000000;
+
+  --pink: #e3e3e3;
+  --pink-2: #c6c6c6;
+  --sand: #e6e6e6;
+
+  /* оттенки для функциональных схем (калькулятор, медиаплан и т.п.) */
+  --tone-1: #8f8f8f;
+  --tone-2: #b4b4b4;
+  --tone-3: #d9d9d9;
+  --photo: #dcdcdc;
+}
+
+.site-header {
+  background: rgba(241, 241, 241, 0.9);
+}
+
+/* логотип остаётся в фирменных цветах даже в ч/б-режиме */
+
+/* полоса с логотипом в hero — тоже сознательное цветное исключение */
+.hero-banner {
+  background: #eb2246;
+}
+
+/* фокус читается и на светлом, и на тёмном */
+:focus-visible,
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* пульсация без цвета */
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 22, 22, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(22, 22, 22, 0);
+  }
+}
+.status-dot {
+  box-shadow: 0 0 0 5px rgba(22, 22, 22, 0.1);
+}
+
+/* ── акцент на тёмных секциях становится светлым ─────────── */
+.process-step b,
+.platform-role,
+.contact h2 strong,
+.contact-info a:hover {
+  color: var(--white);
+}
+.platform-cols li::before {
+  background: var(--white);
+}
+
+/* кнопки на графитовых секциях — светлые */
+.builder-submit,
+.contact-form .button--primary {
+  background: var(--white);
+  color: var(--ink);
+}
+.builder-submit:hover,
+.contact-form .button--primary:hover {
+  background: var(--pink);
+  color: var(--ink);
+}
+.geo-toggle button.is-active {
+  background: var(--white);
+  color: var(--ink);
+}
+.pres-button:hover {
+  background: #000000;
+}
+
+/* =========================================================
+   Общий стиль плейсхолдера «здесь будет фото/видео»
+   ========================================================= */
+.photo-slot {
+  position: relative;
+  background: var(--photo);
+}
+.photo-slot::after {
+  content: attr(data-photo-label);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-family: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── первый экран: сюжеты, изображающие размещения, гасим ── */
+.stage-screen,
+.scene--outdoor,
+.scene--indoor,
+.scene--broadcast {
+  background: var(--photo);
+}
+.scene--outdoor .scene-grid,
+.scene--outdoor .billboard,
+.scene--indoor .lift,
+.scene--broadcast .wave,
+.scene--broadcast .tv-frame {
+  display: none;
+}
+/* калькулятор, медиаплан и бронирование — это интерфейс, не картинка, оставляем */
+.scene--plan {
+  background: #e3e3e3;
+}
+.scene--booking {
+  background: #e8e8e8;
+}
+.plan-row i {
+  background: var(--ink);
+}
+.plan-row:nth-child(2) i,
+.plan-row:nth-child(4) i {
+  background: var(--tone-1);
+}
+.booking-row b.ok {
+  color: var(--ink);
+}
+.booking-row.is-picked b.ok {
+  color: var(--ink);
+}
+
+/* ── акции: было — иллюстрация акции, стало — плоский серый блок ── */
+.promo-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--photo);
+  color: var(--muted);
+}
+.promo-figure,
+.art-hotel,
+.art-stadium,
+.art-dev,
+.art-season,
+.art-federal,
+.art-caption {
+  display: none;
+}
+.promo-art::before {
+  content: "Фото акции";
+  font-family: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── кейсы: цветной фон-иллюстрация → плоский серый, цифры остаются ── */
+.case-visual {
+  position: relative;
+  background: var(--photo) !important;
+  color: var(--ink);
+}
+.case-visual::before {
+  content: "Фото кейса";
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  font-family: var(--text);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── решения: иконки форматов убираем, остаётся подпись формата ── */
+.solution-list button strong,
+.solution-list button .sol-num {
+  color: var(--tone-1);
+  transition: color 0.3s ease;
+}
+.solution-list button.is-active strong,
+.solution-list button.is-active .sol-num,
+.solution-list button.is-active i {
+  color: var(--ink);
+}
+.preview-canvas {
+  background: var(--photo);
+}
+.pv {
+  display: none;
+}
+.preview-canvas::before {
+  content: "Визуал направления";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ── точный расчёт: карта остаётся схемой, без цветного пятна ── */
+.geo-map::after {
+  background: var(--tone-1);
+  opacity: 0.5;
+  border-radius: 8px;
+}
+.cost-line i {
+  background: var(--ink);
+}
+.cost-line:nth-child(2) i {
+  background: #5e5e5e;
+}
+.cost-line:nth-child(3) i {
+  background: var(--tone-1);
+}
+.cost-line:nth-child(4) i {
+  background: var(--tone-2);
+}
+.cost-badge {
+  background: var(--pink);
+  color: var(--ink);
+}
+
+/* ── компания: фото команды — плоский серый квадрат ─────── */
+.team-frame {
+  background: var(--photo);
+  background-image: none;
+}
+.team-label {
+  color: var(--muted);
+}
+
+/* ── служебная кнопка режима ─────────────────────────────── */
+.demo-toggle[aria-pressed="true"] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink), 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+.demo-toggle[aria-pressed="true"] i {
+  background: var(--ink);
+}
+body.show-demo [data-tentative],
+body.show-demo [data-demo] {
+  outline-color: var(--ink);
+}
+body.show-demo [data-tentative]::after,
+body.show-demo [data-demo]::after {
+  background: var(--ink);
+  color: var(--white);
+}
