@@ -386,29 +386,6 @@
     });
   }
 
-  /* ── карта географии ────────────────────────────────── */
-  const geoMap = $("[data-geo-map]");
-  if (geoMap) {
-    const GEO_DATA = {
-      ufo: { cities: "18", surfaces: "3 900", operators: "24" },
-      rf: { cities: "70+", surfaces: "12 400", operators: "90+" },
-    };
-    const cities = $("[data-geo-cities]");
-    const surfaces = $("[data-geo-surfaces]");
-    const operators = $("[data-geo-operators]");
-
-    $$("[data-geo]").forEach((button) =>
-      button.addEventListener("click", () => {
-        const mode = button.dataset.geo;
-        $$("[data-geo]").forEach((item) => item.classList.toggle("is-active", item === button));
-        geoMap.dataset.mode = mode;
-        geoMap.style.backgroundSize = mode === "rf" ? "14px 14px" : "18px 18px";
-        cities.textContent = GEO_DATA[mode].cities;
-        surfaces.textContent = GEO_DATA[mode].surfaces;
-        operators.textContent = GEO_DATA[mode].operators;
-      })
-    );
-  }
 
   /* ── презентация ────────────────────────────────────── */
   $("[data-presentation]")?.addEventListener("click", () => {
