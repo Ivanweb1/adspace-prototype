@@ -30,34 +30,19 @@
     if (event.key === "Escape") setMenu(false);
   });
 
-  /* ── выбор города: шапка + мобильное меню + живой баннер ── */
-  const citySelects = $$("[data-city-select]");
-  const cityTicker = $("[data-city-ticker]");
-
-  // Демонстрационные данные — реальные цифры инвентаря по городам не переданы
-  const CITY_DATA = {
-    krasnodar: { loc: "в Краснодаре", count: 10 },
-    rostov: { loc: "в Ростове-на-Дону", count: 10 },
-    moscow: { loc: "в Москве", count: 34 },
-    sochi: { loc: "в Сочи", count: 7 },
-    kazan: { loc: "в Казани", count: 15 },
-  };
-
-  const applyCity = (key) => {
-    const data = CITY_DATA[key] || CITY_DATA.krasnodar;
-    citySelects.forEach((select) => {
-      if (select.value !== key) select.value = key;
-    });
-    if (cityTicker) {
-      $("[data-ticker-count]", cityTicker).textContent = data.count;
-      $("[data-ticker-city]", cityTicker).textContent = data.loc;
-    }
-  };
-
-  citySelects.forEach((select) =>
-    select.addEventListener("change", () => applyCity(select.value))
-  );
-  if (citySelects.length) applyCity(citySelects[0].value);
+  /* ── переключатель темы: пока только кнопка-демо ─────
+     Показывает, что в шапке предусмотрено место под смену темы.
+     Саму тёмную тему не применяем — переключается только иконка
+     и состояние кнопки, без реального изменения палитры. */
+  const themeToggles = $$("[data-theme-toggle]");
+  if (themeToggles.length) {
+    themeToggles.forEach((btn) =>
+      btn.addEventListener("click", () => {
+        const pressed = btn.getAttribute("aria-pressed") !== "true";
+        themeToggles.forEach((b) => b.setAttribute("aria-pressed", String(pressed)));
+      })
+    );
+  }
 
   /* ── первый экран: смена сюжетов ────────────────────── */
   const stage = $("[data-stage]");
@@ -342,6 +327,39 @@
         block: "center",
       });
     });
+
+    // Контакты — прямо в панели результата, без перехода на другую форму:
+    // менеджер получает уже собранные параметры вместе с контактом
+    const resultCta = $("[data-result-cta]");
+    const resultContactForm = $("[data-result-contact-form]");
+    resultCta?.addEventListener("click", () => {
+      resultContactForm.hidden = !resultContactForm.hidden;
+      if (!resultContactForm.hidden) {
+        resultContactForm.scrollIntoView({
+          behavior: reduceMotion.matches ? "auto" : "smooth",
+          block: "nearest",
+        });
+        $('input[name="name"]', resultContactForm)?.focus();
+      }
+    });
+
+    resultContactForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const status = $("[data-result-contact-status]", resultContactForm);
+      const required = $$("input[required]", resultContactForm);
+      const empty = required.filter((input) => !input.value.trim());
+      required.forEach((input) => input.classList.toggle("is-invalid", !input.value.trim()));
+
+      if (empty.length) {
+        status.textContent = "Заполните имя и контакт — так менеджер сможет ответить.";
+        empty[0].focus();
+        return;
+      }
+
+      const title = $("[data-result-title]").textContent;
+      status.textContent = `Заявка на «${title}» отправлена вместе с параметрами выше — менеджеру не придётся переспрашивать то, что вы уже указали. Это прототип: данные никуда не уходят, но сценарий рабочий.`;
+      resultContactForm.reset();
+    });
   }
 
   /* ── рекламные решения: смена визуала ───────────────── */
@@ -416,6 +434,67 @@
     status.textContent = "Спасибо! Это прототип: заявка не отправляется, но сценарий формы работает.";
     contactForm.reset();
   });
+
+  /* ── попап «Стать партнёром» — своя форма, без перехода на страницу ── */
+  const partnerModal = $("[data-partner-modal]");
+  if (partnerModal) {
+    const partnerForm = $("[data-partner-form]", partnerModal);
+    const partnerStatus = $("[data-partner-status]", partnerModal);
+    let lastFocused = null;
+
+    const openPartnerModal = () => {
+      lastFocused = document.activeElement;
+      partnerModal.hidden = false;
+      document.body.classList.add("modal-open");
+      // синхронный reflow — чтобы переход по opacity сработал сразу,
+      // не полагаясь на requestAnimationFrame
+      void partnerModal.offsetHeight;
+      partnerModal.classList.add("is-visible");
+      $('input[name="name"]', partnerForm)?.focus();
+    };
+
+    const closePartnerModal = () => {
+      partnerModal.classList.remove("is-visible");
+      document.body.classList.remove("modal-open");
+      window.setTimeout(() => {
+        partnerModal.hidden = true;
+      }, 200);
+      lastFocused?.focus();
+    };
+
+    $$('[data-open-partner-modal]').forEach((trigger) =>
+      trigger.addEventListener("click", (event) => {
+        event.preventDefault();
+        openPartnerModal();
+      })
+    );
+    $$("[data-partner-close]", partnerModal).forEach((btn) =>
+      btn.addEventListener("click", closePartnerModal)
+    );
+    partnerModal.addEventListener("click", (event) => {
+      if (event.target === partnerModal) closePartnerModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !partnerModal.hidden) closePartnerModal();
+    });
+
+    partnerForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const required = $$("input[required]", partnerForm);
+      const empty = required.filter((input) => !input.value.trim());
+      required.forEach((input) => input.classList.toggle("is-invalid", !input.value.trim()));
+
+      if (empty.length) {
+        partnerStatus.textContent = "Заполните имя и контакт — так мы сможем ответить.";
+        empty[0].focus();
+        return;
+      }
+
+      partnerStatus.textContent =
+        "Заявка партнёра принята. Это прототип: данные никуда не уходят, но сценарий формы работает.";
+      partnerForm.reset();
+    });
+  }
 
   /* ── появление блоков при скролле ───────────────────── */
   const revealTargets = $$(".reveal");

@@ -20,6 +20,7 @@
 :root {
   --paper: #f4f3f0;
   --white: #ffffff;
+  --surface: var(--white);
   --ink: #23252f;
   --muted: #5f6173;
   --line: #d5d3ce;
@@ -37,6 +38,19 @@
   --display: Bahnschrift, "DIN Alternate", "Arial Narrow", "Segoe UI", sans-serif;
   --text: "Manrope Local", "Segoe UI", Roboto, sans-serif;
   --ease: cubic-bezier(0.22, 0.75, 0.2, 1);
+}
+
+/* тёмная тема — переключается кнопкой в шапке, независимо от ч/б-режима показа */
+:root[data-theme="dark"] {
+  --paper: #15161d;
+  --surface: #1e1f28;
+  --ink: #eef0f6;
+  --muted: #9a9cae;
+  --line: #34364a;
+  --line-dark: #494c60;
+  --graphite: #0e0f15;
+  --graphite-2: #16171f;
+  --sand: #202129;
 }
 
 *,
@@ -189,7 +203,7 @@ p {
   background: #14161f;
 }
 .button--light {
-  background: var(--white);
+  background: var(--surface);
   color: var(--ink);
 }
 .button--light:hover {
@@ -280,37 +294,48 @@ p {
 .desktop-nav a:hover::after {
   transform: scaleX(1);
 }
-/* выбор города: одна и та же логика в шапке и в мобильном меню */
-.city-select {
+/* переключатель светлой/тёмной темы: одна кнопка в шапке и в мобильном меню */
+.theme-toggle {
   flex: 0 0 auto;
-  position: relative;
-}
-.city-select select {
-  appearance: none;
+  width: 40px;
   height: 40px;
-  padding: 0 34px 0 16px;
   border: 1px solid var(--ink);
-  border-radius: 40px;
-  background-color: transparent;
-  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
-    linear-gradient(135deg, var(--ink) 50%, transparent 50%);
-  background-position: calc(100% - 18px) 18px, calc(100% - 12px) 18px;
-  background-size: 5px 5px;
-  background-repeat: no-repeat;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.2s ease;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  color: var(--ink);
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
-.city-select select:hover {
+.theme-toggle:hover {
   border-color: var(--red);
+  color: var(--red);
 }
-.city-select--mobile {
-  margin-bottom: 8px;
+.theme-icon {
+  width: 18px;
+  height: 18px;
+  grid-area: 1 / 1;
 }
-.city-select--mobile select {
+.theme-icon--moon {
+  display: none;
+}
+.theme-toggle[aria-pressed="true"] .theme-icon--sun {
+  display: none;
+}
+.theme-toggle[aria-pressed="true"] .theme-icon--moon {
+  display: block;
+}
+.theme-toggle--mobile {
   width: 100%;
   height: 52px;
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding-inline: 16px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .header-side {
@@ -362,7 +387,7 @@ p {
   z-index: 59;
   inset: 88px 12px auto;
   padding: 12px 24px 24px;
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--ink);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
 }
@@ -448,7 +473,7 @@ h1 strong {
   margin: 30px 0 34px;
   font-size: 17px;
   line-height: 1.6;
-  color: #4b4d5c;
+  color: var(--muted);
 }
 .button-row {
   display: flex;
@@ -603,7 +628,7 @@ h1 strong {
   background: linear-gradient(180deg, #4a4d5e, #33364a);
 }
 .lift-panel {
-  background: var(--white);
+  background: var(--surface);
   display: grid;
   place-content: center;
   text-align: center;
@@ -681,7 +706,7 @@ h1 strong {
 }
 
 .scene--calc {
-  background: var(--white);
+  background: var(--surface);
 }
 .calc-ui {
   position: absolute;
@@ -782,7 +807,7 @@ h1 strong {
   justify-content: space-between;
   align-items: center;
   padding: 12px 14px;
-  background: var(--white);
+  background: var(--surface);
   border-radius: 3px;
   font-size: 13px;
   box-shadow: 0 8px 20px rgba(20, 22, 30, 0.06);
@@ -839,37 +864,6 @@ h1 strong {
 }
 .stage-dots button[aria-selected="true"] {
   background: var(--red);
-}
-
-/* живой баннер: свежий инвентарь по выбранному городу */
-.city-ticker {
-  margin: 28px 0 40px;
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  border: 1px solid var(--red);
-  border-radius: 40px;
-}
-.ticker-dot {
-  flex: 0 0 auto;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--red);
-  animation: pulse 1.8s infinite;
-}
-.city-ticker p {
-  flex: 1;
-  font-size: 15px;
-  font-weight: 500;
-}
-.city-ticker b {
-  font-weight: 700;
-  color: var(--red);
-}
-.city-ticker .text-link {
-  flex: 0 0 auto;
 }
 
 /* полоса масштаба */
@@ -978,7 +972,7 @@ h1 strong {
   display: grid;
   grid-template-columns: 300px 1fr;
   min-height: 380px;
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--ink);
   border-radius: var(--radius);
   overflow: hidden;
@@ -1198,7 +1192,7 @@ h1 strong {
 .builder-form select {
   height: 58px;
   padding: 0 16px;
-  background: var(--white);
+  background: var(--surface);
   color: var(--ink);
   border: 1px solid transparent;
   border-radius: var(--radius);
@@ -1233,7 +1227,7 @@ h1 strong {
   padding: 0 16px;
   display: flex;
   align-items: center;
-  background: var(--white);
+  background: var(--surface);
   border-radius: var(--radius);
 }
 input[type="range"] {
@@ -1281,7 +1275,7 @@ input[type="range"]::-moz-range-thumb {
 .builder-result {
   margin-top: 20px;
   padding: 34px;
-  background: var(--white);
+  background: var(--surface);
   color: var(--ink);
   border-radius: var(--radius);
   animation: openResult 0.45s var(--ease);
@@ -1425,6 +1419,58 @@ input[type="range"]::-moz-range-thumb {
   font-size: 11px;
   font-weight: 700;
   vertical-align: -3px;
+}
+
+/* контакты внутри результата конструктора — без ухода на другую форму */
+.result-contact {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+  align-items: end;
+}
+.result-contact-lead {
+  grid-column: 1 / -1;
+  max-width: 560px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.result-contact .field-label {
+  color: var(--muted);
+}
+.result-contact input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+.result-contact input::placeholder {
+  color: var(--muted);
+}
+.result-contact input:hover,
+.result-contact input:focus {
+  border-color: var(--red);
+  outline: none;
+}
+.result-contact input:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+.result-contact .button {
+  justify-self: start;
+}
+.result-contact-status {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--red);
+  min-height: 18px;
 }
 
 .process {
@@ -1670,6 +1716,9 @@ input[type="range"]::-moz-range-thumb {
   color: var(--muted);
   min-height: 44px;
 }
+.preview-meta .text-link {
+  margin-top: 8px;
+}
 .solution-list {
   border-top: 1px solid var(--ink);
 }
@@ -1766,7 +1815,7 @@ input[type="range"]::-moz-range-thumb {
   align-items: stretch;
 }
 .geo-map {
-  min-height: clamp(220px, 20vw, 300px);
+  min-height: clamp(360px, 32vw, 520px);
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.05);
   background-image: radial-gradient(rgba(255, 255, 255, 0.22) 1.4px, transparent 1.4px);
@@ -1807,7 +1856,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .cost-card {
   padding: 30px;
-  background: var(--white);
+  background: var(--surface);
   color: var(--ink);
   border-radius: var(--radius);
 }
@@ -1894,6 +1943,14 @@ input[type="range"]::-moz-range-thumb {
 .cases {
   padding-block: clamp(88px, 10vw, 140px);
 }
+.cases .section-heading {
+  grid-template-columns: 1fr;
+}
+.cases-more {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
 .case-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1902,7 +1959,7 @@ input[type="range"]::-moz-range-thumb {
 .case-card {
   display: grid;
   grid-template-rows: auto 1fr;
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--ink);
   border-radius: var(--radius);
   overflow: hidden;
@@ -2031,7 +2088,7 @@ input[type="range"]::-moz-range-thumb {
   transition: background 0.25s ease;
 }
 .segment-grid li:hover {
-  background: var(--white);
+  background: var(--surface);
 }
 .seg-num {
   font-size: 10px;
@@ -2072,7 +2129,7 @@ input[type="range"]::-moz-range-thumb {
   margin: 26px 0 36px;
   font-size: 16px;
   line-height: 1.62;
-  color: #4b4d5c;
+  color: var(--muted);
 }
 .team-photo {
   margin: 0;
@@ -2187,7 +2244,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .presentation-card {
   padding: clamp(24px, 3vw, 40px);
-  background: var(--white);
+  background: var(--surface);
   border: 1px solid var(--ink);
   border-radius: var(--radius);
   display: grid;
@@ -2298,6 +2355,28 @@ input[type="range"]::-moz-range-thumb {
   gap: 16px;
   align-content: center;
 }
+.contact-form-tabs {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.contact-form-tabs button {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.contact-form-tabs button.is-active {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
 .contact-form .field-label {
   color: rgba(255, 255, 255, 0.62);
 }
@@ -2338,7 +2417,8 @@ input[type="range"]::-moz-range-thumb {
   grid-column: 1 / -1;
   justify-content: space-between;
 }
-.contact-form input.is-invalid {
+.contact-form input.is-invalid,
+.result-contact input.is-invalid {
   border-color: var(--pink-2);
 }
 .form-status {
@@ -2513,10 +2593,6 @@ input[type="range"]::-moz-range-thumb {
   .brand {
     width: 172px;
   }
-  /* на мобильном город выбирают через мобильное меню, не в шапке */
-  .site-header > .city-select {
-    display: none;
-  }
   .mobile-menu {
     inset: 72px 10px auto;
   }
@@ -2566,16 +2642,6 @@ input[type="range"]::-moz-range-thumb {
     font-size: 10px;
     padding: 6px 9px;
   }
-  .city-ticker {
-    margin: 20px 0 28px;
-    padding: 16px;
-    flex-wrap: wrap;
-    border-radius: 16px;
-  }
-  .city-ticker p {
-    flex-basis: 100%;
-    font-size: 14px;
-  }
   .metric-strip {
     grid-template-columns: 1fr 1fr;
   }
@@ -2619,6 +2685,13 @@ input[type="range"]::-moz-range-thumb {
   }
   .result-foot .button {
     width: 100%;
+  }
+  .result-contact {
+    grid-template-columns: 1fr;
+  }
+  .result-contact .button {
+    width: 100%;
+    justify-self: stretch;
   }
   .mix-item {
     grid-template-columns: 96px 1fr 40px;
@@ -2726,6 +2799,117 @@ input[type="range"]::-moz-range-thumb {
   .mobile-menu a {
     padding: 17px 0;
   }
+  .partner-modal-panel {
+    padding: 24px;
+  }
+}
+
+/* ── попап «Стать партнёром» ─────────────────────────────── */
+body.modal-open {
+  overflow: hidden;
+}
+.partner-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(15, 16, 22, 0.6);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.partner-modal.is-visible {
+  opacity: 1;
+}
+.partner-modal-panel {
+  position: relative;
+  width: min(520px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(28px, 4vw, 44px);
+  background: var(--surface);
+  border-radius: var(--radius);
+  transform: translateY(16px);
+  transition: transform 0.25s ease;
+}
+.partner-modal.is-visible .partner-modal-panel {
+  transform: translateY(0);
+}
+.partner-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 18px;
+  color: var(--ink);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.partner-modal-close:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+.partner-modal h3 {
+  margin: 20px 0 10px;
+  font-family: var(--display);
+  font-size: clamp(26px, 3vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.partner-modal-lead {
+  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.partner-form {
+  display: grid;
+  gap: 14px;
+}
+.partner-form .field-label {
+  color: var(--muted);
+}
+.partner-form input,
+.partner-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+.partner-form textarea {
+  resize: vertical;
+}
+.partner-form input::placeholder,
+.partner-form textarea::placeholder {
+  color: var(--muted);
+}
+.partner-form input:hover,
+.partner-form input:focus,
+.partner-form textarea:hover,
+.partner-form textarea:focus {
+  border-color: var(--red);
+  outline: none;
+}
+.partner-form input:focus-visible,
+.partner-form textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+.partner-form input.is-invalid {
+  border-color: var(--pink-2);
+}
+.partner-status {
+  font-size: 13px;
+  color: var(--red);
+  min-height: 18px;
 }
 
 /* ── уважение к настройкам движения ─────────────────────── */

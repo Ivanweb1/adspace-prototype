@@ -22,16 +22,32 @@
         <img src="assets/logo-adspace-group.svg" alt="ADSPACE Group" width="1105" height="118" />
       </a>
 
-      <div class="city-select">
-        <label class="sr-only" for="city-select-desktop">Город</label>
-        <select id="city-select-desktop" data-city-select>
-          <option value="krasnodar">Краснодар</option>
-          <option value="rostov">Ростов-на-Дону</option>
-          <option value="moscow">Москва</option>
-          <option value="sochi">Сочи</option>
-          <option value="kazan">Казань</option>
-        </select>
-      </div>
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="Тёмная тема"
+        data-tentative="переключение темы — демо, полная тёмная версия дизайна впереди"
+      >
+        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
 
       <nav class="desktop-nav" aria-label="Основная навигация">
         <a href="#promos">Акции</a>
@@ -39,7 +55,6 @@
         <a href="#solutions">Решения</a>
         <a href="#cases">Кейсы</a>
         <a href="#platform">Платформа</a>
-        <a href="#company">О компании</a>
       </nav>
 
       <div class="header-side">
@@ -53,22 +68,37 @@
     </header>
 
     <nav class="mobile-menu" id="mobile-menu" aria-label="Мобильная навигация" hidden>
-      <div class="city-select city-select--mobile">
-        <label class="sr-only" for="city-select-mobile">Город</label>
-        <select id="city-select-mobile" data-city-select>
-          <option value="krasnodar">Краснодар</option>
-          <option value="rostov">Ростов-на-Дону</option>
-          <option value="moscow">Москва</option>
-          <option value="sochi">Сочи</option>
-          <option value="kazan">Казань</option>
-        </select>
-      </div>
+      <button
+        class="theme-toggle theme-toggle--mobile"
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="Тёмная тема"
+      >
+        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Тёмная тема</span>
+      </button>
       <a href="#promos">Акции</a>
       <a href="#builder">Конструктор</a>
       <a href="#solutions">Решения</a>
       <a href="#cases">Кейсы</a>
       <a href="#platform">Платформа</a>
-      <a href="#company">О компании</a>
       <a href="#contact">Контакты</a>
       <a class="mobile-menu-phone" href="tel:+74951876485">+7 495 187-64-85</a>
     </nav>
@@ -228,18 +258,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Живой баннер: свежий инвентарь по выбранному городу -->
-        <div class="city-ticker reveal" data-city-ticker>
-          <span class="ticker-dot" aria-hidden="true"></span>
-          <p>
-            <b data-ticker-count>10</b> новых поверхностей
-            <b data-ticker-city>в Краснодаре</b> — заходи, выбирай
-          </p>
-          <a class="text-link" href="#builder" data-tentative="счётчик демонстрационный"
-            >Смотреть <span aria-hidden="true">↗</span></a
-          >
         </div>
 
         <!-- Масштаб компании: компактная полоса под первым экраном -->
@@ -490,10 +508,31 @@
                 <span aria-hidden="true">!</span> Расчёт предварительный. Доступность конкретных
                 поверхностей подтверждает менеджер — статусы части инвентаря приходят от операторов.
               </p>
-              <a class="button button--primary" href="#contact"
-                >Получить полный расчёт <span aria-hidden="true">↗</span></a
-              >
+              <button class="button button--primary" type="button" data-result-cta>
+                Получить полный расчёт <span aria-hidden="true">↗</span>
+              </button>
             </div>
+
+            <!-- Контакты добавляются прямо к уже собранным параметрам —
+                 без перехода на отдельную форму, которую пришлось бы заполнять заново -->
+            <form class="result-contact" data-result-contact-form hidden novalidate>
+              <p class="result-contact-lead">
+                Оставьте контакт — менеджер подтвердит доступность поверхностей и пришлёт точный
+                расчёт по параметрам выше, без повторных вопросов.
+              </p>
+              <label class="field">
+                <span class="field-label">Ваше имя</span>
+                <input type="text" name="name" placeholder="Как к вам обращаться?" required />
+              </label>
+              <label class="field">
+                <span class="field-label">Телефон или Telegram</span>
+                <input type="text" name="contact" placeholder="+7 999 000-00-00" required />
+              </label>
+              <button class="button button--primary" type="submit">
+                Отправить менеджеру <span aria-hidden="true">↗</span>
+              </button>
+              <p class="result-contact-status" data-result-contact-status role="status"></p>
+            </form>
           </div>
 
           <!-- Как работает система -->
@@ -542,6 +581,12 @@
               <p data-preview-desc>
                 Щиты, суперсайты и городские конструкции — максимальный охват и вес бренда.
               </p>
+              <a
+                class="text-link"
+                href="#builder"
+                data-tentative="страница формата с отдельным калькулятором пока не спроектирована — ведёт к общему конструктору"
+                >Рассчитать этот формат <span aria-hidden="true">↗</span></a
+              >
             </div>
           </div>
 
@@ -742,11 +787,6 @@
             <p class="eyebrow">Кейсы и клиенты</p>
             <h2 id="cases-title">Кампании,<br />которые замечают</h2>
           </div>
-          <div class="heading-aside">
-            <a class="text-link text-link--dark" href="#contact"
-              >Смотреть все кейсы <span aria-hidden="true">↗</span></a
-            >
-          </div>
         </div>
 
         <div class="case-grid reveal">
@@ -794,6 +834,12 @@
               </ul>
             </div>
           </article>
+        </div>
+
+        <div class="cases-more reveal">
+          <a class="button button--dark" href="#contact"
+            >Смотреть все кейсы <span aria-hidden="true">↗</span></a
+          >
         </div>
 
         <div class="clients reveal" data-tentative="список клиентов не подтверждён">
@@ -873,7 +919,11 @@
         </ul>
       </section>
 
-      <!-- ─────────────────── 08 · КОМПАНИЯ И ИНДУСТРИЯ ─────────────────── -->
+      <!-- ─────────────────── 08 · КОМПАНИЯ И ИНДУСТРИЯ ───────────────────
+           Скрыто по фидбэку: цифры дублировались с полосой масштаба на
+           первом экране, третий блок с похожим составом путал восприятие.
+           Верстка сохранена — легко вернуть, когда решим, что показывать.
+
       <section class="company section-shell" id="company" aria-labelledby="company-title">
         <div class="company-grid">
           <div class="company-copy reveal">
@@ -900,6 +950,7 @@
           </figure>
         </div>
       </section>
+      -->
 
       <!-- ─────────────────── 09 · ПЛАТФОРМА ─────────────────── -->
       <section class="platform" id="platform" aria-labelledby="platform-title">
@@ -932,7 +983,7 @@
                 <li>Учёт проданных размещений</li>
                 <li>Личный кабинет и синхронизация данных</li>
               </ul>
-              <a class="button button--light" href="#contact"
+              <a class="button button--light" href="#contact" data-open-partner-modal
                 >Стать партнёром <span aria-hidden="true">↗</span></a
               >
               <div class="platform-visual" aria-hidden="true"><span>Экран платформы</span></div>
@@ -1035,6 +1086,42 @@
         </div>
       </div>
     </footer>
+
+    <!-- Попап «Стать партнёром» — своя форма, без ухода со страницы -->
+    <div class="partner-modal" data-partner-modal hidden role="dialog" aria-modal="true" aria-labelledby="partner-modal-title">
+      <div class="partner-modal-panel">
+        <button class="partner-modal-close" type="button" data-partner-close aria-label="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
+        <p class="eyebrow">Партнёру</p>
+        <h3 id="partner-modal-title">Разместите свой инвентарь на платформе</h3>
+        <p class="partner-modal-lead">
+          Площадки, лифты, экраны — расскажите, что у вас есть, и мы подключим это к платформе.
+        </p>
+        <form class="partner-form" data-partner-form novalidate>
+          <label class="field">
+            <span class="field-label">Ваше имя</span>
+            <input type="text" name="name" placeholder="Как к вам обращаться?" required />
+          </label>
+          <label class="field">
+            <span class="field-label">Телефон или Telegram</span>
+            <input type="text" name="contact" placeholder="+7 999 000-00-00" required />
+          </label>
+          <label class="field field--wide">
+            <span class="field-label">Какой у вас инвентарь</span>
+            <textarea
+              name="inventory"
+              rows="3"
+              placeholder="Например: 12 лифтовых стендов в Краснодаре"
+            ></textarea>
+          </label>
+          <button class="button button--primary" type="submit">
+            Отправить заявку <span aria-hidden="true">↗</span>
+          </button>
+          <p class="partner-status" data-partner-status role="status"></p>
+        </form>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
