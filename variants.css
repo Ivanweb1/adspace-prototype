@@ -1,0 +1,831 @@
+/* =========================================================
+   ADSPACE Group — страница вариантов подачи блока «Акции»
+
+   Отдельный пробник по фидбэку 28.08: заказчик просит комиксный
+   и/или игровой (GTA) вайб и спрашивает варианты «на примере блока,
+   чтобы все не переделывать».
+
+   Подключается ПОСЛЕ styles.css и mono.css, поэтому остаётся
+   в той же ч/б вайрфрейм-подаче, что и основной прототип:
+   ни цвета, ни картинок — только структура и композиция.
+   ========================================================= */
+
+:root {
+  --stroke: 2px;
+  --stroke-fat: 3px;
+  --hard: 6px 6px 0 var(--ink);
+  --hard-sm: 4px 4px 0 var(--ink);
+}
+
+/* ── каркас страницы ─────────────────────────────────────── */
+.probe-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-inline: max(16px, calc((100% - var(--shell)) / 2));
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+}
+.probe-header .brand {
+  width: 190px;
+}
+.probe-back {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+}
+
+.probe-intro {
+  padding-block: clamp(56px, 7vw, 96px) 0;
+}
+.probe-intro h1 {
+  font-size: clamp(40px, 5vw, 78px);
+  max-width: 15ch;
+}
+.probe-lead {
+  max-width: 620px;
+  margin-top: 26px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.probe-quote {
+  max-width: 620px;
+  margin-top: 26px;
+  padding: 18px 22px;
+  border-left: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.probe-quote span {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── карточка описания варианта ──────────────────────────── */
+.variant {
+  padding-block: clamp(64px, 8vw, 110px);
+  border-top: 1px solid var(--line);
+}
+.variant:first-of-type {
+  margin-top: clamp(56px, 7vw, 96px);
+}
+.variant-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+.variant-num {
+  font-family: var(--display);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.variant-head h2 {
+  font-size: clamp(34px, 3.6vw, 58px);
+}
+.variant-notes {
+  display: grid;
+  gap: 22px;
+}
+.variant-notes h3 {
+  font-family: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.variant-notes li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+.variant-notes li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  background: var(--ink);
+}
+.variant-notes p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* демонстрационная зона — чтобы вариант читался как «кусок сайта» */
+.variant-stage {
+  padding: clamp(28px, 3vw, 52px) clamp(20px, 2.4vw, 40px);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.stage-label {
+  display: block;
+  margin-bottom: 26px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* =========================================================
+   ВАРИАНТ 1 · КОМИКСНЫЙ РАЗВОРОТ
+   Акции как страница комикса: разноразмерные кадры в одной
+   сетке, жирная обводка, «звуковой» заголовок и реплика в
+   баббле. Листается как разворот, а не как карусель.
+   ========================================================= */
+.cx-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 26px;
+}
+.cx-title {
+  position: relative;
+  display: inline-block;
+  padding: 12px 22px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard);
+  transform: rotate(-1.6deg);
+}
+.cx-title h3 {
+  font-size: clamp(30px, 3.4vw, 52px);
+  text-transform: uppercase;
+}
+.cx-flip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.cx-flip button {
+  width: 46px;
+  height: 46px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  font-size: 17px;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.cx-flip button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.cx-flip b {
+  color: var(--ink);
+}
+
+.cx-page {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(178px, auto);
+  gap: 12px;
+  padding: 12px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--paper);
+}
+.cx-page[hidden] {
+  display: none;
+}
+.cx-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  overflow: hidden;
+}
+/* крупный кадр-сплэш — главная акция разворота */
+.cx-panel--splash {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 0;
+}
+.cx-panel--wide {
+  grid-column: span 2;
+}
+.cx-panel .photo-slot {
+  flex: 1;
+  min-height: 120px;
+}
+.cx-splash-copy {
+  padding: 20px 22px 22px;
+  border-top: var(--stroke) solid var(--ink);
+}
+.cx-panel h4 {
+  font-family: var(--display);
+  font-size: clamp(22px, 2.1vw, 32px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.cx-panel p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.cx-meta {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cx-meta span {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+}
+/* «звук» — заголовок-выкрик поверх кадра */
+.cx-bang {
+  position: absolute;
+  z-index: 2;
+  padding: 8px 16px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  font-family: var(--display);
+  font-size: clamp(18px, 2vw, 30px);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+}
+.cx-bang--tr {
+  top: 14px;
+  right: 12px;
+}
+.cx-bang--bl {
+  left: 14px;
+  bottom: 16px;
+  transform: rotate(3deg);
+}
+/* реплика — сюда уходит условие акции, «человеческим» голосом */
+.cx-bubble {
+  position: relative;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 14px;
+  background: var(--surface);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.cx-bubble::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  bottom: -10px;
+  width: 16px;
+  height: 10px;
+  background: var(--surface);
+  border-right: var(--stroke) solid var(--ink);
+  border-bottom: var(--stroke) solid var(--ink);
+  transform: skewX(-24deg);
+}
+/* растр — комиксная «печать», строится из точек, не картинка */
+.cx-panel--tone {
+  background-color: var(--surface);
+  background-image: radial-gradient(var(--tone-3) 34%, transparent 35%);
+  background-size: 9px 9px;
+}
+.cx-cta {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--hard-sm);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.cx-cta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* =========================================================
+   ВАРИАНТ 2 · СПЕЦ-ЦЕНЫ
+   Буквально отрабатывает просьбу обыграть «спеЦ-Цены»:
+   карточка-ценник с корешком, пробитым отверстием и штампом
+   срока. Свежесть — за счёт контраста масштабов, не цвета.
+   ========================================================= */
+.pz-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 34px;
+}
+.pz-title {
+  font-size: clamp(34px, 4.2vw, 68px);
+  text-transform: uppercase;
+}
+.pz-title b {
+  font-weight: 400;
+  padding: 0 10px;
+  background: var(--ink);
+  color: var(--white);
+}
+.pz-sub {
+  max-width: 320px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.pz-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.pz-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s ease;
+}
+.pz-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--hard);
+}
+/* корешок ценника с перфорацией и пробитым отверстием */
+.pz-spine {
+  position: relative;
+  border-right: var(--stroke) dashed var(--ink);
+}
+.pz-hole {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+}
+.pz-spine span {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  writing-mode: vertical-rl;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pz-body {
+  padding: 22px 24px 24px;
+  display: flex;
+  flex-direction: column;
+}
+.pz-figure {
+  font-family: var(--display);
+  font-size: clamp(56px, 7vw, 104px);
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+}
+.pz-was {
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.pz-was s {
+  margin-right: 8px;
+}
+.pz-card h4 {
+  margin: 16px 0 8px;
+  font-family: var(--display);
+  font-size: clamp(20px, 1.9vw, 27px);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+.pz-body > p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.pz-list {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 7px;
+  font-size: 12px;
+}
+.pz-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+.pz-list dt {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pz-list dd {
+  font-weight: 600;
+}
+/* штамп срока — «до 30.09» */
+.pz-stamp {
+  position: absolute;
+  right: 16px;
+  top: 18px;
+  padding: 5px 10px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: rotate(6deg);
+}
+.pz-foot {
+  margin-top: auto;
+  padding-top: 18px;
+}
+.pz-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: var(--stroke) solid var(--ink);
+  padding-bottom: 3px;
+  transition: gap 0.2s ease;
+}
+.pz-link:hover {
+  gap: 16px;
+}
+.pz-ticker {
+  margin-top: 20px;
+  padding: 12px 0;
+  border-block: var(--stroke) solid var(--ink);
+  overflow: hidden;
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.pz-ticker div {
+  display: inline-flex;
+  gap: 34px;
+  padding-right: 34px;
+  animation: pz-run 26s linear infinite;
+}
+.pz-ticker i {
+  font-style: normal;
+  color: var(--muted);
+}
+@keyframes pz-run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pz-ticker div {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   ВАРИАНТ 3 · ЭКРАН ВЫБОРА (игровой слой)
+   Акции как список миссий: слева выбор, справа «бриф» с
+   параметрами. Это ближе всего к GTA-ощущению и при этом
+   самый функциональный — сразу ведёт в конструктор.
+   ========================================================= */
+.hud {
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--graphite);
+  color: var(--white);
+}
+.hud-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: var(--stroke) solid rgba(255, 255, 255, 0.28);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.hud-bar span {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.6);
+}
+.hud-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  min-height: 460px;
+}
+.hud-list {
+  border-right: var(--stroke) solid rgba(255, 255, 255, 0.28);
+}
+.hud-list button {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 18px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.62);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  transition: background 0.18s ease, color 0.18s ease, padding-left 0.18s ease;
+}
+.hud-list button:hover {
+  color: var(--white);
+  padding-left: 24px;
+}
+.hud-list button.is-active {
+  background: var(--white);
+  color: var(--ink);
+}
+.hud-list button.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--ink);
+}
+.hud-num {
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+}
+.hud-name {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.hud-badge {
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+.hud-panel {
+  position: relative;
+  padding: 30px 32px 32px;
+  display: none;
+  grid-template-columns: 1fr 300px;
+  gap: 32px;
+}
+.hud-panel.is-shown {
+  display: grid;
+}
+/* угловые скобки — тот самый «интерфейсный» акцент */
+.hud-panel::before,
+.hud-panel::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+}
+.hud-panel::before {
+  top: 16px;
+  left: 16px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.hud-panel::after {
+  right: 16px;
+  bottom: 16px;
+  border-left: 0;
+  border-top: 0;
+}
+.hud-tag {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hud-panel h4 {
+  font-family: var(--display);
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.hud-copy > p {
+  max-width: 46ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+}
+.hud-stats {
+  margin-top: 26px;
+  display: grid;
+  gap: 14px;
+  max-width: 460px;
+}
+.hud-stat {
+  display: grid;
+  grid-template-columns: 128px 1fr 52px;
+  align-items: center;
+  gap: 14px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.hud-meter {
+  height: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  padding: 1px;
+}
+.hud-meter i {
+  display: block;
+  height: 100%;
+  background: var(--white);
+}
+.hud-stat b {
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0;
+  color: var(--white);
+  text-align: right;
+}
+.hud-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hud-side .photo-slot {
+  flex: 1;
+  min-height: 190px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.hud-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform 0.18s ease;
+}
+.hud-go:hover {
+  transform: translateX(4px);
+}
+.hud-hint {
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── сравнение и хвост страницы ──────────────────────────── */
+.probe-sum {
+  padding-block: clamp(64px, 8vw, 110px);
+  border-top: var(--stroke-fat) solid var(--ink);
+}
+.probe-sum h2 {
+  font-size: clamp(30px, 3.4vw, 52px);
+  margin-bottom: 36px;
+}
+.sum-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.sum-card {
+  padding: 24px 24px 26px;
+  border: 1px solid var(--ink);
+  background: var(--surface);
+}
+.sum-card b {
+  display: block;
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.sum-card p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.sum-card dl {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+}
+.sum-card dt {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.probe-foot {
+  padding-block: 40px 64px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ── адаптив ─────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .variant-head,
+  .pz-top {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .pz-row,
+  .sum-grid {
+    grid-template-columns: 1fr;
+  }
+  .hud-grid {
+    grid-template-columns: 1fr;
+  }
+  .hud-list {
+    border-right: 0;
+    border-bottom: var(--stroke) solid rgba(255, 255, 255, 0.28);
+  }
+  .hud-panel {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 780px) {
+  .cx-page {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(160px, auto);
+  }
+  .cx-panel--splash,
+  .cx-panel--wide {
+    grid-column: span 2;
+  }
+  .cx-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .variant-stage {
+    padding-inline: 16px;
+  }
+}
