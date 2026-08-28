@@ -209,10 +209,14 @@
   top: 14px;
   right: 12px;
 }
-.cx-bang--bl {
-  left: 14px;
-  bottom: 16px;
-  transform: rotate(3deg);
+/* в узких кадрах плашка встаёт в поток, чтобы не перекрывать текст */
+.cx-bang--inline {
+  position: static;
+  align-self: flex-start;
+  margin-top: 14px;
+  /* запас снизу под наклон плашки, чтобы угол не задевал строку метаданных */
+  margin-bottom: 10px;
+  transform: rotate(-3deg);
 }
 /* реплика — сюда уходит условие акции, «человеческим» голосом */
 .cx-bubble {
