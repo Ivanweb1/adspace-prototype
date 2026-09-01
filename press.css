@@ -1,36 +1,35 @@
 /* =========================================================
-   ADSPACE Group — газетно-рекламный слой
+   ADSPACE Group — комиксный слой
 
-   Заказчик выбрал кадровую подачу акций и попросил свести к ней
-   всю страницу. Комикс здесь дозирован: остаются кадры, контур и
-   штампы, уходят наклоны, «пузыри» и мультяшность.
+   Заказчик согласовал вариант 01 «Комиксный разворот» со страницы
+   variants.html и попросил распространить его подачу на всю главную.
+   Здесь тот же набор приёмов, что и в согласованном блоке акций —
+   без новых, чтобы страница читалась как одна комиксная полоса:
 
-   ЕДИНЫЙ НАБОР ПРИЁМОВ — применяется во всех блоках одинаково:
-
-   1. Контур кадра — всегда 2px (--stroke). Другого веса нет.
-   2. Разделитель внутри кадра — всегда 1px.
-   3. Линейка под шапкой блока — 3px (--rule), только там.
-   4. Жёсткая тень — только на наведении и у одного якорного кадра
-      на первом экране. Не украшение, а отклик на действие.
-   5. Штамп (.stamp) — прямоугольная плашка без наклона: тип акции,
-      результат кейса, формат, рубрика. Один вид на всю страницу.
-   6. Врезка (.pullnote) — левая линейка: «человеческий» голос
-      вместо комиксного пузыря.
+   1. Кадр — рамка 3px по внешнему контуру, 2px внутри кадра.
+   2. Жёсткая тень (--hard) — у кадров и плашек, без размытия.
+   3. «Звук» (.cx-bang) — наклонная плашка с тенью: акцент, результат,
+      главная цифра. Один вид на всю страницу.
+   4. Реплика (.cx-bubble) — облачко с хвостиком: условие акции,
+      задача клиента, пояснение к блоку. Человеческий голос.
+   5. Растр (.cx-panel--tone) — точечная «печать» вместо заливки.
+   6. Заголовок-табличка — наклонная плашка с тенью, как «АКЦИИ МЕСЯЦА».
    7. Модульная сетка — кадры в общей рамке через просвет бумаги.
-      Так собраны акции, кейсы, сегменты и клиенты.
 
    Подключается ПОСЛЕ styles.css и mono.css, снимается одним <link>.
    ========================================================= */
 
 :root {
   --stroke: 2px;
-  --rule: 3px;
-  --hard: 5px 5px 0 var(--ink);
-  --hard-light: 5px 5px 0 rgba(255, 255, 255, 0.35);
+  --stroke-fat: 3px;
+  --hard: 6px 6px 0 var(--ink);
+  --hard-sm: 4px 4px 0 var(--ink);
+  --hard-light: 6px 6px 0 rgba(255, 255, 255, 0.9);
+  --hard-sm-light: 4px 4px 0 rgba(255, 255, 255, 0.9);
 }
 
 /* =========================================================
-   ОБЩИЕ ЭЛЕМЕНТЫ
+   ОБЩИЕ ПРИЁМЫ
    ========================================================= */
 
 /* шапка была полупрозрачной: под ней проезжал крупный логотип и
@@ -64,77 +63,122 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* шапка блока: заголовок прописными и жирная линейка под ним.
-   Колонка заголовка шире половины: прописными строки длиннее, и на
-   равных колонках заголовок рассыпался на четыре строки. */
-.section-heading {
-  padding-bottom: 26px;
-  border-bottom: var(--rule) solid var(--ink);
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-}
-/* если пояснения справа нет — заголовок занимает всю ширину */
-.section-heading > div:only-child {
-  grid-column: 1 / -1;
-}
-.builder .section-heading,
-.platform .section-heading {
-  border-bottom-color: rgba(255, 255, 255, 0.55);
-}
+/* ── заголовок-табличка ───────────────────────────────────
+   Ровно та же плашка, что несёт «АКЦИИ МЕСЯЦА» в согласованном
+   блоке. Наклон маленький — заголовок остаётся читаемым. */
+.cx-title,
 .section-heading h2,
 .builder-heading h2,
 .platform-heading h2,
 .accuracy-copy h2,
+.pres-copy h2,
 .contact h2 {
+  display: inline-block;
+  padding: 12px 22px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard);
+  transform: rotate(-1.6deg);
+  font-size: clamp(28px, 3.1vw, 50px);
   text-transform: uppercase;
+}
+/* на тёмных секциях та же плашка, только вывернутая */
+.builder-heading h2,
+.platform-heading h2,
+.accuracy-copy h2,
+.contact h2 {
+  border-color: var(--white);
+  background: transparent;
+  box-shadow: var(--hard-light);
+}
+/* линейка под шапкой блока больше не нужна: её роль взяла плашка */
+.section-heading {
+  align-items: end;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+.section-heading > div:only-child {
+  grid-column: 1 / -1;
 }
 
-/* штамп: единственный вид плашки на всю страницу */
-.stamp,
-.cx-meta span,
-.case-meta,
-.case-formats li,
-.seg-formats,
-.platform-role,
-.cost-badge {
-  display: inline-block;
-  padding: 5px 10px;
-  border: 1px solid var(--ink);
-  border-radius: 0;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+/* ── «звук»: наклонная плашка-акцент ─────────────────────── */
+.cx-bang {
+  position: absolute;
+  z-index: 2;
+  padding: 8px 16px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  font-family: var(--display);
+  font-size: clamp(18px, 2vw, 30px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   text-transform: uppercase;
-  color: inherit;
+  color: var(--ink);
+  transform: rotate(-6deg);
 }
-/* крупный штамп — для главного факта кадра */
-.stamp--lead {
+.cx-bang--tr {
+  top: 14px;
+  right: 12px;
+}
+/* в узких кадрах плашка встаёт в поток, чтобы не перекрывать текст */
+.cx-bang--inline {
+  position: static;
+  align-self: flex-start;
+  margin-top: 14px;
+  /* запас снизу под наклон плашки, чтобы угол не задевал соседнюю строку */
+  margin-bottom: 10px;
+  transform: rotate(-3deg);
+}
+/* плашка-ссылка: тот же «звук», но нажимается */
+.cx-bang--link {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
   padding: 8px 14px;
   border-width: var(--stroke);
-  font-family: var(--display);
-  font-size: clamp(17px, 1.8vw, 26px);
-  letter-spacing: -0.02em;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  transform: rotate(-2.5deg);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
 }
-.platform-role {
-  border-color: rgba(255, 255, 255, 0.7);
+.cx-bang--link:hover {
+  transform: rotate(-2.5deg) translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
 }
 
-/* врезка вместо комиксного пузыря */
-.pullnote {
+/* ── реплика в облачке ───────────────────────────────────── */
+.cx-bubble {
+  position: relative;
   margin-top: 12px;
-  padding: 4px 0 4px 16px;
-  border-left: var(--rule) solid var(--ink);
+  padding: 12px 16px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 14px;
+  background: var(--surface);
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--ink);
 }
+.cx-bubble::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  bottom: -10px;
+  width: 16px;
+  height: 10px;
+  background: var(--surface);
+  border-right: var(--stroke) solid var(--ink);
+  border-bottom: var(--stroke) solid var(--ink);
+  transform: skewX(-24deg);
+}
 
-/* кнопки: печатные, отклик — вдавливание */
+/* ── кнопки: печатные, отклик — вдавливание ──────────────── */
 .button,
 .builder-submit,
 .pres-button {
   border: var(--stroke) solid var(--ink);
   border-radius: 0;
-  box-shadow: 4px 4px 0 var(--ink);
+  box-shadow: var(--hard-sm);
   transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.22s ease;
 }
 .button:hover,
@@ -143,24 +187,47 @@
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--ink);
 }
-/* На тёмных секциях кнопки стоят внутри рамок карточек: жёсткая тень
-   там налезала на контур и читалась как брак вёрстки. Оставляем контур,
-   отклик даём сдвигом и заливкой. */
+/* на тёмных секциях тень вывернутая, иначе её просто не видно */
 .builder .button,
 .builder-submit,
 .platform .button,
+.accuracy .button,
 .contact .button,
 .contact-form .button {
   border-color: var(--white);
-  box-shadow: none;
+  box-shadow: var(--hard-sm-light);
 }
 .builder .button:hover,
 .builder-submit:hover,
 .platform .button:hover,
+.accuracy .button:hover,
 .contact .button:hover,
 .contact-form .button:hover {
   transform: translate(2px, 2px);
-  box-shadow: none;
+  box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* ── кнопка-стрелка внутри кадра ─────────────────────────── */
+.cx-cta {
+  margin-top: 14px;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--hard-sm);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.cx-cta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
 }
 
 /* =========================================================
@@ -175,32 +242,78 @@
   text-transform: uppercase;
   color: var(--muted);
 }
-/* якорный кадр страницы — единственное место с постоянной тенью */
+
+/* Кадр «что здесь можно сделать» просили крупнее: отдаём ему больше
+   половины первого экрана и снимаем жёсткую минимальную высоту —
+   пропорции держит сам экран сцены. */
+.hero-grid {
+  grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr);
+  align-items: stretch;
+}
 .hero-stage {
-  border: var(--stroke) solid var(--ink);
-  box-shadow: var(--hard);
+  padding: 22px;
+  min-height: 0;
+  border: var(--stroke-fat) solid var(--ink);
   border-radius: 0;
-}
-.stage-top {
-  border-bottom: 1px solid var(--ink);
-}
-.stage-bottom {
-  border-top: 1px solid var(--ink);
+  box-shadow: var(--hard);
 }
 .stage-screen {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   height: auto;
   min-height: 0;
+  border-radius: 0;
+  border: var(--stroke) solid var(--ink);
+}
+.stage-top {
+  border-bottom: 0;
+}
+/* подпись сцены — такой же «звук», как в кадрах акций */
+.stage-kicker {
+  display: inline-block;
+  padding: 7px 14px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  transform: rotate(-2deg);
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.stage-caption strong {
+  text-transform: uppercase;
+  font-size: 22px;
+}
+/* точки листалки — квадратные, в тон обводкам */
+.stage-dots button {
+  width: 22px;
+  height: 10px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+}
+.stage-dots button[aria-selected="true"] {
+  background: var(--ink);
+}
+/* подписи внутри сцены — маленькие плашки, а не всплывашки */
+.chip {
+  border-radius: 0;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  font-weight: 700;
 }
 .hero-proof li b {
   font-family: var(--display);
 }
 
-/* полоса цифр: газетная таблица */
+/* ── полоса цифр: газетная таблица ───────────────────────── */
 .metric-strip {
-  border-block: var(--rule) solid var(--ink);
+  border-block: var(--stroke-fat) solid var(--ink);
   border-inline: 0;
   padding-block: 26px;
+  align-items: start;
 }
 .metric-strip div {
   border-right: 1px solid var(--ink);
@@ -209,29 +322,73 @@
   border-right: 0;
 }
 .metric-strip strong {
-  font-size: clamp(34px, 3.6vw, 52px);
+  font-size: clamp(36px, 3.8vw, 56px);
 }
-
-/* ссылка на карту прямо в ячейке «городов присутствия»:
-   заказчик просил, чтобы география не потерялась на первом экране */
-.metric-link {
-  display: inline-block;
-  margin-left: 4px;
-  border-bottom: 1px solid currentColor;
-  color: var(--ink);
+/* ячейка географии — единственная кликабельная в полосе */
+.metric-cell--geo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* =========================================================
-   02 · АКЦИИ · витрина в кадрах
+   02 · АКЦИИ · комиксный разворот (согласованный вариант)
    ========================================================= */
+.cx-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 26px;
+}
+/* плашку несёт обёртка, заголовок внутри — обычный */
+.cx-title h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  transform: none;
+  font-size: clamp(30px, 3.4vw, 52px);
+}
+.cx-flip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cx-flip button {
+  width: 46px;
+  height: 46px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  font-size: 17px;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.cx-flip button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.cx-flip b {
+  color: var(--ink);
+}
+
 .cx-page {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(178px, auto);
   gap: 12px;
   padding: 12px;
-  border: var(--stroke) solid var(--ink);
+  border: var(--stroke-fat) solid var(--ink);
   background: var(--paper);
+}
+.cx-page[hidden] {
+  display: none;
 }
 .cx-panel {
   position: relative;
@@ -247,7 +404,7 @@
   transform: translate(-3px, -3px);
   box-shadow: var(--hard);
 }
-/* крупный кадр — главная акция витрины */
+/* крупный кадр-сплэш — главная акция разворота */
 .cx-panel--splash {
   grid-column: span 2;
   grid-row: span 2;
@@ -262,7 +419,7 @@
 }
 .cx-splash-copy {
   padding: 20px 22px 22px;
-  border-top: 1px solid var(--ink);
+  border-top: var(--stroke) solid var(--ink);
 }
 .cx-panel h3 {
   font-family: var(--display);
@@ -282,48 +439,30 @@
   padding-top: 12px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 8px;
+  gap: 6px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
-/* штамп в кадре: ровно такой же, как в остальных блоках */
-.cx-panel .stamp--lead {
-  align-self: flex-start;
-  margin: 14px 0 4px;
+.cx-meta span {
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
 }
-.cx-panel--splash .stamp--lead {
-  position: absolute;
-  z-index: 2;
-  top: 16px;
-  right: 16px;
-  margin: 0;
-  background: var(--surface);
-}
-/* растр — газетная печать, не заливка */
+/* растр — комиксная «печать», строится из точек, не картинка */
 .cx-panel--tone {
   background-color: var(--surface);
   background-image: radial-gradient(var(--tone-3, #d9d9d9) 34%, transparent 35%);
   background-size: 9px 9px;
 }
-.cx-panel--cta {
-  background-color: var(--sand);
-}
-.cx-cta {
-  margin-top: auto;
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  border: var(--stroke) solid var(--ink);
-  background: var(--ink);
-  color: var(--white);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: transform 0.16s ease;
-}
-.cx-cta:hover {
-  transform: translateX(4px);
+/* сноска под разворотом — то, что раньше висело в шапке блока */
+.cx-note {
+  margin-top: 18px;
+  max-width: 62ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
 }
 
 /* =========================================================
@@ -331,11 +470,11 @@
    ========================================================= */
 .builder-form {
   padding: 28px;
-  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border: var(--stroke-fat) solid var(--white);
   border-radius: 0;
 }
 .builder-result {
-  border: var(--stroke) solid var(--ink);
+  border: var(--stroke-fat) solid var(--ink);
   border-radius: 0;
   box-shadow: var(--hard-light);
 }
@@ -368,16 +507,25 @@
   border-bottom: var(--stroke) solid currentColor;
   padding-bottom: 3px;
 }
+/* шаги запуска — кадры одной ленты */
+.process-step {
+  padding: 16px 18px;
+  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+}
+.process-step b {
+  font-family: var(--display);
+}
 
 /* =========================================================
    04 · РЕКЛАМНЫЕ РЕШЕНИЯ
    ========================================================= */
 .solution-preview {
-  border: var(--stroke) solid var(--ink);
+  border: var(--stroke-fat) solid var(--ink);
   border-radius: 0;
+  box-shadow: var(--hard);
 }
 .preview-meta {
-  border-top: 1px solid var(--ink);
+  border-top: var(--stroke) solid var(--ink);
 }
 .preview-index {
   font-family: var(--display);
@@ -396,60 +544,77 @@
    05 · ТОЧНЫЙ РАСЧЁТ И ГЕОГРАФИЯ
    ========================================================= */
 .cost-card {
-  border: var(--stroke) solid var(--ink);
-  /* секция тёмная, поэтому «печатная» тень светлая */
+  position: relative;
+  border: var(--stroke-fat) solid var(--ink);
   box-shadow: var(--hard-light);
   border-radius: 0;
 }
 .cost-head {
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--ink);
+  align-items: flex-start;
+  padding-bottom: 6px;
   font-family: var(--display);
   letter-spacing: 0.08em;
 }
-.cost-total strong {
-  font-size: clamp(40px, 4.4vw, 64px);
+/* «Пример сметы» — плашка-«звук», а не мелкая строка:
+   заказчик не понимал, зачем этот блок на странице */
+[data-cost-source] {
+  position: relative;
+  z-index: 2;
+  padding: 7px 14px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  transform: rotate(-2.5deg);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
 }
 .cost-card[data-linked="true"] [data-cost-source] {
-  padding: 3px 8px;
   background: var(--ink);
   color: var(--white);
 }
+/* пояснение к блоку — репликой сразу под шапкой */
 .cost-note {
-  margin-top: 22px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--muted);
+  margin-top: 18px;
+  font-size: 13px;
 }
 .cost-note a {
   font-weight: 700;
   border-bottom: 1px solid currentColor;
   color: var(--ink);
 }
+.cost-total strong {
+  font-size: clamp(40px, 4.4vw, 64px);
+}
+.cost-badge {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  font-family: var(--display);
+}
 .geo-block {
-  border-top: var(--rule) solid rgba(255, 255, 255, 0.55);
+  border-top: var(--stroke-fat) solid rgba(255, 255, 255, 0.55);
   padding-top: 34px;
 }
 .geo-map {
-  border: var(--stroke) solid rgba(255, 255, 255, 0.6);
+  border: var(--stroke-fat) solid var(--white);
   border-radius: 0;
+  box-shadow: var(--hard-light);
 }
 .geo-stats b {
   font-family: var(--display);
 }
 
 /* =========================================================
-   06 · КЕЙСЫ · та же модульная сетка, что у акций
+   06 · КЕЙСЫ · та же комиксная страница, что и акции
    ========================================================= */
 .case-grid {
   gap: 12px;
   padding: 12px;
-  border: var(--stroke) solid var(--ink);
+  border: var(--stroke-fat) solid var(--ink);
   background: var(--paper);
 }
 .case-card {
+  position: relative;
   border: var(--stroke) solid var(--ink);
   border-radius: 0;
   box-shadow: none;
@@ -459,13 +624,84 @@
   transform: translate(-3px, -3px);
   box-shadow: var(--hard);
 }
+/* растр вместо цветной заливки — как в кадре «Бренд на стадионе» */
+.case-card--tone {
+  background-color: var(--surface);
+  background-image: radial-gradient(var(--tone-3, #d9d9d9) 34%, transparent 35%);
+  background-size: 9px 9px;
+}
+/* кадр кейса: иллюстрация во всю площадь, цифра — «звуком» поверх */
 .case-visual {
-  border-bottom: 1px solid var(--ink);
+  position: relative;
+  display: block;
+  min-height: 260px;
+  padding: 0;
+  border-bottom: var(--stroke) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
 }
-.case-visual b {
-  font-family: var(--display);
-  letter-spacing: -0.04em;
+.case-visual .photo-slot {
+  position: absolute;
+  inset: 0;
 }
+.case-visual small {
+  position: absolute;
+  z-index: 3;
+  left: 16px;
+  bottom: 16px;
+  margin: 0;
+  padding: 5px 10px;
+  border: 1px solid var(--ink);
+  background: var(--surface);
+  opacity: 1;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+/* подпись под «звуком» в кадрах без иллюстрации */
+.case-result {
+  display: block;
+  margin: -4px 0 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.case-info {
+  display: flex;
+  flex-direction: column;
+}
+.case-meta {
+  align-self: flex-start;
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.case-info h3 {
+  text-transform: uppercase;
+  line-height: 0.94;
+}
+.case-formats {
+  margin-top: auto;
+  padding-top: 18px;
+}
+.case-formats li {
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* клиенты — та же модульная сетка в общей рамке */
 .clients .result-label {
   padding-bottom: 10px;
   border-bottom: 1px solid var(--ink);
@@ -473,7 +709,7 @@
 .client-row {
   gap: 12px;
   padding: 12px;
-  border: var(--stroke) solid var(--ink);
+  border: var(--stroke-fat) solid var(--ink);
   background: var(--paper);
 }
 .client-row li {
@@ -491,7 +727,7 @@
    07 · ДЛЯ КОГО · модульная сетка с линейками
    ========================================================= */
 .segment-grid {
-  border: var(--stroke) solid var(--ink);
+  border: var(--stroke-fat) solid var(--ink);
 }
 .segment-grid li {
   border-right: 1px solid var(--ink);
@@ -506,6 +742,9 @@
 .segment-grid li:hover {
   background: var(--sand);
 }
+.segment-grid h3 {
+  text-transform: uppercase;
+}
 .seg-num {
   font-family: var(--display);
   font-size: 15px;
@@ -514,6 +753,10 @@
 .seg-formats {
   align-self: flex-start;
   margin-top: auto;
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
+  font-size: 10px;
+  letter-spacing: 0.1em;
 }
 
 /* =========================================================
@@ -524,26 +767,98 @@
    прилипает к рамке. */
 .platform-side {
   padding: 26px 28px 0;
-  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border: var(--stroke-fat) solid rgba(255, 255, 255, 0.55);
   border-radius: 0;
 }
 .platform-role {
-  /* в колонке-флексе штамп растягивался на всю ширину */
+  /* в колонке-флексе плашка растягивалась на всю ширину */
   align-self: flex-start;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
   font-family: var(--display);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 .presentation-card {
-  border: var(--stroke) solid var(--ink);
+  border: var(--stroke-fat) solid var(--ink);
   border-radius: 0;
+  box-shadow: var(--hard);
 }
 .contact-form {
   padding: 28px;
-  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border: var(--stroke-fat) solid rgba(255, 255, 255, 0.55);
   border-radius: 0;
 }
 .contact-form input,
 .contact-form textarea {
   border-radius: 0;
+}
+
+/* =========================================================
+   «НАПОМИНАШКА» О КАРТЕ
+   Одно окошко на страницу: выезжает сбоку после первого экрана и
+   уходит, как только человек добрался до карты сам.
+   ========================================================= */
+.nudge {
+  position: fixed;
+  z-index: 70;
+  right: 24px;
+  bottom: 24px;
+  width: min(300px, calc(100vw - 32px));
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard);
+  transform: translateY(16px) rotate(-1.2deg);
+  opacity: 0;
+  transition: transform 0.26s var(--ease), opacity 0.26s ease;
+}
+.nudge.is-shown {
+  transform: translateY(0) rotate(-1.2deg);
+  opacity: 1;
+}
+.nudge-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.nudge strong {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.nudge p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.nudge-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--muted);
+}
+.nudge-close:hover {
+  color: var(--ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nudge {
+    transition: none;
+  }
 }
 
 /* =========================================================
@@ -557,7 +872,17 @@
     border-bottom: 1px solid var(--ink);
   }
 }
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 @media (max-width: 780px) {
+  .cx-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
   .cx-page {
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: minmax(160px, auto);
@@ -568,5 +893,12 @@
   }
   .client-row li {
     padding: 14px 8px;
+  }
+  /* окошко на телефоне занимает всю ширину внизу экрана */
+  .nudge {
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    width: auto;
   }
 }

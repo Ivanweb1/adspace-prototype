@@ -570,6 +570,80 @@
     });
   }
 
+  /* ── акции: листание разворотов комикса ─────────────── */
+  const cxPages = $$("[data-cx-page]");
+  const cxNum = $("[data-cx-num]");
+  if (cxPages.length > 1 && cxNum) {
+    let cxIndex = 0;
+
+    const showSpread = (next) => {
+      cxIndex = (next + cxPages.length) % cxPages.length;
+      cxPages.forEach((page, index) => {
+        page.hidden = index !== cxIndex;
+      });
+      cxNum.textContent = String(cxIndex + 1);
+    };
+
+    const cxPrev = $("[data-cx-prev]");
+    const cxNext = $("[data-cx-next]");
+    if (cxPrev) cxPrev.addEventListener("click", () => showSpread(cxIndex - 1));
+    if (cxNext) cxNext.addEventListener("click", () => showSpread(cxIndex + 1));
+  }
+
+  /* ── «напоминашка» о карте присутствия ──────────────────
+     Одно окошко, а не набор всплывашек по всему сайту: выезжает
+     после первого экрана и уходит, как только человек добрался
+     до карты сам или закрыл подсказку. */
+  const nudge = $("[data-nudge]");
+  const geoSection = $("#geo");
+  if (nudge && geoSection) {
+    let nudgeDone = false;
+
+    const hideNudge = () => {
+      nudgeDone = true;
+      nudge.classList.remove("is-shown");
+      window.setTimeout(() => {
+        nudge.hidden = true;
+      }, 260);
+    };
+
+    $$("[data-nudge-close], [data-nudge-go]", nudge).forEach((element) =>
+      element.addEventListener("click", hideNudge)
+    );
+
+    // карта попала в кадр — подсказка больше не нужна
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) hideNudge();
+        },
+        { threshold: 0.2 }
+      ).observe(geoSection);
+    }
+
+    const showNudge = () => {
+      if (nudgeDone || !nudge.hidden) return;
+      nudge.hidden = false;
+      // перерисовка кадра, иначе переход от hidden срабатывает мгновенно
+      window.requestAnimationFrame(() => nudge.classList.add("is-shown"));
+    };
+
+    // Триггер — блок акций: к нему человек доходит сразу за первым экраном.
+    // Наблюдатель, а не событие scroll: после перезагрузки браузер
+    // восстанавливает позицию, и события прокрутки может не быть вовсе.
+    const trigger = $("#promos");
+    if (trigger && "IntersectionObserver" in window) {
+      new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) showNudge();
+        },
+        { threshold: 0.15 }
+      ).observe(trigger);
+    } else {
+      showNudge();
+    }
+  }
+
   /* ── появление блоков при скролле ───────────────────── */
   const revealTargets = $$(".reveal");
   if (reduceMotion.matches || !("IntersectionObserver" in window)) {

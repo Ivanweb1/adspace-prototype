@@ -9,11 +9,13 @@
     />
     <meta name="theme-color" content="#EB2246" />
     <title>ADSPACE Group — просто выбрать, легко заказать</title>
-    <link rel="stylesheet" href="styles.css" />
+    <!-- ?v= у ассетов — чтобы браузер не показывал старую версию прототипа
+         после правок. Меняется вместе с очередной выкладкой. -->
+    <link rel="stylesheet" href="styles.css?v=4" />
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
-    <link rel="stylesheet" href="mono.css" />
-    <!-- Газетно-рекламный слой по выбранному варианту подачи акций. -->
-    <link rel="stylesheet" href="press.css" />
+    <link rel="stylesheet" href="mono.css?v=4" />
+    <!-- Комиксный слой по согласованному варианту подачи акций. -->
+    <link rel="stylesheet" href="press.css?v=4" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -274,9 +276,12 @@
           <div data-tentative="показатель не подтверждён">
             <strong>11+</strong><span>лет на рынке</span>
           </div>
-          <div data-tentative="показатель не подтверждён">
+          <!-- Ячейка географии — единственная кликабельная в полосе:
+               заказчик просил, чтобы точки присутствия не потерялись. -->
+          <div class="metric-cell--geo" data-tentative="показатель не подтверждён">
             <strong>70+</strong>
-            <span>городов присутствия <a class="metric-link" href="#geo">смотреть карту ↓</a></span>
+            <span>городов присутствия</span>
+            <a class="cx-bang cx-bang--link" href="#geo">Смотреть карту ↓</a>
           </div>
           <div data-tentative="показатель не подтверждён">
             <strong>12 400</strong><span>рекламных поверхностей</span>
@@ -290,69 +295,100 @@
       </section>
 
       <!-- ─────────────────── 02 · АКЦИИ ───────────────────
-           Витрина в кадрах: заказчик выбрал этот вариант подачи
-           (см. variants.html). Все акции видны сразу, без карусели. -->
+           Комиксный разворот — вариант 01 со страницы variants.html,
+           согласован заказчиком. Кадры разного размера в одной сетке,
+           плашки-«звуки», реплика в баббле. Листается как разворот
+           комикса, а не как карусель: страницы видно целиком. -->
       <section class="promos section-shell" id="promos" aria-labelledby="promos-title">
-        <div class="section-heading reveal">
-          <div>
-            <p class="eyebrow">Актуально сейчас</p>
-            <h2 id="promos-title">Акции и спец&shy;предложения</h2>
-          </div>
-          <div class="heading-aside">
-            <p>
-              Цена уже с учётом объёма и периода. Менеджер подтверждает только наличие
-              поверхностей.
-            </p>
-          </div>
-        </div>
-
-        <div class="cx-page reveal">
-          <article class="cx-panel cx-panel--splash" data-tentative="акция демонстрационная">
-            <div class="photo-slot" data-photo-label="Кадр акции · иллюстрация"></div>
-            <div class="cx-splash-copy">
-              <h3>Реклама в отелях 5 звёзд</h3>
-              <p>Контакт с платёжеспособной аудиторией в точках спокойного внимания.</p>
-              <p class="pullnote">
-                Берём сентябрь — ноябрь: загрузка отелей выше, а входной порог ещё летний.
-              </p>
-              <div class="cx-meta">
-                <span>Indoor · Digital</span><span>Москва</span><span>сен — ноя</span>
-              </div>
+        <div class="cx reveal">
+          <div class="cx-top">
+            <div class="cx-title"><h2 id="promos-title">Акции месяца</h2></div>
+            <div class="cx-flip">
+              <button type="button" data-cx-prev aria-label="Предыдущий разворот">←</button>
+              <span>Страница <b data-cx-num>1</b> / 2</span>
+              <button type="button" data-cx-next aria-label="Следующий разворот">→</button>
             </div>
-            <span class="stamp stamp--lead">Спец&shy;размещение</span>
-          </article>
+          </div>
 
-          <article class="cx-panel cx-panel--tone" data-tentative="акция демонстрационная">
-            <h3>Бренд на стадионе</h3>
-            <p>Размещение в событиях с высокой эмоциональной вовлечённостью.</p>
-            <span class="stamp stamp--lead">90&#39;</span>
-            <div class="cx-meta"><span>Indoor · Event</span><span>ЮФО</span></div>
-          </article>
+          <!-- разворот 1 -->
+          <div class="cx-page" data-cx-page>
+            <article class="cx-panel cx-panel--splash" data-tentative="акция демонстрационная">
+              <div class="photo-slot" data-photo-label="Кадр акции · рисованная иллюстрация"></div>
+              <div class="cx-splash-copy">
+                <h3>Реклама в отелях 5 звёзд</h3>
+                <p>Контакт с платёжеспособной аудиторией в точках спокойного внимания.</p>
+                <div class="cx-bubble">
+                  Берём сентябрь — ноябрь: в это время загрузка отелей выше, а входной порог ещё
+                  летний.
+                </div>
+                <div class="cx-meta">
+                  <span>Indoor · Digital</span><span>Москва</span><span>сен — ноя</span>
+                </div>
+              </div>
+              <span class="cx-bang cx-bang--tr">Спец&shy;размещение</span>
+            </article>
 
-          <article class="cx-panel" data-tentative="акция демонстрационная">
-            <h3>Пакет на старт продаж</h3>
-            <p>Наружная у объекта, лифты в радиусе и радио на весь город.</p>
-            <div class="cx-meta"><span>Для девелоперов</span><span>от 2 мес.</span></div>
-          </article>
+            <article class="cx-panel cx-panel--tone" data-tentative="акция демонстрационная">
+              <h3>Бренд на стадионе</h3>
+              <p>Размещение в событиях с высокой эмоциональной вовлечённостью.</p>
+              <span class="cx-bang cx-bang--inline">90&#39;</span>
+              <div class="cx-meta"><span>ЮФО</span><span>сезон 26/27</span></div>
+            </article>
 
-          <article class="cx-panel cx-panel--wide" data-tentative="акция демонстрационная">
-            <h3>Осенний тариф на щиты 3×6</h3>
-            <p>Скидка за длительный период при бронировании до конца месяца.</p>
-            <span class="stamp stamp--lead">−15%</span>
-            <div class="cx-meta"><span>Outdoor 3×6</span><span>10 городов</span><span>до 30.09</span></div>
-          </article>
+            <article class="cx-panel" data-tentative="акция демонстрационная">
+              <h3>Пакет на старт продаж</h3>
+              <p>Наружная у объекта, лифты в радиусе и радио на весь город.</p>
+              <div class="cx-meta"><span>Для девелоперов</span><span>от 2 мес.</span></div>
+            </article>
 
-          <article class="cx-panel cx-panel--wide" data-tentative="акция демонстрационная">
-            <h3>Одна кампания — вся страна</h3>
-            <p>Единый медиаплан, один договор и управляемый запуск по регионам.</p>
-            <div class="cx-meta"><span>Mix 360°</span><span>Россия</span><span>по согласованию</span></div>
-          </article>
+            <article class="cx-panel cx-panel--wide" data-tentative="акция демонстрационная">
+              <h3>Осенний тариф на щиты 3×6</h3>
+              <p>Скидка за длительный период при бронировании до конца месяца.</p>
+              <span class="cx-bang cx-bang--inline">−15%</span>
+              <a class="cx-cta" href="#builder">Собрать кампанию →</a>
+            </article>
+          </div>
 
-          <article class="cx-panel cx-panel--wide cx-panel--cta">
-            <h3>Собрать свою кампанию</h3>
-            <p>Если подходящей акции нет, соберите кампанию в конструкторе и получите смету.</p>
-            <a class="cx-cta" href="#builder">Перейти в конструктор →</a>
-          </article>
+          <!-- разворот 2 -->
+          <div class="cx-page" data-cx-page hidden>
+            <article class="cx-panel cx-panel--splash" data-tentative="акция демонстрационная">
+              <div class="photo-slot" data-photo-label="Кадр акции · рисованная иллюстрация"></div>
+              <div class="cx-splash-copy">
+                <h3>Одна кампания — вся страна</h3>
+                <p>Единый медиаплан, один договор и управляемый запуск по регионам.</p>
+                <div class="cx-bubble">
+                  Регионы включаются волнами — не нужно платить за всю страну в первый же месяц.
+                </div>
+                <div class="cx-meta">
+                  <span>Mix 360°</span><span>Россия</span><span>по согласованию</span>
+                </div>
+              </div>
+              <span class="cx-bang cx-bang--tr">Федеральный</span>
+            </article>
+
+            <article class="cx-panel" data-tentative="акция демонстрационная">
+              <h3>Лифты в жилых кварталах</h3>
+              <p>Ежедневный контакт в замкнутом пространстве, без конкуренции за внимание.</p>
+              <div class="cx-meta"><span>Indoor</span><span>город целиком</span></div>
+            </article>
+
+            <article class="cx-panel cx-panel--tone" data-tentative="акция демонстрационная">
+              <h3>Радио на утренний трафик</h3>
+              <p>Пакет роликов в часы, когда город стоит в пробках.</p>
+              <span class="cx-bang cx-bang--inline">07:00</span>
+              <div class="cx-meta"><span>Radio</span><span>от 2 недель</span></div>
+            </article>
+
+            <article class="cx-panel cx-panel--wide" data-tentative="акция демонстрационная">
+              <h3>Транзит: борта и салоны</h3>
+              <p>Маршруты подбираются под район, где нужен охват, а не «по остаточному».</p>
+              <a class="cx-cta" href="#builder">Собрать кампанию →</a>
+            </article>
+          </div>
+
+          <p class="cx-note">
+            Цена уже с учётом объёма и периода. Менеджер подтверждает только наличие поверхностей.
+          </p>
         </div>
       </section>
 
@@ -687,6 +723,12 @@
             <div class="cost-head">
               <span data-cost-source>Пример сметы</span><span>AD / 2608</span>
             </div>
+            <!-- Назначение блока — сразу под шапкой, а не мелким текстом
+                 в подвале: иначе смета читается как случайный чек. -->
+            <p class="cx-bubble cost-note" data-cost-note>
+              Это пример. Соберите кампанию в конструкторе — смета пересчитается по вашим
+              параметрам. <a href="#builder">В конструктор ↗</a>
+            </p>
             <div class="cost-total">
               <small>Итого за <span data-cost-period>30 дней</span></small>
               <strong data-cost-total>540 000 ₽</strong>
@@ -713,10 +755,6 @@
               <span class="cost-badge">−12%</span>
               <span>скидка за объём и период уже в смете</span>
             </div>
-            <p class="cost-note" data-cost-note>
-              Это пример. Соберите кампанию в конструкторе — смета пересчитается по вашим
-              параметрам. <a href="#builder">В конструктор ↗</a>
-            </p>
           </div>
         </div>
 
@@ -750,17 +788,22 @@
           </div>
         </div>
 
+        <!-- Кейсы собраны той же комиксной страницей, что и акции:
+             кадры разного размера, результат вынесен в плашку-«звук»,
+             задача клиента звучит репликой в баббле. -->
         <div class="case-grid reveal">
           <article class="case-card case-card--wide" data-tentative="кейс демонстрационный">
             <div class="case-visual case-visual--dev">
-              <b>14,8 млн</b><small>контактов за 2 месяца</small>
+              <div class="photo-slot" data-photo-label="Кадр кейса · рисованная иллюстрация"></div>
+              <span class="cx-bang cx-bang--tr">14,8 млн</span>
+              <small>контактов за 2 месяца</small>
             </div>
             <div class="case-info">
               <span class="case-meta">Девелопмент · 2026</span>
               <h3>Старт продаж жилого квартала</h3>
-              <p class="case-task">
-                Задача: обеспечить узнаваемость нового ЖК на старте и привести трафик в офис продаж.
-              </p>
+              <div class="cx-bubble">
+                Нужно было заявить новый ЖК на старте и привести живой трафик в офис продаж.
+              </div>
               <ul class="case-formats">
                 <li>Outdoor</li>
                 <li>DOOH</li>
@@ -769,11 +812,12 @@
             </div>
           </article>
 
-          <article class="case-card" data-tentative="кейс демонстрационный">
-            <div class="case-visual case-visual--retail"><b>+38%</b><small>трафик в точках</small></div>
+          <article class="case-card case-card--tone" data-tentative="кейс демонстрационный">
             <div class="case-info">
               <span class="case-meta">Сетевой ритейл · 2026</span>
               <h3>Локальный запуск в трёх районах</h3>
+              <span class="cx-bang cx-bang--inline">+38%</span>
+              <small class="case-result">трафик в точках</small>
               <p class="case-task">Задача: поднять посещаемость новых магазинов у дома.</p>
               <ul class="case-formats">
                 <li>Indoor</li>
@@ -783,10 +827,11 @@
           </article>
 
           <article class="case-card" data-tentative="кейс демонстрационный">
-            <div class="case-visual case-visual--auto"><b>×2,1</b><small>заявок на тест-драйв</small></div>
             <div class="case-info">
               <span class="case-meta">Автодилер · 2025</span>
               <h3>Вывод новой модели в регионе</h3>
+              <span class="cx-bang cx-bang--inline">×2,1</span>
+              <small class="case-result">заявок на тест-драйв</small>
               <p class="case-task">Задача: собрать заявки на тест-драйв в течение месяца.</p>
               <ul class="case-formats">
                 <li>Transit</li>
@@ -1048,6 +1093,19 @@
       </div>
     </footer>
 
+    <!-- «Напоминашка» о карте: заказчик просил, чтобы география не потерялась.
+         Окошко выезжает сбоку после первого экрана и уходит само, когда человек
+         добрался до карты. Появляется один раз за сеанс, закрывается вручную. -->
+    <aside class="nudge" data-nudge hidden aria-label="Подсказка о карте присутствия">
+      <button class="nudge-close" type="button" data-nudge-close aria-label="Скрыть подсказку">
+        <span aria-hidden="true">×</span>
+      </button>
+      <span class="nudge-kicker">Не пропустите</span>
+      <strong data-tentative="показатель не подтверждён">70+ городов</strong>
+      <p>Проверьте, есть ли поверхности в вашем городе.</p>
+      <a class="cx-cta" href="#geo" data-nudge-go>Открыть карту →</a>
+    </aside>
+
     <!-- Попап «Стать партнёром» — своя форма, без ухода со страницы -->
     <div class="partner-modal" data-partner-modal hidden role="dialog" aria-modal="true" aria-labelledby="partner-modal-title">
       <div class="partner-modal-panel">
@@ -1084,6 +1142,6 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=4"></script>
   </body>
 </html>
