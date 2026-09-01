@@ -64,10 +64,17 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* шапка блока: заголовок прописными и жирная линейка под ним */
+/* шапка блока: заголовок прописными и жирная линейка под ним.
+   Колонка заголовка шире половины: прописными строки длиннее, и на
+   равных колонках заголовок рассыпался на четыре строки. */
 .section-heading {
   padding-bottom: 26px;
   border-bottom: var(--rule) solid var(--ink);
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+}
+/* если пояснения справа нет — заголовок занимает всю ширину */
+.section-heading > div:only-child {
+  grid-column: 1 / -1;
 }
 .builder .section-heading,
 .platform .section-heading {
@@ -137,20 +144,24 @@
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--ink);
 }
+/* На тёмных секциях кнопки стоят внутри рамок карточек: жёсткая тень
+   там налезала на контур и читалась как брак вёрстки. Оставляем контур,
+   отклик даём сдвигом и заливкой. */
 .builder .button,
 .builder-submit,
 .platform .button,
 .contact .button,
-.contact-form .button--primary {
+.contact-form .button {
   border-color: var(--white);
-  box-shadow: 4px 4px 0 var(--white);
+  box-shadow: none;
 }
 .builder .button:hover,
 .builder-submit:hover,
 .platform .button:hover,
 .contact .button:hover,
-.contact-form .button--primary:hover {
-  box-shadow: 2px 2px 0 var(--white);
+.contact-form .button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: none;
 }
 
 /* =========================================================
@@ -346,6 +357,7 @@
    03 · КОНСТРУКТОР
    ========================================================= */
 .builder-form {
+  padding: 28px;
   border: var(--stroke) solid rgba(255, 255, 255, 0.55);
   border-radius: 0;
 }
@@ -534,19 +546,25 @@
 /* =========================================================
    09–11 · ПЛАТФОРМА, ПРЕЗЕНТАЦИЯ, КОНТАКТЫ
    ========================================================= */
+/* Эти карточки раньше жили без рамки и потому свёрстаны без полей.
+   Раз мы обвели их контуром, добавляем поля — иначе содержимое
+   прилипает к рамке. */
 .platform-side {
+  padding: 26px 28px 0;
   border: var(--stroke) solid rgba(255, 255, 255, 0.55);
   border-radius: 0;
 }
 .platform-role {
+  /* в колонке-флексе штамп растягивался на всю ширину */
+  align-self: flex-start;
   font-family: var(--display);
 }
-.presentation .pres-card,
-.pres-file {
+.presentation-card {
   border: var(--stroke) solid var(--ink);
   border-radius: 0;
 }
 .contact-form {
+  padding: 28px;
   border: var(--stroke) solid rgba(255, 255, 255, 0.55);
   border-radius: 0;
 }
