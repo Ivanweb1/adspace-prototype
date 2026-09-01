@@ -94,7 +94,6 @@
 .case-meta,
 .case-formats li,
 .seg-formats,
-.presence-tag,
 .platform-role,
 .cost-badge {
   display: inline-block;
@@ -213,39 +212,27 @@
   font-size: clamp(34px, 3.6vw, 52px);
 }
 
-/* строка присутствия: вместо всплывающего окна вверху главной */
-.presence {
-  margin-top: 18px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px 20px;
-  padding: 16px 20px;
-  border: var(--stroke) solid var(--ink);
-  background: var(--surface);
+/* пятая ячейка полосы — география: город и ссылка на карту.
+   Название длиннее числа, поэтому кегль меньше. */
+@media (min-width: 721px) {
+  .metric-strip {
+    grid-template-columns: repeat(4, 1fr) 1.3fr;
+  }
 }
-.presence-text {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  font-size: 14px;
-  color: var(--muted);
+/* на узком экране полоса ломается на две колонки — география встаёт
+   отдельной строкой во всю ширину, без дыры в сетке */
+@media (max-width: 720px) {
+  .metric-geo {
+    grid-column: 1 / -1;
+    border-right: 0;
+  }
 }
-.presence-text b {
-  font-family: var(--display);
-  font-size: 20px;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+.metric-geo strong {
+  font-size: clamp(22px, 2vw, 30px);
 }
-.presence-link {
-  margin-left: auto;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-bottom: var(--stroke) solid var(--ink);
-  padding-bottom: 3px;
+.metric-geo a {
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
 }
 
 /* =========================================================
@@ -592,9 +579,6 @@
   .cx-panel--splash,
   .cx-panel--wide {
     grid-column: span 2;
-  }
-  .presence-link {
-    margin-left: 0;
   }
   .client-row li {
     padding: 14px 8px;
