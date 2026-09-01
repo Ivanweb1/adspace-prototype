@@ -570,6 +570,46 @@
     });
   }
 
+  /* ── кейсы: витрина с лентой выбора ─────────────────────
+     Тот же сценарий, что в блоке «Решения»: на десктопе кадр
+     меняется на наведении, на мобильном — по нажатию. */
+  const caseList = $("[data-case-list]");
+  if (caseList) {
+    const caseTabs = $$("button", caseList);
+    const casePanels = $$("[data-case-panel]");
+    const caseIndex = $("[data-case-index]");
+
+    const showCase = (tab) => {
+      if (tab.classList.contains("is-active")) return;
+      const id = tab.dataset.caseTab;
+
+      caseTabs.forEach((item) => {
+        const active = item === tab;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-selected", String(active));
+      });
+      casePanels.forEach((panel) =>
+        panel.classList.toggle("is-shown", panel.dataset.casePanel === id)
+      );
+
+      if (caseIndex) {
+        caseIndex.textContent = `${String(caseTabs.indexOf(tab) + 1).padStart(2, "0")} / ${String(
+          caseTabs.length
+        ).padStart(2, "0")}`;
+      }
+    };
+
+    caseTabs.forEach((tab) => {
+      tab.addEventListener("click", () => showCase(tab));
+      tab.addEventListener("mouseenter", () => {
+        if (!isMobile()) showCase(tab);
+      });
+      tab.addEventListener("focus", () => {
+        if (!isMobile()) showCase(tab);
+      });
+    });
+  }
+
   /* ── акции: листание разворотов комикса ─────────────── */
   const cxPages = $$("[data-cx-page]");
   const cxNum = $("[data-cx-num]");

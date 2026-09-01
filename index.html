@@ -11,11 +11,11 @@
     <title>ADSPACE Group — просто выбрать, легко заказать</title>
     <!-- ?v= у ассетов — чтобы браузер не показывал старую версию прототипа
          после правок. Меняется вместе с очередной выкладкой. -->
-    <link rel="stylesheet" href="styles.css?v=8" />
+    <link rel="stylesheet" href="styles.css?v=10" />
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
-    <link rel="stylesheet" href="mono.css?v=8" />
+    <link rel="stylesheet" href="mono.css?v=10" />
     <!-- Комиксный слой по согласованному варианту подачи акций. -->
-    <link rel="stylesheet" href="press.css?v=8" />
+    <link rel="stylesheet" href="press.css?v=10" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -790,78 +790,170 @@
             <p class="eyebrow">Кейсы и клиенты</p>
             <h2 id="cases-title">Кампании,<br />которые замечают</h2>
           </div>
+          <div class="heading-aside">
+            <p>
+              Выберите кейс в списке — покажем задачу, форматы, срок и результат. Похожую кампанию
+              можно сразу собрать в конструкторе.
+            </p>
+          </div>
         </div>
 
-        <!-- Кейсы собраны той же комиксной страницей, что и акции:
-             кадры разного размера, результат вынесен в плашку-«звук»,
-             задача клиента звучит репликой в баббле. -->
-        <div class="case-grid reveal">
-          <article class="case-card case-card--wide" data-tentative="кейс демонстрационный">
-            <div class="case-visual case-visual--dev">
-              <div class="photo-slot" data-photo-label="Кадр кейса · рисованная иллюстрация"></div>
-              <span class="cx-bang cx-bang--tr">14,8 млн</span>
-              <small>контактов за 2 месяца</small>
+        <!-- Витрина кейсов устроена как блок «Решения», который заказчик
+             одобрил: слева кадр выбранного кейса, справа лента выбора.
+             Кадры сменяются на наведении, на мобильном — по нажатию.
+             Подача комиксная: «звук» с результатом, реплика с задачей. -->
+        <div class="case-stage reveal">
+          <div class="case-view">
+            <div class="case-view-top">
+              <span>Кейс</span>
+              <span data-case-index>01 / 04</span>
             </div>
-            <div class="case-info">
-              <span class="case-meta">Девелопмент · 2026</span>
-              <h3>Старт продаж жилого квартала</h3>
-              <div class="cx-bubble">
-                Нужно было заявить новый ЖК на старте и привести живой трафик в офис продаж.
-              </div>
-              <ul class="case-formats">
-                <li>Outdoor</li>
-                <li>DOOH</li>
-                <li>Radio</li>
+
+            <div class="case-screen">
+              <article class="case-panel is-shown" data-case-panel="1" data-tentative="кейс демонстрационный">
+                <div class="case-panel-visual">
+                  <div class="photo-slot" data-photo-label="Кадр кейса · рисованная иллюстрация"></div>
+                  <span class="cx-bang cx-bang--tr">14,8 млн</span>
+                  <small>контактов за 2 месяца</small>
+                </div>
+                <div class="case-panel-copy">
+                  <span class="case-meta">Девелопмент · 2026</span>
+                  <h3>Старт продаж жилого квартала</h3>
+                  <div class="cx-bubble">
+                    Нужно было заявить новый ЖК на старте и привести живой трафик в офис продаж.
+                  </div>
+                  <dl class="case-facts">
+                    <div><dt>Форматы</dt><dd>Outdoor · DOOH · Radio</dd></div>
+                    <div><dt>Период</dt><dd>2 месяца</dd></div>
+                    <div><dt>География</dt><dd>город целиком</dd></div>
+                  </dl>
+                  <a class="cx-cta" href="#builder">Собрать похожую кампанию →</a>
+                </div>
+              </article>
+
+              <article class="case-panel" data-case-panel="2" data-tentative="кейс демонстрационный">
+                <div class="case-panel-visual">
+                  <div class="photo-slot" data-photo-label="Кадр кейса · рисованная иллюстрация"></div>
+                  <span class="cx-bang cx-bang--tr">+38%</span>
+                  <small>трафик в точках</small>
+                </div>
+                <div class="case-panel-copy">
+                  <span class="case-meta">Сетевой ритейл · 2026</span>
+                  <h3>Локальный запуск в трёх районах</h3>
+                  <div class="cx-bubble">
+                    Магазины у дома открылись почти одновременно — нужно было привести людей в
+                    каждый, не размазывая бюджет по городу.
+                  </div>
+                  <dl class="case-facts">
+                    <div><dt>Форматы</dt><dd>Indoor · Лифты</dd></div>
+                    <div><dt>Период</dt><dd>6 недель</dd></div>
+                    <div><dt>География</dt><dd>три района</dd></div>
+                  </dl>
+                  <a class="cx-cta" href="#builder">Собрать похожую кампанию →</a>
+                </div>
+              </article>
+
+              <article class="case-panel" data-case-panel="3" data-tentative="кейс демонстрационный">
+                <div class="case-panel-visual">
+                  <div class="photo-slot" data-photo-label="Кадр кейса · рисованная иллюстрация"></div>
+                  <span class="cx-bang cx-bang--tr">×2,1</span>
+                  <small>заявок на тест-драйв</small>
+                </div>
+                <div class="case-panel-copy">
+                  <span class="case-meta">Автодилер · 2025</span>
+                  <h3>Вывод новой модели в регионе</h3>
+                  <div class="cx-bubble">
+                    Модель выходила в регионе первой — за месяц надо было собрать заявки на
+                    тест-драйв, а не просто «показать бренд».
+                  </div>
+                  <dl class="case-facts">
+                    <div><dt>Форматы</dt><dd>Transit · Radio · DOOH</dd></div>
+                    <div><dt>Период</dt><dd>1 месяц</dd></div>
+                    <div><dt>География</dt><dd>область</dd></div>
+                  </dl>
+                  <a class="cx-cta" href="#builder">Собрать похожую кампанию →</a>
+                </div>
+              </article>
+
+              <article class="case-panel" data-case-panel="4" data-tentative="кейс демонстрационный">
+                <div class="case-panel-visual">
+                  <div class="photo-slot" data-photo-label="Кадр кейса · рисованная иллюстрация"></div>
+                  <span class="cx-bang cx-bang--tr">+52%</span>
+                  <small>посещаемость в выходные</small>
+                </div>
+                <div class="case-panel-copy">
+                  <span class="case-meta">Торговый центр · 2025</span>
+                  <h3>Перезапуск после реконструкции</h3>
+                  <div class="cx-bubble">
+                    Центр закрывался на полгода, и город успел про него забыть — возвращали
+                    привычку заходить.
+                  </div>
+                  <dl class="case-facts">
+                    <div><dt>Форматы</dt><dd>DOOH · Radio · Indoor</dd></div>
+                    <div><dt>Период</dt><dd>2 месяца</dd></div>
+                    <div><dt>География</dt><dd>город целиком</dd></div>
+                  </dl>
+                  <a class="cx-cta" href="#builder">Собрать похожую кампанию →</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Правая колонка: лента выбора, переход ко всем кейсам и
+               логотипы клиентов. Без них под короткой лентой оставалась
+               пустая половина экрана. -->
+          <div class="case-side">
+            <div class="case-list" data-case-list role="tablist" aria-label="Список кейсов">
+            <button type="button" class="is-active" role="tab" data-case-tab="1" aria-selected="true">
+              <span class="case-num">01</span>
+              <span class="case-line">
+                <strong>Старт продаж жилого квартала</strong>
+                <span class="case-seg">Девелопмент · 2026</span>
+              </span>
+              <span class="case-badge">14,8 млн</span>
+            </button>
+            <button type="button" role="tab" data-case-tab="2" aria-selected="false">
+              <span class="case-num">02</span>
+              <span class="case-line">
+                <strong>Локальный запуск в трёх районах</strong>
+                <span class="case-seg">Сетевой ритейл · 2026</span>
+              </span>
+              <span class="case-badge">+38%</span>
+            </button>
+            <button type="button" role="tab" data-case-tab="3" aria-selected="false">
+              <span class="case-num">03</span>
+              <span class="case-line">
+                <strong>Вывод новой модели в регионе</strong>
+                <span class="case-seg">Автодилер · 2025</span>
+              </span>
+              <span class="case-badge">×2,1</span>
+            </button>
+            <button type="button" role="tab" data-case-tab="4" aria-selected="false">
+              <span class="case-num">04</span>
+              <span class="case-line">
+                <strong>Перезапуск после реконструкции</strong>
+                <span class="case-seg">Торговый центр · 2025</span>
+              </span>
+              <span class="case-badge">+52%</span>
+            </button>
+            </div>
+
+            <a class="button button--dark case-more" href="#contact"
+              >Смотреть все кейсы <span aria-hidden="true">↗</span></a
+            >
+
+            <div class="clients" data-tentative="список клиентов не подтверждён">
+              <span class="result-label">С нами работают</span>
+              <ul class="client-row" aria-label="Логотипы клиентов">
+                <li>Клиент 01</li>
+                <li>Клиент 02</li>
+                <li>Клиент 03</li>
+                <li>Клиент 04</li>
+                <li>Клиент 05</li>
+                <li>Клиент 06</li>
               </ul>
             </div>
-          </article>
-
-          <article class="case-card case-card--tone" data-tentative="кейс демонстрационный">
-            <div class="case-info">
-              <span class="case-meta">Сетевой ритейл · 2026</span>
-              <h3>Локальный запуск в трёх районах</h3>
-              <span class="cx-bang cx-bang--inline">+38%</span>
-              <small class="case-result">трафик в точках</small>
-              <p class="case-task">Задача: поднять посещаемость новых магазинов у дома.</p>
-              <ul class="case-formats">
-                <li>Indoor</li>
-                <li>Лифты</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="case-card" data-tentative="кейс демонстрационный">
-            <div class="case-info">
-              <span class="case-meta">Автодилер · 2025</span>
-              <h3>Вывод новой модели в регионе</h3>
-              <span class="cx-bang cx-bang--inline">×2,1</span>
-              <small class="case-result">заявок на тест-драйв</small>
-              <p class="case-task">Задача: собрать заявки на тест-драйв в течение месяца.</p>
-              <ul class="case-formats">
-                <li>Transit</li>
-                <li>Radio</li>
-                <li>DOOH</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-
-        <div class="cases-more reveal">
-          <a class="button button--dark" href="#contact"
-            >Смотреть все кейсы <span aria-hidden="true">↗</span></a
-          >
-        </div>
-
-        <div class="clients reveal" data-tentative="список клиентов не подтверждён">
-          <span class="result-label">С нами работают</span>
-          <ul class="client-row" aria-label="Логотипы клиентов">
-            <li>Клиент 01</li>
-            <li>Клиент 02</li>
-            <li>Клиент 03</li>
-            <li>Клиент 04</li>
-            <li>Клиент 05</li>
-            <li>Клиент 06</li>
-          </ul>
+          </div>
         </div>
       </section>
 
@@ -1146,6 +1238,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=8"></script>
+    <script src="script.js?v=10"></script>
   </body>
 </html>

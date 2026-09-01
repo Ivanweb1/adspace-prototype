@@ -689,76 +689,86 @@
 }
 
 /* =========================================================
-   06 · КЕЙСЫ · та же комиксная страница, что и акции
+   06 · КЕЙСЫ · витрина с лентой выбора
+
+   Устроена как блок «Решения», который заказчику понравился:
+   слева кадр, справа лента: наводишь — кадр меняется. Подача
+   комиксная — «звук» с результатом и реплика с задачей.
    ========================================================= */
-.case-grid {
-  gap: 12px;
+.case-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(24px, 3vw, 52px);
+  align-items: start;
+}
+
+/* ── кадр выбранного кейса ───────────────────────────────── */
+.case-view {
   padding: 12px;
   border: var(--stroke-fat) solid var(--ink);
   background: var(--paper);
 }
-.case-card {
-  position: relative;
+.case-view-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 6px 12px;
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* все кадры лежат в одной ячейке сетки: высота держится по самому
+   высокому, и витрина не прыгает при переключении */
+.case-screen {
+  display: grid;
+}
+.case-panel {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
   border: var(--stroke) solid var(--ink);
-  border-radius: 0;
-  box-shadow: none;
-  transition: transform 0.18s var(--ease), box-shadow 0.18s ease;
+  background: var(--surface);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s var(--ease), visibility 0.35s;
 }
-.case-card:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: var(--hard);
+.case-panel.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
 }
-/* растр вместо цветной заливки — как в кадре «Бренд на стадионе» */
-.case-card--tone {
-  background-color: var(--surface);
-  background-image: radial-gradient(var(--tone-3, #d9d9d9) 34%, transparent 35%);
-  background-size: 9px 9px;
-}
-/* кадр кейса: иллюстрация во всю площадь, цифра — «звуком» поверх */
-.case-visual {
+.case-panel-visual {
   position: relative;
-  display: block;
-  min-height: 260px;
-  padding: 0;
+  aspect-ratio: 16 / 8;
   border-bottom: var(--stroke) solid var(--ink);
-  background: var(--paper);
-  color: var(--ink);
 }
-.case-visual .photo-slot {
+.case-panel-visual .photo-slot {
   position: absolute;
   inset: 0;
 }
-.case-visual small {
+.case-panel-visual small {
   position: absolute;
   z-index: 3;
   left: 16px;
   bottom: 16px;
-  margin: 0;
   padding: 5px 10px;
   border: 1px solid var(--ink);
   background: var(--surface);
-  opacity: 1;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-/* подпись под «звуком» в кадрах без иллюстрации */
-.case-result {
-  display: block;
-  margin: -4px 0 12px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.case-info {
+.case-panel-copy {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  padding: 22px 24px 26px;
 }
 .case-meta {
-  align-self: flex-start;
   padding: 4px 8px;
   border: 1px solid var(--ink);
   font-size: 10px;
@@ -767,30 +777,128 @@
   text-transform: uppercase;
   color: var(--ink);
 }
-.case-info h3 {
-  text-transform: uppercase;
+.case-panel-copy h3 {
+  margin: 14px 0 0;
+  font-family: var(--display);
+  font-size: clamp(24px, 2.2vw, 34px);
   line-height: 0.94;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 }
-.case-formats {
-  margin-top: auto;
-  padding-top: 18px;
+/* параметры кейса — то, по чему кампанию можно сравнить со своей */
+.case-facts {
+  width: 100%;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--ink);
 }
-.case-formats li {
-  padding: 4px 8px;
-  border: 1px solid var(--ink);
-  border-radius: 0;
+.case-facts > div {
+  padding: 12px 12px 0 0;
+}
+.case-facts dt {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--muted);
+}
+.case-facts dd {
+  margin-top: 5px;
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.case-panel-copy .cx-cta {
+  margin-top: 22px;
 }
 
-/* клиенты — та же модульная сетка в общей рамке */
+/* ── правая колонка: лента, переход и клиенты ────────────── */
+.case-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  height: 100%;
+}
+.case-more {
+  align-self: stretch;
+  justify-content: center;
+}
+.case-list {
+  width: 100%;
+  border-top: var(--stroke) solid var(--ink);
+}
+.case-list button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 6px;
+  text-align: left;
+  border-bottom: var(--stroke) solid var(--ink);
+  transition: padding 0.28s var(--ease), background 0.28s ease;
+}
+.case-list button.is-active {
+  padding-left: 18px;
+  background: var(--sand);
+}
+.case-num {
+  font-family: var(--display);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.case-line strong {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(17px, 1.5vw, 23px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.case-seg {
+  display: block;
+  margin-top: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* результат — тот же «звук», что и в кадре, только мелкий */
+.case-badge {
+  padding: 6px 10px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transform: rotate(-3deg);
+  transition: box-shadow 0.22s ease;
+}
+.case-list button.is-active .case-badge {
+  box-shadow: var(--hard-sm);
+}
+
+/* клиенты — та же модульная сетка в общей рамке.
+   Живут в колонке кейсов, поэтому логотипы идут по три в ряд. */
+.clients {
+  width: 100%;
+  margin: auto 0 0;
+  padding-top: 0;
+  border-top: 0;
+}
 .clients .result-label {
   padding-bottom: 10px;
   border-bottom: 1px solid var(--ink);
 }
 .client-row {
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
   padding: 12px;
   border: var(--stroke-fat) solid var(--ink);
@@ -988,7 +1096,39 @@
     padding-top: 0;
   }
 }
+@media (max-width: 980px) {
+  /* лента встаёт над кадром: нажал строку — кадр открывается сразу под ней.
+     display:contents раскрывает колонку, чтобы её части можно было
+     расставить по одной, а не блоком целиком. */
+  .case-stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+  .case-side {
+    display: contents;
+  }
+  .case-list {
+    order: 1;
+  }
+  .case-view {
+    order: 2;
+  }
+  .case-more {
+    order: 3;
+    justify-self: center;
+  }
+  .clients {
+    order: 4;
+    margin: 0;
+  }
+  .client-row {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
 @media (max-width: 780px) {
+  .case-facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .cx-top {
     flex-direction: column;
     align-items: flex-start;
