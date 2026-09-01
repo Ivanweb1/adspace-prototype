@@ -1,39 +1,47 @@
 /* =========================================================
    ADSPACE Group — газетно-рекламный слой
 
-   Заказчик выбрал первый вариант подачи блока «Акции» (кадровый
-   разворот) и попросил свести к нему остальные блоки: немного
-   комикса, но в целом газетно-рекламный ключ.
+   Заказчик выбрал кадровую подачу акций и попросил свести к ней
+   всю страницу. Комикс здесь дозирован: остаются кадры, контур и
+   штампы, уходят наклоны, «пузыри» и мультяшность.
 
-   Что берём из выбранного варианта:
-   · жирный контур вместо тонкой линии;
-   · жёсткая тень без размытия — «печатная», а не «интерфейсная»;
-   · кадровое деление и рубрики с линейками, как в газете;
-   · наклонные плашки-«звуки» для акцентов;
-   · растровая точка вместо заливок.
+   ЕДИНЫЙ НАБОР ПРИЁМОВ — применяется во всех блоках одинаково:
 
-   Подключается ПОСЛЕ styles.css и mono.css, ничего не ломает:
-   отключается снятием одного <link>.
+   1. Контур кадра — всегда 2px (--stroke). Другого веса нет.
+   2. Разделитель внутри кадра — всегда 1px.
+   3. Линейка под шапкой блока — 3px (--rule), только там.
+   4. Жёсткая тень — только на наведении и у одного якорного кадра
+      на первом экране. Не украшение, а отклик на действие.
+   5. Штамп (.stamp) — прямоугольная плашка без наклона: тип акции,
+      результат кейса, формат, рубрика. Один вид на всю страницу.
+   6. Врезка (.pullnote) — левая линейка: «человеческий» голос
+      вместо комиксного пузыря.
+   7. Модульная сетка — кадры в общей рамке через просвет бумаги.
+      Так собраны акции, кейсы, сегменты и клиенты.
+
+   Подключается ПОСЛЕ styles.css и mono.css, снимается одним <link>.
    ========================================================= */
 
 :root {
   --stroke: 2px;
-  --stroke-fat: 3px;
-  --hard: 6px 6px 0 var(--ink);
-  --hard-sm: 4px 4px 0 var(--ink);
   --rule: 3px;
+  --hard: 5px 5px 0 var(--ink);
+  --hard-light: 5px 5px 0 rgba(255, 255, 255, 0.35);
 }
 
-/* ── шапка ────────────────────────────────────────────────
-   была полупрозрачной с размытием: под ней проезжал крупный
-   логотип и красил её в розовый. Делаем непрозрачной. */
+/* =========================================================
+   ОБЩИЕ ЭЛЕМЕНТЫ
+   ========================================================= */
+
+/* шапка была полупрозрачной: под ней проезжал крупный логотип и
+   красил её в розовый. Делаем непрозрачной. */
 .site-header {
   background: var(--paper);
   backdrop-filter: none;
   border-bottom: var(--stroke) solid var(--ink);
 }
 
-/* ── рубрика: надзаголовок с линейкой, как в газете ─────── */
+/* рубрика: надзаголовок с линейкой, как в газете */
 .eyebrow {
   display: flex;
   align-items: center;
@@ -56,7 +64,7 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* ── заголовки секций: жирная полоса под шапкой блока ───── */
+/* шапка блока: заголовок прописными и жирная линейка под ним */
 .section-heading {
   padding-bottom: 26px;
   border-bottom: var(--rule) solid var(--ink);
@@ -73,28 +81,54 @@
   text-transform: uppercase;
 }
 
-/* ── плашка-«звук»: универсальный акцент ─────────────────── */
-.press-bang {
+/* штамп: единственный вид плашки на всю страницу */
+.stamp,
+.cx-meta span,
+.case-meta,
+.case-formats li,
+.seg-formats,
+.presence-tag,
+.platform-role,
+.cost-badge {
   display: inline-block;
-  padding: 8px 16px;
-  border: var(--stroke-fat) solid var(--ink);
-  background: var(--surface);
-  color: var(--ink);
-  box-shadow: var(--hard-sm);
-  font-family: var(--display);
-  font-size: clamp(16px, 1.6vw, 24px);
-  letter-spacing: -0.02em;
+  padding: 5px 10px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  transform: rotate(-3deg);
+  color: inherit;
+}
+/* крупный штамп — для главного факта кадра */
+.stamp--lead {
+  padding: 8px 14px;
+  border-width: var(--stroke);
+  font-family: var(--display);
+  font-size: clamp(17px, 1.8vw, 26px);
+  letter-spacing: -0.02em;
+}
+.platform-role {
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
-/* ── кнопки: печатные, с жёсткой тенью ───────────────────── */
+/* врезка вместо комиксного пузыря */
+.pullnote {
+  margin-top: 12px;
+  padding: 4px 0 4px 16px;
+  border-left: var(--rule) solid var(--ink);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* кнопки: печатные, отклик — вдавливание */
 .button,
 .builder-submit,
 .pres-button {
   border: var(--stroke) solid var(--ink);
   border-radius: 0;
-  box-shadow: var(--hard-sm);
+  box-shadow: 4px 4px 0 var(--ink);
   transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.22s ease;
 }
 .button:hover,
@@ -103,7 +137,6 @@
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--ink);
 }
-/* на тёмных секциях контур и тень светлые */
 .builder .button,
 .builder-submit,
 .platform .button,
@@ -120,8 +153,9 @@
   box-shadow: 2px 2px 0 var(--white);
 }
 
-/* ── первый экран ────────────────────────────────────────── */
-/* дескриптор под слоганом: «рекламу в одном месте» */
+/* =========================================================
+   01 · ПЕРВЫЙ ЭКРАН
+   ========================================================= */
 .hero-tagline {
   margin-top: 14px;
   font-family: var(--display);
@@ -131,19 +165,18 @@
   text-transform: uppercase;
   color: var(--muted);
 }
-/* медиаобласть в кадре: жирная рамка вместо мягкой карточки */
+/* якорный кадр страницы — единственное место с постоянной тенью */
 .hero-stage {
-  border: var(--stroke-fat) solid var(--ink);
+  border: var(--stroke) solid var(--ink);
   box-shadow: var(--hard);
   border-radius: 0;
 }
 .stage-top {
-  border-bottom: var(--stroke) solid var(--ink);
+  border-bottom: 1px solid var(--ink);
 }
 .stage-bottom {
-  border-top: var(--stroke) solid var(--ink);
+  border-top: 1px solid var(--ink);
 }
-/* пропорция ближе к прямоугольной — просил заказчик */
 .stage-screen {
   aspect-ratio: 16 / 9;
   height: auto;
@@ -153,7 +186,7 @@
   font-family: var(--display);
 }
 
-/* ── полоса цифр: газетная таблица с линейками ───────────── */
+/* полоса цифр: газетная таблица */
 .metric-strip {
   border-block: var(--rule) solid var(--ink);
   border-inline: 0;
@@ -169,367 +202,7 @@
   font-size: clamp(34px, 3.6vw, 52px);
 }
 
-/* =========================================================
-   АКЦИИ · витрина в кадрах (выбранный заказчиком вариант)
-   ========================================================= */
-.promos-top {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px;
-  margin-bottom: 26px;
-}
-.cx-title {
-  position: relative;
-  display: inline-block;
-  padding: 12px 22px;
-  border: var(--stroke-fat) solid var(--ink);
-  background: var(--surface);
-  box-shadow: var(--hard);
-  transform: rotate(-1.6deg);
-}
-.cx-title h2 {
-  font-size: clamp(30px, 3.4vw, 52px);
-  text-transform: uppercase;
-}
-.promos-note {
-  max-width: 340px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--muted);
-}
-/* завершающий кадр: увести из витрины в конструктор */
-.cx-panel--cta {
-  background-color: var(--sand);
-}
-.cx-panel--cta .cx-cta {
-  margin-top: auto;
-  align-self: flex-start;
-}
-.cx-flip {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-family: var(--display);
-  font-size: 14px;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-}
-.cx-flip button {
-  width: 50px;
-  height: 50px;
-  border: var(--stroke) solid var(--ink);
-  background: var(--surface);
-  box-shadow: var(--hard-sm);
-  font-size: 18px;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
-}
-.cx-flip button:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--ink);
-}
-.cx-flip b {
-  color: var(--ink);
-}
-
-.cx-page {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(178px, auto);
-  gap: 12px;
-  padding: 12px;
-  border: var(--stroke-fat) solid var(--ink);
-  background: var(--paper);
-}
-.cx-page[hidden] {
-  display: none;
-}
-.cx-panel {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 18px 20px;
-  border: var(--stroke) solid var(--ink);
-  background: var(--surface);
-  overflow: hidden;
-}
-.cx-panel--splash {
-  grid-column: span 2;
-  grid-row: span 2;
-  padding: 0;
-}
-.cx-panel--wide {
-  grid-column: span 2;
-}
-.cx-panel .photo-slot {
-  flex: 1;
-  min-height: 120px;
-}
-.cx-splash-copy {
-  padding: 20px 22px 22px;
-  border-top: var(--stroke) solid var(--ink);
-}
-.cx-panel h3 {
-  font-family: var(--display);
-  font-size: clamp(22px, 2.1vw, 32px);
-  line-height: 0.94;
-  letter-spacing: -0.03em;
-  margin: 0 0 8px;
-  text-transform: uppercase;
-}
-.cx-panel p {
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--muted);
-}
-.cx-meta {
-  margin-top: auto;
-  padding-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 10px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.cx-meta span {
-  padding: 4px 8px;
-  border: 1px solid var(--line);
-}
-.cx-bang {
-  position: absolute;
-  z-index: 2;
-  top: 14px;
-  right: 12px;
-  padding: 8px 16px;
-  border: var(--stroke-fat) solid var(--ink);
-  background: var(--surface);
-  box-shadow: var(--hard-sm);
-  font-family: var(--display);
-  font-size: clamp(18px, 2vw, 30px);
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  transform: rotate(-6deg);
-}
-/* в узких кадрах плашка встаёт в поток, чтобы не перекрывать текст */
-.cx-bang--inline {
-  position: static;
-  align-self: flex-start;
-  margin-top: 14px;
-  margin-bottom: 10px;
-  transform: rotate(-3deg);
-}
-.cx-bubble {
-  position: relative;
-  margin-top: 12px;
-  padding: 12px 16px;
-  border: var(--stroke) solid var(--ink);
-  border-radius: 14px;
-  background: var(--surface);
-  font-size: 13px;
-  line-height: 1.5;
-}
-.cx-bubble::after {
-  content: "";
-  position: absolute;
-  left: 26px;
-  bottom: -10px;
-  width: 16px;
-  height: 10px;
-  background: var(--surface);
-  border-right: var(--stroke) solid var(--ink);
-  border-bottom: var(--stroke) solid var(--ink);
-  transform: skewX(-24deg);
-}
-.cx-panel--tone {
-  background-color: var(--surface);
-  background-image: radial-gradient(var(--tone-3, #d9d9d9) 34%, transparent 35%);
-  background-size: 9px 9px;
-}
-.cx-cta {
-  margin-top: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  border: var(--stroke) solid var(--ink);
-  background: var(--ink);
-  color: var(--white);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  box-shadow: var(--hard-sm);
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
-}
-.cx-cta:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--ink);
-}
-
-/* ── конструктор ─────────────────────────────────────────── */
-.builder-form {
-  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
-  border-radius: 0;
-}
-.builder-result {
-  border: var(--stroke-fat) solid var(--ink);
-  border-radius: 0;
-  box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.35);
-}
-.builder-form select,
-.builder-form input[type="text"],
-.builder-form input[type="tel"] {
-  border-radius: 0;
-}
-
-/* ── рекламные решения: кадры вместо мягких карточек ─────── */
-.solution-preview {
-  border: var(--stroke-fat) solid var(--ink);
-  box-shadow: var(--hard);
-  border-radius: 0;
-}
-.preview-meta {
-  border-top: var(--stroke) solid var(--ink);
-}
-.preview-index {
-  font-family: var(--display);
-}
-.solution-list li {
-  border-bottom: 1px solid var(--ink);
-}
-.solution-list li:first-child {
-  border-top: 1px solid var(--ink);
-}
-.solution-list button.is-active {
-  background: var(--sand);
-}
-
-/* ── точный расчёт: смета как вырезка ────────────────────── */
-.cost-card {
-  border: var(--stroke-fat) solid var(--ink);
-  /* секция тёмная, поэтому «печатная» тень светлая, иначе её не видно */
-  box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.35);
-  border-radius: 0;
-}
-.cost-head {
-  border-bottom: var(--stroke) solid var(--ink);
-  font-family: var(--display);
-  letter-spacing: 0.08em;
-}
-.cost-total strong {
-  font-size: clamp(40px, 4.4vw, 64px);
-}
-.cost-badge {
-  border: var(--stroke) solid var(--ink);
-  border-radius: 0;
-}
-
-/* ── география: карта в кадре, цифры колонкой газеты ─────── */
-.geo-block {
-  border-top: var(--rule) solid rgba(255, 255, 255, 0.55);
-  padding-top: 34px;
-}
-.geo-map {
-  border: var(--stroke) solid rgba(255, 255, 255, 0.6);
-  border-radius: 0;
-}
-.geo-stats b {
-  font-family: var(--display);
-}
-
-/* ── кейсы: полоса с крупной цифрой ──────────────────────── */
-.case-card {
-  border: var(--stroke-fat) solid var(--ink);
-  border-radius: 0;
-  box-shadow: none;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s ease;
-}
-.case-card:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: var(--hard);
-}
-.case-visual {
-  border-bottom: var(--stroke) solid var(--ink);
-}
-.case-visual b {
-  font-family: var(--display);
-  letter-spacing: -0.04em;
-}
-.case-meta {
-  display: inline-block;
-  padding: 4px 8px;
-  border: 1px solid var(--ink);
-  font-weight: 700;
-}
-.case-formats li {
-  border: 1px solid var(--ink);
-}
-
-/* ── клиенты: строка объявлений ──────────────────────────── */
-.client-row li {
-  border: var(--stroke) solid var(--ink);
-  border-radius: 0;
-  font-family: var(--display);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-/* ── сегменты: кадровая сетка ────────────────────────────── */
-.segment-grid li {
-  border: var(--stroke) solid var(--ink);
-  border-radius: 0;
-  transition: transform 0.2s var(--ease), box-shadow 0.2s ease;
-}
-.segment-grid li:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: var(--hard-sm);
-}
-.seg-num {
-  font-family: var(--display);
-  font-size: 15px;
-  letter-spacing: 0.08em;
-}
-.seg-formats {
-  display: inline-block;
-  padding: 4px 8px;
-  border: 1px solid var(--ink);
-  font-weight: 700;
-}
-
-/* ── платформа и финальный экран на тёмном ───────────────── */
-.platform-side {
-  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
-  border-radius: 0;
-}
-.platform-role {
-  border: var(--stroke) solid rgba(255, 255, 255, 0.7);
-  border-radius: 0;
-  font-family: var(--display);
-  text-transform: uppercase;
-}
-.contact-form {
-  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
-  border-radius: 0;
-}
-.contact-form input,
-.contact-form textarea {
-  border-radius: 0;
-}
-
-/* ── презентация ─────────────────────────────────────────── */
-.presentation .pres-card,
-.pres-file {
-  border: var(--stroke-fat) solid var(--ink);
-  border-radius: 0;
-}
-
-/* ── строка присутствия под первым экраном ───────────────
-   Заказчик просил, чтобы географию точно не пропустили. Всплывающее
-   окно вверху конкурировало бы с главной кнопкой и перекрывало контент
-   на мобильном, поэтому — строка сразу под первым экраном. */
+/* строка присутствия: вместо всплывающего окна вверху главной */
 .presence {
   margin-top: 18px;
   display: flex;
@@ -539,15 +212,6 @@
   padding: 16px 20px;
   border: var(--stroke) solid var(--ink);
   background: var(--surface);
-  box-shadow: var(--hard-sm);
-}
-.presence-tag {
-  padding: 5px 10px;
-  border: 1px solid var(--ink);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
 }
 .presence-text {
   display: flex;
@@ -573,28 +237,129 @@
   padding-bottom: 3px;
 }
 
-/* ── смета, связанная с конструктором ────────────────────── */
-.cost-note {
-  margin-top: 22px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  line-height: 1.6;
+/* =========================================================
+   02 · АКЦИИ · витрина в кадрах
+   ========================================================= */
+.cx-page {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(178px, auto);
+  gap: 12px;
+  padding: 12px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--paper);
+}
+.cx-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  overflow: hidden;
+  transition: transform 0.18s var(--ease), box-shadow 0.18s ease;
+}
+.cx-panel:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--hard);
+}
+/* крупный кадр — главная акция витрины */
+.cx-panel--splash {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 0;
+}
+.cx-panel--wide {
+  grid-column: span 2;
+}
+.cx-panel .photo-slot {
+  flex: 1;
+  min-height: 120px;
+}
+.cx-splash-copy {
+  padding: 20px 22px 22px;
+  border-top: 1px solid var(--ink);
+}
+.cx-panel h3 {
+  font-family: var(--display);
+  font-size: clamp(22px, 2.1vw, 32px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.cx-panel p {
+  font-size: 13px;
+  line-height: 1.55;
   color: var(--muted);
 }
-.cost-note a {
-  font-weight: 700;
-  border-bottom: 1px solid currentColor;
-  color: var(--ink);
+.cx-meta {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
 }
-.cost-card[data-linked="true"] .cost-head span:first-child {
-  padding: 3px 8px;
+/* штамп в кадре: ровно такой же, как в остальных блоках */
+.cx-panel .stamp--lead {
+  align-self: flex-start;
+  margin: 14px 0 4px;
+}
+.cx-panel--splash .stamp--lead {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: 16px;
+  margin: 0;
+  background: var(--surface);
+}
+/* растр — газетная печать, не заливка */
+.cx-panel--tone {
+  background-color: var(--surface);
+  background-image: radial-gradient(var(--tone-3, #d9d9d9) 34%, transparent 35%);
+  background-size: 9px 9px;
+}
+.cx-panel--cta {
+  background-color: var(--sand);
+}
+.cx-cta {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: var(--stroke) solid var(--ink);
   background: var(--ink);
   color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.16s ease;
+}
+.cx-cta:hover {
+  transform: translateX(4px);
 }
 
-/* ── единственная подсказка после расчёта ────────────────── */
-/* панель результата светлая, поэтому подсказка набирается по тёмному */
+/* =========================================================
+   03 · КОНСТРУКТОР
+   ========================================================= */
+.builder-form {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border-radius: 0;
+}
+.builder-result {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  box-shadow: var(--hard-light);
+}
+.builder-form select,
+.builder-form input[type="text"],
+.builder-form input[type="tel"] {
+  border-radius: 0;
+}
+/* единственная подсказка после расчёта: панель светлая, набор тёмный */
 .result-hint {
   margin-top: 26px;
   padding: 20px 22px;
@@ -619,13 +384,188 @@
   padding-bottom: 3px;
 }
 
-@media (max-width: 780px) {
-  .presence-link {
-    margin-left: 0;
-  }
+/* =========================================================
+   04 · РЕКЛАМНЫЕ РЕШЕНИЯ
+   ========================================================= */
+.solution-preview {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+}
+.preview-meta {
+  border-top: 1px solid var(--ink);
+}
+.preview-index {
+  font-family: var(--display);
+}
+.solution-list li {
+  border-bottom: 1px solid var(--ink);
+}
+.solution-list li:first-child {
+  border-top: 1px solid var(--ink);
+}
+.solution-list button.is-active {
+  background: var(--sand);
 }
 
-/* ── адаптив ─────────────────────────────────────────────── */
+/* =========================================================
+   05 · ТОЧНЫЙ РАСЧЁТ И ГЕОГРАФИЯ
+   ========================================================= */
+.cost-card {
+  border: var(--stroke) solid var(--ink);
+  /* секция тёмная, поэтому «печатная» тень светлая */
+  box-shadow: var(--hard-light);
+  border-radius: 0;
+}
+.cost-head {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--display);
+  letter-spacing: 0.08em;
+}
+.cost-total strong {
+  font-size: clamp(40px, 4.4vw, 64px);
+}
+.cost-card[data-linked="true"] [data-cost-source] {
+  padding: 3px 8px;
+  background: var(--ink);
+  color: var(--white);
+}
+.cost-note {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.cost-note a {
+  font-weight: 700;
+  border-bottom: 1px solid currentColor;
+  color: var(--ink);
+}
+.geo-block {
+  border-top: var(--rule) solid rgba(255, 255, 255, 0.55);
+  padding-top: 34px;
+}
+.geo-map {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.6);
+  border-radius: 0;
+}
+.geo-stats b {
+  font-family: var(--display);
+}
+
+/* =========================================================
+   06 · КЕЙСЫ · та же модульная сетка, что у акций
+   ========================================================= */
+.case-grid {
+  gap: 12px;
+  padding: 12px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--paper);
+}
+.case-card {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+  transition: transform 0.18s var(--ease), box-shadow 0.18s ease;
+}
+.case-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--hard);
+}
+.case-visual {
+  border-bottom: 1px solid var(--ink);
+}
+.case-visual b {
+  font-family: var(--display);
+  letter-spacing: -0.04em;
+}
+.clients .result-label {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ink);
+}
+.client-row {
+  gap: 12px;
+  padding: 12px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--paper);
+}
+.client-row li {
+  padding: 18px 10px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  background: var(--surface);
+  text-align: center;
+  font-family: var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   07 · ДЛЯ КОГО · модульная сетка с линейками
+   ========================================================= */
+.segment-grid {
+  border: var(--stroke) solid var(--ink);
+}
+.segment-grid li {
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.segment-grid li:nth-child(4n) {
+  border-right: 0;
+}
+.segment-grid li:nth-last-child(-n + 4) {
+  border-bottom: 0;
+}
+.segment-grid li:hover {
+  background: var(--sand);
+}
+.seg-num {
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+}
+.seg-formats {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* =========================================================
+   09–11 · ПЛАТФОРМА, ПРЕЗЕНТАЦИЯ, КОНТАКТЫ
+   ========================================================= */
+.platform-side {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border-radius: 0;
+}
+.platform-role {
+  font-family: var(--display);
+}
+.presentation .pres-card,
+.pres-file {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+}
+.contact-form {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border-radius: 0;
+}
+.contact-form input,
+.contact-form textarea {
+  border-radius: 0;
+}
+
+/* =========================================================
+   АДАПТИВ
+   ========================================================= */
+@media (max-width: 1100px) {
+  .segment-grid li:nth-child(4n) {
+    border-right: 1px solid var(--ink);
+  }
+  .segment-grid li:nth-last-child(-n + 4) {
+    border-bottom: 1px solid var(--ink);
+  }
+}
 @media (max-width: 780px) {
   .cx-page {
     grid-template-columns: repeat(2, 1fr);
@@ -635,9 +575,10 @@
   .cx-panel--wide {
     grid-column: span 2;
   }
-  .promos-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
+  .presence-link {
+    margin-left: 0;
+  }
+  .client-row li {
+    padding: 14px 8px;
   }
 }
