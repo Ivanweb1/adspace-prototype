@@ -11,11 +11,11 @@
     <title>ADSPACE Group — просто выбрать, легко заказать</title>
     <!-- ?v= у ассетов — чтобы браузер не показывал старую версию прототипа
          после правок. Меняется вместе с очередной выкладкой. -->
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=7" />
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
-    <link rel="stylesheet" href="mono.css?v=4" />
+    <link rel="stylesheet" href="mono.css?v=7" />
     <!-- Комиксный слой по согласованному варианту подачи акций. -->
-    <link rel="stylesheet" href="press.css?v=4" />
+    <link rel="stylesheet" href="press.css?v=7" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -276,12 +276,8 @@
           <div data-tentative="показатель не подтверждён">
             <strong>11+</strong><span>лет на рынке</span>
           </div>
-          <!-- Ячейка географии — единственная кликабельная в полосе:
-               заказчик просил, чтобы точки присутствия не потерялись. -->
-          <div class="metric-cell--geo" data-tentative="показатель не подтверждён">
-            <strong>70+</strong>
-            <span>городов присутствия</span>
-            <a class="cx-bang cx-bang--link" href="#geo">Смотреть карту ↓</a>
+          <div data-tentative="показатель не подтверждён">
+            <strong>70+</strong><span>городов присутствия</span>
           </div>
           <div data-tentative="показатель не подтверждён">
             <strong>12 400</strong><span>рекламных поверхностей</span>
@@ -290,6 +286,14 @@
             <strong>9</strong><span>рекламных каналов</span>
           </div>
 
+          <!-- Карта — не строчка внутри ячейки, а своя, единственная
+               кликабельная клетка полосы: заказчик просил, чтобы точки
+               присутствия было видно и мимо них не проходили. -->
+          <a class="metric-map" href="#geo">
+            <span class="metric-map-kicker">География</span>
+            <strong>Смотреть<br />карту</strong>
+            <span class="metric-map-go" aria-hidden="true">↓</span>
+          </a>
         </div>
         </div>
       </section>
@@ -1142,6 +1146,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=7"></script>
   </body>
 </html>
