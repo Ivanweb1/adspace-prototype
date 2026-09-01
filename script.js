@@ -264,6 +264,77 @@
       return `${Math.round(contacts / 1000)} тыс.`;
     };
 
+    // Смета в блоке «Точный расчёт» больше не живёт отдельной жизнью:
+    // после расчёта она показывает параметры пользователя, а не пример.
+    const COST_BASE = { place: 72, print: 12, mount: 10, design: 6 };
+
+    const syncCostCard = (params, mix) => {
+      const card = $("[data-cost-card]");
+      if (!card) return;
+
+      const shares = { ...COST_BASE };
+      if (mix.some(([key]) => key === "production")) {
+        shares.place -= 6;
+        shares.print += 4;
+        shares.design += 2;
+      }
+      if (params.geo === "russia") {
+        shares.place += 4;
+        shares.mount -= 2;
+        shares.design -= 2;
+      }
+
+      Object.entries(shares).forEach(([key, share]) => {
+        const value = $(`[data-cost-share="${key}"]`);
+        const bar = $(`[data-cost-bar="${key}"]`);
+        if (value) value.textContent = `${share}%`;
+        if (bar) bar.style.setProperty("--w", `${share}%`);
+      });
+
+      $("[data-cost-total]").textContent = money(params.budget);
+      $("[data-cost-period]").textContent = periodFor(params.budget);
+      $("[data-cost-source]").textContent = "Смета по вашему расчёту";
+
+      const note = $("[data-cost-note]");
+      if (note) note.hidden = true;
+      card.dataset.linked = "true";
+    };
+
+    // Одна подсказка вместо набора всплывашек: закрываем то, чего человеку
+    // не хватает для решения именно по этим параметрам.
+    const HINTS = {
+      cases: {
+        text: "Посмотрите кейс в вашей нише: какая задача была и что получилось по цифрам.",
+        href: "#cases",
+        tentative: "кейсы демонстрационные",
+      },
+      geo: {
+        text: "Проверьте, есть ли поверхности рядом: карта присутствия и количество точек в городе.",
+        href: "#geo",
+        tentative: "карта и показатели не подтверждены",
+      },
+      process: {
+        text: "Посмотрите, как проходит запуск: кто подтверждает поверхности и сколько это занимает.",
+        href: "#process",
+        tentative: "",
+      },
+    };
+
+    const syncHint = (params) => {
+      const hint = $("[data-result-hint]");
+      if (!hint) return;
+
+      let key = "process";
+      if (["developer", "network", "auto"].includes(params.business)) key = "cases";
+      else if (["district", "city"].includes(params.geo)) key = "geo";
+
+      const data = HINTS[key];
+      $("[data-result-hint-text]", hint).textContent = data.text;
+      $("[data-result-hint-link]", hint).setAttribute("href", data.href);
+      if (data.tentative) hint.setAttribute("data-tentative", data.tentative);
+      else hint.removeAttribute("data-tentative");
+    };
+
     const renderResult = () => {
       const data = new FormData(builderForm);
       const params = {
@@ -295,6 +366,9 @@
       $("[data-result-period]").textContent = periodFor(params.budget);
       $("[data-result-geo]").textContent = GEO_LABEL[params.geo];
       $("[data-result-reach]").textContent = reachFor(params.budget, params.geo);
+
+      syncCostCard(params, mix);
+      syncHint(params);
     };
 
     const budgetInput = $('input[name="budget"]', builderForm);

@@ -370,10 +370,14 @@
 }
 
 /* ── конструктор ─────────────────────────────────────────── */
-.builder-form,
-.builder-result {
+.builder-form {
   border: var(--stroke) solid rgba(255, 255, 255, 0.55);
   border-radius: 0;
+}
+.builder-result {
+  border: var(--stroke-fat) solid var(--ink);
+  border-radius: 0;
+  box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.35);
 }
 .builder-form select,
 .builder-form input[type="text"],
@@ -520,6 +524,105 @@
 .pres-file {
   border: var(--stroke-fat) solid var(--ink);
   border-radius: 0;
+}
+
+/* ── строка присутствия под первым экраном ───────────────
+   Заказчик просил, чтобы географию точно не пропустили. Всплывающее
+   окно вверху конкурировало бы с главной кнопкой и перекрывало контент
+   на мобильном, поэтому — строка сразу под первым экраном. */
+.presence {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  padding: 16px 20px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+}
+.presence-tag {
+  padding: 5px 10px;
+  border: 1px solid var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.presence-text {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.presence-text b {
+  font-family: var(--display);
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.presence-link {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: var(--stroke) solid var(--ink);
+  padding-bottom: 3px;
+}
+
+/* ── смета, связанная с конструктором ────────────────────── */
+.cost-note {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.cost-note a {
+  font-weight: 700;
+  border-bottom: 1px solid currentColor;
+  color: var(--ink);
+}
+.cost-card[data-linked="true"] .cost-head span:first-child {
+  padding: 3px 8px;
+  background: var(--ink);
+  color: var(--white);
+}
+
+/* ── единственная подсказка после расчёта ────────────────── */
+/* панель результата светлая, поэтому подсказка набирается по тёмному */
+.result-hint {
+  margin-top: 26px;
+  padding: 20px 22px;
+  display: grid;
+  gap: 10px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--sand);
+}
+.result-hint p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 62ch;
+}
+.result-hint-link {
+  justify-self: start;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: var(--stroke) solid currentColor;
+  padding-bottom: 3px;
+}
+
+@media (max-width: 780px) {
+  .presence-link {
+    margin-left: 0;
+  }
 }
 
 /* ── адаптив ─────────────────────────────────────────────── */

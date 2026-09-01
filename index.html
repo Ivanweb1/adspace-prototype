@@ -284,6 +284,19 @@
             <strong>9</strong><span>рекламных каналов</span>
           </div>
         </div>
+
+        <!-- Строка присутствия: заказчик просил не пропустить географию.
+             Вместо всплывающего окна вверху — компактная строка сразу под
+             первым экраном, она не спорит с главной кнопкой и не перекрывает
+             контент на мобильном. -->
+        <aside class="presence reveal" aria-label="Присутствие рядом с вами">
+          <span class="presence-tag">География</span>
+          <p class="presence-text">
+            <b data-demo="город определяется автоматически по IP">Ростов-на-Дону</b>
+            <span data-tentative="показатель не подтверждён">3 900 поверхностей рядом</span>
+          </p>
+          <a class="presence-link" href="#geo">Смотреть карту присутствия <span aria-hidden="true">↓</span></a>
+        </aside>
       </section>
 
       <!-- ─────────────────── 02 · АКЦИИ ───────────────────
@@ -444,6 +457,17 @@
               </div>
             </div>
 
+            <!-- Одна подсказка вместо набора всплывашек по всему сайту:
+                 показывается после расчёта и ведёт ровно к тому, чего
+                 не хватает для решения по собранным параметрам. -->
+            <div class="result-hint" data-result-hint>
+              <span class="result-label">Что ещё пригодится для решения</span>
+              <p data-result-hint-text></p>
+              <a class="result-hint-link" data-result-hint-link href="#cases"
+                >Посмотреть <span aria-hidden="true">↗</span></a
+              >
+            </div>
+
             <!-- Контакты добавляются прямо к уже собранным параметрам —
                  без перехода на отдельную форму, которую пришлось бы заполнять заново -->
             <form class="result-contact" data-result-contact-form hidden novalidate>
@@ -467,7 +491,7 @@
           </div>
 
           <!-- Как работает система -->
-          <div class="process reveal" aria-label="Как работает система">
+          <div class="process reveal" id="process" aria-label="Как работает система">
             <div class="process-step"><b>01</b><span>Вы описываете задачу</span></div>
             <div class="process-step"><b>02</b><span>Система подбирает форматы</span></div>
             <div class="process-step"><b>03</b><span>Вы получаете медиаплан</span></div>
@@ -662,35 +686,46 @@
             >
           </div>
 
-          <div class="cost-card reveal" data-tentative="суммы демонстрационные">
-            <div class="cost-head"><span>Смета кампании</span><span>AD / 2608</span></div>
-            <div class="cost-total"><small>Итого за 30 дней</small><strong>540 000 ₽</strong></div>
+          <!-- Смета связана с конструктором: после расчёта здесь появляются
+               параметры пользователя, а не абстрактный пример. -->
+          <div class="cost-card reveal" data-cost-card data-tentative="суммы демонстрационные">
+            <div class="cost-head">
+              <span data-cost-source>Пример сметы</span><span>AD / 2608</span>
+            </div>
+            <div class="cost-total">
+              <small>Итого за <span data-cost-period>30 дней</span></small>
+              <strong data-cost-total>540 000 ₽</strong>
+            </div>
             <div class="cost-lines">
               <div class="cost-line">
-                <span>Размещение</span><b>72%</b>
-                <i style="--w: 72%"></i>
+                <span>Размещение</span><b data-cost-share="place">72%</b>
+                <i data-cost-bar="place" style="--w: 72%"></i>
               </div>
               <div class="cost-line">
-                <span>Производство и печать</span><b>12%</b>
-                <i style="--w: 12%"></i>
+                <span>Производство и печать</span><b data-cost-share="print">12%</b>
+                <i data-cost-bar="print" style="--w: 12%"></i>
               </div>
               <div class="cost-line">
-                <span>Монтаж и контроль</span><b>10%</b>
-                <i style="--w: 10%"></i>
+                <span>Монтаж и контроль</span><b data-cost-share="mount">10%</b>
+                <i data-cost-bar="mount" style="--w: 10%"></i>
               </div>
               <div class="cost-line">
-                <span>Дизайн макетов</span><b>6%</b>
-                <i style="--w: 6%"></i>
+                <span>Дизайн макетов</span><b data-cost-share="design">6%</b>
+                <i data-cost-bar="design" style="--w: 6%"></i>
               </div>
             </div>
             <div class="cost-foot">
               <span class="cost-badge">−12%</span>
               <span>скидка за объём и период уже в смете</span>
             </div>
+            <p class="cost-note" data-cost-note>
+              Это пример. Соберите кампанию в конструкторе — смета пересчитается по вашим
+              параметрам. <a href="#builder">В конструктор ↗</a>
+            </p>
           </div>
         </div>
 
-        <div class="section-shell geo-block reveal">
+        <div class="section-shell geo-block reveal" id="geo">
           <div class="geo-head">
             <span class="result-label">География присутствия</span>
           </div>
