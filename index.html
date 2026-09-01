@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="styles.css" />
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
     <link rel="stylesheet" href="mono.css" />
+    <!-- Газетно-рекламный слой по выбранному варианту подачи акций. -->
+    <link rel="stylesheet" href="press.css" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -138,6 +140,7 @@
           <div class="hero-copy reveal">
             <p class="eyebrow"><span class="status-dot"></span> Рекламная экосистема · 24/7</p>
             <h1>Просто&nbsp;выбрать<br /><strong>Легко&nbsp;заказать</strong></h1>
+            <p class="hero-tagline">рекламу в одном месте</p>
             <p class="hero-lead">
               Подбираем, рассчитываем и запускаем рекламные кампании по всей России — от одной
               поверхности до комплексного медиаплана. В одном окне.
@@ -283,132 +286,64 @@
         </div>
       </section>
 
-      <!-- ─────────────────── 02 · АКЦИИ ─────────────────── -->
-      <section class="promos" id="promos" aria-labelledby="promos-title">
-        <div class="section-shell">
-          <div class="section-heading reveal">
-            <div>
-              <p class="eyebrow">Актуально сейчас</p>
-              <h2 id="promos-title">Акции и спец&shy;предложения</h2>
-            </div>
-            <div class="heading-aside">
-              <div class="slider-controls">
-                <button type="button" data-promo-prev aria-label="Предыдущие акции">
-                  <span aria-hidden="true">←</span>
-                </button>
-                <span class="slider-counter"><b data-promo-current>01</b> / 05</span>
-                <button type="button" data-promo-next aria-label="Следующие акции">
-                  <span aria-hidden="true">→</span>
-                </button>
-              </div>
-            </div>
-          </div>
+      <!-- ─────────────────── 02 · АКЦИИ ───────────────────
+           Витрина в кадрах: заказчик выбрал этот вариант подачи
+           (см. variants.html). Все акции видны сразу, без карусели. -->
+      <section class="promos section-shell" id="promos" aria-labelledby="promos-title">
+        <div class="promos-top reveal">
+          <div class="cx-title"><h2 id="promos-title">Акции месяца</h2></div>
+          <p class="promos-note">
+            Цена уже с учётом объёма и периода.<br />
+            Менеджер подтверждает только наличие поверхностей.
+          </p>
         </div>
 
-        <div class="promo-track reveal" data-promo-track tabindex="0" aria-label="Список акций">
-          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
-            <div class="promo-art promo-art--hotel" aria-hidden="true">
-              <span class="promo-figure">5★</span>
-              <div class="art-hotel"></div>
-              <span class="art-caption">Premium / Moscow</span>
-            </div>
-            <div class="promo-copy">
-              <span class="promo-tag">Спецразмещение</span>
+        <div class="cx-page reveal">
+          <article class="cx-panel cx-panel--splash" data-tentative="акция демонстрационная">
+            <div class="photo-slot" data-photo-label="Кадр акции · иллюстрация"></div>
+            <div class="cx-splash-copy">
               <h3>Реклама в отелях 5 звёзд</h3>
               <p>Контакт с платёжеспособной аудиторией в точках спокойного внимания.</p>
-              <dl class="promo-meta">
-                <div><dt>Формат</dt><dd>Indoor · Digital</dd></div>
-                <div><dt>География</dt><dd>Москва</dd></div>
-                <div><dt>Период</dt><dd>сентябрь — ноябрь</dd></div>
-              </dl>
-              <a class="text-link" href="#contact"
-                >Получить предложение <span aria-hidden="true">↗</span></a
-              >
+              <div class="cx-bubble">
+                Берём сентябрь — ноябрь: загрузка отелей выше, а входной порог ещё летний.
+              </div>
+              <div class="cx-meta">
+                <span>Indoor · Digital</span><span>Москва</span><span>сен — ноя</span>
+              </div>
             </div>
+            <span class="cx-bang">Спец&shy;размещение</span>
           </article>
 
-          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
-            <div class="promo-art promo-art--stadium" aria-hidden="true">
-              <span class="promo-figure">90'</span>
-              <div class="art-stadium"></div>
-              <span class="art-caption">Season 26/27</span>
-            </div>
-            <div class="promo-copy">
-              <span class="promo-tag">Старт сезона</span>
-              <h3>Бренд на стадионе</h3>
-              <p>Размещение в спортивных событиях с высокой эмоциональной вовлечённостью.</p>
-              <dl class="promo-meta">
-                <div><dt>Формат</dt><dd>Indoor · Event</dd></div>
-                <div><dt>География</dt><dd>ЮФО</dd></div>
-                <div><dt>Период</dt><dd>сезон 2026/27</dd></div>
-              </dl>
-              <a class="text-link" href="#contact"
-                >Узнать условия <span aria-hidden="true">↗</span></a
-              >
-            </div>
+          <article class="cx-panel cx-panel--tone" data-tentative="акция демонстрационная">
+            <h3>Бренд на стадионе</h3>
+            <p>Размещение в событиях с высокой эмоциональной вовлечённостью.</p>
+            <span class="cx-bang cx-bang--inline">90&#39;</span>
+            <div class="cx-meta"><span>Indoor · Event</span><span>ЮФО</span></div>
           </article>
 
-          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
-            <div class="promo-art promo-art--dev" aria-hidden="true">
-              <span class="promo-figure">ЖК</span>
-              <div class="art-dev"><i></i><i></i><i></i></div>
-              <span class="art-caption">Developers pack</span>
-            </div>
-            <div class="promo-copy">
-              <span class="promo-tag">Для девелоперов</span>
-              <h3>Пакет на старт продаж</h3>
-              <p>Наружная реклама у объекта, лифты в радиусе и радио на весь город.</p>
-              <dl class="promo-meta">
-                <div><dt>Формат</dt><dd>Outdoor · Indoor · Radio</dd></div>
-                <div><dt>География</dt><dd>город целиком</dd></div>
-                <div><dt>Период</dt><dd>от 2 месяцев</dd></div>
-              </dl>
-              <a class="text-link" href="#builder"
-                >Подобрать размещение <span aria-hidden="true">↗</span></a
-              >
-            </div>
+          <article class="cx-panel" data-tentative="акция демонстрационная">
+            <h3>Пакет на старт продаж</h3>
+            <p>Наружная у объекта, лифты в радиусе и радио на весь город.</p>
+            <div class="cx-meta"><span>Для девелоперов</span><span>от 2 мес.</span></div>
           </article>
 
-          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
-            <div class="promo-art promo-art--season" aria-hidden="true">
-              <span class="promo-figure">−15%</span>
-              <div class="art-season"></div>
-              <span class="art-caption">Autumn rate</span>
-            </div>
-            <div class="promo-copy">
-              <span class="promo-tag">Сезонное</span>
-              <h3>Осенний тариф на щиты 3×6</h3>
-              <p>Скидка за длительный период при бронировании до конца месяца.</p>
-              <dl class="promo-meta">
-                <div><dt>Формат</dt><dd>Outdoor 3×6</dd></div>
-                <div><dt>География</dt><dd>10 городов</dd></div>
-                <div><dt>Период</dt><dd>до 30.09</dd></div>
-              </dl>
-              <a class="text-link" href="#contact"
-                >Получить предложение <span aria-hidden="true">↗</span></a
-              >
-            </div>
+          <article class="cx-panel cx-panel--wide" data-tentative="акция демонстрационная">
+            <h3>Осенний тариф на щиты 3×6</h3>
+            <p>Скидка за длительный период при бронировании до конца месяца.</p>
+            <span class="cx-bang cx-bang--inline">−15%</span>
+            <div class="cx-meta"><span>Outdoor 3×6</span><span>10 городов</span><span>до 30.09</span></div>
           </article>
 
-          <article class="promo-card" data-promo-card data-tentative="акция демонстрационная">
-            <div class="promo-art promo-art--federal" aria-hidden="true">
-              <span class="promo-figure">РФ</span>
-              <div class="art-federal"><i></i><i></i></div>
-              <span class="art-caption">Federal mix</span>
-            </div>
-            <div class="promo-copy">
-              <span class="promo-tag">Федеральный пакет</span>
-              <h3>Одна кампания — вся страна</h3>
-              <p>Единый медиаплан, один договор и управляемый запуск по регионам.</p>
-              <dl class="promo-meta">
-                <div><dt>Формат</dt><dd>Mix 360°</dd></div>
-                <div><dt>География</dt><dd>Россия</dd></div>
-                <div><dt>Период</dt><dd>по согласованию</dd></div>
-              </dl>
-              <a class="text-link" href="#builder"
-                >Подобрать размещение <span aria-hidden="true">↗</span></a
-              >
-            </div>
+          <article class="cx-panel cx-panel--wide" data-tentative="акция демонстрационная">
+            <h3>Одна кампания — вся страна</h3>
+            <p>Единый медиаплан, один договор и управляемый запуск по регионам.</p>
+            <div class="cx-meta"><span>Mix 360°</span><span>Россия</span><span>по согласованию</span></div>
+          </article>
+
+          <article class="cx-panel cx-panel--wide cx-panel--cta">
+            <h3>Собрать свою кампанию</h3>
+            <p>Если подходящей акции нет, соберите кампанию в конструкторе и получите смету.</p>
+            <a class="cx-cta" href="#builder">Перейти в конструктор →</a>
           </article>
         </div>
       </section>

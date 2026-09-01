@@ -1,0 +1,540 @@
+/* =========================================================
+   ADSPACE Group — газетно-рекламный слой
+
+   Заказчик выбрал первый вариант подачи блока «Акции» (кадровый
+   разворот) и попросил свести к нему остальные блоки: немного
+   комикса, но в целом газетно-рекламный ключ.
+
+   Что берём из выбранного варианта:
+   · жирный контур вместо тонкой линии;
+   · жёсткая тень без размытия — «печатная», а не «интерфейсная»;
+   · кадровое деление и рубрики с линейками, как в газете;
+   · наклонные плашки-«звуки» для акцентов;
+   · растровая точка вместо заливок.
+
+   Подключается ПОСЛЕ styles.css и mono.css, ничего не ломает:
+   отключается снятием одного <link>.
+   ========================================================= */
+
+:root {
+  --stroke: 2px;
+  --stroke-fat: 3px;
+  --hard: 6px 6px 0 var(--ink);
+  --hard-sm: 4px 4px 0 var(--ink);
+  --rule: 3px;
+}
+
+/* ── шапка ────────────────────────────────────────────────
+   была полупрозрачной с размытием: под ней проезжал крупный
+   логотип и красил её в розовый. Делаем непрозрачной. */
+.site-header {
+  background: var(--paper);
+  backdrop-filter: none;
+  border-bottom: var(--stroke) solid var(--ink);
+}
+
+/* ── рубрика: надзаголовок с линейкой, как в газете ─────── */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--ink);
+  font-weight: 800;
+}
+.eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.25;
+}
+.eyebrow--light {
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+.eyebrow--light::after {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ── заголовки секций: жирная полоса под шапкой блока ───── */
+.section-heading {
+  padding-bottom: 26px;
+  border-bottom: var(--rule) solid var(--ink);
+}
+.builder .section-heading,
+.platform .section-heading {
+  border-bottom-color: rgba(255, 255, 255, 0.55);
+}
+.section-heading h2,
+.builder-heading h2,
+.platform-heading h2,
+.accuracy-copy h2,
+.contact h2 {
+  text-transform: uppercase;
+}
+
+/* ── плашка-«звук»: универсальный акцент ─────────────────── */
+.press-bang {
+  display: inline-block;
+  padding: 8px 16px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--hard-sm);
+  font-family: var(--display);
+  font-size: clamp(16px, 1.6vw, 24px);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
+
+/* ── кнопки: печатные, с жёсткой тенью ───────────────────── */
+.button,
+.builder-submit,
+.pres-button {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  box-shadow: var(--hard-sm);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.22s ease;
+}
+.button:hover,
+.builder-submit:hover,
+.pres-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+/* на тёмных секциях контур и тень светлые */
+.builder .button,
+.builder-submit,
+.platform .button,
+.contact .button,
+.contact-form .button--primary {
+  border-color: var(--white);
+  box-shadow: 4px 4px 0 var(--white);
+}
+.builder .button:hover,
+.builder-submit:hover,
+.platform .button:hover,
+.contact .button:hover,
+.contact-form .button--primary:hover {
+  box-shadow: 2px 2px 0 var(--white);
+}
+
+/* ── первый экран ────────────────────────────────────────── */
+/* дескриптор под слоганом: «рекламу в одном месте» */
+.hero-tagline {
+  margin-top: 14px;
+  font-family: var(--display);
+  font-size: clamp(20px, 2.2vw, 34px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* медиаобласть в кадре: жирная рамка вместо мягкой карточки */
+.hero-stage {
+  border: var(--stroke-fat) solid var(--ink);
+  box-shadow: var(--hard);
+  border-radius: 0;
+}
+.stage-top {
+  border-bottom: var(--stroke) solid var(--ink);
+}
+.stage-bottom {
+  border-top: var(--stroke) solid var(--ink);
+}
+/* пропорция ближе к прямоугольной — просил заказчик */
+.stage-screen {
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 0;
+}
+.hero-proof li b {
+  font-family: var(--display);
+}
+
+/* ── полоса цифр: газетная таблица с линейками ───────────── */
+.metric-strip {
+  border-block: var(--rule) solid var(--ink);
+  border-inline: 0;
+  padding-block: 26px;
+}
+.metric-strip div {
+  border-right: 1px solid var(--ink);
+}
+.metric-strip div:last-child {
+  border-right: 0;
+}
+.metric-strip strong {
+  font-size: clamp(34px, 3.6vw, 52px);
+}
+
+/* =========================================================
+   АКЦИИ · витрина в кадрах (выбранный заказчиком вариант)
+   ========================================================= */
+.promos-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 26px;
+}
+.cx-title {
+  position: relative;
+  display: inline-block;
+  padding: 12px 22px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard);
+  transform: rotate(-1.6deg);
+}
+.cx-title h2 {
+  font-size: clamp(30px, 3.4vw, 52px);
+  text-transform: uppercase;
+}
+.promos-note {
+  max-width: 340px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+/* завершающий кадр: увести из витрины в конструктор */
+.cx-panel--cta {
+  background-color: var(--sand);
+}
+.cx-panel--cta .cx-cta {
+  margin-top: auto;
+  align-self: flex-start;
+}
+.cx-flip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--display);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.cx-flip button {
+  width: 50px;
+  height: 50px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  font-size: 18px;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.cx-flip button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.cx-flip b {
+  color: var(--ink);
+}
+
+.cx-page {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(178px, auto);
+  gap: 12px;
+  padding: 12px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--paper);
+}
+.cx-page[hidden] {
+  display: none;
+}
+.cx-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--surface);
+  overflow: hidden;
+}
+.cx-panel--splash {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 0;
+}
+.cx-panel--wide {
+  grid-column: span 2;
+}
+.cx-panel .photo-slot {
+  flex: 1;
+  min-height: 120px;
+}
+.cx-splash-copy {
+  padding: 20px 22px 22px;
+  border-top: var(--stroke) solid var(--ink);
+}
+.cx-panel h3 {
+  font-family: var(--display);
+  font-size: clamp(22px, 2.1vw, 32px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.cx-panel p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.cx-meta {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cx-meta span {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+}
+.cx-bang {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 12px;
+  padding: 8px 16px;
+  border: var(--stroke-fat) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--hard-sm);
+  font-family: var(--display);
+  font-size: clamp(18px, 2vw, 30px);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transform: rotate(-6deg);
+}
+/* в узких кадрах плашка встаёт в поток, чтобы не перекрывать текст */
+.cx-bang--inline {
+  position: static;
+  align-self: flex-start;
+  margin-top: 14px;
+  margin-bottom: 10px;
+  transform: rotate(-3deg);
+}
+.cx-bubble {
+  position: relative;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 14px;
+  background: var(--surface);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.cx-bubble::after {
+  content: "";
+  position: absolute;
+  left: 26px;
+  bottom: -10px;
+  width: 16px;
+  height: 10px;
+  background: var(--surface);
+  border-right: var(--stroke) solid var(--ink);
+  border-bottom: var(--stroke) solid var(--ink);
+  transform: skewX(-24deg);
+}
+.cx-panel--tone {
+  background-color: var(--surface);
+  background-image: radial-gradient(var(--tone-3, #d9d9d9) 34%, transparent 35%);
+  background-size: 9px 9px;
+}
+.cx-cta {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: var(--stroke) solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: var(--hard-sm);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.cx-cta:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+/* ── конструктор ─────────────────────────────────────────── */
+.builder-form,
+.builder-result {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border-radius: 0;
+}
+.builder-form select,
+.builder-form input[type="text"],
+.builder-form input[type="tel"] {
+  border-radius: 0;
+}
+
+/* ── рекламные решения: кадры вместо мягких карточек ─────── */
+.solution-preview {
+  border: var(--stroke-fat) solid var(--ink);
+  box-shadow: var(--hard);
+  border-radius: 0;
+}
+.preview-meta {
+  border-top: var(--stroke) solid var(--ink);
+}
+.preview-index {
+  font-family: var(--display);
+}
+.solution-list li {
+  border-bottom: 1px solid var(--ink);
+}
+.solution-list li:first-child {
+  border-top: 1px solid var(--ink);
+}
+.solution-list button.is-active {
+  background: var(--sand);
+}
+
+/* ── точный расчёт: смета как вырезка ────────────────────── */
+.cost-card {
+  border: var(--stroke-fat) solid var(--ink);
+  /* секция тёмная, поэтому «печатная» тень светлая, иначе её не видно */
+  box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.35);
+  border-radius: 0;
+}
+.cost-head {
+  border-bottom: var(--stroke) solid var(--ink);
+  font-family: var(--display);
+  letter-spacing: 0.08em;
+}
+.cost-total strong {
+  font-size: clamp(40px, 4.4vw, 64px);
+}
+.cost-badge {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+}
+
+/* ── география: карта в кадре, цифры колонкой газеты ─────── */
+.geo-block {
+  border-top: var(--rule) solid rgba(255, 255, 255, 0.55);
+  padding-top: 34px;
+}
+.geo-map {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.6);
+  border-radius: 0;
+}
+.geo-stats b {
+  font-family: var(--display);
+}
+
+/* ── кейсы: полоса с крупной цифрой ──────────────────────── */
+.case-card {
+  border: var(--stroke-fat) solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s ease;
+}
+.case-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--hard);
+}
+.case-visual {
+  border-bottom: var(--stroke) solid var(--ink);
+}
+.case-visual b {
+  font-family: var(--display);
+  letter-spacing: -0.04em;
+}
+.case-meta {
+  display: inline-block;
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
+  font-weight: 700;
+}
+.case-formats li {
+  border: 1px solid var(--ink);
+}
+
+/* ── клиенты: строка объявлений ──────────────────────────── */
+.client-row li {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  font-family: var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── сегменты: кадровая сетка ────────────────────────────── */
+.segment-grid li {
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s ease;
+}
+.segment-grid li:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--hard-sm);
+}
+.seg-num {
+  font-family: var(--display);
+  font-size: 15px;
+  letter-spacing: 0.08em;
+}
+.seg-formats {
+  display: inline-block;
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
+  font-weight: 700;
+}
+
+/* ── платформа и финальный экран на тёмном ───────────────── */
+.platform-side {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border-radius: 0;
+}
+.platform-role {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.7);
+  border-radius: 0;
+  font-family: var(--display);
+  text-transform: uppercase;
+}
+.contact-form {
+  border: var(--stroke) solid rgba(255, 255, 255, 0.55);
+  border-radius: 0;
+}
+.contact-form input,
+.contact-form textarea {
+  border-radius: 0;
+}
+
+/* ── презентация ─────────────────────────────────────────── */
+.presentation .pres-card,
+.pres-file {
+  border: var(--stroke-fat) solid var(--ink);
+  border-radius: 0;
+}
+
+/* ── адаптив ─────────────────────────────────────────────── */
+@media (max-width: 780px) {
+  .cx-page {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(160px, auto);
+  }
+  .cx-panel--splash,
+  .cx-panel--wide {
+    grid-column: span 2;
+  }
+  .promos-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+}
