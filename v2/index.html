@@ -13,7 +13,7 @@
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
     <link rel="stylesheet" href="mono.css?v=1" />
     <!-- Правки по обратной связи к классической версии. Всё новое — здесь. -->
-    <link rel="stylesheet" href="v2.css?v=2" />
+    <link rel="stylesheet" href="v2.css?v=3" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -541,10 +541,19 @@
               </button>
             </div>
 
+            <!-- Визуал медиаплана: по кадру на каждый канал из микса. В финале —
+                 фото размещения или макет клиента на поверхности. -->
+            <div class="result-visuals" data-result-visuals aria-hidden="true"></div>
+
             <div class="result-body" aria-live="polite">
               <div class="result-mix">
                 <span class="result-label">Медиамикс</span>
-                <ul data-result-mix></ul>
+                <div class="mix-wrap">
+                  <div class="mix-donut" data-result-donut>
+                    <span><b data-result-count>4</b> канала</span>
+                  </div>
+                  <ul data-result-mix></ul>
+                </div>
               </div>
 
               <div class="result-facts">
@@ -1191,6 +1200,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
   </body>
 </html>

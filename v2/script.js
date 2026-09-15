@@ -269,16 +269,38 @@
         .join(" + ");
       $("[data-result-desc]").textContent = DESCRIPTIONS[params.geo];
 
+      // один тон на канал: им же красятся полоса, сектор кольца и метка кадра
+      const TONES = ["var(--ink)", "var(--tone-1)", "var(--tone-2)", "var(--tone-3)"];
+
       $("[data-result-mix]").innerHTML = mix
         .map(
-          ([key, share]) => `
-            <li class="mix-item">
+          ([key, share], index) => `
+            <li class="mix-item" style="--c:${TONES[index]}">
               <b>${CHANNELS[key]}</b>
               <span class="mix-bar"><i style="--w:${share}%"></i></span>
               <span class="mix-share">${share}%</span>
             </li>`
         )
         .join("");
+
+      $("[data-result-visuals]").innerHTML = mix
+        .map(
+          ([key, share], index) => `
+            <figure class="result-shot" style="--c:${TONES[index]}">
+              <div class="photo-slot" data-photo-label="Фото · ${CHANNELS[key]}"></div>
+              <figcaption><b>${CHANNELS[key]}</b><span>${share}%</span></figcaption>
+            </figure>`
+        )
+        .join("");
+
+      let angle = 0;
+      const stops = mix.map(([, share], index) => {
+        const from = angle;
+        angle += share * 3.6;
+        return `${TONES[index]} ${from}deg ${angle}deg`;
+      });
+      $("[data-result-donut]").style.setProperty("--donut", `conic-gradient(${stops.join(", ")})`);
+      $("[data-result-count]").textContent = mix.length;
 
       $("[data-result-budget]").textContent = money(params.budget);
       $("[data-result-period]").textContent = periodFor(params.budget);

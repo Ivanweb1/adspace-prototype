@@ -396,3 +396,120 @@
     transition: none;
   }
 }
+
+/* =========================================================
+   03 · КОНСТРУКТОР · место под визуал в результате
+
+   В результате были только полосы и цифры — картинкам и графике
+   негде было встать. Добавлены: лента кадров по каналам микса
+   (в финале — фото размещения или макет на поверхности) и кольцо
+   медиамикса рядом с полосами. Один тон на канал везде.
+   ========================================================= */
+.result-visuals {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 14px;
+  padding: 26px 0 4px;
+}
+.result-shot {
+  margin: 0;
+}
+.result-shot .photo-slot {
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius);
+}
+.result-shot .photo-slot::after {
+  font-size: 10px;
+}
+.result-shot figcaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.result-shot figcaption::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 2px;
+  background: var(--c);
+}
+.result-shot figcaption b {
+  font-weight: 600;
+}
+.result-shot figcaption span {
+  margin-left: auto;
+  font-family: var(--display);
+  color: var(--muted);
+}
+
+/* кольцо медиамикса + полосы-легенда */
+.mix-wrap {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+  margin-top: 18px;
+}
+.mix-wrap [data-result-mix] {
+  margin-top: 0;
+}
+.mix-donut {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--donut, var(--sand));
+}
+.mix-donut::before {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: var(--surface);
+}
+.mix-donut span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.2;
+  color: var(--muted);
+}
+.mix-donut b {
+  display: block;
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.mix-item {
+  grid-template-columns: 120px 1fr 40px;
+}
+.mix-item .mix-bar i {
+  background: var(--c, var(--red));
+}
+
+@media (max-width: 720px) {
+  /* на телефоне кадры листаются вбок, а не сжимаются в полоски */
+  .result-visuals {
+    grid-auto-columns: 62%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .mix-wrap {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 22px;
+  }
+  .mix-donut {
+    width: 150px;
+  }
+  .mix-wrap [data-result-mix] {
+    width: 100%;
+  }
+}
