@@ -775,3 +775,101 @@
   height: 52px;
   font-size: 10px;
 }
+
+/* =========================================================
+   06 · КЕЙСЫ · в один экран
+
+   Заказчик: блок должен помещаться на один экран. Высоту витрины
+   считаем от высоты окна: экран − отступ под шапкой (96) − верхний
+   отступ секции (48) − заголовок (~150) − запас снизу (~40).
+   Фото кейса забирает то, что осталось, — остальное фиксировано.
+   Только десктоп: в одну колонку на экран всё равно не уложить.
+   ========================================================= */
+@media (min-width: 1181px) {
+  .cases {
+    padding-top: 48px;
+  }
+  .showcase--cases {
+    height: clamp(440px, calc(100vh - 340px), 620px);
+  }
+  .showcase--cases .show-view {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 10px;
+  }
+  /* номер кейса и так виден в ленте — полоса над кадром не нужна */
+  .showcase--cases .show-view-top {
+    display: none;
+  }
+  .showcase--cases .show-screen {
+    flex: 1;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .showcase--cases .show-panel {
+    position: relative;
+    min-height: 0;
+  }
+  .showcase--cases .show-visual {
+    flex: 1 1 0;
+    min-height: 140px;
+    aspect-ratio: auto;
+  }
+  /* отрасль и год — меткой на фото, а не отдельной строкой */
+  .showcase--cases .show-tag {
+    position: absolute;
+    z-index: 2;
+    top: 14px;
+    left: 14px;
+  }
+  .showcase--cases .show-copy {
+    flex: 0 0 auto;
+    padding: 18px 22px 20px;
+  }
+  .showcase--cases .show-copy h3 {
+    margin-top: 0;
+  }
+  /* «Задача» — в строку с текстом, без отдельной подписи сверху */
+  .showcase--cases .show-task b {
+    display: inline;
+    margin-right: 6px;
+  }
+  .showcase--cases .show-facts {
+    margin: 14px 0 16px;
+  }
+  .showcase--cases .button {
+    min-height: 46px;
+  }
+
+  .showcase--cases .show-side {
+    gap: 16px;
+    min-height: 0;
+  }
+  .showcase--cases .show-list button {
+    padding: 12px 10px;
+  }
+  .showcase--cases .client-row {
+    margin-top: 10px;
+    gap: 8px;
+  }
+  .showcase--cases .client-row li {
+    height: 44px;
+  }
+}
+/* низкие ноутбучные экраны (1366×768): поджимаем правую колонку,
+   чтобы лента, кнопка и клиенты уложились в меньшую высоту */
+@media (min-width: 1181px) and (max-height: 800px) {
+  .showcase--cases .show-list button {
+    padding: 9px 10px;
+  }
+  .showcase--cases .show-seg {
+    font-size: 9px;
+  }
+  .showcase--cases .client-row li {
+    height: 36px;
+  }
+  .showcase--cases .clients .result-label {
+    font-size: 9px;
+  }
+}
