@@ -485,6 +485,55 @@
     });
   }
 
+  /* ── «напоминашка» о карте присутствия ──────────────────
+     Одно окошко-щит, а не набор всплывашек по всему сайту: выезжает
+     после первого экрана и уходит, как только человек добрался
+     до карты сам или закрыл подсказку. */
+  const nudge = $("[data-nudge]");
+  const geoSection = $("#geo");
+  if (nudge && geoSection && "IntersectionObserver" in window) {
+    let nudgeDone = false;
+
+    const hideNudge = () => {
+      nudgeDone = true;
+      nudge.classList.remove("is-shown");
+      window.setTimeout(() => {
+        nudge.hidden = true;
+      }, 420);
+    };
+
+    $$("[data-nudge-close], [data-nudge-go]", nudge).forEach((element) =>
+      element.addEventListener("click", hideNudge)
+    );
+
+    // карта попала в кадр — подсказка больше не нужна
+    new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) hideNudge();
+      },
+      { threshold: 0.2 }
+    ).observe(geoSection);
+
+    const showNudge = () => {
+      if (nudgeDone || !nudge.hidden) return;
+      nudge.hidden = false;
+      // перерисовка кадра, иначе переход от hidden срабатывает мгновенно
+      window.requestAnimationFrame(() =>
+        window.requestAnimationFrame(() => nudge.classList.add("is-shown"))
+      );
+    };
+
+    // Триггер — блок акций: к нему человек доходит сразу за первым экраном.
+    // Наблюдатель, а не событие scroll: после перезагрузки браузер
+    // восстанавливает позицию, и события прокрутки может не быть вовсе.
+    new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) showNudge();
+      },
+      { threshold: 0.15 }
+    ).observe($("#promos"));
+  }
+
   /* ── появление блоков при скролле ───────────────────── */
   const revealTargets = $$(".reveal");
   if (reduceMotion.matches || !("IntersectionObserver" in window)) {

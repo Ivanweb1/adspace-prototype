@@ -13,7 +13,7 @@
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
     <link rel="stylesheet" href="mono.css?v=1" />
     <!-- Правки по обратной связи к классической версии. Всё новое — здесь. -->
-    <link rel="stylesheet" href="v2.css?v=1" />
+    <link rel="stylesheet" href="v2.css?v=2" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -807,7 +807,7 @@
           </div>
         </div>
 
-        <div class="section-shell geo-block reveal">
+        <div class="section-shell geo-block reveal" id="geo">
           <div class="geo-head">
             <span class="result-label">География присутствия</span>
           </div>
@@ -1135,6 +1135,26 @@
       </div>
     </footer>
 
+    <!-- «Напоминашка» о карте — рекламный щит на ножке. Заказчик просил,
+         чтобы география не потерялась, и предложил подать окошко как билборд.
+         Щит «вырастает» снизу экрана после первого экрана и уходит сам, когда
+         человек добрался до карты. Один раз за сеанс, закрывается вручную. -->
+    <aside class="nudge" data-nudge hidden aria-label="Подсказка о карте присутствия">
+      <div class="nudge-board">
+        <button class="nudge-close" type="button" data-nudge-close aria-label="Скрыть подсказку">
+          <span aria-hidden="true">×</span>
+        </button>
+        <span class="nudge-kicker">Не пропустите</span>
+        <strong data-tentative="показатель не подтверждён">70+ городов</strong>
+        <p>Проверьте, есть ли поверхности в вашем городе.</p>
+        <a class="button button--dark" href="#geo" data-nudge-go
+          >Открыть карту <span aria-hidden="true">↓</span></a
+        >
+      </div>
+      <span class="nudge-ledge" aria-hidden="true"></span>
+      <span class="nudge-leg" aria-hidden="true"></span>
+    </aside>
+
     <!-- Попап «Стать партнёром» — своя форма, без ухода со страницы -->
     <div class="partner-modal" data-partner-modal hidden role="dialog" aria-modal="true" aria-labelledby="partner-modal-title">
       <div class="partner-modal-panel">
@@ -1171,6 +1191,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=1"></script>
+    <script src="script.js?v=2"></script>
   </body>
 </html>

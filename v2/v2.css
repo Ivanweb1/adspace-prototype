@@ -273,3 +273,126 @@
     padding: 14px 6px;
   }
 }
+
+/* =========================================================
+   «НАПОМИНАШКА» О КАРТЕ · щит на ножке
+
+   Заказчик предложил подать окошко «70+ городов» как билборд.
+   Щит стоит на нижней кромке экрана, как на земле: рама, под ней
+   площадка обслуживания и опора. Появляется, «вырастая» снизу.
+   ========================================================= */
+.nudge {
+  --leg: 56px;
+  position: fixed;
+  z-index: 70;
+  right: 32px;
+  bottom: 0;
+  width: min(300px, calc(100vw - 32px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  transform: translateY(calc(100% + 12px));
+  transition: transform 0.42s var(--ease);
+}
+.nudge.is-shown {
+  transform: none;
+}
+.nudge-board {
+  position: relative;
+  width: 100%;
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  background: var(--surface);
+  /* рама щита — толще обычных рамок, иначе ножка «держит» просто карточку */
+  border: 5px solid var(--graphite);
+  border-radius: 3px;
+  box-shadow: 0 24px 48px rgba(20, 22, 30, 0.16);
+  pointer-events: auto;
+}
+/* площадка обслуживания под щитом — узнаваемая деталь билборда */
+.nudge-ledge {
+  position: relative;
+  width: 86%;
+  height: 6px;
+  margin-top: 10px;
+  border-radius: 1px;
+  background: var(--graphite);
+}
+/* крепления площадки к раме, чтобы она не висела в воздухе */
+.nudge-ledge::before,
+.nudge-ledge::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  width: 3px;
+  height: 10px;
+  background: var(--graphite);
+}
+.nudge-ledge::before {
+  left: 18%;
+}
+.nudge-ledge::after {
+  right: 18%;
+}
+/* опора: две половины разного тона — объём без теней и градиентов */
+.nudge-leg {
+  width: 14px;
+  height: var(--leg);
+  background: linear-gradient(90deg, var(--graphite) 50%, var(--graphite-2) 50%);
+}
+.nudge-kicker {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.nudge strong {
+  font-family: var(--display);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.nudge p {
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.nudge .button {
+  width: 100%;
+  min-height: 48px;
+  justify-content: space-between;
+}
+.nudge-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--muted);
+}
+.nudge-close:hover {
+  color: var(--ink);
+}
+@media (max-width: 720px) {
+  /* на телефоне щит во всю ширину, опора короче — экран низкий */
+  .nudge {
+    --leg: 22px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nudge {
+    transition: none;
+  }
+}
