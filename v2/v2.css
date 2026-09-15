@@ -1,0 +1,275 @@
+/* =========================================================
+   ADSPACE Group — v2: правки по обратной связи
+
+   Основа — классическая версия (strict/). Здесь только то, что
+   поменялось после показа заказчику; подключается последним,
+   после styles.css и mono.css.
+   ========================================================= */
+
+/* =========================================================
+   01 · ПЕРВЫЙ ЭКРАН · окно «Что здесь можно сделать» крупнее
+
+   В комиксной версии окно выросло по диагонали (шире и выше
+   одновременно) и съело воздух. Здесь растёт только ширина:
+   колонка текста уже, высота окна та же, что у текста.
+   ========================================================= */
+@media (min-width: 1181px) {
+  /* колонка текста не меньше, чем нужно двум кнопкам в один ряд */
+  .hero-grid {
+    grid-template-columns: minmax(548px, 0.88fr) minmax(0, 1.12fr);
+    gap: 40px;
+  }
+  /* слоган чуть меньше, чтобы уместиться в более узкой колонке
+     и не переноситься: «Просто выбрать» остаётся одной строкой */
+  h1 {
+    font-size: clamp(52px, 5.5vw, 92px);
+  }
+  .hero .button {
+    padding: 0 22px;
+    gap: 20px;
+  }
+  .hero-proof {
+    gap: 10px 18px;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+  }
+  /* содержимое сцен в широком окне смотрелось мелко — масштабируем
+     сами макеты, а плашки-подписи оставляем в прежнем размере */
+  .scene > :not(.chip):not(.scene-grid) {
+    zoom: 1.2;
+  }
+}
+
+/* =========================================================
+   02 · АКЦИИ · витрина с лентой выбора
+
+   Схема из комиксной версии (кейсы), подача — классическая:
+   тонкие рамки, скругление 4px, без теней и наклонов.
+   ========================================================= */
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(24px, 3vw, 52px);
+  align-items: stretch;
+}
+
+/* ── кадр выбранного пункта ──────────────────────────────── */
+.show-view {
+  padding: 12px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+.show-view-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 6px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* все кадры в одной ячейке сетки: высота держится по самому
+   высокому, и витрина не прыгает при переключении */
+.show-screen {
+  display: grid;
+}
+.show-panel {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s var(--ease), visibility 0.35s;
+}
+.show-panel.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.show-visual {
+  aspect-ratio: 16 / 8;
+  border-bottom: 1px solid var(--ink);
+}
+/* главная цифра акции — поверх фото, как у кейсов */
+.show-figure {
+  position: absolute;
+  z-index: 2;
+  left: 22px;
+  bottom: 14px;
+  font-family: var(--display);
+  font-size: clamp(56px, 6vw, 96px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: var(--ink);
+}
+.show-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px 26px 26px;
+}
+.show-tag {
+  padding: 6px 10px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.show-copy h3 {
+  margin: 16px 0 8px;
+  font-size: clamp(26px, 2.3vw, 36px);
+}
+.show-copy > p {
+  max-width: 460px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.show-facts {
+  width: 100%;
+  margin: 20px 0 22px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+}
+.show-facts > div {
+  padding: 12px 12px 0 0;
+}
+.show-facts dt {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.show-facts dd {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── правая колонка: лента выбора ────────────────────────── */
+.show-side {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.show-list {
+  border-top: 1px solid var(--ink);
+}
+.show-list button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  transition: background 0.2s ease, padding 0.25s var(--ease);
+}
+.show-list button:hover,
+.show-list button.is-active {
+  background: var(--surface);
+}
+.show-list button.is-active {
+  padding-left: 16px;
+  border-bottom-color: var(--ink);
+}
+.show-num {
+  font-family: var(--display);
+  font-size: 13px;
+  color: var(--muted);
+}
+.show-line {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.show-line strong {
+  font-family: var(--display);
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.show-seg {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.show-badge {
+  min-width: 56px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--display);
+  font-size: 15px;
+  text-align: center;
+  color: var(--muted);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.show-list button.is-active .show-num {
+  color: var(--ink);
+}
+.show-list button.is-active .show-badge {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+/* лента короче кадра: пояснение и переход в конструктор прижаты
+   к низу, чтобы колонки заканчивались на одной линии */
+.show-foot {
+  margin-top: auto;
+  display: grid;
+  gap: 18px;
+}
+.show-foot .button {
+  justify-content: space-between;
+}
+.show-note {
+  max-width: 420px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+@media (max-width: 1180px) {
+  .showcase {
+    grid-template-columns: 1fr;
+  }
+  /* на планшете лента идёт над кадром — сначала выбор */
+  .show-side {
+    order: -1;
+  }
+}
+@media (max-width: 720px) {
+  .show-view {
+    padding: 8px;
+  }
+  .show-copy {
+    padding: 20px 18px 22px;
+  }
+  .show-facts {
+    grid-template-columns: 1fr;
+  }
+  .show-copy .button {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .show-list button {
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 14px 6px;
+  }
+}
