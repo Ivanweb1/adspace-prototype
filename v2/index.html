@@ -13,7 +13,7 @@
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
     <link rel="stylesheet" href="mono.css?v=1" />
     <!-- Правки по обратной связи к классической версии. Всё новое — здесь. -->
-    <link rel="stylesheet" href="v2.css?v=3" />
+    <link rel="stylesheet" href="v2.css?v=4" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -472,7 +472,8 @@
             <p class="eyebrow eyebrow--light">Конструктор кампании</p>
             <h2 id="builder-title">Соберите кампанию под вашу задачу</h2>
             <p class="builder-sub">
-              Четыре параметра — и система сама предложит медиамикс, бюджет и период. Без звонка.
+              Четыре параметра и контакт — и система сразу покажет медиамикс, бюджет и период.
+              Без ожидания звонка.
             </p>
           </div>
 
@@ -528,6 +529,52 @@
             </button>
           </form>
 
+          <!-- Шаг контакта. Заказчик: результат выдаётся только после ввода
+               контактов, но показывается сразу — менеджера ждать не нужно.
+               Контакт — для проверки заявки и, по желанию, для подробного
+               разбора с менеджером. -->
+          <form class="builder-gate" data-builder-gate hidden novalidate>
+            <div class="gate-head">
+              <div>
+                <span class="result-kicker">Последний шаг</span>
+                <h3>Оставьте контакт — медиаплан откроется сразу</h3>
+                <p>
+                  Ждать менеджера не нужно: расчёт появится на экране сразу после отправки. Контакт
+                  нужен, чтобы подтвердить заявку и при желании разобрать план с менеджером подробнее.
+                </p>
+              </div>
+              <button type="button" class="gate-close" data-gate-close aria-label="Вернуться к параметрам">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+
+            <ul class="gate-summary" data-gate-summary aria-label="Параметры кампании"></ul>
+
+            <div class="gate-fields">
+              <label class="field">
+                <span class="field-label">Ваше имя</span>
+                <input type="text" name="name" placeholder="Как к вам обращаться?" autocomplete="name" required />
+              </label>
+              <label class="field">
+                <span class="field-label">Телефон или Telegram</span>
+                <input
+                  type="text"
+                  name="contact"
+                  placeholder="+7 999 000-00-00 или @username"
+                  autocomplete="tel"
+                  required
+                />
+              </label>
+              <button class="button button--primary" type="submit">
+                Показать медиаплан <span aria-hidden="true">↗</span>
+              </button>
+            </div>
+            <p class="gate-consent" data-tentative="текст согласия и ссылка на политику — от заказчика">
+              Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
+            </p>
+            <p class="gate-status" data-gate-status role="status"></p>
+          </form>
+
           <!-- Предварительный результат: раскрывается внутри страницы -->
           <div class="builder-result" data-builder-result hidden>
             <div class="result-head">
@@ -570,33 +617,26 @@
               </div>
             </div>
 
-            <!-- Контакты добавляются прямо к уже собранным параметрам —
-                 без перехода на отдельную форму, которую пришлось бы заполнять заново -->
-            <form class="result-contact" data-result-contact-form hidden novalidate>
-              <p class="result-contact-lead">
-                Оставьте контакт — менеджер подтвердит доступность поверхностей и пришлёт точный
-                расчёт по параметрам выше, без повторных вопросов.
+            <!-- Контакт уже получен на шаге выше: здесь — только что дальше.
+                 Подробный разбор — по желанию, результат от него не зависит. -->
+            <div class="result-foot">
+              <p class="result-note">
+                <span aria-hidden="true">✓</span>Медиаплан закреплён за контактом
+                <b data-result-lead>—</b>. Цены уже с учётом объёма и периода — менеджер только
+                подтвердит наличие поверхностей.
               </p>
-              <label class="field">
-                <span class="field-label">Ваше имя</span>
-                <input type="text" name="name" placeholder="Как к вам обращаться?" required />
-              </label>
-              <label class="field">
-                <span class="field-label">Телефон или Telegram</span>
-                <input type="text" name="contact" placeholder="+7 999 000-00-00" required />
-              </label>
-              <button class="button button--primary" type="submit">
-                Отправить менеджеру <span aria-hidden="true">↗</span>
+              <button class="button button--primary" type="button" data-result-review>
+                Нужен подробный разбор <span aria-hidden="true">↗</span>
               </button>
-              <p class="result-contact-status" data-result-contact-status role="status"></p>
-            </form>
+            </div>
+            <p class="result-review-status" data-result-review-status role="status"></p>
           </div>
 
           <!-- Как работает система -->
           <div class="process reveal" aria-label="Как работает система">
             <div class="process-step"><b>01</b><span>Вы описываете задачу</span></div>
-            <div class="process-step"><b>02</b><span>Система подбирает форматы</span></div>
-            <div class="process-step"><b>03</b><span>Вы получаете медиаплан</span></div>
+            <div class="process-step"><b>02</b><span>Оставляете контакт</span></div>
+            <div class="process-step"><b>03</b><span>Сразу получаете медиаплан</span></div>
             <div class="process-step process-step--muted">
               <b>04</b><span>Менеджер подтверждает размещение</span>
             </div>
@@ -1200,6 +1240,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=4"></script>
   </body>
 </html>

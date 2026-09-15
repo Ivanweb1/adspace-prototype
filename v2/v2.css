@@ -513,3 +513,139 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   03 · КОНСТРУКТОР · контакт перед результатом
+
+   Заказчик: без контакта результат не выдаётся, но после ввода
+   он показывается сразу — не нужно ждать, пока менеджер пришлёт.
+   Шаг контакта — такая же белая панель, как результат, и встаёт
+   на его место; параметры кампании видны строкой, чтобы было ясно,
+   что именно сейчас посчитается.
+   ========================================================= */
+.builder-gate {
+  margin-top: 20px;
+  padding: 34px;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  animation: openResult 0.45s var(--ease);
+}
+.gate-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.gate-head h3 {
+  font-size: clamp(26px, 2.6vw, 40px);
+}
+.gate-head p {
+  margin-top: 12px;
+  max-width: 620px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.gate-close {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.gate-close:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+.gate-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 26px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--line);
+}
+.gate-summary li {
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.gate-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 14px 16px;
+  align-items: end;
+}
+.builder-gate .field-label {
+  color: var(--muted);
+}
+.builder-gate input {
+  width: 100%;
+  height: 58px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+.builder-gate input::placeholder {
+  color: var(--muted);
+}
+.builder-gate input:hover,
+.builder-gate input:focus {
+  border-color: var(--ink);
+  outline: none;
+}
+.builder-gate input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.builder-gate input.is-invalid {
+  border-color: var(--ink);
+  background: var(--sand);
+}
+.gate-consent {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.gate-status,
+.result-review-status {
+  min-height: 18px;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.result-note b {
+  font-weight: 700;
+  color: var(--ink);
+}
+[data-result-review]:disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+@media (max-width: 1180px) {
+  .gate-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gate-fields .button {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 720px) {
+  .builder-gate {
+    padding: 22px 18px;
+  }
+  .gate-fields {
+    grid-template-columns: 1fr;
+  }
+}

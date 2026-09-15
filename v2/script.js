@@ -314,62 +314,101 @@
       budgetOutput.textContent = money(Number(budgetInput.value));
     });
 
+    // Результат — только после контакта, но сразу, без ожидания менеджера.
+    // Контакт спрашиваем один раз: дальше параметры можно менять свободно.
+    const gate = $("[data-builder-gate]");
+    const gateStatus = $("[data-gate-status]", gate);
+    const gateSummary = $("[data-gate-summary]", gate);
+    let lead = null;
+
+    const scrollTo = (element, block = "nearest") =>
+      element.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block });
+
+    const renderSummary = () => {
+      const pick = (name) => $(`[name="${name}"]`, builderForm);
+      const selected = (name) => pick(name).selectedOptions[0].textContent;
+      gateSummary.innerHTML = [
+        selected("business"),
+        selected("goal"),
+        selected("geo"),
+        money(Number(pick("budget").value)),
+      ]
+        .map((item) => `<li>${item}</li>`)
+        .join("");
+    };
+
+    const openResult = () => {
+      renderResult();
+      $("[data-result-lead]").textContent = lead.contact;
+      builderResult.hidden = false;
+      scrollTo(builderResult);
+    };
+
     builderForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      renderResult();
-      builderResult.hidden = false;
-      builderResult.scrollIntoView({
-        behavior: reduceMotion.matches ? "auto" : "smooth",
-        block: "nearest",
-      });
+      if (lead) {
+        openResult();
+        return;
+      }
+      renderSummary();
+      builderResult.hidden = true;
+      gate.hidden = false;
+      scrollTo(gate);
+      $('input[name="name"]', gate).focus({ preventScroll: true });
     });
 
-    // Пока результат открыт — он пересчитывается на лету
+    gate.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = $('input[name="name"]', gate);
+      const contact = $('input[name="contact"]', gate);
+      // телефон — хотя бы 10 цифр, Telegram — @ и ник
+      const value = contact.value.trim();
+      const contactOk = value.replace(/\D/g, "").length >= 10 || /^@\w{4,}$/.test(value);
+      name.classList.toggle("is-invalid", !name.value.trim());
+      contact.classList.toggle("is-invalid", !contactOk);
+
+      if (!name.value.trim()) {
+        gateStatus.textContent = "Как к вам обращаться?";
+        name.focus();
+        return;
+      }
+      if (!contactOk) {
+        gateStatus.textContent = "Укажите телефон (10+ цифр) или ник в Telegram через @.";
+        contact.focus();
+        return;
+      }
+
+      lead = { name: name.value.trim(), contact: value };
+      gateStatus.textContent = "";
+      gate.hidden = true;
+      openResult();
+    });
+
+    $("[data-gate-close]")?.addEventListener("click", () => {
+      gate.hidden = true;
+      scrollTo(builderForm, "center");
+    });
+
+    // Пока результат или шаг контакта открыт — они пересчитываются на лету
     $$("[data-builder-input]", builderForm).forEach((input) =>
       input.addEventListener("change", () => {
         if (!builderResult.hidden) renderResult();
+        if (!gate.hidden) renderSummary();
       })
     );
 
     $("[data-result-close]")?.addEventListener("click", () => {
       builderResult.hidden = true;
-      builderForm.scrollIntoView({
-        behavior: reduceMotion.matches ? "auto" : "smooth",
-        block: "center",
-      });
+      scrollTo(builderForm, "center");
     });
 
-    // Контакты — прямо в панели результата, без перехода на другую форму:
-    // менеджер получает уже собранные параметры вместе с контактом
-    const resultCta = $("[data-result-cta]");
-    const resultContactForm = $("[data-result-contact-form]");
-    resultCta?.addEventListener("click", () => {
-      resultContactForm.hidden = !resultContactForm.hidden;
-      if (!resultContactForm.hidden) {
-        resultContactForm.scrollIntoView({
-          behavior: reduceMotion.matches ? "auto" : "smooth",
-          block: "nearest",
-        });
-        $('input[name="name"]', resultContactForm)?.focus();
-      }
-    });
-
-    resultContactForm?.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const status = $("[data-result-contact-status]", resultContactForm);
-      const required = $$("input[required]", resultContactForm);
-      const empty = required.filter((input) => !input.value.trim());
-      required.forEach((input) => input.classList.toggle("is-invalid", !input.value.trim()));
-
-      if (empty.length) {
-        status.textContent = "Заполните имя и контакт — так менеджер сможет ответить.";
-        empty[0].focus();
-        return;
-      }
-
+    // Подробный разбор — по желанию: параметры и контакт уже есть,
+    // переспрашивать ничего не нужно
+    const reviewButton = $("[data-result-review]");
+    reviewButton?.addEventListener("click", () => {
       const title = $("[data-result-title]").textContent;
-      status.textContent = `Заявка на «${title}» отправлена вместе с параметрами выше — менеджеру не придётся переспрашивать то, что вы уже указали. Это прототип: данные никуда не уходят, но сценарий рабочий.`;
-      resultContactForm.reset();
+      $("[data-result-review-status]").textContent = `Передали «${title}» менеджеру вместе с параметрами — он свяжется по контакту ${lead.contact}. Это прототип: данные никуда не уходят, но сценарий рабочий.`;
+      reviewButton.disabled = true;
     });
   }
 
