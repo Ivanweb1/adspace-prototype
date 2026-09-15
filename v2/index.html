@@ -13,7 +13,7 @@
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
     <link rel="stylesheet" href="mono.css?v=1" />
     <!-- Правки по обратной связи к классической версии. Всё новое — здесь. -->
-    <link rel="stylesheet" href="v2.css?v=4" />
+    <link rel="stylesheet" href="v2.css?v=5" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -877,78 +877,159 @@
         </div>
       </section>
 
-      <!-- ─────────────────── 06 · КЕЙСЫ И КЛИЕНТЫ ─────────────────── -->
+      <!-- ─────────────────── 06 · КЕЙСЫ И КЛИЕНТЫ ───────────────────
+           Структура из комиксной версии, которая заказчику понравилась больше:
+           витрина (кадр выбранного кейса + лента выбора), под лентой переход
+           ко всем кейсам и клиенты. Тот же компонент, что у акций. -->
       <section class="cases section-shell" id="cases" aria-labelledby="cases-title">
         <div class="section-heading reveal">
           <div>
             <p class="eyebrow">Кейсы и клиенты</p>
             <h2 id="cases-title">Кампании,<br />которые замечают</h2>
           </div>
+          <div class="heading-aside">
+            <p>
+              Выберите кейс в списке — покажем задачу, форматы, срок и результат. Похожую кампанию
+              можно сразу собрать в конструкторе.
+            </p>
+          </div>
         </div>
 
-        <div class="case-grid reveal">
-          <article class="case-card case-card--wide" data-tentative="кейс демонстрационный">
-            <div class="case-visual case-visual--dev">
-              <b>14,8 млн</b><small>контактов за 2 месяца</small>
+        <div class="showcase showcase--cases reveal" data-showcase>
+          <div class="show-view">
+            <div class="show-view-top">
+              <span>Кейс</span>
+              <span data-show-index>01 / 04</span>
             </div>
-            <div class="case-info">
-              <span class="case-meta">Девелопмент · 2026</span>
-              <h3>Старт продаж жилого квартала</h3>
-              <p class="case-task">
-                Задача: обеспечить узнаваемость нового ЖК на старте и привести трафик в офис продаж.
-              </p>
-              <ul class="case-formats">
-                <li>Outdoor</li>
-                <li>DOOH</li>
-                <li>Radio</li>
+
+            <div class="show-screen">
+              <article class="show-panel is-shown" data-show-panel="1" data-tentative="кейс демонстрационный">
+                <div class="show-visual photo-slot" data-photo-label="Фото кейса">
+                  <span class="show-figure">14,8 млн<small>контактов за 2 месяца</small></span>
+                </div>
+                <div class="show-copy">
+                  <span class="show-tag">Девелопмент · 2026</span>
+                  <h3>Старт продаж жилого квартала</h3>
+                  <p class="show-task"><b>Задача</b>Нужно было заявить новый ЖК на старте и привести живой трафик в офис продаж.</p>
+                  <dl class="show-facts">
+                    <div><dt>Форматы</dt><dd>Outdoor · DOOH · Radio</dd></div>
+                    <div><dt>Период</dt><dd>2 месяца</dd></div>
+                    <div><dt>География</dt><dd>город целиком</dd></div>
+                  </dl>
+                  <a class="button button--dark" href="#builder"
+                    >Собрать похожую кампанию <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+              </article>
+              <article class="show-panel" data-show-panel="2" data-tentative="кейс демонстрационный">
+                <div class="show-visual photo-slot" data-photo-label="Фото кейса">
+                  <span class="show-figure">+38%<small>трафик в точках</small></span>
+                </div>
+                <div class="show-copy">
+                  <span class="show-tag">Сетевой ритейл · 2026</span>
+                  <h3>Локальный запуск в трёх районах</h3>
+                  <p class="show-task"><b>Задача</b>Магазины у дома открылись почти одновременно — нужно было привести людей в каждый, не размазывая бюджет по городу.</p>
+                  <dl class="show-facts">
+                    <div><dt>Форматы</dt><dd>Indoor · Лифты</dd></div>
+                    <div><dt>Период</dt><dd>6 недель</dd></div>
+                    <div><dt>География</dt><dd>три района</dd></div>
+                  </dl>
+                  <a class="button button--dark" href="#builder"
+                    >Собрать похожую кампанию <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+              </article>
+              <article class="show-panel" data-show-panel="3" data-tentative="кейс демонстрационный">
+                <div class="show-visual photo-slot" data-photo-label="Фото кейса">
+                  <span class="show-figure">×2,1<small>заявок на тест-драйв</small></span>
+                </div>
+                <div class="show-copy">
+                  <span class="show-tag">Автодилер · 2025</span>
+                  <h3>Вывод новой модели в регионе</h3>
+                  <p class="show-task"><b>Задача</b>Модель выходила в регионе первой — за месяц надо было собрать заявки на тест-драйв, а не просто «показать бренд».</p>
+                  <dl class="show-facts">
+                    <div><dt>Форматы</dt><dd>Transit · Radio · DOOH</dd></div>
+                    <div><dt>Период</dt><dd>1 месяц</dd></div>
+                    <div><dt>География</dt><dd>область</dd></div>
+                  </dl>
+                  <a class="button button--dark" href="#builder"
+                    >Собрать похожую кампанию <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+              </article>
+              <article class="show-panel" data-show-panel="4" data-tentative="кейс демонстрационный">
+                <div class="show-visual photo-slot" data-photo-label="Фото кейса">
+                  <span class="show-figure">+52%<small>посещаемость в выходные</small></span>
+                </div>
+                <div class="show-copy">
+                  <span class="show-tag">Торговый центр · 2025</span>
+                  <h3>Перезапуск после реконструкции</h3>
+                  <p class="show-task"><b>Задача</b>Центр закрывался на полгода, и город успел про него забыть — возвращали привычку заходить.</p>
+                  <dl class="show-facts">
+                    <div><dt>Форматы</dt><dd>DOOH · Radio · Indoor</dd></div>
+                    <div><dt>Период</dt><dd>2 месяца</dd></div>
+                    <div><dt>География</dt><dd>город целиком</dd></div>
+                  </dl>
+                  <a class="button button--dark" href="#builder"
+                    >Собрать похожую кампанию <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="show-side">
+            <div class="show-list" data-show-list role="tablist" aria-label="Список кейсов">
+              <button type="button" class="is-active" role="tab" data-show-tab="1" aria-selected="true">
+                <span class="show-num">01</span>
+                <span class="show-line">
+                  <strong>Старт продаж жилого квартала</strong>
+                  <span class="show-seg">Девелопмент · 2026</span>
+                </span>
+                <span class="show-badge">14,8 млн</span>
+              </button>
+              <button type="button" role="tab" data-show-tab="2" aria-selected="false">
+                <span class="show-num">02</span>
+                <span class="show-line">
+                  <strong>Локальный запуск в трёх районах</strong>
+                  <span class="show-seg">Сетевой ритейл · 2026</span>
+                </span>
+                <span class="show-badge">+38%</span>
+              </button>
+              <button type="button" role="tab" data-show-tab="3" aria-selected="false">
+                <span class="show-num">03</span>
+                <span class="show-line">
+                  <strong>Вывод новой модели в регионе</strong>
+                  <span class="show-seg">Автодилер · 2025</span>
+                </span>
+                <span class="show-badge">×2,1</span>
+              </button>
+              <button type="button" role="tab" data-show-tab="4" aria-selected="false">
+                <span class="show-num">04</span>
+                <span class="show-line">
+                  <strong>Перезапуск после реконструкции</strong>
+                  <span class="show-seg">Торговый центр · 2025</span>
+                </span>
+                <span class="show-badge">+52%</span>
+              </button>
+            </div>
+
+            <a class="button button--dark show-more" href="#contact"
+              >Смотреть все кейсы <span aria-hidden="true">↗</span></a
+            >
+
+            <div class="show-foot clients" data-tentative="список клиентов не подтверждён">
+              <span class="result-label">С нами работают</span>
+              <ul class="client-row" aria-label="Логотипы клиентов">
+                <li>Клиент 01</li>
+                <li>Клиент 02</li>
+                <li>Клиент 03</li>
+                <li>Клиент 04</li>
+                <li>Клиент 05</li>
+                <li>Клиент 06</li>
               </ul>
             </div>
-          </article>
-
-          <article class="case-card" data-tentative="кейс демонстрационный">
-            <div class="case-visual case-visual--retail"><b>+38%</b><small>трафик в точках</small></div>
-            <div class="case-info">
-              <span class="case-meta">Сетевой ритейл · 2026</span>
-              <h3>Локальный запуск в трёх районах</h3>
-              <p class="case-task">Задача: поднять посещаемость новых магазинов у дома.</p>
-              <ul class="case-formats">
-                <li>Indoor</li>
-                <li>Лифты</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="case-card" data-tentative="кейс демонстрационный">
-            <div class="case-visual case-visual--auto"><b>×2,1</b><small>заявок на тест-драйв</small></div>
-            <div class="case-info">
-              <span class="case-meta">Автодилер · 2025</span>
-              <h3>Вывод новой модели в регионе</h3>
-              <p class="case-task">Задача: собрать заявки на тест-драйв в течение месяца.</p>
-              <ul class="case-formats">
-                <li>Transit</li>
-                <li>Radio</li>
-                <li>DOOH</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-
-        <div class="cases-more reveal">
-          <a class="button button--dark" href="#contact"
-            >Смотреть все кейсы <span aria-hidden="true">↗</span></a
-          >
-        </div>
-
-        <div class="clients reveal" data-tentative="список клиентов не подтверждён">
-          <span class="result-label">С нами работают</span>
-          <ul class="client-row" aria-label="Логотипы клиентов">
-            <li>Клиент 01</li>
-            <li>Клиент 02</li>
-            <li>Клиент 03</li>
-            <li>Клиент 04</li>
-            <li>Клиент 05</li>
-            <li>Клиент 06</li>
-          </ul>
+          </div>
         </div>
       </section>
 
@@ -1240,6 +1321,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
   </body>
 </html>
