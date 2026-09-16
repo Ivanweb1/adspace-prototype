@@ -110,6 +110,24 @@
     play();
   }
 
+  /* Акции: разворот листается страницами, а не каруселью */
+  const cxPages = $$("[data-cx-page]");
+  const cxNum = $("[data-cx-num]");
+  if (cxPages.length > 1 && cxNum) {
+    let cxIndex = 0;
+    const showSpread = (next) => {
+      cxIndex = (next + cxPages.length) % cxPages.length;
+      cxPages.forEach((page, index) => {
+        page.hidden = index !== cxIndex;
+      });
+      cxNum.textContent = String(cxIndex + 1);
+    };
+    const cxPrev = $("[data-cx-prev]");
+    const cxNext = $("[data-cx-next]");
+    if (cxPrev) cxPrev.addEventListener("click", () => showSpread(cxIndex - 1));
+    if (cxNext) cxNext.addEventListener("click", () => showSpread(cxIndex + 1));
+  }
+
   /* ── витрина с лентой выбора (акции, позже — кейсы) ────
      На десктопе кадр меняется на наведении, на мобильном — по
      нажатию. Скрипт общий: каждый [data-showcase] живёт сам по себе. */
