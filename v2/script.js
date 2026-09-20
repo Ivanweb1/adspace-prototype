@@ -177,8 +177,74 @@
       production: "Production",
     };
 
-    // Базовый вес каналов по географии
-    const GEO_BASE = {
+    /* Города, локации внутри города и количество поверхностей —
+       демонстрационные: реальный инвентарь заказчик передаёт отдельно.
+       Структура та, которая нужна по правке: несколько городов сразу
+       и уточнение до районов и адресов внутри каждого. */
+    const CITIES = [
+      {
+        id: "msk",
+        name: "Москва",
+        surfaces: 1240,
+        spots: ["Центр", "Север", "Юго-Запад", "Восток", "Вдоль ТТК"],
+      },
+      {
+        id: "spb",
+        name: "Санкт-Петербург",
+        surfaces: 860,
+        spots: ["Центральный", "Приморский", "Московский", "Невский"],
+      },
+      { id: "krd", name: "Краснодар", surfaces: 410, spots: ["Центр", "ФМР", "ЗИП", "Музыкальный"] },
+      {
+        id: "rnd",
+        name: "Ростов-на-Дону",
+        surfaces: 380,
+        spots: ["Центр", "Западный", "Северный", "Левенцовка"],
+      },
+      {
+        id: "sci",
+        name: "Сочи",
+        surfaces: 240,
+        spots: ["Центр", "Адлер", "Хоста", "Красная Поляна"],
+      },
+      {
+        id: "vlg",
+        name: "Волгоград",
+        surfaces: 210,
+        spots: ["Центр", "Дзержинский", "Красноармейский"],
+      },
+      { id: "vrn", name: "Воронеж", surfaces: 195, spots: ["Центр", "Северный", "Левый берег"] },
+      { id: "stv", name: "Ставрополь", surfaces: 160, spots: ["Центр", "Юго-Запад", "Северо-Запад"] },
+    ];
+
+    // Виды рекламы: ключи совпадают с каналами медиамикса
+    const FORMATS = [
+      { id: "outdoor", name: "Наружная реклама", note: "щиты, суперсайты, ситиборды" },
+      { id: "dooh", name: "Digital / DOOH", note: "экраны и медиафасады" },
+      { id: "lift", name: "Реклама в лифтах", note: "стенды в жилых домах" },
+      { id: "indoor", name: "Indoor", note: "ТЦ, бизнес-центры, фитнес" },
+      { id: "radio", name: "Радио", note: "городские и сетевые станции" },
+      { id: "tv", name: "ТВ", note: "региональные врезки" },
+      { id: "transit", name: "Транспорт", note: "борта, салоны, метро" },
+      { id: "production", name: "Production", note: "печать, монтаж, ролики" },
+    ];
+
+    // Поверхности по каналам — для списка точек на карте
+    const SURFACES = {
+      outdoor: ["Щит 3×6", "Суперсайт", "Ситиборд"],
+      dooh: ["Медиафасад", "Цифровой экран"],
+      lift: ["Стенды в лифтах, 40 домов", "Стенды в лифтах, 25 домов"],
+      indoor: ["Стойка в ТЦ", "Экран в бизнес-центре"],
+      radio: ["Эфир на городской станции"],
+      tv: ["Региональная врезка"],
+      transit: ["Борта автобусов", "Экран в метро"],
+      production: ["Печать и монтаж"],
+    };
+
+    /* Масштаб кампании система выводит из выбора: уточнили локации внутри
+       города — это район, один город — городская, несколько — мультигород,
+       пять и больше — широкая география. */
+    const SCOPE_BASE = {
       district: { lift: 42, indoor: 28, dooh: 16, production: 10 },
       city: { outdoor: 34, radio: 22, dooh: 20, indoor: 14, production: 8 },
       cities: { outdoor: 30, dooh: 24, radio: 22, indoor: 12, production: 8 },
@@ -195,30 +261,192 @@
       mall: { indoor: 16, dooh: 10, radio: 4 },
     };
 
-    // Поправка на цель кампании
-    const GOAL_BONUS = {
-      clients: { lift: 8, indoor: 8, dooh: 6 },
-      awareness: { outdoor: 12, tv: 8, radio: 6 },
-      launch: { dooh: 10, radio: 8, production: 8 },
-      sales: { radio: 8, indoor: 6, transit: 6 },
+    // Поправка на период: короткий — быстрые каналы, длинный — постоянные
+    const PERIOD_BONUS = {
+      14: { dooh: 8, radio: 6 },
+      30: {},
+      45: { outdoor: 6, lift: 4 },
+      60: { outdoor: 8, lift: 6 },
+      90: { outdoor: 10, tv: 6, lift: 4 },
     };
 
-    const GEO_LABEL = {
-      district: "Один район",
-      city: "Весь город",
-      cities: "Несколько городов",
-      russia: "Вся Россия",
-    };
-
-    const GEO_REACH_K = { district: 2.2, city: 3.0, cities: 3.4, russia: 4.1 };
+    const SCOPE_REACH_K = { district: 2.2, city: 3.0, cities: 3.4, russia: 4.1 };
 
     const DESCRIPTIONS = {
-      district: "Плотное покрытие района: контакт рядом с домом и точкой продаж, каждый день.",
+      district:
+        "Плотное покрытие выбранных локаций: контакт рядом с домом и точкой продаж, каждый день.",
       city: "Городская кампания: заметный охват плюс повторный контакт по дороге и в эфире.",
       cities: "Мультигород: один медиаплан, синхронный запуск и общий отчёт по всем городам.",
-      russia: "Федеральный микс: широкий охват с адаптацией сообщения по регионам.",
+      russia: "Широкая география: единый план с адаптацией сообщения по регионам.",
     };
 
+    const plural = (count, one, few, many) => {
+      const mod10 = count % 10;
+      const mod100 = count % 100;
+      if (mod10 === 1 && mod100 !== 11) return `${count} ${one}`;
+      if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return `${count} ${few}`;
+      return `${count} ${many}`;
+    };
+
+    /* ── состояние выбора ────────────────────────────────
+       Города и локации живут в наборах, а не в <select>: выбор
+       множественный и двухуровневый. Локация хранится как «город:район». */
+    const picked = { cities: new Set(["msk"]), spots: new Set(), formats: new Set() };
+    let autoMix = true;
+
+    const cityById = (id) => CITIES.find((city) => city.id === id);
+    const cityNames = () => [...picked.cities].map((id) => cityById(id).name);
+
+    const scopeOf = () => {
+      if (picked.spots.size) return "district";
+      const count = picked.cities.size;
+      if (count <= 1) return "city";
+      if (count <= 4) return "cities";
+      return "russia";
+    };
+
+    /* ── выпадашки: город и вид рекламы ─────────────────── */
+    const pickers = $$("[data-picker]", builderForm);
+    const closePickers = (except) =>
+      pickers.forEach((picker) => {
+        if (picker === except) return;
+        $("[data-picker-pop]", picker).hidden = true;
+        $("[data-picker-toggle]", picker).setAttribute("aria-expanded", "false");
+      });
+
+    pickers.forEach((picker) => {
+      const toggle = $("[data-picker-toggle]", picker);
+      const pop = $("[data-picker-pop]", picker);
+      toggle.addEventListener("click", () => {
+        const open = pop.hidden;
+        closePickers(picker);
+        pop.hidden = !open;
+        toggle.setAttribute("aria-expanded", String(open));
+        // на телефоне подсказка о карте стоит ровно там, где разворачивается
+        // список, — убираем её тем же способом, что и крестиком
+        if (open) $("[data-nudge-close]")?.click();
+      });
+      $$("[data-picker-close]", picker).forEach((button) =>
+        button.addEventListener("click", () => {
+          pop.hidden = true;
+          toggle.setAttribute("aria-expanded", "false");
+        })
+      );
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest("[data-picker]")) closePickers(null);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePickers(null);
+    });
+
+    /* ── список городов с локациями ─────────────────────── */
+    const citiesList = $("[data-cities-list]", builderForm);
+    const citiesHint = $('[data-picker="cities"] .picker-hint', builderForm);
+    const citiesHintText = citiesHint.textContent.trim();
+
+    citiesList.innerHTML = CITIES.map(
+      (city) => `
+        <div class="picker-city" data-city="${city.id}">
+          <label class="picker-row">
+            <input type="checkbox" data-city-check value="${city.id}" />
+            <span class="picker-name">${city.name}</span>
+            <span class="picker-meta">${city.surfaces} пов.</span>
+          </label>
+          <div class="picker-spots" hidden>
+            ${city.spots
+              .map(
+                (spot) => `
+              <label class="picker-chip">
+                <input type="checkbox" data-spot-check value="${city.id}:${spot}" />
+                <span>${spot}</span>
+              </label>`
+              )
+              .join("")}
+          </div>
+        </div>`
+    ).join("");
+
+    const syncCities = () => {
+      $$("[data-city-check]", citiesList).forEach((input) => {
+        const on = picked.cities.has(input.value);
+        input.checked = on;
+        $(".picker-spots", input.closest(".picker-city")).hidden = !on;
+      });
+      $$("[data-spot-check]", citiesList).forEach((input) => {
+        input.checked = picked.spots.has(input.value);
+      });
+    };
+
+    /* ── список видов рекламы ───────────────────────────── */
+    const formatsList = $("[data-formats-list]", builderForm);
+    const autoInput = $("[data-formats-auto]", builderForm);
+
+    formatsList.innerHTML = FORMATS.map(
+      (format) => `
+        <label class="picker-row picker-row--format">
+          <input type="checkbox" data-format-check value="${format.id}" />
+          <span class="picker-name">${format.name}<i>${format.note}</i></span>
+        </label>`
+    ).join("");
+
+    const syncFormats = () => {
+      autoInput.checked = autoMix;
+      formatsList.classList.toggle("is-muted", autoMix);
+      $$("[data-format-check]", formatsList).forEach((input) => {
+        input.checked = picked.formats.has(input.value);
+      });
+    };
+
+    /* ── подписи на кнопках и в сводке ──────────────────── */
+    const businessLabel = () =>
+      $('[name="business"]', builderForm).selectedOptions[0].textContent.trim();
+    const periodValue = () => Number($('[name="period"]', builderForm).value);
+    const periodLabel = () =>
+      $('[name="period"]', builderForm).selectedOptions[0].textContent.trim();
+    const budgetValue = () => Number($('[name="budget"]', builderForm).value);
+
+    const geoLabel = () => {
+      const names = cityNames();
+      if (!names.length) return "Город не выбран";
+      let text =
+        names.length <= 2
+          ? names.join(", ")
+          : `${names[0]} и ещё ${plural(names.length - 1, "город", "города", "городов")}`;
+      if (picked.spots.size) {
+        text += ` · ${plural(picked.spots.size, "локация", "локации", "локаций")}`;
+      }
+      return text;
+    };
+
+    const formatsLabel = () => {
+      if (autoMix || !picked.formats.size) return "Медиамикс от системы";
+      const names = [...picked.formats].map(
+        (id) => FORMATS.find((format) => format.id === id).name
+      );
+      return names.length <= 2 ? names.join(", ") : `${names[0]} и ещё ${names.length - 1}`;
+    };
+
+    const updateLabels = () => {
+      const names = cityNames();
+      let cityText = "Выберите город";
+      if (names.length === 1) cityText = names[0];
+      if (names.length > 1) cityText = `${names[0]} +${names.length - 1}`;
+      if (names.length && picked.spots.size) cityText += ` · ${picked.spots.size} лок.`;
+      $('[data-picker="cities"] [data-picker-label]', builderForm).textContent = cityText;
+
+      let formatText = "Собрать медиамикс";
+      if (!autoMix && picked.formats.size) {
+        formatText =
+          picked.formats.size === 1
+            ? FORMATS.find((format) => format.id === [...picked.formats][0]).name
+            : `Выбрано ${picked.formats.size}`;
+      }
+      $('[data-picker="formats"] [data-picker-label]', builderForm).textContent = formatText;
+    };
+
+    /* ── медиамикс ──────────────────────────────────────── */
     const addWeights = (target, source = {}) => {
       Object.entries(source).forEach(([key, value]) => {
         target[key] = (target[key] || 0) + value;
@@ -226,12 +454,28 @@
       return target;
     };
 
-    const buildMix = ({ business, goal, geo, budget }) => {
-      const weights = addWeights({}, GEO_BASE[geo]);
-      addWeights(weights, BUSINESS_BONUS[business]);
-      addWeights(weights, GOAL_BONUS[goal]);
+    const normalize = (items) => {
+      const sorted = [...items].sort((a, b) => b[1] - a[1]);
+      const total = sorted.reduce((sum, [, value]) => sum + value, 0) || 1;
+      const shares = sorted.map(([key, value]) => [key, Math.round((value / total) * 100)]);
+      // добираем округление до ровных 100%
+      const diff = 100 - shares.reduce((sum, [, share]) => sum + share, 0);
+      if (shares.length) shares[0][1] += diff;
+      return shares;
+    };
 
-      // Бюджет: ТВ и федеральная наружка не имеют смысла на малых суммах
+    const buildMix = ({ business, scope, period, budget }) => {
+      const weights = addWeights({}, SCOPE_BASE[scope]);
+      addWeights(weights, BUSINESS_BONUS[business]);
+      addWeights(weights, PERIOD_BONUS[period]);
+
+      // Виды рекламы выбраны руками: система ничего не добавляет сверху,
+      // только расставляет доли внутри отмеченных каналов.
+      if (!autoMix && picked.formats.size) {
+        return normalize([...picked.formats].map((key) => [key, Math.max(weights[key] || 0, 10)]));
+      }
+
+      // Бюджет: ТВ и большая наружка не имеют смысла на малых суммах
       if (budget < 400000) {
         delete weights.tv;
         weights.outdoor = (weights.outdoor || 0) * 0.5;
@@ -242,58 +486,50 @@
         weights.production = (weights.production || 0) + 4;
       }
 
-      let items = Object.entries(weights).filter(([, value]) => value > 0);
-      items.sort((a, b) => b[1] - a[1]);
-      items = items.slice(0, budget < 400000 ? 3 : 4);
+      const items = Object.entries(weights)
+        .filter(([, value]) => value > 0)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, budget < 400000 ? 3 : 4);
 
-      const total = items.reduce((sum, [, value]) => sum + value, 0);
-      const shares = items.map(([key, value]) => [key, Math.round((value / total) * 100)]);
-
-      // Добираем округление до ровных 100%
-      const diff = 100 - shares.reduce((sum, [, share]) => sum + share, 0);
-      if (shares.length) shares[0][1] += diff;
-
-      return shares;
+      return normalize(items);
     };
 
-    const periodFor = (budget) => {
-      if (budget < 300000) return "14 дней";
-      if (budget < 900000) return "30 дней";
-      if (budget < 2500000) return "45 дней";
-      return "60–90 дней";
-    };
-
-    const reachFor = (budget, geo) => {
-      const contacts = budget * GEO_REACH_K[geo];
+    const reachFor = (budget, scope, period) => {
+      // период тянет охват мягко: 30 дней — точка отсчёта
+      const contacts = budget * SCOPE_REACH_K[scope] * (0.55 + (0.45 * period) / 30);
       if (contacts >= 1000000) {
         return `${(contacts / 1000000).toFixed(1).replace(".", ",")} млн`;
       }
       return `${Math.round(contacts / 1000)} тыс.`;
     };
 
+    let lastMix = [];
+
     const renderResult = () => {
-      const data = new FormData(builderForm);
       const params = {
-        business: data.get("business"),
-        goal: data.get("goal"),
-        geo: data.get("geo"),
-        budget: Number(data.get("budget")),
+        business: $('[name="business"]', builderForm).value,
+        scope: scopeOf(),
+        period: periodValue(),
+        budget: budgetValue(),
       };
 
       const mix = buildMix(params);
+      lastMix = mix;
+
       $("[data-result-title]").textContent = mix
         .slice(0, 3)
         .map(([key]) => CHANNELS[key])
         .join(" + ");
-      $("[data-result-desc]").textContent = DESCRIPTIONS[params.geo];
+      $("[data-result-desc]").textContent = DESCRIPTIONS[params.scope];
 
       // один тон на канал: им же красятся полоса, сектор кольца и метка кадра
       const TONES = ["var(--ink)", "var(--tone-1)", "var(--tone-2)", "var(--tone-3)"];
+      const tone = (index) => TONES[index % TONES.length];
 
       $("[data-result-mix]").innerHTML = mix
         .map(
           ([key, share], index) => `
-            <li class="mix-item" style="--c:${TONES[index]}">
+            <li class="mix-item" style="--c:${tone(index)}">
               <b>${CHANNELS[key]}</b>
               <span class="mix-bar"><i style="--w:${share}%"></i></span>
               <span class="mix-share">${share}%</span>
@@ -304,7 +540,7 @@
       $("[data-result-visuals]").innerHTML = mix
         .map(
           ([key, share], index) => `
-            <figure class="result-shot" style="--c:${TONES[index]}">
+            <figure class="result-shot" style="--c:${tone(index)}">
               <div class="photo-slot" data-photo-label="Фото · ${CHANNELS[key]}"></div>
               <figcaption><b>${CHANNELS[key]}</b><span>${share}%</span></figcaption>
             </figure>`
@@ -315,15 +551,15 @@
       const stops = mix.map(([, share], index) => {
         const from = angle;
         angle += share * 3.6;
-        return `${TONES[index]} ${from}deg ${angle}deg`;
+        return `${tone(index)} ${from}deg ${angle}deg`;
       });
       $("[data-result-donut]").style.setProperty("--donut", `conic-gradient(${stops.join(", ")})`);
       $("[data-result-count]").textContent = mix.length;
 
       $("[data-result-budget]").textContent = money(params.budget);
-      $("[data-result-period]").textContent = periodFor(params.budget);
-      $("[data-result-geo]").textContent = GEO_LABEL[params.geo];
-      $("[data-result-reach]").textContent = reachFor(params.budget, params.geo);
+      $("[data-result-period]").textContent = periodLabel();
+      $("[data-result-geo]").textContent = geoLabel();
+      $("[data-result-reach]").textContent = reachFor(params.budget, params.scope, params.period);
     };
 
     const budgetInput = $('input[name="budget"]', builderForm);
@@ -343,17 +579,83 @@
       element.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block });
 
     const renderSummary = () => {
-      const pick = (name) => $(`[name="${name}"]`, builderForm);
-      const selected = (name) => pick(name).selectedOptions[0].textContent;
       gateSummary.innerHTML = [
-        selected("business"),
-        selected("goal"),
-        selected("geo"),
-        money(Number(pick("budget").value)),
+        businessLabel(),
+        geoLabel(),
+        periodLabel(),
+        money(budgetValue()),
+        formatsLabel(),
       ]
         .map((item) => `<li>${item}</li>`)
         .join("");
     };
+
+    // Пока результат или шаг контакта открыт — они пересчитываются на лету
+    const syncLive = () => {
+      updateLabels();
+      if (!builderResult.hidden) renderResult();
+      if (!gate.hidden) renderSummary();
+    };
+
+    citiesList.addEventListener("change", (event) => {
+      const cityCheck = event.target.closest("[data-city-check]");
+      if (cityCheck) {
+        if (cityCheck.checked) {
+          picked.cities.add(cityCheck.value);
+        } else {
+          picked.cities.delete(cityCheck.value);
+          // локации без города не живут
+          [...picked.spots]
+            .filter((spot) => spot.startsWith(`${cityCheck.value}:`))
+            .forEach((spot) => picked.spots.delete(spot));
+        }
+      }
+      const spotCheck = event.target.closest("[data-spot-check]");
+      if (spotCheck) {
+        if (spotCheck.checked) picked.spots.add(spotCheck.value);
+        else picked.spots.delete(spotCheck.value);
+      }
+      if (picked.cities.size) {
+        citiesHint.textContent = citiesHintText;
+        citiesHint.classList.remove("is-warning");
+      }
+      syncCities();
+      syncLive();
+    });
+
+    $("[data-cities-reset]", builderForm)?.addEventListener("click", () => {
+      picked.cities = new Set(["msk"]);
+      picked.spots.clear();
+      citiesHint.textContent = citiesHintText;
+      citiesHint.classList.remove("is-warning");
+      syncCities();
+      syncLive();
+    });
+
+    formatsList.addEventListener("change", (event) => {
+      const check = event.target.closest("[data-format-check]");
+      if (!check) return;
+      if (check.checked) picked.formats.add(check.value);
+      else picked.formats.delete(check.value);
+      // отметили канал руками — автоподбор выключается сам
+      autoMix = picked.formats.size === 0;
+      syncFormats();
+      syncLive();
+    });
+
+    autoInput.addEventListener("change", () => {
+      autoMix = autoInput.checked;
+      if (autoMix) picked.formats.clear();
+      syncFormats();
+      syncLive();
+    });
+
+    $("[data-formats-reset]", builderForm)?.addEventListener("click", () => {
+      picked.formats.clear();
+      autoMix = true;
+      syncFormats();
+      syncLive();
+    });
 
     const openResult = () => {
       renderResult();
@@ -364,6 +666,19 @@
 
     builderForm.addEventListener("submit", (event) => {
       event.preventDefault();
+
+      // без города считать нечего: открываем выпадашку и говорим об этом
+      if (!picked.cities.size) {
+        const picker = $('[data-picker="cities"]', builderForm);
+        closePickers(picker);
+        $("[data-picker-pop]", picker).hidden = false;
+        $("[data-picker-toggle]", picker).setAttribute("aria-expanded", "true");
+        citiesHint.textContent = "Выберите хотя бы один город.";
+        citiesHint.classList.add("is-warning");
+        scrollTo(picker, "center");
+        return;
+      }
+
       if (lead) {
         openResult();
         return;
@@ -407,18 +722,104 @@
       scrollTo(builderForm, "center");
     });
 
-    // Пока результат или шаг контакта открыт — они пересчитываются на лету
     $$("[data-builder-input]", builderForm).forEach((input) =>
-      input.addEventListener("change", () => {
-        if (!builderResult.hidden) renderResult();
-        if (!gate.hidden) renderSummary();
-      })
+      input.addEventListener("change", syncLive)
     );
 
     $("[data-result-close]")?.addEventListener("click", () => {
       builderResult.hidden = true;
       scrollTo(builderForm, "center");
     });
+
+    /* ── карта размещений из результата ──────────────────
+       Заказчик: из медиаплана нужно сразу попадать на карту, где дальше
+       выбирается точка и идёт бронирование. Панель выезжает справа,
+       страница под ней остаётся на месте. */
+    const mapDrawer = $("[data-map-drawer]");
+    if (mapDrawer) {
+      const mapStatus = $("[data-map-status]", mapDrawer);
+      const mapPoints = $("[data-map-points]", mapDrawer);
+
+      const buildPoints = () => {
+        // точки раскладываются по выбранным локациям, а если локации
+        // не уточняли — по городам; поверхность берётся из медиамикса
+        const places = [];
+        [...picked.cities].forEach((id) => {
+          const city = cityById(id);
+          const spots = [...picked.spots]
+            .filter((spot) => spot.startsWith(`${id}:`))
+            .map((spot) => spot.split(":")[1]);
+          if (spots.length) spots.forEach((spot) => places.push(`${city.name} · ${spot}`));
+          else places.push(city.name);
+        });
+        if (!places.length) places.push("Город не выбран");
+
+        // по одной поверхности на пару «локация + канал», города чередуются,
+        // чтобы в коротком списке не было повторов и перекоса в один город
+        const channels = lastMix.length ? lastMix.map(([key]) => key) : ["outdoor"];
+        const depth = Math.max(...channels.map((key) => (SURFACES[key] || []).length || 1));
+        const points = [];
+        for (let level = 0; level < depth; level += 1) {
+          places.forEach((place) => {
+            channels.forEach((key) => {
+              const list = SURFACES[key] || ["Поверхность"];
+              if (level >= list.length || points.length >= 6) return;
+              points.push({ place, surface: list[level], channel: CHANNELS[key] });
+            });
+          });
+        }
+        return points;
+      };
+
+      const openMap = () => {
+        $("[data-map-scope]", mapDrawer).textContent = `${geoLabel()} · ${periodLabel()} · ${money(
+          budgetValue()
+        )}`;
+        mapPoints.innerHTML = buildPoints()
+          .map(
+            (point) => `
+              <li>
+                <div>
+                  <b>${point.surface}</b>
+                  <span>${point.place} · ${point.channel}</span>
+                </div>
+                <button type="button" data-map-pick>Выбрать</button>
+              </li>`
+          )
+          .join("");
+        mapStatus.textContent = "";
+        mapDrawer.hidden = false;
+        // перерисовка кадра, иначе переход от hidden срабатывает мгновенно;
+        // таймер — страховка для вкладки, которая в этот момент не рисует
+        window.requestAnimationFrame(() => mapDrawer.classList.add("is-open"));
+        window.setTimeout(() => mapDrawer.classList.add("is-open"), 60);
+      };
+
+      const closeMap = () => {
+        mapDrawer.classList.remove("is-open");
+        window.setTimeout(() => {
+          mapDrawer.hidden = true;
+        }, 320);
+      };
+
+      $("[data-result-map]")?.addEventListener("click", openMap);
+      $$("[data-map-close]", mapDrawer).forEach((button) =>
+        button.addEventListener("click", closeMap)
+      );
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !mapDrawer.hidden) closeMap();
+      });
+
+      mapPoints.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-map-pick]");
+        if (!button) return;
+        button.closest("li").classList.add("is-picked");
+        button.textContent = "В заявке";
+        button.disabled = true;
+        mapStatus.textContent =
+          "Точка отложена в заявку. Это прототип: в рабочей версии отсюда идёт бронирование на платформе.";
+      });
+    }
 
     // Подробный разбор — по желанию: параметры и контакт уже есть,
     // переспрашивать ничего не нужно
@@ -428,6 +829,10 @@
       $("[data-result-review-status]").textContent = `Передали «${title}» менеджеру вместе с параметрами — он свяжется по контакту ${lead.contact}. Это прототип: данные никуда не уходят, но сценарий рабочий.`;
       reviewButton.disabled = true;
     });
+
+    syncCities();
+    syncFormats();
+    updateLabels();
   }
 
   /* ── рекламные решения: смена визуала ───────────────── */
@@ -602,15 +1007,16 @@
       );
     };
 
-    // Триггер — блок акций: к нему человек доходит сразу за первым экраном.
-    // Наблюдатель, а не событие scroll: после перезагрузки браузер
-    // восстанавливает позицию, и события прокрутки может не быть вовсе.
+    // Триггер — конструктор: заказчик просил показывать подсказку позже,
+    // уже после того как человек пролистал акции. Наблюдатель, а не
+    // событие scroll: после перезагрузки браузер восстанавливает позицию,
+    // и события прокрутки может не быть вовсе.
     new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) showNudge();
       },
       { threshold: 0.15 }
-    ).observe($("#promos"));
+    ).observe($("#builder"));
   }
 
   /* ── появление блоков при скролле ───────────────────── */

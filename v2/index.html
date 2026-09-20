@@ -13,7 +13,7 @@
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
     <link rel="stylesheet" href="mono.css?v=1" />
     <!-- Правки по обратной связи к классической версии. Всё новое — здесь. -->
-    <link rel="stylesheet" href="v2.css?v=10" />
+    <link rel="stylesheet" href="v2.css?v=12" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -397,11 +397,15 @@
             <p class="eyebrow eyebrow--light">Конструктор кампании</p>
             <h2 id="builder-title">Соберите кампанию под вашу задачу</h2>
             <p class="builder-sub">
-              Четыре параметра и контакт — и система сразу покажет медиамикс, бюджет и период.
+              Пять параметров и контакт — и система сразу покажет медиамикс, бюджет и период.
               Без ожидания звонка.
             </p>
           </div>
 
+          <!-- Параметры подбора. Состав полей — от заказчика: тип бизнеса,
+               город (несколько городов и локации внутри города), период,
+               бюджет и вид рекламы. Виды рекламы можно выбрать руками или
+               оставить «Собрать медиамикс» — тогда каналы подбирает система. -->
           <form class="builder-form reveal" data-builder-form novalidate>
             <div class="field">
               <span class="field-label">01 / Тип бизнеса</span>
@@ -414,24 +418,39 @@
                 <option value="mall">Торговый центр</option>
               </select>
             </div>
+
+            <!-- Город: множественный выбор, внутри города — районы и адреса -->
+            <div class="field field--picker" data-picker="cities">
+              <span class="field-label">02 / Город</span>
+              <button class="picker-button" type="button" data-picker-toggle aria-expanded="false">
+                <span data-picker-label>Москва</span>
+              </button>
+              <div class="picker-pop" data-picker-pop hidden>
+                <p
+                  class="picker-hint"
+                  data-tentative="список городов, локаций и количество поверхностей — демонстрационные"
+                >
+                  Можно выбрать несколько городов, а внутри города — районы и точные адреса.
+                </p>
+                <div class="picker-list" data-cities-list></div>
+                <div class="picker-foot">
+                  <button type="button" class="picker-clear" data-cities-reset>Сбросить</button>
+                  <button type="button" class="picker-done" data-picker-close>Готово</button>
+                </div>
+              </div>
+            </div>
+
             <div class="field">
-              <span class="field-label">02 / Цель кампании</span>
-              <select name="goal" data-builder-input>
-                <option value="clients">Привлечь клиентов</option>
-                <option value="awareness">Повысить узнаваемость</option>
-                <option value="launch">Запустить новый продукт</option>
-                <option value="sales">Увеличить продажи</option>
+              <span class="field-label">03 / Период</span>
+              <select name="period" data-builder-input>
+                <option value="14">14 дней</option>
+                <option value="30" selected>30 дней</option>
+                <option value="45">45 дней</option>
+                <option value="60">60 дней</option>
+                <option value="90">90 дней</option>
               </select>
             </div>
-            <div class="field">
-              <span class="field-label">03 / География</span>
-              <select name="geo" data-builder-input>
-                <option value="district">Один район</option>
-                <option value="city">Весь город</option>
-                <option value="cities">Несколько городов</option>
-                <option value="russia">Вся Россия</option>
-              </select>
-            </div>
+
             <div class="field field--budget">
               <span class="field-label"
                 >04 / Бюджет <output data-budget-output>500 000 ₽</output></span
@@ -449,6 +468,29 @@
                 />
               </div>
             </div>
+
+            <!-- Вид рекламы: либо выбор руками, либо медиамикс от системы -->
+            <div class="field field--picker" data-picker="formats">
+              <span class="field-label">05 / Вид рекламы</span>
+              <button class="picker-button" type="button" data-picker-toggle aria-expanded="false">
+                <span data-picker-label>Собрать медиамикс</span>
+              </button>
+              <div class="picker-pop" data-picker-pop hidden>
+                <label class="picker-auto">
+                  <input type="checkbox" data-formats-auto checked />
+                  <span>
+                    <b>Собрать медиамикс</b>
+                    <i>Каналы подберёт система — под тип бизнеса, город, период и бюджет</i>
+                  </span>
+                </label>
+                <div class="picker-list" data-formats-list></div>
+                <div class="picker-foot">
+                  <button type="button" class="picker-clear" data-formats-reset>Сбросить</button>
+                  <button type="button" class="picker-done" data-picker-close>Готово</button>
+                </div>
+              </div>
+            </div>
+
             <button class="builder-submit" type="submit">
               Собрать рекламную кампанию <span aria-hidden="true">↗</span>
             </button>
@@ -550,9 +592,16 @@
                 <b data-result-lead>—</b>. Цены уже с учётом объёма и периода — менеджер только
                 подтвердит наличие поверхностей.
               </p>
-              <button class="button button--primary" type="button" data-result-review>
-                Нужен подробный разбор <span aria-hidden="true">↗</span>
-              </button>
+              <!-- Две кнопки: карта — чтобы сразу посмотреть поверхности из
+                   медиаплана и дальше выбрать точку, разбор — по желанию -->
+              <div class="result-actions">
+                <button class="button button--light" type="button" data-result-map>
+                  Смотреть на карте <span aria-hidden="true">↗</span>
+                </button>
+                <button class="button button--primary" type="button" data-result-review>
+                  Нужен подробный разбор <span aria-hidden="true">↗</span>
+                </button>
+              </div>
             </div>
             <p class="result-review-status" data-result-review-status role="status"></p>
           </div>
@@ -1190,25 +1239,69 @@
       </div>
     </footer>
 
-    <!-- «Напоминашка» о карте — рекламный щит на ножке. Заказчик просил,
-         чтобы география не потерялась, и предложил подать окошко как билборд.
-         Щит «вырастает» снизу экрана после первого экрана и уходит сам, когда
-         человек добрался до карты. Один раз за сеанс, закрывается вручную. -->
+    <!-- Подсказка о карте. Заказчик просил проще: вместо щита с рамой и
+         площадкой — табличка на одной тонкой ноге, в одну строку. Выезжает
+         снизу на конструкторе (не сразу за первым экраном) и уходит сама,
+         когда человек добрался до карты. Один раз за сеанс. -->
     <aside class="nudge" data-nudge hidden aria-label="Подсказка о карте присутствия">
       <div class="nudge-board">
+        <a class="nudge-go" href="#geo" data-nudge-go>
+          <span class="nudge-kicker">География</span>
+          <span class="nudge-text"
+            ><b data-tentative="показатель не подтверждён">70+ городов</b> — проверьте свой</span
+          >
+          <span class="nudge-arrow" aria-hidden="true">↓</span>
+        </a>
         <button class="nudge-close" type="button" data-nudge-close aria-label="Скрыть подсказку">
           <span aria-hidden="true">×</span>
         </button>
-        <span class="nudge-kicker">Не пропустите</span>
-        <strong data-tentative="показатель не подтверждён">70+ городов</strong>
-        <p>Проверьте, есть ли поверхности в вашем городе.</p>
-        <a class="button button--dark" href="#geo" data-nudge-go
-          >Открыть карту <span aria-hidden="true">↓</span></a
-        >
       </div>
-      <span class="nudge-ledge" aria-hidden="true"></span>
       <span class="nudge-leg" aria-hidden="true"></span>
     </aside>
+
+    <!-- Карта размещений: выезжает справа из результата конструктора.
+         Здесь человек смотрит поверхности своего медиаплана и в финальной
+         версии выбирает точку и уходит в бронирование на платформе. -->
+    <div
+      class="map-drawer"
+      data-map-drawer
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="map-drawer-title"
+    >
+      <div class="map-drawer-backdrop" data-map-close></div>
+      <aside class="map-drawer-panel">
+        <div class="map-drawer-head">
+          <div>
+            <span class="result-kicker">Карта размещений</span>
+            <h3 id="map-drawer-title">Поверхности по вашему медиаплану</h3>
+          </div>
+          <button class="map-drawer-close" type="button" data-map-close aria-label="Закрыть карту">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+
+        <p class="map-drawer-scope" data-map-scope>—</p>
+
+        <div class="map-drawer-canvas" aria-hidden="true">
+          <span>Здесь будет карта с точками размещения</span>
+        </div>
+
+        <div class="map-drawer-points">
+          <span class="result-label">Точки из медиаплана</span>
+          <ul data-map-points></ul>
+        </div>
+
+        <p
+          class="map-drawer-note"
+          data-tentative="выбор точки и бронирование подключаются к платформе наружной рекламы"
+        >
+          Выбор точки и бронирование подключаются к платформе на следующем этапе.
+        </p>
+        <p class="map-drawer-status" data-map-status role="status"></p>
+      </aside>
+    </div>
 
     <!-- Попап «Стать партнёром» — своя форма, без ухода со страницы -->
     <div class="partner-modal" data-partner-modal hidden role="dialog" aria-modal="true" aria-labelledby="partner-modal-title">
@@ -1246,6 +1339,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=6"></script>
+    <script src="script.js?v=9"></script>
   </body>
 </html>

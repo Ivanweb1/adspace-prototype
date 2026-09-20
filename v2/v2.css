@@ -275,19 +275,23 @@
 }
 
 /* =========================================================
-   «НАПОМИНАШКА» О КАРТЕ · щит на ножке
+   «НАПОМИНАШКА» О КАРТЕ · минимальный указатель
 
-   Заказчик предложил подать окошко «70+ городов» как билборд.
-   Щит стоит на нижней кромке экрана, как на земле: рама, под ней
-   площадка обслуживания и опора. Появляется, «вырастая» снизу.
+   Заказчик дважды просил проще: прежний щит с рамой, площадкой
+   обслуживания и широкой опорой перетягивал внимание на себя.
+   Осталась узнаваемая форма — табличка на одной тонкой ноге, — но
+   сведённая к одной строке: подпись, показатель и стрелка к карте.
+   Вся табличка это ссылка, отдельной кнопки нет; крестик убирает
+   подсказку совсем. Появляется позже — на конструкторе, а не сразу
+   за первым экраном.
    ========================================================= */
 .nudge {
-  --leg: 56px;
+  --leg: 26px;
   position: fixed;
   z-index: 70;
-  right: 32px;
+  right: 28px;
   bottom: 0;
-  width: min(300px, calc(100vw - 32px));
+  width: 268px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -299,93 +303,82 @@
   transform: none;
 }
 .nudge-board {
-  position: relative;
   width: 100%;
-  padding: 20px 22px 22px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
+  align-items: stretch;
   background: var(--surface);
-  /* рама щита — толще обычных рамок, иначе ножка «держит» просто карточку */
-  border: 5px solid var(--graphite);
+  border: 1px solid var(--ink);
   border-radius: 3px;
-  box-shadow: 0 24px 48px rgba(20, 22, 30, 0.16);
+  box-shadow: 0 10px 24px rgba(20, 22, 30, 0.1);
   pointer-events: auto;
 }
-/* площадка обслуживания под щитом — узнаваемая деталь билборда */
-.nudge-ledge {
-  position: relative;
-  width: 86%;
-  height: 6px;
-  margin-top: 10px;
-  border-radius: 1px;
-  background: var(--graphite);
-}
-/* крепления площадки к раме, чтобы она не висела в воздухе */
-.nudge-ledge::before,
-.nudge-ledge::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  width: 3px;
-  height: 10px;
-  background: var(--graphite);
-}
-.nudge-ledge::before {
-  left: 18%;
-}
-.nudge-ledge::after {
-  right: 18%;
-}
-/* опора: две половины разного тона — объём без теней и градиентов */
-.nudge-leg {
-  width: 14px;
-  height: var(--leg);
-  background: linear-gradient(90deg, var(--graphite) 50%, var(--graphite-2) 50%);
+.nudge-go {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 3px 10px;
+  padding: 10px 12px 11px 14px;
 }
 .nudge-kicker {
-  font-size: 10px;
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
 }
-.nudge strong {
-  font-family: var(--display);
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-.nudge p {
-  margin-bottom: 10px;
+.nudge-text {
+  grid-column: 1;
+  grid-row: 2;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.3;
   color: var(--muted);
 }
-.nudge .button {
-  width: 100%;
-  min-height: 48px;
-  justify-content: space-between;
+.nudge-text b {
+  font-weight: 700;
+  color: var(--ink);
 }
-.nudge-close {
-  position: absolute;
-  top: 6px;
-  right: 8px;
+.nudge-arrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
   width: 28px;
   height: 28px;
-  font-size: 20px;
-  line-height: 1;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 13px;
+  transition: transform 0.2s ease;
+}
+.nudge-go:hover .nudge-arrow {
+  transform: translateY(2px);
+}
+.nudge-close {
+  flex: 0 0 auto;
+  width: 30px;
+  border-left: 1px solid var(--line);
   color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
 }
 .nudge-close:hover {
   color: var(--ink);
 }
+/* одна тонкая опора — от билборда остаётся только силуэт */
+.nudge-leg {
+  width: 6px;
+  height: var(--leg);
+  background: var(--ink);
+}
 @media (max-width: 720px) {
-  /* на телефоне щит во всю ширину, опора короче — экран низкий */
+  /* на телефоне подсказка во всю ширину, нога короче — экран низкий */
   .nudge {
-    --leg: 22px;
+    --leg: 14px;
     right: 12px;
     left: 12px;
     width: auto;
@@ -1063,4 +1056,472 @@
 }
 .section-heading .eyebrow {
   margin-bottom: 16px;
+}
+
+/* =========================================================
+   ШАПКА · уже по высоте
+
+   Заказчик: шапка занимает слишком много первого экрана. Снизили
+   высоту и вместе с ней логотип — пропорции строки сохраняются.
+   Мобильное меню висит на шапке, его отступ сверху едет следом.
+   ========================================================= */
+.site-header {
+  height: 68px;
+  gap: 24px;
+}
+.brand {
+  width: 196px;
+  min-height: 36px;
+}
+.mobile-menu {
+  inset-block-start: 68px;
+}
+@media (max-width: 720px) {
+  .site-header {
+    height: 60px;
+  }
+  .brand {
+    width: 152px;
+  }
+  .mobile-menu {
+    inset-block-start: 60px;
+  }
+}
+
+/* =========================================================
+   ГЕОГРАФИЯ · карта крупнее
+
+   Заказчик отметил форму карты на скриншоте: вместо широкой узкой
+   полосы — прямоугольник заметно выше, примерно два к одному.
+   Колонка с показателями растягивается по той же высоте.
+   ========================================================= */
+.geo-map {
+  min-height: clamp(420px, 42vw, 640px);
+}
+@media (max-width: 1100px) {
+  .geo-map {
+    min-height: clamp(360px, 46vw, 520px);
+  }
+}
+
+/* =========================================================
+   03 · КОНСТРУКТОР · новый набор параметров
+
+   Состав полей от заказчика: тип бизнеса, город, период, бюджет,
+   вид рекламы. Город и вид рекламы — множественный выбор, для них
+   вместо <select> своя выпадашка с чекбоксами: внутри города ещё
+   уровень районов и адресов. Пять полей и кнопка ложатся в сетку
+   три на два — в одну строку они были бы слишком узкими.
+   ========================================================= */
+.builder-form {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 16px;
+}
+.builder-form .builder-submit {
+  justify-content: space-between;
+}
+@media (max-width: 1100px) {
+  .builder-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .builder-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* поле с выпадашкой — кнопка повторяет вид обычного select */
+.field--picker {
+  position: relative;
+}
+.picker-button {
+  width: 100%;
+  height: 58px;
+  padding: 0 40px 0 16px;
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.picker-button > span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.picker-button::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  bottom: 25px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.picker-button:hover {
+  border-color: var(--red);
+}
+.picker-button[aria-expanded="true"] {
+  border-color: var(--red);
+}
+.picker-button[aria-expanded="true"]::after {
+  transform: rotate(-135deg);
+  bottom: 21px;
+}
+.picker-pop {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(380px, calc(100vw - 48px));
+  max-height: 360px;
+  padding: 16px 6px 0 16px;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 48px rgba(10, 12, 18, 0.28);
+}
+/* у последнего поля выпадашка прижимается правым краем, чтобы не уехать за экран */
+.field--picker:last-of-type .picker-pop {
+  left: auto;
+  right: 0;
+}
+/* у выпадашки и списка локаций свой display — без этого атрибут hidden
+   перебивается и панель остаётся на экране */
+.picker-pop[hidden],
+.picker-spots[hidden] {
+  display: none;
+}
+.picker-hint {
+  margin: 0 10px 12px 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.picker-hint.is-warning {
+  font-weight: 700;
+  color: var(--red);
+}
+.picker-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+.picker-list.is-muted {
+  opacity: 0.45;
+}
+.picker-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  cursor: pointer;
+}
+.picker-row + .picker-row,
+.picker-city + .picker-city {
+  border-top: 1px solid var(--line);
+}
+.picker-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+.picker-name i {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--muted);
+}
+.picker-meta {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+/* второй уровень: районы и адреса внутри выбранного города */
+.picker-spots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 0 12px 28px;
+}
+.picker-chip {
+  cursor: pointer;
+}
+.picker-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.picker-chip span {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+.picker-chip input:checked + span {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.picker-chip input:focus-visible + span {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+.picker-auto {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  margin-right: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.picker-auto b {
+  display: block;
+  font-size: 14px;
+}
+.picker-auto i {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  font-style: normal;
+  color: var(--muted);
+}
+.picker-auto input,
+.picker-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--red);
+}
+.picker-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-right: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.picker-clear {
+  font-size: 12px;
+  color: var(--muted);
+}
+.picker-clear:hover {
+  color: var(--ink);
+}
+.picker-done {
+  height: 34px;
+  padding: 0 18px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   РЕЗУЛЬТАТ · переход на карту
+
+   Заказчик: из медиаплана нужен прямой переход на карту, где потом
+   выбирается точка и идёт бронирование. Кнопка встаёт рядом с
+   разбором, карта открывается панелью справа поверх страницы.
+   ========================================================= */
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.result-actions .button--light {
+  border: 1px solid var(--ink);
+}
+@media (max-width: 720px) {
+  .result-actions {
+    width: 100%;
+  }
+  .result-actions .button {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+}
+
+.map-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+.map-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 15, 21, 0.45);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.map-drawer.is-open .map-drawer-backdrop {
+  opacity: 1;
+}
+.map-drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(460px, 100vw);
+  height: 100%;
+  padding: 26px 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  border-left: 1px solid var(--ink);
+  box-shadow: -24px 0 60px rgba(10, 12, 18, 0.24);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.32s var(--ease);
+}
+.map-drawer.is-open .map-drawer-panel {
+  transform: none;
+}
+.map-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.map-drawer-head h3 {
+  margin-top: 6px;
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.map-drawer-close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+}
+.map-drawer-close:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.map-drawer-scope {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.map-drawer-canvas {
+  min-height: 230px;
+  border-radius: 4px;
+  background-color: var(--photo);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.16) 1.4px, transparent 1.4px);
+  background-size: 16px 16px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+.map-drawer-canvas span {
+  max-width: 220px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.map-drawer-points .result-label {
+  display: block;
+  margin-bottom: 10px;
+}
+.map-drawer-points ul {
+  display: grid;
+  gap: 2px;
+}
+.map-drawer-points li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.map-drawer-points li b {
+  display: block;
+  font-size: 14px;
+}
+.map-drawer-points li span {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.map-drawer-points li.is-picked b {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+.map-drawer-points button {
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 16px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.map-drawer-points button:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+.map-drawer-points button:disabled {
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: default;
+}
+.map-drawer-note {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.map-drawer-status:not(:empty) {
+  padding: 10px 12px;
+  background: var(--sand);
+  border-radius: var(--radius);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-drawer-panel,
+  .map-drawer-backdrop {
+    transition: none;
+  }
 }
