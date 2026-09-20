@@ -1110,24 +1110,74 @@
    Состав полей от заказчика: тип бизнеса, город, период, бюджет,
    вид рекламы. Город и вид рекламы — множественный выбор, для них
    вместо <select> своя выпадашка с чекбоксами: внутри города ещё
-   уровень районов и адресов. Пять полей и кнопка ложатся в сетку
-   три на два — в одну строку они были бы слишком узкими.
+   уровень районов и адресов. Пять полей и кнопка стоят одной строкой,
+   поэтому ячейки ужаты: меньше шрифт, поля, отступы и подпись кнопки.
+   Ниже 1200 px строка не помещается и раскладывается в три, две
+   и одну колонку.
    ========================================================= */
 .builder-form {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px 16px;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+  gap: 16px 10px;
+}
+.builder-form .field-label {
+  margin-bottom: 7px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.builder-form select,
+.builder-form .picker-button,
+.builder-form .budget-track,
+.builder-form .builder-submit {
+  height: 54px;
+  min-height: 54px;
+}
+.builder-form select,
+.builder-form .picker-button {
+  padding-right: 34px;
+  padding-left: 13px;
+  font-size: 13px;
+}
+.builder-form select {
+  background-position: calc(100% - 18px) 24px, calc(100% - 12px) 24px;
+}
+.picker-button::after {
+  right: 13px;
+  bottom: 23px;
+}
+.picker-button[aria-expanded="true"]::after {
+  bottom: 19px;
+}
+.field--budget output {
+  font-size: 12px;
+}
+.builder-form .budget-track {
+  padding: 0 13px;
 }
 .builder-form .builder-submit {
+  padding: 0 20px;
+  gap: 16px;
   justify-content: space-between;
+  font-size: 13px;
+  white-space: nowrap;
 }
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .builder-form {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 16px;
+  }
+}
+@media (max-width: 1000px) {
+  .builder-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 720px) {
   .builder-form {
     grid-template-columns: 1fr;
+  }
+  .builder-form .field-label {
+    white-space: normal;
   }
 }
 

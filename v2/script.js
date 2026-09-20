@@ -323,8 +323,9 @@
         pop.hidden = !open;
         toggle.setAttribute("aria-expanded", String(open));
         // на телефоне подсказка о карте стоит ровно там, где разворачивается
-        // список, — убираем её тем же способом, что и крестиком
-        if (open) $("[data-nudge-close]")?.click();
+        // список: просим её убраться. Через событие, а не нажатие крестика —
+        // синтетический клик всплыл бы до документа и тут же закрыл выпадашку.
+        if (open) document.dispatchEvent(new CustomEvent("nudge:hide"));
       });
       $$("[data-picker-close]", picker).forEach((button) =>
         button.addEventListener("click", () => {
@@ -989,6 +990,9 @@
     $$("[data-nudge-close], [data-nudge-go]", nudge).forEach((element) =>
       element.addEventListener("click", hideNudge)
     );
+
+    // подсказку убирает и конструктор, когда разворачивает список городов
+    document.addEventListener("nudge:hide", hideNudge);
 
     // карта попала в кадр — подсказка больше не нужна
     new IntersectionObserver(
