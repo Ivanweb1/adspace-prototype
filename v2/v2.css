@@ -1034,6 +1034,357 @@
   }
 }
 
+/* ── «Подробнее» на карточке акции ───────────────────────
+   Кнопка компактная: карточки в сетке низкие, обычный .button
+   с высотой 58 px их ломает. Форма — как у стрелок листания. */
+.pr-more {
+  margin-top: 14px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.pr-more:hover {
+  background: var(--ink);
+  color: var(--surface);
+}
+/* в широких карточках «Подробнее» встаёт рядом с основным действием */
+.pr-actions {
+  margin-top: auto;
+  padding-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.pr-actions .pr-cta,
+.pr-actions .pr-more {
+  margin-top: 0;
+}
+
+/* =========================================================
+   02 · АКЦИИ · попап «Подробнее»
+
+   Всё об акции — условия, локация на карте, фото и обе цены —
+   должно читаться в одном экране. Поэтому панель ограничена по
+   высоте, ничего не прокручивается, а медиа-колонка сжимается
+   первой: у фото и карты min-height: 0 и доли свободного места.
+   ========================================================= */
+.promo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vh, 28px);
+  background: rgba(15, 16, 22, 0.6);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.promo-modal[hidden] {
+  display: none;
+}
+.promo-modal.is-visible {
+  opacity: 1;
+}
+.promo-modal-panel {
+  position: relative;
+  width: min(1080px, 100%);
+  max-height: min(92vh, 720px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transform: translateY(16px);
+  transition: transform 0.25s ease;
+}
+.promo-modal.is-visible .promo-modal-panel {
+  transform: translateY(0);
+}
+.promo-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.promo-modal-close:hover {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+/* левая колонка: фото сверху, карта снизу */
+.promo-modal-media {
+  display: grid;
+  grid-template-rows: minmax(0, 1.1fr) minmax(0, 1fr);
+  border-right: 1px solid var(--ink);
+}
+.promo-modal-photo {
+  min-height: 0;
+  border-bottom: 1px solid var(--ink);
+}
+.promo-modal-map {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(14px, 1.6vw, 20px);
+}
+.promo-modal-place {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.promo-modal-canvas {
+  flex: 1;
+  min-height: 84px;
+  border-radius: var(--radius);
+  background-color: var(--photo);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.16) 1.4px, transparent 1.4px);
+  background-size: 16px 16px;
+  display: grid;
+  place-content: center;
+  padding: 10px;
+  text-align: center;
+}
+.promo-modal-canvas span {
+  max-width: 26ch;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* правая колонка: текст, условия, цены */
+.promo-modal-info {
+  display: grid;
+  align-content: start;
+  gap: clamp(10px, 1.6vh, 16px);
+  padding: clamp(20px, 2.4vw, 32px);
+  padding-right: clamp(56px, 4vw, 64px);
+  overflow: hidden;
+}
+.promo-modal-info .pr-tag {
+  justify-self: start;
+  margin-bottom: 0;
+}
+.promo-modal-info h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.promo-modal-lead {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.promo-modal-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.promo-modal-terms ul {
+  margin-top: 8px;
+  display: grid;
+  gap: 6px;
+}
+.promo-modal-terms li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.promo-modal-terms li::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+}
+.promo-modal-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 24px;
+  padding: clamp(10px, 1.6vh, 16px) 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.promo-price {
+  display: grid;
+  gap: 4px;
+}
+.promo-price span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.promo-price b {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.promo-price--was b {
+  font-size: clamp(18px, 1.8vw, 22px);
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--red);
+}
+.promo-price--now b {
+  font-size: clamp(28px, 3vw, 38px);
+  color: var(--ink);
+}
+.promo-price-unit {
+  margin-left: auto;
+  max-width: 22ch;
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: right;
+  color: var(--muted);
+}
+.promo-modal-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+.promo-modal-cta {
+  min-height: 48px;
+  gap: 16px;
+}
+.promo-modal-note {
+  flex: 1;
+  min-width: 180px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* ── узкие экраны: одна колонка, фото и карта встают в ряд ── */
+@media (max-width: 900px) {
+  .promo-modal-panel {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .promo-modal-media {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-rows: minmax(0, 1fr);
+    border-right: none;
+    border-bottom: 1px solid var(--ink);
+    height: clamp(130px, 22vh, 190px);
+  }
+  .promo-modal-photo {
+    border-right: 1px solid var(--ink);
+    border-bottom: none;
+  }
+  .promo-modal-info {
+    padding-right: clamp(20px, 2.4vw, 32px);
+  }
+  /* крестик переехал на карту — уводим из-под него подпись локации */
+  .promo-modal-map .promo-modal-label,
+  .promo-modal-map .promo-modal-place {
+    padding-right: 44px;
+  }
+}
+/* ── телефон: поджимаем всё, чтобы уложиться в экран 640 px ── */
+@media (max-width: 560px) {
+  .promo-modal {
+    padding: 10px;
+  }
+  .promo-modal-media {
+    height: clamp(108px, 17vh, 150px);
+  }
+  .promo-modal-map {
+    padding: 12px;
+  }
+  .promo-modal-place {
+    font-size: 12px;
+  }
+  .promo-modal-canvas {
+    min-height: 54px;
+  }
+  .promo-modal-info {
+    gap: clamp(8px, 1.2vh, 12px);
+    padding: 16px;
+  }
+  .promo-modal-lead,
+  .promo-modal-terms li,
+  .promo-modal-place {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .promo-modal-terms ul {
+    margin-top: 6px;
+    gap: 4px;
+  }
+  .promo-price--now b {
+    font-size: 26px;
+  }
+  .promo-price-unit {
+    margin-left: 0;
+    max-width: none;
+    text-align: left;
+  }
+  .promo-modal-foot {
+    gap: 8px;
+  }
+  .promo-modal-cta {
+    min-height: 44px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .promo-modal-note {
+    font-size: 10px;
+  }
+}
+/* совсем низкие окна — лучше дать прокрутку, чем обрезать цену */
+@media (max-height: 560px) {
+  .promo-modal-panel {
+    max-height: 96vh;
+    overflow-y: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .promo-modal,
+  .promo-modal-panel {
+    transition: none;
+  }
+}
+
 /* =========================================================
    ЗАГОЛОВКИ СЕКЦИЙ · единый размер
 
