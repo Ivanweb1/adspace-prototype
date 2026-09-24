@@ -998,12 +998,6 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
-.pr-cta {
-  margin-top: auto;
-}
-.pr-card--wide p + .pr-cta {
-  margin-top: 18px;
-}
 .pr-note {
   margin-top: 18px;
   max-width: 62ch;
@@ -1035,28 +1029,37 @@
 }
 
 /* ── «Подробнее» на карточке акции ───────────────────────
-   Обычная кнопка сайта в тёмном (.button--dark): это главное
-   действие карточки. Ужимаем только размер — карточки в сетке
-   низкие, штатные 58 px высоты их ломают. */
+   Кнопка компактная: карточки в сетке низкие, обычный .button
+   с высотой 58 px их ломает. Форма — как у стрелок листания. */
 .pr-more {
   margin-top: 14px;
-  min-height: 48px;
-  padding: 0 20px;
-  gap: 18px;
-  font-size: 13px;
-}
-/* в широких карточках «Подробнее» встаёт рядом с основным действием */
-.pr-actions {
-  margin-top: auto;
-  padding-top: 18px;
-  display: flex;
-  flex-wrap: wrap;
+  padding: 10px 16px;
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
-.pr-actions .pr-cta,
-.pr-actions .pr-more {
-  margin-top: 0;
+.pr-more:hover {
+  background: var(--ink);
+  color: var(--surface);
+}
+/* в широких карточках «Подробнее» — единственное действие, прижимаем
+   к низу; отбивку от текста держит margin-bottom абзаца, иначе на
+   узком экране, где карточка сжата, кнопка встаёт вплотную */
+.pr-card--wide p {
+  margin-bottom: 14px;
+}
+.pr-card--wide .pr-more {
+  margin-top: auto;
 }
 
 /* =========================================================
@@ -1271,8 +1274,7 @@
 }
 .promo-modal-cta {
   min-height: 48px;
-  padding: 0 22px;
-  gap: 18px;
+  gap: 16px;
 }
 .promo-modal-note {
   flex: 1;
