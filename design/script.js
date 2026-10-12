@@ -970,6 +970,216 @@
     });
   }
 
+  /* ── попап акции «Подробнее» ────────────────────────────
+     Один диалог на все акции: карточка передаёт свой id, скрипт
+     подставляет условия, локацию, подпись к фото и обе цены.
+     Содержимое демонстрационное — реальные условия и прайс
+     заказчик передаёт отдельно. */
+  const PROMOS = {
+    hotels: {
+      tag: "Спецразмещение",
+      title: "Реклама в отелях 5 звёзд",
+      lead: "Контакт с платёжеспособной аудиторией в точках спокойного внимания.",
+      terms: [
+        "Пакет на 3 месяца: сентябрь — ноябрь, оплата помесячно.",
+        "12 отелей: лифтовые холлы, лобби и зоны ресепшена.",
+        "Дизайн макета и печать — за наш счёт при брони до конца месяца.",
+      ],
+      place: "Москва · Тверская, Пресня, Арбат, Сити",
+      map: "Здесь будет карта отелей с точками размещения",
+      photo: "Фото: стенд в лобби отеля",
+      old: "420 000 ₽",
+      now: "310 000 ₽",
+      unit: "за месяц, все 12 отелей",
+    },
+    stadium: {
+      tag: "Событийная реклама",
+      title: "Бренд на стадионе",
+      lead: "Размещение в событиях с высокой эмоциональной вовлечённостью.",
+      terms: [
+        "Сезон 26/27: 18 домашних матчей.",
+        "Статичные борта по периметру поля плюс экран в перерыве.",
+        "90 секунд бренда в каждом матче, ролик делаем мы.",
+      ],
+      place: "ЮФО · Краснодар, Ростов-на-Дону, Сочи",
+      map: "Здесь будет карта стадионов",
+      photo: "Фото: борт у кромки поля",
+      old: "1 250 000 ₽",
+      now: "890 000 ₽",
+      unit: "за сезон, три стадиона",
+    },
+    launch: {
+      tag: "Для девелоперов",
+      title: "Пакет на старт продаж",
+      lead: "Наружная у объекта, лифты в радиусе и радио на весь город.",
+      terms: [
+        "Минимальный срок — 2 месяца, старт в любую дату.",
+        "4 щита 3×6 у объекта, 120 лифтов в радиусе 2 км, 3 радиостанции.",
+        "Замена макета внутри периода — без доплаты.",
+      ],
+      place: "Краснодар · ФМР, ЗИП, Музыкальный",
+      map: "Здесь будет карта поверхностей вокруг объекта",
+      photo: "Фото: щит у строительной площадки",
+      old: "760 000 ₽",
+      now: "590 000 ₽",
+      unit: "за 2 месяца, весь пакет",
+    },
+    boards: {
+      tag: "Осенний тариф",
+      title: "Осенний тариф на щиты 3×6",
+      lead: "Скидка за длительный период при бронировании до конца месяца.",
+      terms: [
+        "−15% к прайсу при периоде от 3 месяцев.",
+        "Стороны А и Б на выбор, приоритетные адреса — по наличию.",
+        "Печать и монтаж включены, дальше — только аренда.",
+      ],
+      place: "Москва и область · вдоль ТТК, Ленинградское и Каширское шоссе",
+      map: "Здесь будет карта щитов с точками размещения",
+      photo: "Фото: щит 3×6 на трассе",
+      old: "78 000 ₽",
+      now: "66 300 ₽",
+      unit: "за щит в месяц",
+    },
+    federal: {
+      tag: "Федеральный пакет",
+      title: "Одна кампания — вся страна",
+      lead: "Единый медиаплан, один договор и управляемый запуск по регионам.",
+      terms: [
+        "Регионы включаются волнами — платите за те, что уже в эфире.",
+        "8 городов присутствия, 12 400 поверхностей в общем пуле.",
+        "Отчёт с фотофиксацией по каждому городу раз в две недели.",
+      ],
+      place: "Россия · Москва, Петербург, Краснодар, Ростов, Сочи, Волгоград, Воронеж, Ставрополь",
+      map: "Здесь будет карта присутствия по городам",
+      photo: "Фото: сводка кампании по регионам",
+      old: "4 800 000 ₽",
+      now: "3 900 000 ₽",
+      unit: "за волну, 8 городов",
+    },
+    lifts: {
+      tag: "Indoor",
+      title: "Лифты в жилых кварталах",
+      lead: "Ежедневный контакт в замкнутом пространстве, без конкуренции за внимание.",
+      terms: [
+        "Минимальный объём — 100 подъездов, шаг 50.",
+        "Формат А3 в рамах, замена макета раз в месяц.",
+        "При брони от 3 месяцев четвёртый — в подарок.",
+      ],
+      place: "Санкт-Петербург · Приморский, Московский, Невский районы",
+      map: "Здесь будет карта домов с лифтовыми стендами",
+      photo: "Фото: стенд в кабине лифта",
+      old: "240 000 ₽",
+      now: "185 000 ₽",
+      unit: "за месяц, 100 подъездов",
+    },
+    radio: {
+      tag: "Радио",
+      title: "Радио на утренний трафик",
+      lead: "Пакет роликов в часы, когда город стоит в пробках.",
+      terms: [
+        "Минимальный период — 2 недели.",
+        "40 выходов в неделю в окне 07:00 — 10:00.",
+        "Производство ролика и голос диктора включены.",
+      ],
+      place: "Ростов-на-Дону · городские и сетевые станции",
+      map: "Здесь будет карта покрытия станций",
+      photo: "Фото: студия и эфирный пульт",
+      old: "310 000 ₽",
+      now: "248 000 ₽",
+      unit: "за 2 недели, все выходы",
+    },
+    transit: {
+      tag: "Транспорт",
+      title: "Транзит: борта и салоны",
+      lead: "Маршруты подбираются под район, где нужен охват, а не «по остаточному».",
+      terms: [
+        "Период от 1 месяца, маршруты согласуем до старта.",
+        "30 бортов и 200 стикеров в салонах.",
+        "Оклейка и снятие — за наш счёт.",
+      ],
+      place: "Воронеж · маршруты через центр и левый берег",
+      map: "Здесь будет карта маршрутов",
+      photo: "Фото: борт автобуса с макетом",
+      old: "520 000 ₽",
+      now: "415 000 ₽",
+      unit: "за месяц, 30 бортов",
+    },
+  };
+
+  const promoModal = $("[data-promo-modal]");
+  if (promoModal) {
+    const promoFields = {
+      tag: $("[data-promo-tag]", promoModal),
+      title: $("[data-promo-title]", promoModal),
+      lead: $("[data-promo-lead]", promoModal),
+      terms: $("[data-promo-terms]", promoModal),
+      place: $("[data-promo-place]", promoModal),
+      map: $("[data-promo-map]", promoModal),
+      photo: $("[data-promo-photo]", promoModal),
+      old: $("[data-promo-old]", promoModal),
+      now: $("[data-promo-new]", promoModal),
+      unit: $("[data-promo-unit]", promoModal),
+    };
+    const promoClose = $("[data-promo-close]", promoModal);
+    let promoLastFocused = null;
+
+    const fillPromo = (promo) => {
+      promoFields.tag.textContent = promo.tag;
+      promoFields.title.textContent = promo.title;
+      promoFields.lead.textContent = promo.lead;
+      promoFields.place.textContent = promo.place;
+      promoFields.map.textContent = promo.map;
+      promoFields.photo.setAttribute("data-photo-label", promo.photo);
+      promoFields.old.textContent = promo.old;
+      promoFields.now.textContent = promo.now;
+      promoFields.unit.textContent = promo.unit;
+
+      promoFields.terms.replaceChildren(
+        ...promo.terms.map((text) => {
+          const item = document.createElement("li");
+          item.textContent = text;
+          return item;
+        })
+      );
+    };
+
+    const openPromoModal = (id) => {
+      const promo = PROMOS[id];
+      if (!promo) return;
+      promoLastFocused = document.activeElement;
+      fillPromo(promo);
+      promoModal.hidden = false;
+      document.body.classList.add("modal-open");
+      // тот же приём, что и в попапе партнёра: синхронный reflow,
+      // иначе переход по opacity не успевает включиться
+      void promoModal.offsetHeight;
+      promoModal.classList.add("is-visible");
+      promoClose?.focus();
+    };
+
+    const closePromoModal = () => {
+      promoModal.classList.remove("is-visible");
+      document.body.classList.remove("modal-open");
+      window.setTimeout(() => {
+        promoModal.hidden = true;
+      }, 200);
+      promoLastFocused?.focus();
+    };
+
+    $$("[data-promo-open]").forEach((trigger) =>
+      trigger.addEventListener("click", () => openPromoModal(trigger.dataset.promoOpen))
+    );
+    promoClose?.addEventListener("click", closePromoModal);
+    promoModal.addEventListener("click", (event) => {
+      if (event.target === promoModal) closePromoModal();
+    });
+    // кнопка «Забронировать» ведёт к форме — попап при этом закрывается
+    $("[data-promo-cta]", promoModal)?.addEventListener("click", closePromoModal);
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !promoModal.hidden) closePromoModal();
+    });
+  }
+
   /* ── «напоминашка» о карте присутствия ──────────────────
      Одно окошко-щит, а не набор всплывашек по всему сайту: выезжает
      после первого экрана и уходит, как только человек добрался
