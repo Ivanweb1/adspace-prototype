@@ -2657,3 +2657,39 @@ body {
   background: var(--dz-black);
   color: var(--dz-white);
 }
+
+/* плашка «Одна система»: в отличие от «Легко заказать» здесь есть
+   буквы с нижним выносным элементом («Д»), им нужен запас снизу */
+.dz-hl {
+  padding: 0.08em 0.12em 0.2em;
+  line-height: 0.9;
+}
+
+/* шапка «Рекламных решений»: заголовок одной строкой и мельче,
+   пояснение справа крупнее и по нижней линии заголовка —
+   без перегруза слева и пустоты справа */
+.solutions .section-heading {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: end;
+}
+.solutions .section-heading h2 {
+  font-size: clamp(36px, 4.2vw, 68px);
+  white-space: nowrap;
+}
+.solutions .heading-aside p {
+  max-width: 440px;
+  margin: 0 0 0.2em auto;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.4;
+}
+@media (max-width: 1000px) {
+  .solutions .section-heading {
+    grid-template-columns: 1fr;
+  }
+  .solutions .section-heading h2 {
+    white-space: normal;
+  }
+  .solutions .heading-aside p {
+    margin-left: 0;
+  }
+}
