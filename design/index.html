@@ -1328,6 +1328,29 @@
             <h2 id="platform-title">Работает <span>с двух сторон</span></h2>
           </div>
 
+          <div class="platform-flow reveal" aria-label="Как связаны стороны">
+            <div class="pf-node">
+              <small>Сторона 1</small>
+              <b>Рекламодатель</b>
+            </div>
+            <div class="pf-link">
+              <span class="pf-arrow pf-arrow--fwd">Заявка и бронь</span>
+              <span class="pf-arrow pf-arrow--back">Подтверждение и запуск</span>
+            </div>
+            <div class="pf-node pf-node--core">
+              <small>Одна система</small>
+              <b>ADSPACE</b>
+            </div>
+            <div class="pf-link">
+              <span class="pf-arrow pf-arrow--fwd">Бронь поверхности</span>
+              <span class="pf-arrow pf-arrow--back">Статусы по API</span>
+            </div>
+            <div class="pf-node">
+              <small>Сторона 2</small>
+              <b>Владелец инвентаря</b>
+            </div>
+          </div>
+
           <div class="platform-split">
             <div class="platform-side reveal">
               <span class="platform-role">Рекламодателю</span>
@@ -1340,7 +1363,23 @@
               <a class="button button--light" href="#builder"
                 >Подобрать кампанию <span aria-hidden="true">↗</span></a
               >
-              <div class="platform-visual" aria-hidden="true"><i class="pv-bar"><b></b><b></b><b></b></i><span>Экран платформы</span></div>
+              <div class="platform-visual pv-mock" aria-hidden="true" data-demo="макет интерфейса, демо">
+                <i class="pv-bar"><b></b><b></b><b></b><em>Подбор кампании</em></i>
+                <div class="pvm-adv">
+                  <div class="pvm-map">
+                    <i style="left: 22%; top: 34%"></i><i style="left: 41%; top: 58%"></i>
+                    <i style="left: 63%; top: 28%"></i><i style="left: 74%; top: 66%"></i>
+                    <i class="is-picked" style="left: 52%; top: 44%"></i>
+                  </div>
+                  <div class="pvm-cart">
+                    <small>Медиаплан</small>
+                    <p><span>Outdoor · 6 щитов</span><b>4 нед.</b></p>
+                    <p><span>DOOH · 3 экрана</span><b>4 нед.</b></p>
+                    <p><span>Radio · 2 станции</span><b>2 нед.</b></p>
+                    <strong>Итого <em>расчёт готов</em></strong>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="platform-side reveal">
@@ -1354,7 +1393,17 @@
               <a class="button button--light" href="#contact" data-open-partner-modal
                 >Стать партнёром <span aria-hidden="true">↗</span></a
               >
-              <div class="platform-visual" aria-hidden="true"><i class="pv-bar"><b></b><b></b><b></b></i><span>Экран платформы</span></div>
+              <div class="platform-visual pv-mock" aria-hidden="true" data-demo="макет интерфейса, демо">
+                <i class="pv-bar"><b></b><b></b><b></b><em>Мои поверхности</em></i>
+                <div class="pvm-table">
+                  <p class="pvm-head"><span>Поверхность</span><span>Формат</span><span>Статус</span></p>
+                  <p><span>ул. Красная, 120</span><span>Щит 6×3</span><span class="pvm-st pvm-st--busy">Занята</span></p>
+                  <p><span>пр. Чекистов, 31</span><span>DOOH</span><span class="pvm-st pvm-st--hold">Бронь</span></p>
+                  <p><span>ул. Северная, 405</span><span>Щит 6×3</span><span class="pvm-st">Свободна</span></p>
+                  <p><span>ТЦ «Галерея», ур. 1</span><span>Indoor</span><span class="pvm-st pvm-st--busy">Занята</span></p>
+                  <p class="pvm-sync"><span>Синхронизация по API · 2 мин назад</span></p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

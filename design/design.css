@@ -4253,3 +4253,298 @@ main .section-heading,
 .builder-heading + .builder-form {
   margin-top: 0;
 }
+
+/* =========================================================
+   ПЛАТФОРМА · связь сторон и макеты интерфейса
+   Полоса под заголовком: рекламодатель — ADSPACE — владелец,
+   между ними стрелки туда и обратно. Крайние узлы стоят над
+   своими колонками, система — красной плашкой посередине.
+   ========================================================= */
+.platform-flow {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0 20px;
+  margin-bottom: 40px;
+}
+.pf-node small {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.pf-node b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(20px, 1.6vw, 26px);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-white);
+}
+.pf-node--core {
+  padding: 12px 18px 14px;
+  background: var(--dz-red);
+  text-align: center;
+}
+.pf-node--core small {
+  color: rgba(13, 13, 15, 0.7);
+}
+.pf-node--core b {
+  color: var(--dz-black);
+}
+.pf-link {
+  display: grid;
+  gap: 10px;
+}
+.pf-arrow {
+  position: relative;
+  display: block;
+  padding: 0 14px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+}
+/* наконечники стрелок — уголки на концах линии */
+.pf-arrow::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  border-right: 1px solid rgba(255, 255, 255, 0.7);
+}
+.pf-arrow--fwd::after {
+  right: 0;
+  transform: rotate(45deg);
+}
+.pf-arrow--back {
+  padding: 6px 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 0;
+}
+.pf-arrow--back::after {
+  top: -4px;
+  bottom: auto;
+  left: 0;
+  transform: rotate(-135deg);
+}
+.pf-arrow--fwd {
+  color: var(--dz-white);
+  border-bottom-color: var(--dz-red);
+}
+.pf-arrow--fwd::after {
+  border-color: var(--dz-red);
+}
+@media (max-width: 900px) {
+  .platform-flow {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    justify-items: start;
+  }
+  .pf-link {
+    width: 100%;
+  }
+}
+
+/* ── макеты интерфейса в окнах ─────────────────────────── */
+.platform .pv-bar em {
+  margin-left: 10px;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.platform .pv-mock {
+  display: block;
+  min-height: 0;
+}
+/* рекламодатель: карта с точками + медиаплан справа */
+.pvm-adv {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  min-height: 236px;
+}
+.pvm-map {
+  position: relative;
+  background-color: #1f1f23;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(32deg, transparent 47%, rgba(255, 255, 255, 0.07) 48%, rgba(255, 255, 255, 0.07) 52%, transparent 53%);
+  background-size: 28px 28px, 28px 28px, 100% 100%;
+}
+.pvm-map i {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  background: var(--dz-red);
+}
+.pvm-map i.is-picked {
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  box-shadow: 0 0 0 5px rgba(235, 34, 70, 0.3);
+}
+.pvm-cart {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 18px;
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+.pvm-cart small,
+.pvm-head span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.pvm-cart small {
+  margin-bottom: 8px;
+}
+.pvm-cart p {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.86);
+}
+.pvm-cart p b {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+}
+.pvm-cart strong {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--dz-white);
+}
+.pvm-cart strong em {
+  padding: 5px 8px;
+  background: var(--dz-red);
+  font-style: normal;
+  font-size: 11px;
+  color: var(--dz-black);
+}
+/* владелец: таблица поверхностей со статусами */
+.pvm-table {
+  padding: 8px 18px 14px;
+  min-height: 236px;
+}
+.pvm-table p {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) 96px;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.86);
+}
+.pvm-table p span:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pvm-table .pvm-head {
+  padding: 8px 0;
+}
+.pvm-st {
+  justify-self: start;
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dz-white);
+}
+.pvm-st--busy {
+  border-color: var(--dz-red);
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+.pvm-st--hold {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.14);
+}
+.pvm-table .pvm-sync {
+  display: block;
+  border-bottom: 0;
+  padding-bottom: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.pvm-table .pvm-sync span::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  background: var(--dz-red);
+  animation: dz-blink 1.6s steps(2, jump-none) infinite;
+}
+@media (max-width: 520px) {
+  .pvm-adv {
+    grid-template-columns: 1fr;
+  }
+  .pvm-map {
+    min-height: 150px;
+  }
+  .pvm-cart {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .pvm-table p {
+    grid-template-columns: minmax(0, 1fr) 84px;
+  }
+  .pvm-table p span:nth-child(2) {
+    display: none;
+  }
+}
+/* правило подписи заглушки (.platform-visual span — капс, разрядка)
+   не должно касаться текста в макетах */
+.platform .pv-mock span {
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  color: inherit;
+}
+.platform .pv-mock .pvm-head span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.platform .pv-mock .pvm-st {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.platform .pv-mock .pvm-st--busy {
+  color: var(--dz-black);
+}
+.platform .pv-mock .pvm-st:not(.pvm-st--busy) {
+  color: var(--dz-white);
+}
