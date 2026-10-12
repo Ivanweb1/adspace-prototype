@@ -4137,69 +4137,6 @@ body {
   color: var(--dz-white);
 }
 
-/* =========================================================
-   ПРОБА: «Кейсы» на красном фоне (отдельный коммит, легко
-   откатить). Красные акценты блока на красном пропадают —
-   переводим их в чёрный и белый; карточка остаётся тёмной,
-   внутри неё красный работает как раньше.
-   ========================================================= */
-.cases {
-  background: var(--dz-red);
-}
-#cases .section-heading h2 span {
-  color: var(--dz-white);
-}
-/* лента кейсов */
-.cases .show-list {
-  border-top-color: var(--dz-black);
-}
-.cases .show-list button {
-  border-bottom-color: rgba(13, 13, 15, 0.25);
-}
-.cases .show-num,
-.cases .show-list button.is-active .show-num {
-  color: var(--dz-black);
-}
-.cases .show-seg {
-  color: rgba(13, 13, 15, 0.65);
-}
-.cases .show-list button.is-active::before {
-  background: var(--dz-black);
-}
-.cases .show-list button::after {
-  background: var(--dz-black);
-}
-.cases .show-badge {
-  border-color: var(--dz-black);
-  background: var(--dz-black);
-  color: var(--dz-white);
-}
-.cases .show-list button.is-active .show-badge {
-  border-color: var(--dz-white);
-  background: var(--dz-white);
-  color: var(--dz-black);
-}
-/* «Смотреть все кейсы» */
-.cases .show-more:hover {
-  background: var(--dz-black);
-  color: var(--dz-red);
-}
-/* клиенты: логотипы чёрным, линии полупрозрачным чёрным */
-.cases .clients-strip {
-  border-top-color: var(--dz-black);
-}
-.cases .clients-logos img {
-  filter: brightness(0);
-}
-.cases .clients-logos li::before,
-.cases .clients-logos li::after {
-  background: rgba(13, 13, 15, 0.25);
-}
-/* «Для кого» больше не продолжает белый фон кейсов — свой отступ сверху */
-.segments {
-  padding-top: var(--dz-section-y);
-}
-
 /* строка статуса формы пустая до отправки — не держим под неё место,
    иначе текст о политике уезжает далеко от кнопки */
 .contact .form-status:empty {
