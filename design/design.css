@@ -3757,3 +3757,18 @@ body {
     margin-left: 0;
   }
 }
+
+/* межстрочный у заголовков блоков: при 0,95 хвосты «Д», «Ц», «Щ»
+   первой строки упирались во вторую — даём воздух всем h2 сразу,
+   чтобы заголовки оставались одинаковыми */
+:root {
+  --dz-h2-lh: 1.04;
+}
+.promos .section-heading h2,
+.builder-heading h2,
+.solutions .section-heading h2,
+.accuracy h2,
+#cases .section-heading h2,
+#segments .section-heading h2 {
+  line-height: var(--dz-h2-lh);
+}
