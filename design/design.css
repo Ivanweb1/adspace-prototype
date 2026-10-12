@@ -117,7 +117,6 @@ body {
   height: clamp(60px, 5.6vw, 84px);
   justify-content: flex-start;
   padding-left: max(16px, calc((100vw - var(--shell)) / 2));
-  border-bottom: 2px solid var(--dz-black);
 }
 .hero-banner-track {
   width: max-content;
@@ -297,8 +296,9 @@ body {
   color: var(--dz-black);
 }
 .hero .hero-proof li {
-  padding: 12px 0 0;
+  padding: 12px 0 14px;
   border-top: 1px solid var(--dz-black);
+  border-bottom: 1px solid var(--dz-black);
 }
 .hero .hero-proof b {
   display: block;
@@ -613,6 +613,26 @@ body {
   font-weight: 600;
   color: var(--dz-muted);
 }
+/* у каждой цифры своя линия снизу — отрезками с промежутками,
+   как у тезисов; линия идёт по ширине текста ячейки */
+.hero .metric-strip div::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 0;
+  height: 1px;
+  background: var(--dz-black);
+}
+.hero .metric-strip div:first-child::after {
+  left: 0;
+}
+.hero .metric-strip div:last-child::after {
+  right: 0;
+}
+.hero .metric-strip div:nth-child(3)::after {
+  display: none;
+}
 /* «12 400 поверхностей» — точка притяжения блока */
 .hero .metric-strip div:nth-child(3) {
   background: var(--dz-red);
@@ -825,7 +845,14 @@ body {
   /* 2×2: рамки из styles.css убираем, между рядами — тонкая линейка,
      левые ячейки без вертикальной линии слева */
   .hero .metric-strip div:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--dz-black);
+    border-bottom: 0;
+  }
+  .hero .metric-strip div:nth-child(odd)::after {
+    left: 0;
+    right: 16px;
+  }
+  .hero .metric-strip div:nth-child(even)::after {
+    right: 0;
   }
   .hero .metric-strip div:nth-child(odd)::before {
     display: none;
