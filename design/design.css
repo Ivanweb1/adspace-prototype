@@ -3448,39 +3448,103 @@ body {
 #cases .heading-aside p {
   margin-bottom: 0.2em;
 }
-/* «Результат» — главная метрика: крупная красная цифра,
-   справа подпись; та же отбивка слева, что у «Задачи» */
+/* текст карточки — одна сетка в три колонки, как у фактов:
+   у каждого пункта подпись сверху, значение снизу, тонкая линия
+   над ним. «Задача» на две колонки, «Результат» — третья, ниже
+   форматы, период, география. Никаких разных отбивок слева. */
+.cases .show-copy {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: start;
+}
+.cases .show-copy > .show-tag,
+.cases .show-copy > h3,
+.cases .show-copy > .show-facts {
+  grid-column: 1 / -1;
+}
+.cases .show-copy > .show-tag {
+  justify-self: start;
+}
+.cases .show-copy > .button {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+.cases .show-task,
 .cases .show-result {
-  display: flex;
-  align-items: flex-end;
-  gap: 14px;
-  margin-top: 12px;
-  padding-left: 14px;
-  border-left: 2px solid var(--dz-red);
-}
-.cases .show-result strong {
-  font-family: var(--dz-display);
-  font-weight: var(--dz-weight);
-  font-size: clamp(44px, 3.8vw, 64px);
-  line-height: 0.85;
-  letter-spacing: var(--dz-track);
-  white-space: nowrap;
-  color: var(--dz-red);
-}
-.cases .show-result span {
-  padding-bottom: 2px;
-  font-size: 13px;
-  line-height: 1.35;
+  max-width: none;
+  margin: 0;
+  padding: 12px 0 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  line-height: 1.5;
   color: rgba(255, 255, 255, 0.88);
 }
+.cases .show-task {
+  grid-column: span 2;
+  padding-right: 8px;
+}
+.cases .show-task b,
 .cases .show-result b {
   display: block;
-  margin-bottom: 2px;
+  margin: 0 0 6px;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);
+}
+.cases .show-result b {
+  color: var(--dz-red);
+}
+.cases .show-result strong {
+  display: block;
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(40px, 3.4vw, 56px);
+  line-height: 0.9;
+  letter-spacing: var(--dz-track);
+  white-space: nowrap;
+  color: var(--dz-red);
+}
+.cases .show-result span {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.88);
+}
+.cases .show-copy > .show-facts {
+  margin: 16px 0 18px;
+  padding-top: 0;
+  border-top: 0;
+  column-gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.cases .show-facts > div {
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.cases .show-facts dt {
+  margin-bottom: 6px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+@media (max-width: 720px) {
+  .cases .show-copy {
+    grid-template-columns: 1fr;
+  }
+  .cases .show-task {
+    grid-column: auto;
+  }
+  .cases .show-result {
+    margin-top: 14px;
+  }
+  .cases .show-copy > .show-facts {
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+  }
 }
 /* на телефоне и планшете фото над текстом в своих пропорциях 3:2 */
 .showcase--cases .show-visual {
