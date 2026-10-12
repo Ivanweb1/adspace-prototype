@@ -2600,3 +2600,60 @@ body {
   line-height: 1;
   justify-self: end;
 }
+
+/* ссылка под превью — одно подчёркивание: рамку из v2 убираем,
+   оставляем линию текста по ширине всей ссылки вместе со стрелкой */
+.solutions .text-link {
+  padding-bottom: 6px;
+  border-bottom: 2px solid currentColor;
+  text-decoration: none;
+}
+
+/* список направлений по высоте левой колонки: строки делят высоту
+   превью с описанием поровну */
+@media (min-width: 1181px) {
+  .solutions .solutions-grid {
+    align-items: stretch;
+  }
+  .solutions .solution-preview {
+    align-self: start;
+  }
+  .solutions .solution-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .solutions .solution-list li {
+    flex: 1 1 0;
+    display: flex;
+  }
+  .solutions .solution-list li > button {
+    flex: 1;
+    padding-block: 8px;
+  }
+  .solutions .solution-list button strong {
+    font-size: clamp(26px, 2.6vw, 42px);
+  }
+}
+
+/* «Рассчитать этот формат» — обычная кнопка сайта, как «Скачать
+   презентацию» на первом экране: контур, капс, заливка при наведении */
+.solutions .preview-meta .text-link {
+  min-height: 52px;
+  margin-top: 16px;
+  padding: 0 20px;
+  gap: 18px;
+  border: 0;
+  box-shadow: inset 0 0 0 2px var(--dz-black);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--dz-black);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.solutions .preview-meta .text-link:hover {
+  gap: 18px;
+  background: var(--dz-black);
+  color: var(--dz-white);
+}
