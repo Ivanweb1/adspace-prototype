@@ -1,0 +1,655 @@
+/* =========================================================
+   ADSPACE Group — дизайн. Шапка и первый экран.
+
+   Подключается последним. Остальная страница пока остаётся
+   вайрфреймом (mono.css), поэтому всё здесь — на своих токенах
+   --dz-*, которые ч/б-слой не перекрашивает.
+
+   Стилистика по рефам: фирменный красный плашкой во всю ширину,
+   чёрный плакатный набор капсом, чёрная плашка с красным текстом
+   как выделение, тонкие чёрные линейки, ссылки-подчёркивания.
+   ========================================================= */
+
+:root {
+  --dz-red: #eb2246;
+  --dz-black: #0d0d0f;
+  --dz-white: #ffffff;
+  --dz-paper: #ffffff;
+  --dz-grey: #e9e9ea;
+  --dz-muted: #5c5c63;
+  --dz-pad: max(36px, calc((100vw - 1440px) / 2));
+  --dz-body: "Inter Tight", "Segoe UI", Roboto, sans-serif;
+
+  /* шрифт заголовков — переключается панелью внизу страницы */
+  --dz-display: "Inter Tight", "Arial Narrow", sans-serif;
+  --dz-weight: 600;
+  --dz-track: -0.045em;
+  --dz-lh: 0.88;
+  --dz-title: clamp(54px, 9.4vw, 168px);
+  --dz-h2: clamp(30px, 3.2vw, 52px);
+}
+
+/* Газетный — узкий гротеск, как заголовки на первой полосе */
+[data-font="news"] {
+  --dz-display: "Oswald", "Arial Narrow", sans-serif;
+  --dz-weight: 600;
+  --dz-track: -0.01em;
+  --dz-lh: 0.92;
+  --dz-title: clamp(64px, 12.2vw, 220px);
+  --dz-h2: clamp(34px, 3.8vw, 62px);
+}
+/* Как логотип — техно-гротеск в духе знака ADSPACE Group */
+[data-font="logo"] {
+  --dz-display: "Russo One", "Bahnschrift", sans-serif;
+  --dz-weight: 400;
+  --dz-track: -0.03em;
+  --dz-lh: 0.92;
+  --dz-title: clamp(46px, 8.3vw, 150px);
+  --dz-h2: clamp(28px, 3vw, 48px);
+}
+/* Широкий — максимально «кричащий» */
+[data-font="wide"] {
+  --dz-display: "Unbounded", "Arial Black", sans-serif;
+  --dz-weight: 800;
+  --dz-track: -0.05em;
+  --dz-lh: 0.9;
+  --dz-title: clamp(38px, 7.2vw, 132px);
+  --dz-h2: clamp(26px, 2.8vw, 44px);
+}
+/* Плакат — жирный гротеск с характером */
+[data-font="poster"] {
+  --dz-display: "Dela Gothic One", "Arial Black", sans-serif;
+  --dz-weight: 400;
+  --dz-track: -0.03em;
+  --dz-lh: 0.95;
+  --dz-title: clamp(42px, 7.8vw, 142px);
+  --dz-h2: clamp(26px, 2.9vw, 46px);
+}
+
+body {
+  background: var(--dz-paper);
+}
+
+/* ── шапка ──────────────────────────────────────────────── */
+.site-header {
+  background: var(--dz-white);
+  backdrop-filter: none;
+  border-bottom: 1px solid var(--dz-black);
+  padding-inline: var(--dz-pad);
+}
+.desktop-nav a,
+.header-phone {
+  font-family: var(--dz-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.desktop-nav a::after {
+  background: var(--dz-red);
+}
+.header-phone {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.header-phone:hover {
+  color: var(--dz-red);
+}
+
+/* ── 01 · красный блок ─────────────────────────────────── */
+.dz-hero {
+  min-height: calc(100svh - 68px);
+  display: flex;
+  flex-direction: column;
+  background: var(--dz-red);
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+}
+
+/* лента с логотипом: всегда начинается с целого знака у левого края */
+.dz-ticker {
+  overflow: hidden;
+  padding-block: clamp(14px, 1.6vw, 22px);
+  padding-left: var(--dz-pad);
+  border-bottom: 2px solid var(--dz-black);
+}
+.dz-ticker-track {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  animation: dz-marquee 32s linear infinite;
+}
+.dz-ticker-track img {
+  height: clamp(34px, 4.4vw, 68px);
+  width: auto;
+  flex: 0 0 auto;
+}
+/* отступы — полями, а не gap: тогда половина ленты ровно
+   равна набору из четырёх знаков и шов не прыгает */
+.dz-ticker-track i {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  margin-inline: clamp(24px, 3vw, 48px);
+  background: var(--dz-black);
+}
+@keyframes dz-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.dz-hero-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 2.4vw, 32px) var(--dz-pad) clamp(28px, 3vw, 44px);
+}
+.dz-hero-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.dz-hero-meta span {
+  display: inline-flex;
+  align-items: center;
+}
+.dz-live {
+  width: 9px;
+  height: 9px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: var(--dz-black);
+  animation: dz-blink 1.6s steps(2, jump-none) infinite;
+}
+@keyframes dz-blink {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.dz-title {
+  margin: auto 0 0;
+  padding-top: clamp(40px, 6vw, 96px);
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: var(--dz-title);
+  line-height: var(--dz-lh);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.dz-title-line {
+  display: block;
+}
+/* выделение как в рефе: чёрная плашка, текст фирменным красным.
+   Каждое слово — отдельный блок со своей высотой: при переносе
+   на телефоне плашки не наезжают на соседние строки. */
+.dz-title mark {
+  background: none;
+  color: var(--dz-red);
+}
+.dz-title mark span {
+  display: inline-block;
+  padding: 0.05em 0 0.07em;
+  background: var(--dz-black);
+  line-height: 0.86;
+  vertical-align: top;
+}
+.dz-title mark span:first-child {
+  margin-left: -0.08em;
+  padding-left: 0.08em;
+  /* пробел между словами — полем, чтобы плашка шла без разрыва */
+  padding-right: 0.24em;
+  /* закрывает субпиксельный зазор на стыке двух плашек */
+  box-shadow: 2px 0 0 var(--dz-black);
+}
+.dz-title mark span:last-child {
+  padding-right: 0.08em;
+}
+.dz-tm {
+  margin-left: 0.12em;
+  font-family: var(--dz-body);
+  font-size: 0.22em;
+  font-weight: 600;
+  letter-spacing: 0;
+  vertical-align: 2.6em;
+  line-height: 0;
+}
+
+.dz-hero-foot {
+  margin-top: clamp(28px, 3.2vw, 48px);
+  padding-top: clamp(18px, 1.8vw, 24px);
+  border-top: 2px solid var(--dz-black);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 24px 48px;
+}
+.dz-lead {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(19px, 1.75vw, 28px);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+.dz-actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.dz-btn {
+  min-height: 64px;
+  padding: 0 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.dz-btn span {
+  font-size: 22px;
+  transition: transform 0.2s ease;
+}
+.dz-btn:hover {
+  background: var(--dz-white);
+  color: var(--dz-black);
+}
+.dz-btn:hover span {
+  transform: translateX(4px);
+}
+.dz-link {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dz-black);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+  white-space: nowrap;
+}
+.dz-link:hover {
+  color: var(--dz-white);
+}
+
+/* ── 01 · витрина «Что здесь можно сделать» ────────────── */
+.dz-works {
+  padding: clamp(36px, 4vw, 64px) 0 clamp(36px, 4vw, 56px);
+  background: var(--dz-white);
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+}
+.dz-works-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+  padding-inline: var(--dz-pad);
+  margin-bottom: clamp(20px, 2.2vw, 32px);
+}
+.dz-works-head h2 {
+  margin: 0;
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: var(--dz-h2);
+  line-height: 1;
+  letter-spacing: var(--dz-track);
+}
+.dz-works-all {
+  font-size: clamp(16px, 1.4vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.dz-works-all:hover {
+  color: var(--dz-red);
+}
+
+/* лента карточек: на широком экране видно четыре с «хвостом» пятой */
+.dz-cards {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100vw - var(--dz-pad) * 2 - 3 * 16px) / 3.6);
+  gap: 16px;
+  padding-inline: var(--dz-pad);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--dz-pad);
+  scrollbar-width: none;
+}
+.dz-cards::-webkit-scrollbar {
+  display: none;
+}
+.dz-card {
+  margin: 0;
+  scroll-snap-align: start;
+}
+.dz-card-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--dz-grey);
+  display: grid;
+  place-items: center;
+}
+.dz-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 0.75, 0.2, 1);
+}
+.dz-card:hover .dz-card-media img {
+  transform: scale(1.04);
+}
+/* подпись-заглушка видна, пока фото не положили в assets/photos */
+.dz-ph {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dz-muted);
+}
+.dz-tag {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 1;
+  padding: 7px 10px;
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.dz-card figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 0;
+  font-size: clamp(17px, 1.4vw, 21px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.dz-card figcaption b {
+  font-size: 12px;
+  color: var(--dz-red);
+  letter-spacing: 0.04em;
+}
+
+/* карточки-интерфейсы: чёрное поле, данные белым, акцент красным */
+.dz-card--ui .dz-card-media {
+  background: var(--dz-black);
+  color: var(--dz-white);
+  place-items: center stretch;
+  padding: 0 clamp(18px, 2vw, 28px);
+}
+.dz-card--ui .dz-tag {
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+.dz-calc > div,
+.dz-book li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: 14px;
+}
+.dz-calc span,
+.dz-book span {
+  color: rgba(255, 255, 255, 0.62);
+}
+.dz-calc-total {
+  border-bottom: 0 !important;
+  padding-top: 18px !important;
+  align-items: baseline;
+}
+.dz-calc-total b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(26px, 2.4vw, 38px);
+  letter-spacing: var(--dz-track);
+  color: var(--dz-red);
+}
+.dz-plan {
+  display: grid;
+  gap: 18px;
+}
+.dz-plan div {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.62);
+}
+.dz-plan i {
+  height: 14px;
+  background: linear-gradient(
+    90deg,
+    transparent var(--s),
+    var(--dz-red) var(--s),
+    var(--dz-red) calc(var(--s) + var(--w)),
+    rgba(255, 255, 255, 0.1) calc(var(--s) + var(--w))
+  );
+}
+.dz-book {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dz-book b {
+  font-weight: 600;
+}
+.dz-book .is-taken {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+.dz-book .is-picked b {
+  color: var(--dz-red);
+}
+
+/* масштаб компании — строка цифр между линейками */
+.dz-metrics {
+  margin: clamp(36px, 4vw, 56px) var(--dz-pad) 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 2px solid var(--dz-black);
+}
+.dz-metrics > div {
+  padding: 18px 20px 0 0;
+  display: grid;
+  gap: 6px;
+}
+.dz-metrics > div + div {
+  padding-left: 20px;
+  border-left: 1px solid var(--dz-black);
+}
+.dz-metrics strong {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(40px, 4.6vw, 80px);
+  line-height: 0.95;
+  letter-spacing: var(--dz-track);
+}
+.dz-metrics span {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dz-muted);
+}
+
+/* ── планшет и телефон ─────────────────────────────────── */
+@media (max-width: 1024px) {
+  .dz-hero-foot {
+    grid-template-columns: 1fr;
+  }
+  .dz-cards {
+    grid-auto-columns: calc((100vw - var(--dz-pad) * 2 - 16px) / 2.3);
+  }
+  .dz-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dz-metrics > div:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .dz-metrics > div:nth-child(n + 3) {
+    margin-top: 18px;
+    border-top: 1px solid var(--dz-black);
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --dz-pad: 16px;
+  }
+  .dz-hero {
+    min-height: calc(100svh - 60px);
+  }
+  .dz-hide-sm {
+    display: none !important;
+  }
+  .dz-hero-meta {
+    font-size: 11px;
+  }
+  /* на телефоне слоган крупнее относительно ширины, строки ломаются по словам */
+  :root {
+    --dz-title: 17.5vw;
+  }
+  [data-font="news"] {
+    --dz-title: 21vw;
+  }
+  [data-font="logo"] {
+    --dz-title: 14.6vw;
+  }
+  [data-font="wide"] {
+    --dz-title: 12.4vw;
+  }
+  [data-font="poster"] {
+    --dz-title: 13.4vw;
+  }
+  .dz-title {
+    line-height: calc(var(--dz-lh) + 0.04);
+  }
+  .dz-title mark span,
+  .dz-title mark span:first-child {
+    padding-right: 0.08em;
+  }
+  .dz-title mark span + span {
+    margin-left: -0.08em;
+    padding-left: 0.08em;
+  }
+  .dz-title-line {
+    display: inline;
+  }
+  .dz-title-line:first-child::after {
+    content: "\A";
+    white-space: pre;
+  }
+  .dz-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+  .dz-btn {
+    justify-content: space-between;
+  }
+  .dz-link {
+    align-self: flex-start;
+  }
+  .dz-cards {
+    grid-auto-columns: 74vw;
+    gap: 12px;
+  }
+  .dz-metrics > div {
+    padding-right: 12px;
+  }
+  .dz-metrics > div + div {
+    padding-left: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dz-ticker-track,
+  .dz-live {
+    animation: none;
+  }
+}
+
+/* ── панель выбора шрифта (только для показа вариантов) ── */
+.dz-fontpick {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 90;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  max-width: calc(100vw - 32px);
+  padding: 6px;
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font: 600 12px/1 var(--dz-body);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.dz-fontpick > span {
+  padding: 0 8px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+}
+.dz-fontpick button {
+  padding: 8px 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.dz-fontpick button[aria-pressed="true"] {
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+.dz-fontpick-close {
+  opacity: 0.6;
+}
+@media (max-width: 720px) {
+  .dz-fontpick {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    font-size: 11px;
+  }
+  .dz-fontpick > span {
+    display: none;
+  }
+  .dz-fontpick button {
+    flex: 0 0 auto;
+    padding: 7px 8px;
+  }
+}
+.dz-fontpick[hidden] {
+  display: none;
+}

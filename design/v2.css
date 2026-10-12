@@ -1,0 +1,1577 @@
+/* =========================================================
+   ADSPACE Group — v2: правки по обратной связи
+
+   Основа — классическая версия (strict/). Здесь только то, что
+   поменялось после показа заказчику; подключается последним,
+   после styles.css и mono.css.
+   ========================================================= */
+
+/* =========================================================
+   01 · ПЕРВЫЙ ЭКРАН · окно «Что здесь можно сделать» крупнее
+
+   В комиксной версии окно выросло по диагонали (шире и выше
+   одновременно) и съело воздух. Здесь растёт только ширина:
+   колонка текста уже, высота окна та же, что у текста.
+   ========================================================= */
+@media (min-width: 1181px) {
+  /* колонка текста не меньше, чем нужно двум кнопкам в один ряд */
+  .hero-grid {
+    grid-template-columns: minmax(548px, 0.88fr) minmax(0, 1.12fr);
+    gap: 40px;
+  }
+  /* слоган чуть меньше, чтобы уместиться в более узкой колонке
+     и не переноситься: «Просто выбрать» остаётся одной строкой */
+  h1 {
+    font-size: clamp(52px, 5.5vw, 92px);
+  }
+  .hero .button {
+    padding: 0 22px;
+    gap: 20px;
+  }
+  .hero-proof {
+    gap: 10px 18px;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+  }
+  /* содержимое сцен в широком окне смотрелось мелко — масштабируем
+     сами макеты, а плашки-подписи оставляем в прежнем размере */
+  .scene > :not(.chip):not(.scene-grid) {
+    zoom: 1.2;
+  }
+}
+
+/* =========================================================
+   02 · АКЦИИ · витрина с лентой выбора
+
+   Схема из комиксной версии (кейсы), подача — классическая:
+   тонкие рамки, скругление 4px, без теней и наклонов.
+   ========================================================= */
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(24px, 3vw, 52px);
+  align-items: stretch;
+}
+
+/* ── кадр выбранного пункта ──────────────────────────────── */
+.show-view {
+  padding: 12px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+.show-view-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 6px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* все кадры в одной ячейке сетки: высота держится по самому
+   высокому, и витрина не прыгает при переключении */
+.show-screen {
+  display: grid;
+}
+.show-panel {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s var(--ease), visibility 0.35s;
+}
+.show-panel.is-shown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.show-visual {
+  aspect-ratio: 16 / 8;
+  border-bottom: 1px solid var(--ink);
+}
+/* главная цифра акции — поверх фото, как у кейсов */
+.show-figure {
+  position: absolute;
+  z-index: 2;
+  left: 22px;
+  bottom: 14px;
+  font-family: var(--display);
+  font-size: clamp(56px, 6vw, 96px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: var(--ink);
+}
+.show-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px 26px 26px;
+}
+.show-tag {
+  padding: 6px 10px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.show-copy h3 {
+  margin: 16px 0 8px;
+  font-size: clamp(26px, 2.3vw, 36px);
+}
+.show-copy > p {
+  max-width: 460px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.show-facts {
+  width: 100%;
+  margin: 20px 0 22px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+}
+.show-facts > div {
+  padding: 12px 12px 0 0;
+}
+.show-facts dt {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.show-facts dd {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── правая колонка: лента выбора ────────────────────────── */
+.show-side {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.show-list {
+  border-top: 1px solid var(--ink);
+}
+.show-list button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  transition: background 0.2s ease, padding 0.25s var(--ease);
+}
+.show-list button:hover,
+.show-list button.is-active {
+  background: var(--surface);
+}
+.show-list button.is-active {
+  padding-left: 16px;
+  border-bottom-color: var(--ink);
+}
+.show-num {
+  font-family: var(--display);
+  font-size: 13px;
+  color: var(--muted);
+}
+.show-line {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.show-line strong {
+  font-family: var(--display);
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.show-seg {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.show-badge {
+  min-width: 56px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-family: var(--display);
+  font-size: 15px;
+  text-align: center;
+  color: var(--muted);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.show-list button.is-active .show-num {
+  color: var(--ink);
+}
+.show-list button.is-active .show-badge {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+/* лента короче кадра: пояснение и переход в конструктор прижаты
+   к низу, чтобы колонки заканчивались на одной линии */
+.show-foot {
+  margin-top: auto;
+  display: grid;
+  gap: 18px;
+}
+.show-foot .button {
+  justify-content: space-between;
+}
+.show-note {
+  max-width: 420px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+@media (max-width: 1180px) {
+  .showcase {
+    grid-template-columns: 1fr;
+  }
+  /* на планшете лента идёт над кадром — сначала выбор */
+  .show-side {
+    order: -1;
+  }
+}
+@media (max-width: 720px) {
+  .show-view {
+    padding: 8px;
+  }
+  .show-copy {
+    padding: 20px 18px 22px;
+  }
+  .show-facts {
+    grid-template-columns: 1fr;
+  }
+  .show-copy .button {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .show-list button {
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 14px 6px;
+  }
+}
+
+/* =========================================================
+   «НАПОМИНАШКА» О КАРТЕ · минимальный указатель
+
+   Заказчик дважды просил проще: прежний щит с рамой, площадкой
+   обслуживания и широкой опорой перетягивал внимание на себя.
+   Осталась узнаваемая форма — табличка на одной тонкой ноге, — но
+   сведённая к одной строке: подпись, показатель и стрелка к карте.
+   Вся табличка это ссылка, отдельной кнопки нет; крестик убирает
+   подсказку совсем. Появляется позже — на конструкторе, а не сразу
+   за первым экраном.
+   ========================================================= */
+.nudge {
+  --leg: 26px;
+  position: fixed;
+  z-index: 70;
+  right: 28px;
+  bottom: 0;
+  width: 268px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  transform: translateY(calc(100% + 12px));
+  transition: transform 0.42s var(--ease);
+}
+.nudge.is-shown {
+  transform: none;
+}
+.nudge-board {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  background: var(--surface);
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  box-shadow: 0 10px 24px rgba(20, 22, 30, 0.1);
+  pointer-events: auto;
+}
+.nudge-go {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 3px 10px;
+  padding: 10px 12px 11px 14px;
+}
+.nudge-kicker {
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.nudge-text {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--muted);
+}
+.nudge-text b {
+  font-weight: 700;
+  color: var(--ink);
+}
+.nudge-arrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 13px;
+  transition: transform 0.2s ease;
+}
+.nudge-go:hover .nudge-arrow {
+  transform: translateY(2px);
+}
+.nudge-close {
+  flex: 0 0 auto;
+  width: 30px;
+  border-left: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+}
+.nudge-close:hover {
+  color: var(--ink);
+}
+/* одна тонкая опора — от билборда остаётся только силуэт */
+.nudge-leg {
+  width: 6px;
+  height: var(--leg);
+  background: var(--ink);
+}
+@media (max-width: 720px) {
+  /* на телефоне подсказка во всю ширину, нога короче — экран низкий */
+  .nudge {
+    --leg: 14px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nudge {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   03 · КОНСТРУКТОР · место под визуал в результате
+
+   В результате были только полосы и цифры — картинкам и графике
+   негде было встать. Добавлены: лента кадров по каналам микса
+   (в финале — фото размещения или макет на поверхности) и кольцо
+   медиамикса рядом с полосами. Один тон на канал везде.
+   ========================================================= */
+.result-visuals {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 14px;
+  padding: 26px 0 4px;
+}
+.result-shot {
+  margin: 0;
+}
+.result-shot .photo-slot {
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius);
+}
+.result-shot .photo-slot::after {
+  font-size: 10px;
+}
+.result-shot figcaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+.result-shot figcaption::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 2px;
+  background: var(--c);
+}
+.result-shot figcaption b {
+  font-weight: 600;
+}
+.result-shot figcaption span {
+  margin-left: auto;
+  font-family: var(--display);
+  color: var(--muted);
+}
+
+/* кольцо медиамикса + полосы-легенда */
+.mix-wrap {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+  margin-top: 18px;
+}
+.mix-wrap [data-result-mix] {
+  margin-top: 0;
+}
+.mix-donut {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--donut, var(--sand));
+}
+.mix-donut::before {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: var(--surface);
+}
+.mix-donut span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.2;
+  color: var(--muted);
+}
+.mix-donut b {
+  display: block;
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.mix-item {
+  grid-template-columns: 120px 1fr 40px;
+}
+.mix-item .mix-bar i {
+  background: var(--c, var(--red));
+}
+
+@media (max-width: 720px) {
+  /* на телефоне кадры листаются вбок, а не сжимаются в полоски */
+  .result-visuals {
+    grid-auto-columns: 62%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .mix-wrap {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 22px;
+  }
+  .mix-donut {
+    width: 150px;
+  }
+  .mix-wrap [data-result-mix] {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   03 · КОНСТРУКТОР · контакт перед результатом
+
+   Заказчик: без контакта результат не выдаётся, но после ввода
+   он показывается сразу — не нужно ждать, пока менеджер пришлёт.
+   Шаг контакта — такая же белая панель, как результат, и встаёт
+   на его место; параметры кампании видны строкой, чтобы было ясно,
+   что именно сейчас посчитается.
+   ========================================================= */
+.builder-gate {
+  margin-top: 20px;
+  padding: 34px;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  animation: openResult 0.45s var(--ease);
+}
+.gate-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.gate-head h3 {
+  font-size: clamp(26px, 2.6vw, 40px);
+}
+.gate-head p {
+  margin-top: 12px;
+  max-width: 620px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.gate-close {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.gate-close:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+.gate-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 26px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--line);
+}
+.gate-summary li {
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.gate-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 14px 16px;
+  align-items: end;
+}
+.builder-gate .field-label {
+  color: var(--muted);
+}
+.builder-gate input {
+  width: 100%;
+  height: 58px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+.builder-gate input::placeholder {
+  color: var(--muted);
+}
+.builder-gate input:hover,
+.builder-gate input:focus {
+  border-color: var(--ink);
+  outline: none;
+}
+.builder-gate input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.builder-gate input.is-invalid {
+  border-color: var(--ink);
+  background: var(--sand);
+}
+.gate-consent {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.gate-status,
+.result-review-status {
+  min-height: 18px;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.result-note b {
+  font-weight: 700;
+  color: var(--ink);
+}
+[data-result-review]:disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+@media (max-width: 1180px) {
+  .gate-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gate-fields .button {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 720px) {
+  .builder-gate {
+    padding: 22px 18px;
+  }
+  .gate-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   06 · КЕЙСЫ · витрина, как в комиксной версии
+
+   Тот же компонент, что у акций. Отличия кейса: у цифры результата
+   есть подпись, задача клиента выделена, под лентой — переход ко
+   всем кейсам и клиенты.
+   ========================================================= */
+.show-figure small {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--text);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* задача клиента — голос заказчика: отбивка слева вместо «баббла» */
+.show-task {
+  max-width: 520px;
+  margin-top: 4px;
+  padding-left: 14px;
+  border-left: 2px solid var(--ink);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.show-task b {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.show-more {
+  justify-content: space-between;
+}
+/* клиенты в узкой колонке: три в ряд, ниже плашки */
+.show-side .clients {
+  margin-top: auto;
+  padding-top: 0;
+  border-top: 0;
+}
+.show-side .client-row {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.show-side .client-row li {
+  height: 64px;
+  font-size: 11px;
+}
+
+/* =========================================================
+   06 · КЕЙСЫ · масштаб меньше
+
+   Заказчик: «слишком крупно». Кейсы — подтверждение, а не главный
+   экран: ужимаем заголовок секции, цифру результата, фото, кегли
+   и строки ленты. Правило касается только кейсов — акции не трогаем.
+   ========================================================= */
+/* в классике у кейсов заголовок был в одну колонку — пояснение справа
+   уезжало под него и добавляло высоты */
+#cases .section-heading {
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 34px;
+}
+@media (max-width: 720px) {
+  #cases .section-heading {
+    grid-template-columns: 1fr;
+  }
+}
+#cases .eyebrow {
+  margin-bottom: 16px;
+}
+#cases .section-heading h2 {
+  font-size: clamp(34px, 3.6vw, 56px);
+}
+.showcase--cases .show-visual {
+  aspect-ratio: 16 / 7;
+}
+.showcase--cases .show-figure {
+  left: 18px;
+  bottom: 12px;
+  font-size: clamp(40px, 3.6vw, 60px);
+}
+.showcase--cases .show-figure small {
+  margin-top: 6px;
+  font-size: 9px;
+}
+.showcase--cases .show-copy {
+  padding: 20px 22px 22px;
+}
+.showcase--cases .show-copy h3 {
+  margin: 12px 0 8px;
+  font-size: clamp(20px, 1.8vw, 26px);
+}
+.showcase--cases .show-task {
+  font-size: 13px;
+}
+.showcase--cases .show-facts {
+  margin: 16px 0 18px;
+}
+.showcase--cases .button {
+  min-height: 50px;
+}
+.showcase--cases .show-list button {
+  padding: 14px 10px;
+}
+.showcase--cases .show-list button.is-active {
+  padding-left: 16px;
+}
+.showcase--cases .show-line strong {
+  font-size: clamp(16px, 1.3vw, 19px);
+}
+.showcase--cases .show-badge {
+  min-width: 50px;
+  padding: 5px 8px;
+  font-size: 13px;
+}
+.showcase--cases .client-row li {
+  height: 52px;
+  font-size: 10px;
+}
+
+/* =========================================================
+   06 · КЕЙСЫ · в один экран
+
+   Заказчик: блок должен помещаться на один экран. Высоту витрины
+   считаем от высоты окна: экран − отступ под шапкой (96) − верхний
+   отступ секции (48) − заголовок (~150) − запас снизу (~40).
+   Фото кейса забирает то, что осталось, — остальное фиксировано.
+   Только десктоп: в одну колонку на экран всё равно не уложить.
+   ========================================================= */
+@media (min-width: 1181px) {
+  .cases {
+    padding-top: 48px;
+  }
+  .showcase--cases {
+    height: clamp(440px, calc(100vh - 340px), 620px);
+  }
+  .showcase--cases .show-view {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 10px;
+  }
+  /* номер кейса и так виден в ленте — полоса над кадром не нужна */
+  .showcase--cases .show-view-top {
+    display: none;
+  }
+  .showcase--cases .show-screen {
+    flex: 1;
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .showcase--cases .show-panel {
+    position: relative;
+    min-height: 0;
+  }
+  .showcase--cases .show-visual {
+    flex: 1 1 0;
+    min-height: 140px;
+    aspect-ratio: auto;
+  }
+  /* отрасль и год — меткой на фото, а не отдельной строкой */
+  .showcase--cases .show-tag {
+    position: absolute;
+    z-index: 2;
+    top: 14px;
+    left: 14px;
+  }
+  .showcase--cases .show-copy {
+    flex: 0 0 auto;
+    padding: 18px 22px 20px;
+  }
+  .showcase--cases .show-copy h3 {
+    margin-top: 0;
+  }
+  /* «Задача» — в строку с текстом, без отдельной подписи сверху */
+  .showcase--cases .show-task b {
+    display: inline;
+    margin-right: 6px;
+  }
+  .showcase--cases .show-facts {
+    margin: 14px 0 16px;
+  }
+  .showcase--cases .button {
+    min-height: 46px;
+  }
+
+  .showcase--cases .show-side {
+    gap: 16px;
+    min-height: 0;
+  }
+  .showcase--cases .show-list button {
+    padding: 12px 10px;
+  }
+  .showcase--cases .client-row {
+    margin-top: 10px;
+    gap: 8px;
+  }
+  .showcase--cases .client-row li {
+    height: 44px;
+  }
+}
+/* низкие ноутбучные экраны (1366×768): поджимаем правую колонку,
+   чтобы лента, кнопка и клиенты уложились в меньшую высоту */
+@media (min-width: 1181px) and (max-height: 800px) {
+  .showcase--cases .show-list button {
+    padding: 9px 10px;
+  }
+  .showcase--cases .show-seg {
+    font-size: 9px;
+  }
+  .showcase--cases .client-row li {
+    height: 36px;
+  }
+  .showcase--cases .clients .result-label {
+    font-size: 9px;
+  }
+}
+
+/* =========================================================
+   02 · АКЦИИ · разворот без комикса
+
+   Сетка и листание — из комиксной версии, подача — классическая:
+   тонкие рамки, скругление, никаких «звуков», наклонов и теней.
+   ========================================================= */
+.pr-flip {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pr-flip b {
+  color: var(--ink);
+}
+.pr-flip button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.pr-flip button:hover {
+  background: var(--ink);
+  color: var(--surface);
+}
+.pr-page {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(190px, auto);
+  gap: 12px;
+}
+.pr-page[hidden] {
+  display: none;
+}
+.pr-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px 24px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.25s var(--ease);
+}
+.pr-card:hover {
+  transform: translateY(-3px);
+}
+.pr-card--main {
+  grid-column: span 2;
+  grid-row: span 2;
+  padding: 0;
+}
+.pr-card--wide {
+  grid-column: span 2;
+}
+.pr-card--main .photo-slot {
+  align-self: stretch;
+  flex: 1;
+  min-height: 160px;
+  border-bottom: 1px solid var(--ink);
+}
+.pr-main-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px 24px 24px;
+}
+.pr-tag {
+  margin-bottom: 14px;
+  padding: 6px 10px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.pr-card h3 {
+  margin: 0 0 8px;
+  font-size: clamp(20px, 1.8vw, 26px);
+}
+.pr-card p {
+  max-width: 460px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+/* условие акции — бывшая реплика в баббле */
+.pr-remark {
+  margin-top: 14px;
+  padding-left: 12px;
+  border-left: 2px solid var(--red);
+  color: var(--ink) !important;
+}
+.pr-figure {
+  margin-bottom: 12px;
+  font-family: var(--display);
+  font-size: clamp(34px, 3vw, 46px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+.pr-meta {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.pr-meta span {
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.pr-cta {
+  margin-top: auto;
+}
+.pr-card--wide p + .pr-cta {
+  margin-top: 18px;
+}
+.pr-note {
+  margin-top: 18px;
+  max-width: 62ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+@media (max-width: 980px) {
+  .pr-page {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  #promos .section-heading {
+    gap: 20px;
+  }
+  .pr-flip {
+    justify-self: start;
+  }
+  .pr-page {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  .pr-card--main,
+  .pr-card--wide {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+/* =========================================================
+   ЗАГОЛОВКИ СЕКЦИЙ · единый размер
+
+   Заказчик: заголовки слишком крупные и разного масштаба. Все h2
+   секций приводим к одному кеглю — тому, что уже согласован
+   для кейсов. Слоган первого экрана (h1) не трогаем.
+   ========================================================= */
+.section-heading h2,
+.builder-heading h2,
+.accuracy h2,
+.company h2,
+.platform h2,
+.presentation-card h2,
+.contact h2,
+#cases .section-heading h2 {
+  font-size: clamp(34px, 3.6vw, 56px);
+}
+.section-heading {
+  margin-bottom: 34px;
+}
+.section-heading .eyebrow {
+  margin-bottom: 16px;
+}
+
+/* =========================================================
+   ШАПКА · уже по высоте
+
+   Заказчик: шапка занимает слишком много первого экрана. Снизили
+   высоту и вместе с ней логотип — пропорции строки сохраняются.
+   Мобильное меню висит на шапке, его отступ сверху едет следом.
+   ========================================================= */
+.site-header {
+  height: 68px;
+  gap: 24px;
+}
+.brand {
+  width: 196px;
+  min-height: 36px;
+}
+.mobile-menu {
+  inset-block-start: 68px;
+}
+@media (max-width: 720px) {
+  .site-header {
+    height: 60px;
+  }
+  .brand {
+    width: 152px;
+  }
+  .mobile-menu {
+    inset-block-start: 60px;
+  }
+}
+
+/* =========================================================
+   ГЕОГРАФИЯ · карта крупнее
+
+   Заказчик отметил форму карты на скриншоте: вместо широкой узкой
+   полосы — прямоугольник заметно выше, примерно два к одному.
+   Колонка с показателями растягивается по той же высоте.
+   ========================================================= */
+.geo-map {
+  min-height: clamp(420px, 42vw, 640px);
+}
+@media (max-width: 1100px) {
+  .geo-map {
+    min-height: clamp(360px, 46vw, 520px);
+  }
+}
+
+/* =========================================================
+   03 · КОНСТРУКТОР · новый набор параметров
+
+   Состав полей от заказчика: тип бизнеса, город, период, бюджет,
+   вид рекламы. Город и вид рекламы — множественный выбор, для них
+   вместо <select> своя выпадашка с чекбоксами: внутри города ещё
+   уровень районов и адресов. Пять полей и кнопка стоят одной строкой,
+   поэтому ячейки ужаты: меньше шрифт, поля, отступы и подпись кнопки.
+   Ниже 1200 px строка не помещается и раскладывается в три, две
+   и одну колонку.
+   ========================================================= */
+.builder-form {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+  gap: 16px 10px;
+}
+.builder-form .field-label {
+  margin-bottom: 7px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+.builder-form select,
+.builder-form .picker-button,
+.builder-form .budget-track,
+.builder-form .builder-submit {
+  height: 54px;
+  min-height: 54px;
+}
+.builder-form select,
+.builder-form .picker-button {
+  padding-right: 34px;
+  padding-left: 13px;
+  font-size: 13px;
+}
+.builder-form select {
+  background-position: calc(100% - 18px) 24px, calc(100% - 12px) 24px;
+}
+.picker-button::after {
+  right: 13px;
+  bottom: 23px;
+}
+.picker-button[aria-expanded="true"]::after {
+  bottom: 19px;
+}
+.field--budget output {
+  font-size: 12px;
+}
+.builder-form .budget-track {
+  padding: 0 13px;
+}
+.builder-form .builder-submit {
+  padding: 0 20px;
+  gap: 16px;
+  justify-content: space-between;
+  font-size: 13px;
+  white-space: nowrap;
+}
+@media (max-width: 1200px) {
+  .builder-form {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px 16px;
+  }
+}
+@media (max-width: 1000px) {
+  .builder-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .builder-form {
+    grid-template-columns: 1fr;
+  }
+  .builder-form .field-label {
+    white-space: normal;
+  }
+}
+
+/* поле с выпадашкой — кнопка повторяет вид обычного select */
+.field--picker {
+  position: relative;
+}
+.picker-button {
+  width: 100%;
+  height: 58px;
+  padding: 0 40px 0 16px;
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.picker-button > span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.picker-button::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  bottom: 25px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.picker-button:hover {
+  border-color: var(--red);
+}
+.picker-button[aria-expanded="true"] {
+  border-color: var(--red);
+}
+.picker-button[aria-expanded="true"]::after {
+  transform: rotate(-135deg);
+  bottom: 21px;
+}
+.picker-pop {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(380px, calc(100vw - 48px));
+  max-height: 360px;
+  padding: 16px 6px 0 16px;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 48px rgba(10, 12, 18, 0.28);
+}
+/* у последнего поля выпадашка прижимается правым краем, чтобы не уехать за экран */
+.field--picker:last-of-type .picker-pop {
+  left: auto;
+  right: 0;
+}
+/* у выпадашки и списка локаций свой display — без этого атрибут hidden
+   перебивается и панель остаётся на экране */
+.picker-pop[hidden],
+.picker-spots[hidden] {
+  display: none;
+}
+.picker-hint {
+  margin: 0 10px 12px 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.picker-hint.is-warning {
+  font-weight: 700;
+  color: var(--red);
+}
+.picker-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+.picker-list.is-muted {
+  opacity: 0.45;
+}
+.picker-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  cursor: pointer;
+}
+.picker-row + .picker-row,
+.picker-city + .picker-city {
+  border-top: 1px solid var(--line);
+}
+.picker-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+.picker-name i {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--muted);
+}
+.picker-meta {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+/* второй уровень: районы и адреса внутри выбранного города */
+.picker-spots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 0 12px 28px;
+}
+.picker-chip {
+  cursor: pointer;
+}
+.picker-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.picker-chip span {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+  transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+.picker-chip input:checked + span {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+.picker-chip input:focus-visible + span {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+.picker-auto {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  margin-right: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.picker-auto b {
+  display: block;
+  font-size: 14px;
+}
+.picker-auto i {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  font-style: normal;
+  color: var(--muted);
+}
+.picker-auto input,
+.picker-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--red);
+}
+.picker-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-right: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+.picker-clear {
+  font-size: 12px;
+  color: var(--muted);
+}
+.picker-clear:hover {
+  color: var(--ink);
+}
+.picker-done {
+  height: 34px;
+  padding: 0 18px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   РЕЗУЛЬТАТ · переход на карту
+
+   Заказчик: из медиаплана нужен прямой переход на карту, где потом
+   выбирается точка и идёт бронирование. Кнопка встаёт рядом с
+   разбором, карта открывается панелью справа поверх страницы.
+   ========================================================= */
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.result-actions .button--light {
+  border: 1px solid var(--ink);
+}
+@media (max-width: 720px) {
+  .result-actions {
+    width: 100%;
+  }
+  .result-actions .button {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+}
+
+.map-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+.map-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 15, 21, 0.45);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.map-drawer.is-open .map-drawer-backdrop {
+  opacity: 1;
+}
+.map-drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(460px, 100vw);
+  height: 100%;
+  padding: 26px 26px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  border-left: 1px solid var(--ink);
+  box-shadow: -24px 0 60px rgba(10, 12, 18, 0.24);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.32s var(--ease);
+}
+.map-drawer.is-open .map-drawer-panel {
+  transform: none;
+}
+.map-drawer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.map-drawer-head h3 {
+  margin-top: 6px;
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.map-drawer-close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--muted);
+}
+.map-drawer-close:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.map-drawer-scope {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.map-drawer-canvas {
+  min-height: 230px;
+  border-radius: 4px;
+  background-color: var(--photo);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.16) 1.4px, transparent 1.4px);
+  background-size: 16px 16px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+.map-drawer-canvas span {
+  max-width: 220px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.map-drawer-points .result-label {
+  display: block;
+  margin-bottom: 10px;
+}
+.map-drawer-points ul {
+  display: grid;
+  gap: 2px;
+}
+.map-drawer-points li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.map-drawer-points li b {
+  display: block;
+  font-size: 14px;
+}
+.map-drawer-points li span {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.map-drawer-points li.is-picked b {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+.map-drawer-points button {
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 16px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.map-drawer-points button:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+.map-drawer-points button:disabled {
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: default;
+}
+.map-drawer-note {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.map-drawer-status:not(:empty) {
+  padding: 10px 12px;
+  background: var(--sand);
+  border-radius: var(--radius);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-drawer-panel,
+  .map-drawer-backdrop {
+    transition: none;
+  }
+}
