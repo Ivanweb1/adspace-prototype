@@ -3921,3 +3921,76 @@ body {
     border-top: 1px solid rgba(255, 255, 255, 0.24);
   }
 }
+
+/* =========================================================
+   10 · ПРЕЗЕНТАЦИЯ
+   Композиция из v2: текст слева, кнопка справа. Между двумя
+   тёмными блоками — красная плашка-плакат, как у акций: чёрный
+   капс, вторая строка белым, кнопка чёрная с прямыми углами.
+   ========================================================= */
+.presentation {
+  font-family: var(--dz-body);
+}
+.presentation .presentation-card {
+  padding: clamp(32px, 4vw, 64px);
+  border: 0;
+  border-radius: 0;
+  background: var(--dz-red);
+  color: var(--dz-black);
+  column-gap: clamp(32px, 4vw, 64px);
+}
+.presentation .eyebrow {
+  color: var(--dz-black);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.presentation .presentation-card h2 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: var(--dz-h2-size);
+  line-height: var(--dz-h2-lh);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.presentation .presentation-card h2 span {
+  color: var(--dz-white);
+}
+.presentation .pres-copy p:not(.eyebrow) {
+  max-width: 520px;
+  margin-top: 18px;
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.45;
+  color: var(--dz-black);
+}
+.presentation .pres-action {
+  align-self: end;
+}
+.presentation .pres-button {
+  min-height: 62px;
+  padding: 0 26px;
+  gap: 40px;
+  border-radius: 0;
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font-family: var(--dz-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.presentation .pres-button:hover {
+  background: var(--dz-white);
+  color: var(--dz-black);
+  transform: none;
+}
+.presentation .pres-meta {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(13, 13, 15, 0.7);
+}
+.presentation .pres-status {
+  color: var(--dz-black);
+  font-weight: 600;
+}
