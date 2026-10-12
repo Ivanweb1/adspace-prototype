@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="grotesk">
+<html lang="ru" data-font="news">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -1677,11 +1677,12 @@
         var panel = document.querySelector("[data-fontpick]");
         var buttons = panel.querySelectorAll("[data-font-set]");
         var saved;
-        try { saved = localStorage.getItem("dz-font"); } catch (e) {}
+        // ключ v2: «Газетный» стал шрифтом по умолчанию — старый выбор сбрасываем
+        try { saved = localStorage.getItem("dz-font-v2"); } catch (e) {}
         function apply(name) {
           root.setAttribute("data-font", name);
           buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.fontSet === name)); });
-          try { localStorage.setItem("dz-font", name); } catch (e) {}
+          try { localStorage.setItem("dz-font-v2", name); } catch (e) {}
           if (document.fonts) document.fonts.ready.then(fit); else fit();
         }
         // Слоган: каждая фраза в одну строку, размер — под ширину колонки
@@ -1701,7 +1702,7 @@
           title.style.setProperty("--dz-fit", size + "px");
         }
         var fromUrl = new URLSearchParams(location.search).get("font");
-        apply(fromUrl || saved || "grotesk");
+        apply(fromUrl || saved || "news");
         buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.fontSet); }); });
         // Фото акций: assets/photos/promo-<id>.jpg. Если файла ещё нет,
         // остаётся серая заглушка с подписью.
