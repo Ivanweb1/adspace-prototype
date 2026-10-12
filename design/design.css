@@ -81,7 +81,8 @@ body {
 .site-header {
   background: var(--dz-white);
   backdrop-filter: none;
-  border-bottom: 1px solid var(--dz-black);
+  /* без линии: шапка стыкуется прямо с красной лентой */
+  border-bottom: 0;
 }
 .desktop-nav a,
 .header-phone {
