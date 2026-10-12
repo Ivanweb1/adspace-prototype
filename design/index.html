@@ -24,7 +24,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link rel="stylesheet" href="design.css?v=58" />
+    <link rel="stylesheet" href="design.css?v=60" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -1003,7 +1003,6 @@
           </div>
 
           <div class="cost-card reveal" data-tentative="суммы демонстрационные">
-            <div class="cost-head"><span>Смета кампании</span><span>AD / 2608</span></div>
             <div class="cost-total dz-total">
               <small>Итого за 30 дней</small>
               <div class="dz-total-row">
@@ -1064,7 +1063,7 @@
         <div class="section-heading reveal">
           <div>
             <p class="eyebrow">Кейсы и клиенты</p>
-            <h2 id="cases-title">Кампании,<br />которые замечают</h2>
+            <h2 id="cases-title">Кампании,<br /><span>которые замечают</span></h2>
           </div>
           <div class="heading-aside">
             <p>
@@ -1083,7 +1082,7 @@
 
             <div class="show-screen">
               <article class="show-panel is-shown" data-show-panel="1" data-tentative="кейс демонстрационный">
-                <div class="show-visual photo-slot" data-photo-label="Фото кейса">
+                <div class="show-visual photo-slot" data-photo-label="Фото кейса · case-1.jpg" data-dz-src="case-1.jpg">
                   <span class="show-figure">14,8 млн<small>контактов за 2 месяца</small></span>
                 </div>
                 <div class="show-copy">
@@ -1101,7 +1100,7 @@
                 </div>
               </article>
               <article class="show-panel" data-show-panel="2" data-tentative="кейс демонстрационный">
-                <div class="show-visual photo-slot" data-photo-label="Фото кейса">
+                <div class="show-visual photo-slot" data-photo-label="Фото кейса · case-2.jpg" data-dz-src="case-2.jpg">
                   <span class="show-figure">+38%<small>трафик в точках</small></span>
                 </div>
                 <div class="show-copy">
@@ -1119,7 +1118,7 @@
                 </div>
               </article>
               <article class="show-panel" data-show-panel="3" data-tentative="кейс демонстрационный">
-                <div class="show-visual photo-slot" data-photo-label="Фото кейса">
+                <div class="show-visual photo-slot" data-photo-label="Фото кейса · case-3.jpg" data-dz-src="case-3.jpg">
                   <span class="show-figure">×2,1<small>заявок на тест-драйв</small></span>
                 </div>
                 <div class="show-copy">
@@ -1137,7 +1136,7 @@
                 </div>
               </article>
               <article class="show-panel" data-show-panel="4" data-tentative="кейс демонстрационный">
-                <div class="show-visual photo-slot" data-photo-label="Фото кейса">
+                <div class="show-visual photo-slot" data-photo-label="Фото кейса · case-4.jpg" data-dz-src="case-4.jpg">
                   <span class="show-figure">+52%<small>посещаемость в выходные</small></span>
                 </div>
                 <div class="show-copy">
@@ -1660,6 +1659,16 @@
         }
         document.querySelectorAll("[data-dz-photo]").forEach(function (el) {
           setPhoto(el, el.dataset.dzPhoto);
+        });
+        // фото кейсов: assets/photos/<файл>; нет файла — серая заглушка
+        document.querySelectorAll("[data-dz-src]").forEach(function (el) {
+          var src = "assets/photos/" + el.dataset.dzSrc;
+          var img = new Image();
+          img.onload = function () {
+            el.style.backgroundImage = "url(" + src + ")";
+            el.classList.add("has-photo");
+          };
+          img.src = src;
         });
         var modalPhoto = document.querySelector("[data-promo-photo]");
 
