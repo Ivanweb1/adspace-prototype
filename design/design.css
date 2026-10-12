@@ -3360,9 +3360,29 @@ body {
   align-items: center;
   justify-content: center;
   width: clamp(160px, 14vw, 220px);
-  height: 64px;
+  position: relative;
+  height: 76px;
   padding: 0 24px;
-  border-right: 1px solid rgba(13, 13, 15, 0.16);
+}
+/* как у строки фактов на первом экране: чёрные вертикальные
+   линейки не доходят до краёв, под каждым логотипом свой отрезок */
+.cases .clients-logos li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: var(--dz-black);
+}
+.cases .clients-logos li::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 0;
+  height: 1px;
+  background: var(--dz-black);
 }
 .cases .clients-logos img {
   display: block;
