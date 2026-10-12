@@ -369,8 +369,8 @@ body {
   height: 100%;
 }
 .scene--outdoor .dz-frame {
-  --px: 0.62;
-  --py: 0.4;
+  --px: 0.55;
+  --py: 0.1;
 }
 .scene--indoor .dz-frame {
   --px: 0.3;
@@ -1830,4 +1830,70 @@ body {
 /* подложка OpenStreetMap затемнена под стиль блока */
 .dz-map .leaflet-tile-pane {
   filter: grayscale(1) invert(1) brightness(0.82) contrast(0.95);
+}
+
+/* =========================================================
+   Щиты «Ваш бренд»: поверхности на фото теперь сразу красные
+   (генерировались с заливкой #EB2246), поэтому своя заливка
+   по контуру больше не нужна — она давала кривые края.
+   Остаётся только надпись, выровненная по центру поверхности
+   и наклонённая под ракурс. Координаты — замер красной области.
+   ========================================================= */
+.dz-board {
+  background: none;
+  clip-path: none !important;
+}
+.dz-board b {
+  position: absolute;
+  font-weight: inherit;
+  text-align: center;
+}
+.dz-board--outdoor b {
+  left: 20.6%;
+  width: 58%;
+  top: 28.8%;
+  font-size: 6.6cqw;
+  transform: translateY(-50%) skewY(3.8deg);
+}
+.dz-board--indoor b {
+  left: 37.5%;
+  width: 26.9%;
+  top: 41.9%;
+  font-size: 5.4cqw;
+  transform: translateY(-50%);
+}
+.dz-board--hotel b {
+  left: 42.9%;
+  width: 18.4%;
+  top: 41.5%;
+  font-size: 3.8cqw;
+  transform: translateY(-50%);
+}
+.dz-board--launch b {
+  left: 13.6%;
+  width: 72.2%;
+  top: 54.2%;
+  font-size: 8cqw;
+  transform: translateY(-50%);
+}
+.dz-board--boards b {
+  left: 59.2%;
+  width: 35%;
+  top: 28.2%;
+  font-size: 4.6cqw;
+  transform: translateY(-50%) skewY(-5.8deg);
+}
+.dz-board--lifts b {
+  left: 36.2%;
+  width: 27.6%;
+  top: 41.8%;
+  font-size: 5.4cqw;
+  transform: translateY(-50%);
+}
+.dz-board--transit b {
+  left: 41.6%;
+  width: 44.7%;
+  top: 42.8%;
+  font-size: 5.6cqw;
+  transform: translateY(-50%) skewY(-1.7deg);
 }
