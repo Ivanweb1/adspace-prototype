@@ -2743,3 +2743,8 @@ body {
   font-size: 7cqw;
   transform: translateY(-50%);
 }
+
+/* заголовок конструктора снова в одну строку — кегль стал общим и меньше */
+.builder-heading h2 span {
+  display: inline;
+}
