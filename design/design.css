@@ -107,6 +107,8 @@ body {
 /* ── 01 · первый экран ─────────────────────────────────── */
 .hero {
   padding-top: 0;
+  /* воздух между линиями под цифрами и красным блоком акций */
+  padding-bottom: clamp(28px, 3vw, 44px);
   color: var(--dz-black);
   font-family: var(--dz-body);
 }
@@ -280,8 +282,8 @@ body {
   color: var(--dz-white);
 }
 
-/* три тезиса: у каждого своя линия сверху, маленький красный
-   номер над текстом */
+/* три тезиса: у каждого своя линия снизу (как под цифрами),
+   маленький красный номер над текстом */
 .hero .hero-proof {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -296,8 +298,7 @@ body {
   color: var(--dz-black);
 }
 .hero .hero-proof li {
-  padding: 12px 0 14px;
-  border-top: 1px solid var(--dz-black);
+  padding: 0 0 14px;
   border-bottom: 1px solid var(--dz-black);
 }
 .hero .hero-proof b {
