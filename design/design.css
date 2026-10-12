@@ -1582,3 +1582,8 @@ body {
 .promos .pr-flip {
   gap: 8px;
 }
+
+/* в кадре отеля рекламная стойка правее центра — держим её в карточке */
+[data-dz-photo="hotels"].has-photo {
+  background-position: 58% 40%;
+}
