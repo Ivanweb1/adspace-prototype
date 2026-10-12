@@ -1587,3 +1587,247 @@ body {
 [data-dz-photo="hotels"].has-photo {
   background-position: 58% 40%;
 }
+
+/* ── карта в попапе акции ──────────────────────────────── */
+.promo-modal-canvas {
+  position: relative;
+  overflow: hidden;
+}
+.dz-map {
+  position: absolute;
+  inset: 0;
+  background: #26262c;
+}
+/* пока карта не загрузилась — видна прежняя подпись-заглушка */
+.promo-modal-canvas.has-map > span {
+  display: none;
+}
+.dz-pin {
+  background: var(--dz-red);
+  box-shadow: 0 0 0 4px rgba(235, 34, 70, 0.35);
+}
+.dz-map .leaflet-control-attribution {
+  background: rgba(13, 13, 15, 0.7);
+  color: rgba(255, 255, 255, 0.5);
+  font: 9px/1.4 var(--dz-body);
+}
+.dz-map .leaflet-control-attribution a {
+  color: rgba(255, 255, 255, 0.7);
+}
+.dz-map .leaflet-bar {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.dz-map .leaflet-bar a {
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  border: 0;
+  border-radius: 0 !important;
+  background: var(--dz-black);
+  color: var(--dz-white);
+}
+.dz-map .leaflet-bar a:hover {
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+
+/* =========================================================
+   02 · АКЦИИ · карточки с фото
+
+   У каждой акции своё фото. Главная карточка — фото слева во всю
+   высоту, текст справа (раньше фото было узкой полосой сверху,
+   стойка обрезалась, справа пустело). Маленькие — фото сверху,
+   цифра-акцент плашкой на фото. Широкая — текст слева, фото справа.
+   Пустые поверхности на фото закрыты щитом «Ваш бренд», как на
+   первом экране: фото и щит в общей рамке 3:2 (.dz-frame), поэтому
+   щит держится на месте при любой обрезке.
+   ========================================================= */
+.promos .pr-card {
+  padding: 0;
+}
+.pr-media {
+  position: relative;
+  /* в v2 карточка — колонка с align-items: flex-start, без этого
+     блок фото сжимается до нулевой ширины */
+  align-self: stretch;
+  overflow: hidden;
+  container-type: size;
+  background: #1c1c20;
+}
+.pr-media .dz-frame {
+  transform: none;
+  transition: none;
+}
+.pr-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.22, 0.75, 0.2, 1);
+}
+.pr-card:hover .pr-media .dz-frame {
+  transform: scale(1.03);
+  transition: transform 0.6s cubic-bezier(0.22, 0.75, 0.2, 1);
+}
+.pr-body {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 22px 22px;
+}
+.pr-body .pr-meta {
+  margin-top: auto;
+}
+.pr-body .pr-meta + .pr-more {
+  margin-top: 14px;
+}
+
+/* маленькие карточки: фото сверху */
+.promos .pr-card:not(.pr-card--main):not(.pr-card--wide) .pr-media {
+  flex: 0 0 auto;
+  height: 132px;
+}
+/* цифра-акцент на фото — чёрной плашкой */
+.pr-media .pr-figure {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 8px 14px 6px;
+  background: var(--dz-black);
+  font-size: clamp(30px, 2.6vw, 42px);
+}
+
+/* главная: фото слева, текст справа */
+.promos .pr-card--main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.promos .pr-card--main .pr-media {
+  min-height: 360px;
+}
+.promos .pr-card--main .pr-body {
+  padding: 24px 26px 26px;
+}
+
+/* широкая: текст слева, фото справа */
+.promos .pr-card--wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+/* фото стоит на правой половине абсолютно: так у блока всегда
+   есть точная высота, и рамка 3:2 считает обрезку верно */
+.promos .pr-card--wide {
+  position: relative;
+  min-height: 220px;
+}
+.promos .pr-card--wide .pr-media {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+}
+.promos .pr-card--wide .pr-body {
+  order: 1;
+}
+.promos .pr-card--wide .pr-body p {
+  margin-bottom: 14px;
+}
+.promos .pr-card--wide .pr-more {
+  margin-top: auto;
+}
+
+/* щиты «Ваш бренд» на фото акций — контуры сняты с кадров */
+.dz-board--hotel {
+  clip-path: polygon(48.4% 15.6%, 60.4% 14.3%, 60.6% 65.8%, 48.4% 65.8%);
+}
+.dz-board--hotel b {
+  position: absolute;
+  left: 48.4%;
+  width: 12.2%;
+  top: 40.5%;
+  font-size: 2.6cqw;
+  font-weight: inherit;
+  transform: translateY(-50%);
+}
+.dz-board--launch {
+  clip-path: polygon(27.2% 56.1%, 71.7% 56.1%, 71.7% 75.1%, 27.2% 75.1%);
+}
+.dz-board--launch b {
+  position: absolute;
+  left: 27.2%;
+  width: 44.5%;
+  top: 65.6%;
+  font-size: 5.4cqw;
+  font-weight: inherit;
+  transform: translateY(-50%);
+}
+.dz-board--boards {
+  clip-path: polygon(60% 29.7%, 86.9% 21.9%, 86.9% 51.3%, 60% 54.2%);
+}
+.dz-board--boards b {
+  position: absolute;
+  left: 60%;
+  width: 26.9%;
+  top: 39.3%;
+  font-size: 4.3cqw;
+  font-weight: inherit;
+  transform: translateY(-50%) skewY(-7.5deg);
+}
+.dz-board--lifts {
+  clip-path: inset(12.3% 38.8% 38% 35.4%);
+}
+.dz-board--lifts b {
+  position: absolute;
+  left: 35.4%;
+  width: 25.8%;
+  top: 37.2%;
+  font-size: 5cqw;
+  font-weight: inherit;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 720px) {
+  .promos .pr-card--main,
+  .promos .pr-card--wide {
+    display: flex;
+  }
+  .promos .pr-card--main .pr-media,
+  .promos .pr-card--wide .pr-media {
+    position: relative;
+    width: auto;
+    flex: 0 0 auto;
+    order: 0;
+    height: 220px;
+    min-height: 0;
+  }
+  .promos .pr-card--wide .pr-body {
+    order: 1;
+  }
+}
+
+/* фото в попапе — копия кадра из карточки со щитом */
+.promo-modal-photo {
+  position: relative;
+  overflow: hidden;
+  container-type: size;
+}
+.promo-modal-photo .dz-frame {
+  transform: none;
+  transition: none;
+}
+.promo-modal-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* подложка OpenStreetMap затемнена под стиль блока */
+.dz-map .leaflet-tile-pane {
+  filter: grayscale(1) invert(1) brightness(0.82) contrast(0.95);
+}
