@@ -3268,9 +3268,12 @@ body {
   letter-spacing: 0.06em;
   color: var(--dz-muted);
 }
+/* результат кейса — главная метрика: красная плашка;
+   у активного — красный на чёрном, как цифра в кадре */
 .cases .show-badge {
-  border: 1px solid var(--dz-black);
+  border: 1px solid var(--dz-red);
   border-radius: 0;
+  background: var(--dz-red);
   font-family: var(--dz-display);
   font-weight: var(--dz-weight);
   letter-spacing: var(--dz-track);
@@ -3279,7 +3282,7 @@ body {
 .cases .show-list button.is-active .show-badge {
   border-color: var(--dz-black);
   background: var(--dz-black);
-  color: var(--dz-white);
+  color: var(--dz-red);
 }
 
 /* «Смотреть все кейсы» — контурная кнопка, как на первом экране */
@@ -3315,6 +3318,14 @@ body {
   font-family: var(--dz-body);
   font-weight: 600;
   letter-spacing: 0.06em;
+}
+
+/* логотипы клиентов: пока заглушка — знак ADSPACE, вписан в ячейку */
+.cases .client-row li img {
+  display: block;
+  width: 140px;
+  max-width: 70%;
+  height: auto;
 }
 
 /* смета без строки «Смета кампании / номер» — «Итого» первым */
