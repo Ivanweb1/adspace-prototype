@@ -2945,3 +2945,141 @@ body {
   color: inherit !important;
   text-decoration: none;
 }
+
+/* ── Яндекс.Карты ─────────────────────────────────────────
+   Подложка затемнена фильтром (у API 2.1 нет тёмной темы),
+   логотип и «Условия» Яндекса — обязательные, их не трогаем. */
+.dz-map [class*="ground-pane"] {
+  filter: grayscale(1) invert(1) brightness(0.82) contrast(0.95);
+}
+.dz-pin {
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  background: var(--dz-red);
+  box-shadow: 0 0 0 4px rgba(235, 34, 70, 0.35);
+}
+
+/* ── 05 · смета: список «что входит», суммы, цена без скидки ── */
+.dz-includes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 28px;
+  max-width: 540px;
+  margin: -12px 0 34px;
+  padding: 0;
+  list-style: none;
+}
+.dz-includes li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--dz-white);
+}
+.dz-includes li::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  background: var(--dz-red);
+}
+
+.dz-total-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+.dz-total-row s {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(20px, 1.8vw, 28px);
+  letter-spacing: var(--dz-track);
+  color: var(--dz-muted);
+  text-decoration-color: var(--dz-red);
+  text-decoration-thickness: 2px;
+}
+.accuracy .cost-total {
+  margin-bottom: 22px;
+}
+.accuracy .cost-total small {
+  margin-top: 14px;
+}
+
+/* общая полоса: доли статей одним отрезком */
+.dz-cost-bar {
+  display: flex;
+  height: 14px;
+  margin-bottom: 18px;
+}
+.dz-cost-bar i {
+  flex: 0 0 var(--w);
+  transform-origin: left;
+  animation: growBar 0.7s var(--ease) both;
+}
+.dz-cost-bar i:nth-child(1),
+.dz-cost-rows li:nth-child(1) i {
+  background: var(--dz-red);
+}
+.dz-cost-bar i:nth-child(2),
+.dz-cost-rows li:nth-child(2) i {
+  background: var(--dz-black);
+}
+.dz-cost-bar i:nth-child(3),
+.dz-cost-rows li:nth-child(3) i {
+  background: #8c8c94;
+}
+.dz-cost-bar i:nth-child(4),
+.dz-cost-rows li:nth-child(4) i {
+  background: #f39aab;
+}
+
+/* строки сметы: метка цвета, статья, сумма, доля */
+.dz-cost-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dz-cost-rows li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto 44px;
+  align-items: baseline;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(13, 13, 15, 0.14);
+  font-size: 15px;
+}
+.dz-cost-rows li i {
+  width: 12px;
+  height: 12px;
+  align-self: center;
+}
+.dz-cost-rows b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: 20px;
+  letter-spacing: var(--dz-track);
+  white-space: nowrap;
+}
+.dz-cost-rows em {
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dz-muted);
+  text-align: right;
+}
+@media (max-width: 720px) {
+  .dz-includes {
+    grid-template-columns: 1fr;
+  }
+  .dz-cost-rows li {
+    grid-template-columns: 12px minmax(0, 1fr) auto;
+  }
+  .dz-cost-rows em {
+    display: none;
+  }
+}

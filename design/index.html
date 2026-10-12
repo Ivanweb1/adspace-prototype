@@ -24,11 +24,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
-    />
-    <link rel="stylesheet" href="design.css?v=55" />
+    <link rel="stylesheet" href="design.css?v=58" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -990,10 +986,17 @@
           <div class="accuracy-copy reveal">
             <p class="eyebrow eyebrow--light">Точный расчёт</p>
             <h2 id="accuracy-title">Не «примерно»<br /><span>По делу</span></h2>
-            <p>
-              Считаем размещение, количество поверхностей, сроки, производство, печать, монтаж и
-              дизайн макетов. Скидки за объём и период учитываются в смете сразу.
-            </p>
+            <p>Считаем всё, что входит в кампанию, — в одной смете, сразу со скидками:</p>
+            <ul class="dz-includes">
+              <li>Размещение</li>
+              <li>Количество поверхностей</li>
+              <li>Сроки</li>
+              <li>Производство</li>
+              <li>Печать</li>
+              <li>Монтаж</li>
+              <li>Дизайн макетов</li>
+              <li>Скидки за объём и период</li>
+            </ul>
             <a class="button button--primary" href="#builder"
               >Рассчитать рекламу <span aria-hidden="true">↗</span></a
             >
@@ -1001,25 +1004,22 @@
 
           <div class="cost-card reveal" data-tentative="суммы демонстрационные">
             <div class="cost-head"><span>Смета кампании</span><span>AD / 2608</span></div>
-            <div class="cost-total"><small>Итого за 30 дней</small><strong>540 000 ₽</strong></div>
-            <div class="cost-lines">
-              <div class="cost-line">
-                <span>Размещение</span><b>72%</b>
-                <i style="--w: 72%"></i>
-              </div>
-              <div class="cost-line">
-                <span>Производство и печать</span><b>12%</b>
-                <i style="--w: 12%"></i>
-              </div>
-              <div class="cost-line">
-                <span>Монтаж и контроль</span><b>10%</b>
-                <i style="--w: 10%"></i>
-              </div>
-              <div class="cost-line">
-                <span>Дизайн макетов</span><b>6%</b>
-                <i style="--w: 6%"></i>
+            <div class="cost-total dz-total">
+              <small>Итого за 30 дней</small>
+              <div class="dz-total-row">
+                <strong>540 000 ₽</strong>
+                <s>613 600 ₽</s>
               </div>
             </div>
+            <div class="dz-cost-bar" aria-hidden="true">
+              <i style="--w: 72%"></i><i style="--w: 12%"></i><i style="--w: 10%"></i><i style="--w: 6%"></i>
+            </div>
+            <ul class="dz-cost-rows">
+              <li><i></i><span>Размещение</span><b>388 800 ₽</b><em>72%</em></li>
+              <li><i></i><span>Производство и печать</span><b>64 800 ₽</b><em>12%</em></li>
+              <li><i></i><span>Монтаж и контроль</span><b>54 000 ₽</b><em>10%</em></li>
+              <li><i></i><span>Дизайн макетов</span><b>32 400 ₽</b><em>6%</em></li>
+            </ul>
             <div class="cost-foot">
               <span class="cost-badge">−12%</span>
               <span>скидка за объём и период уже в смете</span>
@@ -1600,7 +1600,9 @@
     </div>
 
     <script src="script.js?v=12"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <!-- Яндекс.Карты. Для рабочего сайта нужен бесплатный API-ключ на домен
+         заказчика: добавить &apikey=… в адрес ниже. -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
     <!-- Панель выбора шрифта заголовков — только для показа вариантов заказчику -->
     <div class="dz-fontpick" role="group" aria-label="Шрифт заголовков" data-fontpick>
       <span>Шрифт</span>
@@ -1674,39 +1676,56 @@
           radio: [[47.2357, 39.7015], [47.222, 39.72], [47.26, 39.68], [47.24, 39.75]],
           transit: [[51.672, 39.2], [51.66, 39.24], [51.69, 39.17], [51.645, 39.26], [51.68, 39.21]],
         };
+        // ── Яндекс.Карты: общий помощник для всех карт страницы ──
+        // Подложка затемнена фильтром в CSS, точки — красные квадраты.
+        var ymapsReady = new Promise(function (resolve) {
+          if (window.ymaps) ymaps.ready(resolve);
+        });
+        var PinLayout = null;
+        function createYMap(el, holderSelector) {
+          var m = new ymaps.Map(
+            el,
+            { center: [55.75, 37.62], zoom: 9, controls: [] },
+            { suppressMapOpenBlock: true, yandexMapDisablePoiInteractivity: true }
+          );
+          // компактные «+ / −» вместо шкалы зума
+          m.controls.add(new ymaps.control.ZoomControl({
+            options: { size: "small", position: { right: 10, top: 10 } },
+          }));
+          m.behaviors.disable("scrollZoom");
+          var holder = el.closest(holderSelector);
+          if (holder) holder.classList.add("has-map");
+          return m;
+        }
+        function setPins(m, points, maxZoom, animate) {
+          if (!PinLayout) PinLayout = ymaps.templateLayoutFactory.createClass('<div class="dz-pin"></div>');
+          m.container.fitToViewport();
+          m.geoObjects.removeAll();
+          points.forEach(function (p) {
+            m.geoObjects.add(new ymaps.Placemark(p, {}, {
+              iconLayout: PinLayout,
+              iconShape: { type: "Rectangle", coordinates: [[-8, -8], [8, 8]] },
+            }));
+          });
+          if (points.length > 1) {
+            m.setBounds(ymaps.util.bounds.fromPoints(points), {
+              checkZoomRange: true, zoomMargin: 36, duration: animate ? 600 : 0,
+            }).then(function () { if (m.getZoom() > maxZoom) m.setZoom(maxZoom); });
+          } else {
+            m.setCenter(points[0], maxZoom - 1);
+          }
+        }
+
         var mapEl = document.querySelector("[data-dz-map]");
         var map = null;
-        var layer = null;
         function showMap(id) {
           var points = PROMO_POINTS[id];
-          if (!mapEl || !window.L || !points) return;
-          if (!map) {
-            map = L.map(mapEl, {
-              zoomControl: false,
-              attributionControl: true,
-              scrollWheelZoom: false,
-            });
-            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-              maxZoom: 18,
-              attribution: "© OpenStreetMap",
-            }).addTo(map);
-            map.attributionControl.setPrefix(false);
-            L.control.zoom({ position: "bottomright" }).addTo(map);
-            mapEl.closest(".promo-modal-canvas").classList.add("has-map");
-          }
-          if (layer) layer.remove();
-          var icon = L.divIcon({ className: "dz-pin", iconSize: [14, 14] });
-          layer = L.featureGroup(
-            points.map(function (p) {
-              return L.marker(p, { icon: icon, keyboard: false });
-            })
-          ).addTo(map);
-          // окно попапа только что стало видимым — пересчитываем размер
-          window.setTimeout(function () {
-            map.invalidateSize();
-            if (points.length > 1) map.fitBounds(layer.getBounds(), { padding: [28, 28], maxZoom: 13 });
-            else map.setView(points[0], 12);
-          }, 60);
+          if (!mapEl || !points) return;
+          ymapsReady.then(function () {
+            if (!map) map = createYMap(mapEl, ".promo-modal-canvas");
+            // окно попапа только что стало видимым — даём ему размер
+            window.setTimeout(function () { setPins(map, points, 13, false); }, 80);
+          });
         }
 
         document.querySelectorAll("[data-promo-open]").forEach(function (b) {
@@ -1761,9 +1780,9 @@
         };
         var drawer = document.querySelector("[data-map-drawer]");
         var drawerMapEl = document.querySelector("[data-dz-drawer-map]");
-        var drawerMap = null, drawerLayer = null;
+        var drawerMap = null;
         function showDrawerMap() {
-          if (!drawer || drawer.hidden || !window.L || !drawerMapEl) return;
+          if (!drawer || drawer.hidden || !drawerMapEl) return;
           var items = drawer.querySelectorAll("[data-map-points] li span");
           var pts = [];
           items.forEach(function (el, i) {
@@ -1774,22 +1793,10 @@
             pts.push([ll[0] + Math.sin(a) * 0.035 * (1 + (i % 3) * 0.4), ll[1] + Math.cos(a) * 0.06 * (1 + (i % 3) * 0.4)]);
           });
           if (!pts.length) return;
-          if (!drawerMap) {
-            drawerMap = L.map(drawerMapEl, { zoomControl: false, scrollWheelZoom: false });
-            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-              maxZoom: 18, attribution: "© OpenStreetMap",
-            }).addTo(drawerMap);
-            drawerMap.attributionControl.setPrefix(false);
-            L.control.zoom({ position: "bottomright" }).addTo(drawerMap);
-            drawerMapEl.closest(".map-drawer-canvas").classList.add("has-map");
-          }
-          if (drawerLayer) drawerLayer.remove();
-          var icon = L.divIcon({ className: "dz-pin", iconSize: [14, 14] });
-          drawerLayer = L.featureGroup(pts.map(function (p) { return L.marker(p, { icon: icon, keyboard: false }); })).addTo(drawerMap);
-          window.setTimeout(function () {
-            drawerMap.invalidateSize();
-            drawerMap.fitBounds(drawerLayer.getBounds(), { padding: [30, 30], maxZoom: 12 });
-          }, 120);
+          ymapsReady.then(function () {
+            if (!drawerMap) drawerMap = createYMap(drawerMapEl, ".map-drawer-canvas");
+            window.setTimeout(function () { setPins(drawerMap, pts, 12, false); }, 140);
+          });
         }
         if (drawer && "MutationObserver" in window) {
           new MutationObserver(showDrawerMap).observe(drawer, { attributes: true, attributeFilter: ["hidden"] });
@@ -1894,26 +1901,13 @@
           [56.3269, 44.0059], [56.8389, 60.6057], [53.1959, 50.1002], [54.7388, 55.9721],
         ]);
         var geoEl = document.querySelector("[data-dz-geo-map]");
-        var geoMap = null, geoLayer = null, geoView = "south";
-        function drawGeo() {
-          if (!geoEl || !window.L) return;
-          if (!geoMap) {
-            geoMap = L.map(geoEl, { zoomControl: false, scrollWheelZoom: false });
-            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-              maxZoom: 18, attribution: "© OpenStreetMap",
-            }).addTo(geoMap);
-            geoMap.attributionControl.setPrefix(false);
-            L.control.zoom({ position: "bottomright" }).addTo(geoMap);
-            geoEl.closest(".geo-map").classList.add("has-map");
-            var icon = L.divIcon({ className: "dz-pin", iconSize: [14, 14] });
-            geoLayer = L.featureGroup(GEO_RUSSIA.map(function (p) { return L.marker(p, { icon: icon, keyboard: false }); })).addTo(geoMap);
-          }
-          geoMap.invalidateSize();
-          var pts = geoView === "south" ? GEO_SOUTH : GEO_RUSSIA;
-          var bounds = L.latLngBounds(pts);
-          // первый показ — сразу на место, дальше — плавный перелёт
-          if (!geoMap._loaded) geoMap.fitBounds(bounds, { padding: [40, 40] });
-          else geoMap.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+        var geoMap = null, geoView = "south";
+        function drawGeo(animate) {
+          if (!geoEl) return;
+          ymapsReady.then(function () {
+            if (!geoMap) geoMap = createYMap(geoEl, ".geo-map");
+            setPins(geoMap, geoView === "south" ? GEO_SOUTH : GEO_RUSSIA, 9, animate);
+          });
         }
         document.querySelectorAll("[data-geo-view]").forEach(function (b) {
           b.addEventListener("click", function () {
@@ -1921,13 +1915,13 @@
             document.querySelectorAll("[data-geo-view]").forEach(function (x) {
               x.setAttribute("aria-pressed", String(x === b));
             });
-            drawGeo();
+            drawGeo(true);
           });
         });
         // карта создаётся, когда блок доезжает до экрана — тогда у неё есть размер
         if (geoEl && "IntersectionObserver" in window) {
           var geoIo = new IntersectionObserver(function (entries) {
-            if (entries[0].isIntersecting) { drawGeo(); geoIo.disconnect(); }
+            if (entries[0].isIntersecting) { drawGeo(false); geoIo.disconnect(); }
           });
           geoIo.observe(geoEl);
         }
