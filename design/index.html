@@ -28,7 +28,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
     />
-    <link rel="stylesheet" href="design.css?v=34" />
+    <link rel="stylesheet" href="design.css?v=35" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -541,7 +541,7 @@
         <div class="section-shell">
           <div class="builder-heading reveal">
             <p class="eyebrow eyebrow--light">Конструктор кампании</p>
-            <h2 id="builder-title">Соберите кампанию под вашу задачу</h2>
+            <h2 id="builder-title">Соберите кампанию <span>под вашу задачу</span></h2>
             <p class="builder-sub">
               Пять параметров и контакт — и система сразу покажет медиамикс, бюджет и период.
               Без ожидания звонка.
@@ -1432,6 +1432,7 @@
 
         <div class="map-drawer-canvas" aria-hidden="true">
           <span>Здесь будет карта с точками размещения</span>
+          <div class="dz-map" data-dz-drawer-map></div>
         </div>
 
         <div class="map-drawer-points">
@@ -1671,6 +1672,72 @@
             showMap(b.dataset.promoOpen);
           });
         });
+
+        // Конструктор: кадры медиаплана — из наших фото по названию канала
+        var SHOT_PHOTOS = {
+          "Outdoor": "outdoor.jpg",
+          "Digital / DOOH": "promo-federal.jpg",
+          "Radio": "broadcast.jpg",
+          "Transit": "promo-transit.jpg",
+          "Indoor": "promo-hotels.jpg",
+          "Реклама в лифтах": "indoor.jpg",
+          "TV": "promo-stadium.jpg",
+        };
+        var visuals = document.querySelector("[data-result-visuals]");
+        if (visuals && "MutationObserver" in window) {
+          new MutationObserver(function () {
+            visuals.querySelectorAll(".photo-slot").forEach(function (slot) {
+              var name = (slot.dataset.photoLabel || "").replace("Фото · ", "");
+              var file = SHOT_PHOTOS[name];
+              if (!file) return;
+              slot.style.backgroundImage = "url(assets/photos/" + file + ")";
+              slot.classList.add("has-photo");
+            });
+          }).observe(visuals, { childList: true });
+        }
+
+        // Карта в панели «Смотреть на карте»: точки медиаплана по городам.
+        // Координаты — центры городов со сдвигом на точку (демо).
+        var CITY_LL = {
+          "Москва": [55.7558, 37.6173], "Санкт-Петербург": [59.9343, 30.3351],
+          "Краснодар": [45.0355, 38.9753], "Ростов-на-Дону": [47.2357, 39.7015],
+          "Сочи": [43.5855, 39.7231], "Волгоград": [48.708, 44.5133],
+          "Воронеж": [51.672, 39.1843], "Ставрополь": [45.0428, 41.9734],
+        };
+        var drawer = document.querySelector("[data-map-drawer]");
+        var drawerMapEl = document.querySelector("[data-dz-drawer-map]");
+        var drawerMap = null, drawerLayer = null;
+        function showDrawerMap() {
+          if (!drawer || drawer.hidden || !window.L || !drawerMapEl) return;
+          var items = drawer.querySelectorAll("[data-map-points] li span");
+          var pts = [];
+          items.forEach(function (el, i) {
+            var city = Object.keys(CITY_LL).find(function (c) { return el.textContent.indexOf(c) === 0; });
+            if (!city) return;
+            var ll = CITY_LL[city];
+            var a = i * 2.39996;
+            pts.push([ll[0] + Math.sin(a) * 0.035 * (1 + (i % 3) * 0.4), ll[1] + Math.cos(a) * 0.06 * (1 + (i % 3) * 0.4)]);
+          });
+          if (!pts.length) return;
+          if (!drawerMap) {
+            drawerMap = L.map(drawerMapEl, { zoomControl: false, scrollWheelZoom: false });
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+              maxZoom: 18, attribution: "© OpenStreetMap",
+            }).addTo(drawerMap);
+            L.control.zoom({ position: "bottomright" }).addTo(drawerMap);
+            drawerMapEl.closest(".map-drawer-canvas").classList.add("has-map");
+          }
+          if (drawerLayer) drawerLayer.remove();
+          var icon = L.divIcon({ className: "dz-pin", iconSize: [14, 14] });
+          drawerLayer = L.featureGroup(pts.map(function (p) { return L.marker(p, { icon: icon, keyboard: false }); })).addTo(drawerMap);
+          window.setTimeout(function () {
+            drawerMap.invalidateSize();
+            drawerMap.fitBounds(drawerLayer.getBounds(), { padding: [30, 30], maxZoom: 12 });
+          }, 120);
+        }
+        if (drawer && "MutationObserver" in window) {
+          new MutationObserver(showDrawerMap).observe(drawer, { attributes: true, attributeFilter: ["hidden"] });
+        }
 
         // подсказка «География» не лежит поверх первого экрана
         var heroEl = document.querySelector(".hero");

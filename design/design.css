@@ -1897,3 +1897,303 @@ body {
   font-size: 5.6cqw;
   transform: translateY(-50%) skewY(-1.7deg);
 }
+
+/* =========================================================
+   03 · КОНСТРУКТОР — чёрный блок после красных акций
+
+   Логика и состав полей — из v2. Подача: чёрный фон, заголовок
+   плакатным капсом с красным хвостом, поля — контуры с прямыми
+   углами, главная кнопка красная. Шаг контакта и результат —
+   белые панели с прямыми углами; цвета каналов медиамикса —
+   фирменные (чёрный, красный, серые) вместо ч/б-вайрфрейма;
+   кадры каналов — наши фото. Панель «Смотреть на карте» — с
+   живой картой точек.
+   ========================================================= */
+.builder {
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font-family: var(--dz-body);
+}
+.builder .eyebrow {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.builder-heading h2 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(44px, 5.6vw, 92px);
+  line-height: var(--dz-lh);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-white);
+}
+.builder-heading h2 span {
+  color: var(--dz-red);
+}
+.builder-sub {
+  max-width: 620px;
+  font-size: clamp(16px, 1.25vw, 19px);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* поля: контуры, прямые углы */
+.builder-form .field-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.6);
+}
+.builder-form select,
+.builder-form .picker-button,
+.builder-form .budget-track {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--dz-white);
+  font-family: var(--dz-body);
+}
+.builder-form select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--dz-white) 50%),
+    linear-gradient(135deg, var(--dz-white) 50%, transparent 50%);
+}
+.builder-form select option {
+  background: var(--dz-white);
+  color: var(--dz-black);
+}
+.builder-form .picker-button::after {
+  border-color: var(--dz-white);
+}
+.builder-form select:hover,
+.builder-form .picker-button:hover,
+.builder-form .picker-button[aria-expanded="true"] {
+  border-color: var(--dz-red);
+}
+.field--budget output {
+  font-family: var(--dz-body);
+  font-weight: 700;
+  color: var(--dz-white);
+}
+.builder-form input[type="range"] {
+  height: 2px;
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+.builder-form input[type="range"]::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 0;
+  background: var(--dz-red);
+  box-shadow: none;
+}
+.builder-form input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 0;
+  background: var(--dz-red);
+}
+.builder-form .builder-submit {
+  border-radius: 0;
+  background: var(--dz-red);
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.builder-form .builder-submit:hover {
+  background: var(--dz-white);
+  color: var(--dz-black);
+  transform: none;
+}
+
+/* выпадашки города и вида рекламы */
+.picker-pop {
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  font-family: var(--dz-body);
+}
+.picker-chip span {
+  border-radius: 0;
+  border-color: rgba(13, 13, 15, 0.25);
+}
+.picker-chip input:checked + span {
+  background: var(--dz-black);
+  border-color: var(--dz-black);
+}
+.picker-done {
+  border-radius: 0 !important;
+  background: var(--dz-red) !important;
+  color: var(--dz-black) !important;
+}
+
+/* шаг контакта и результат — белые панели с прямыми углами */
+.builder-gate,
+.builder-result {
+  border-radius: 0;
+  background: var(--dz-white);
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+  /* фирменные тона каналов: полосы, кольцо и метки кадров */
+  --ink: #0d0d0f;
+  --tone-1: #eb2246;
+  --tone-2: #8c8c94;
+  --tone-3: #f39aab;
+}
+.builder-gate .result-kicker,
+.builder-result .result-kicker {
+  color: var(--dz-red);
+}
+.gate-head h3,
+.result-head h3 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.gate-close,
+.result-head button {
+  border-radius: 0 !important;
+  border: 0 !important;
+  background: var(--dz-black) !important;
+  color: var(--dz-white) !important;
+}
+.gate-close:hover,
+.result-head button:hover {
+  background: var(--dz-red) !important;
+  color: var(--dz-black) !important;
+}
+.gate-summary li {
+  border-radius: 0;
+  border-color: var(--dz-black);
+  color: var(--dz-black);
+}
+.builder-gate input {
+  border-radius: 0;
+  border: 1px solid var(--dz-black);
+  background: var(--dz-white);
+}
+.builder-gate input:hover,
+.builder-gate input:focus {
+  border-color: var(--dz-red);
+  background: var(--dz-white);
+}
+.builder-gate .field-label {
+  color: var(--dz-muted);
+}
+.builder-gate .button,
+.builder-result .button {
+  border-radius: 0;
+  font-family: var(--dz-body);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+.builder-gate .button--primary,
+.builder-result .button--primary {
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+.builder-gate .button--primary:hover,
+.builder-result .button--primary:hover {
+  background: var(--dz-black);
+  color: var(--dz-white);
+  transform: none;
+}
+.builder-result .button--light {
+  background: var(--dz-white);
+  color: var(--dz-black);
+  box-shadow: inset 0 0 0 2px var(--dz-black);
+}
+.builder-result .button--light:hover {
+  background: var(--dz-black);
+  color: var(--dz-white);
+  transform: none;
+}
+
+/* кадры каналов: фото, прямые углы */
+.result-shot .photo-slot {
+  border-radius: 0;
+}
+.result-shot figcaption::before {
+  border-radius: 0;
+}
+.result-shot figcaption span,
+.mix-donut b,
+.result-facts dd {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  letter-spacing: var(--dz-track);
+}
+.mix-item .mix-bar,
+.mix-item .mix-bar i {
+  border-radius: 0;
+}
+.result-facts dl > div {
+  border-color: var(--dz-black);
+}
+.result-note span {
+  border-radius: 0;
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+
+/* «Как работает система» — номера красные, линии отрезками снизу,
+   как у тезисов первого экрана */
+.builder .process-step {
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  font-family: var(--dz-body);
+}
+.builder .process-step b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(28px, 2.4vw, 38px);
+  letter-spacing: var(--dz-track);
+  color: var(--dz-red);
+}
+.builder .process-step span {
+  color: var(--dz-white);
+}
+.builder .process-step--muted b {
+  color: rgba(255, 255, 255, 0.4);
+}
+.builder .process-step--muted span {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* панель «Смотреть на карте» */
+.map-drawer-panel {
+  border-radius: 0;
+  font-family: var(--dz-body);
+}
+.map-drawer-head h3 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+}
+.map-drawer .result-kicker {
+  color: var(--dz-red);
+}
+.map-drawer-close {
+  border-radius: 0 !important;
+  border: 0 !important;
+  background: var(--dz-black) !important;
+  color: var(--dz-white) !important;
+}
+.map-drawer-canvas {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  background: #26262c;
+}
+.map-drawer-canvas.has-map > span {
+  display: none;
+}
+.map-drawer-points li button {
+  border-radius: 0 !important;
+}
