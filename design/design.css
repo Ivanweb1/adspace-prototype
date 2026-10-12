@@ -2590,3 +2590,13 @@ body {
   background: rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.7);
 }
+
+/* стрелка в списке направлений — как на кнопках сайта:
+   тот же шрифт и жирность, что у «↗» на красной кнопке */
+.solutions .solution-list button i {
+  font-family: var(--dz-body);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1;
+  justify-self: end;
+}
