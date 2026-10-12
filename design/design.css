@@ -2693,3 +2693,30 @@ body {
     margin-left: 0;
   }
 }
+
+/* иконка транспорта в v2 красит любой <b> внутри превью (тёмный круг,
+   left: 32%) — для надписи на щите сбрасываем */
+.solutions .pv .dz-board b {
+  bottom: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+.solutions .pv--transit .dz-board b {
+  left: 41.6%;
+}
+
+/* =========================================================
+   Единый размер заголовков секций (h2) во всех блоках —
+   как просил заказчик ещё в v2: «один кегль у всех h2».
+   Слоган первого экрана (h1) — отдельно, крупнее.
+   ========================================================= */
+:root {
+  --dz-h2-size: clamp(36px, 4.2vw, 68px);
+}
+.promos .section-heading h2,
+.builder-heading h2,
+.solutions .section-heading h2 {
+  font-size: var(--dz-h2-size);
+}
