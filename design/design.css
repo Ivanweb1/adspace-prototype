@@ -2720,3 +2720,26 @@ body {
 .solutions .section-heading h2 {
   font-size: var(--dz-h2-size);
 }
+
+/* надписи на новых фото направлений: ТВ, DOOH, печать баннера */
+.dz-board--tv b {
+  left: 28.7%;
+  width: 43%;
+  top: 30.8%;
+  font-size: 6.4cqw;
+  transform: translateY(-50%);
+}
+.dz-board--dooh b {
+  left: 43.7%;
+  width: 47.6%;
+  top: 31.5%;
+  font-size: 6cqw;
+  transform: translateY(-50%) skewY(8deg);
+}
+.dz-board--production b {
+  left: 30%;
+  width: 55%;
+  top: 52%;
+  font-size: 7cqw;
+  transform: translateY(-50%);
+}

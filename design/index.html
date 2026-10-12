@@ -28,7 +28,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
     />
-    <link rel="stylesheet" href="design.css?v=51" />
+    <link rel="stylesheet" href="design.css?v=52" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -795,10 +795,11 @@
                 <span class="dz-pv-ph">фото · outdoor.jpg</span>
               </div>
               <div class="pv pv--digital">
-                <div class="dz-frame" style="--px: 0.3; --py: 0.5">
-                  <img src="assets/photos/promo-federal.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                <div class="dz-frame" style="--px: 0.85; --py: 0.4">
+                  <img src="assets/photos/dooh.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <span class="dz-board dz-board--dooh"><b>Ваш бренд</b></span>
                 </div>
-                <span class="dz-pv-ph">фото · promo-federal.jpg</span>
+                <span class="dz-pv-ph">фото · dooh.jpg</span>
               </div>
               <div class="pv pv--radio">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
@@ -809,6 +810,7 @@
               <div class="pv pv--tv">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
                   <img src="assets/photos/tv.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <span class="dz-board dz-board--tv"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · tv.jpg</span>
               </div>
@@ -836,6 +838,7 @@
               <div class="pv pv--production">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
                   <img src="assets/photos/production.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <span class="dz-board dz-board--production"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · production.jpg</span>
               </div>
@@ -1718,12 +1721,13 @@
         // Конструктор: кадры медиаплана — из наших фото по названию канала
         var SHOT_PHOTOS = {
           "Outdoor": "outdoor.jpg",
-          "Digital / DOOH": "promo-federal.jpg",
+          "Digital / DOOH": "dooh.jpg",
+          "Production": "production.jpg",
           "Radio": "broadcast.jpg",
           "Transit": "promo-transit.jpg",
           "Indoor": "promo-hotels.jpg",
           "Реклама в лифтах": "indoor.jpg",
-          "TV": "promo-stadium.jpg",
+          "TV": "tv.jpg",
         };
         var visuals = document.querySelector("[data-result-visuals]");
         if (visuals && "MutationObserver" in window) {
