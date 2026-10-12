@@ -159,6 +159,42 @@
         if (!isMobile()) show(tab);
       });
     });
+
+    /* автолистание (кейсы): идёт, пока витрина на экране и под
+       курсором её нет; полоса прогресса — CSS по классу is-playing */
+    const delay = Number(showcase.dataset.showAutoplay);
+    if (!delay || reduceMotion.matches) return;
+    showcase.style.setProperty("--show-autoplay", `${delay}ms`);
+    let timer = null;
+    let inView = false;
+    let hovered = false;
+    const next = () => {
+      const current = tabs.findIndex((tab) => tab.classList.contains("is-active"));
+      show(tabs[(current + 1) % tabs.length]);
+    };
+    const sync = () => {
+      const run = inView && !hovered;
+      showcase.classList.toggle("is-playing", run);
+      if (timer) window.clearInterval(timer);
+      timer = run ? window.setInterval(next, delay) : null;
+    };
+    showcase.addEventListener("mouseenter", () => {
+      hovered = true;
+      sync();
+    });
+    showcase.addEventListener("mouseleave", () => {
+      hovered = false;
+      sync();
+    });
+    /* нажатие на мобильном — начинаем отсчёт заново с выбранного */
+    tabs.forEach((tab) => tab.addEventListener("click", () => isMobile() && sync()));
+    new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        sync();
+      },
+      { threshold: 0.4 }
+    ).observe(showcase);
   });
 
   /* ── конструктор кампании ───────────────────────────── */

@@ -3303,29 +3303,71 @@ body {
   transform: none;
 }
 
-/* клиенты — квадратные ячейки под логотипы */
-.cases .clients .result-label {
+/* клиенты — полоса во всю ширину под витриной: чёрная линейка
+   сверху, подпись слева, шесть логотипов в ряд через тонкие
+   разделители, без плашек. Логотипы серые, в цвет — на наведении */
+.cases .clients-strip {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+  margin-top: clamp(40px, 4vw, 64px);
+  padding-top: 22px;
+  border-top: 2px solid var(--dz-black);
+}
+.cases .clients-label {
+  font-family: var(--dz-body);
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--dz-black);
 }
-.cases .client-row li {
-  border: 1px solid rgba(13, 13, 15, 0.18);
-  border-radius: 0;
-  background: #f4f4f5;
-  color: var(--dz-muted);
-  font-family: var(--dz-body);
-  font-weight: 600;
-  letter-spacing: 0.06em;
+.cases .clients-logos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-
-/* логотипы клиентов: пока заглушка — знак ADSPACE, вписан в ячейку */
-.cases .client-row li img {
+.cases .clients-logos li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  padding: 0 16px;
+  border-left: 1px solid rgba(13, 13, 15, 0.16);
+}
+.cases .clients-logos li:last-child {
+  border-right: 1px solid rgba(13, 13, 15, 0.16);
+}
+.cases .clients-logos img {
   display: block;
-  width: 140px;
-  max-width: 70%;
+  width: 100%;
+  max-width: 132px;
   height: auto;
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: filter 0.25s ease, opacity 0.25s ease;
+}
+.cases .clients-logos li:hover img {
+  filter: none;
+  opacity: 1;
+}
+@media (max-width: 900px) {
+  .cases .clients-strip {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .cases .clients-logos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cases .clients-logos li {
+    border-bottom: 1px solid rgba(13, 13, 15, 0.16);
+  }
+  .cases .clients-logos li:nth-child(3n) {
+    border-right: 1px solid rgba(13, 13, 15, 0.16);
+  }
 }
 
 /* смета без строки «Смета кампании / номер» — «Итого» первым */
@@ -3367,4 +3409,63 @@ body {
   .showcase--cases {
     height: clamp(440px, calc(100vh - 340px - (var(--dz-section-y) - 48px)), 620px);
   }
+}
+
+/* =========================================================
+   КЕЙСЫ · главная метрика, строка «Результат», автолистание
+   ========================================================= */
+/* подводка — по нижней линии заголовка, как в «Рекламных решениях» */
+#cases .section-heading {
+  align-items: end;
+}
+#cases .heading-aside p {
+  margin-bottom: 0.2em;
+}
+/* цифра в кадре крупнее — это главное, что должен унести взгляд */
+.cases .show-figure,
+.showcase--cases .show-figure {
+  left: 0;
+  bottom: 0;
+  padding: 12px 20px 14px;
+  font-size: clamp(64px, 5.6vw, 96px);
+  line-height: 0.9;
+}
+/* «Результат» — та же отбивка, что у «Задачи», только красная цифра */
+.cases .show-result {
+  max-width: 520px;
+  margin-top: 8px;
+  padding-left: 14px;
+  border-left: 2px solid var(--dz-red);
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+}
+.cases .show-result b {
+  margin-right: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.cases .show-result strong {
+  margin-right: 4px;
+  font-weight: 700;
+  color: var(--dz-red);
+}
+/* полоса прогресса под активным кейсом — как у сюжетов на первом экране */
+.cases .show-list button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--dz-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+.cases [data-show-autoplay].is-playing .show-list button.is-active::after {
+  animation: dz-progress var(--show-autoplay, 6s) linear forwards;
 }
