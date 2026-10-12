@@ -3609,3 +3609,17 @@ body {
 .cases [data-show-autoplay].is-playing .show-list button.is-active::after {
   animation: dz-progress var(--show-autoplay, 6s) linear forwards;
 }
+
+/* телефон и планшет: карточка кейса своей высоты, а не по самому
+   длинному кейсу — скрытые карточки выводим из потока */
+@media (max-width: 1180px) {
+  .showcase--cases .show-screen {
+    position: relative;
+  }
+  .showcase--cases .show-panel:not(.is-shown) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}

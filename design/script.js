@@ -172,8 +172,10 @@
       const current = tabs.findIndex((tab) => tab.classList.contains("is-active"));
       show(tabs[(current + 1) % tabs.length]);
     };
+    /* на телефоне и планшете карточки разной высоты — без автолистания,
+       чтобы страница не прыгала под пальцем */
     const sync = () => {
-      const run = inView && !hovered;
+      const run = inView && !hovered && !window.matchMedia("(max-width: 1180px)").matches;
       showcase.classList.toggle("is-playing", run);
       if (timer) window.clearInterval(timer);
       timer = run ? window.setInterval(next, delay) : null;
