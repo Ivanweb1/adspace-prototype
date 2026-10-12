@@ -28,7 +28,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
     />
-    <link rel="stylesheet" href="design.css?v=54" />
+    <link rel="stylesheet" href="design.css?v=55" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -1690,6 +1690,7 @@
               maxZoom: 18,
               attribution: "© OpenStreetMap",
             }).addTo(map);
+            map.attributionControl.setPrefix(false);
             L.control.zoom({ position: "bottomright" }).addTo(map);
             mapEl.closest(".promo-modal-canvas").classList.add("has-map");
           }
@@ -1778,6 +1779,7 @@
             L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
               maxZoom: 18, attribution: "© OpenStreetMap",
             }).addTo(drawerMap);
+            drawerMap.attributionControl.setPrefix(false);
             L.control.zoom({ position: "bottomright" }).addTo(drawerMap);
             drawerMapEl.closest(".map-drawer-canvas").classList.add("has-map");
           }
@@ -1900,6 +1902,7 @@
             L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
               maxZoom: 18, attribution: "© OpenStreetMap",
             }).addTo(geoMap);
+            geoMap.attributionControl.setPrefix(false);
             L.control.zoom({ position: "bottomright" }).addTo(geoMap);
             geoEl.closest(".geo-map").classList.add("has-map");
             var icon = L.divIcon({ className: "dz-pin", iconSize: [14, 14] });

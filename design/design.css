@@ -2932,3 +2932,16 @@ body {
   letter-spacing: 0.06em;
   color: rgba(255, 255, 255, 0.6);
 }
+
+/* подпись карты: без «Leaflet», только обязательная по лицензии
+   «© OpenStreetMap» — мелко, серым, без подложки */
+.dz-map .leaflet-control-attribution {
+  padding: 0 6px 2px;
+  background: none !important;
+  color: rgba(255, 255, 255, 0.28) !important;
+  font-size: 8px !important;
+}
+.dz-map .leaflet-control-attribution a {
+  color: inherit !important;
+  text-decoration: none;
+}
