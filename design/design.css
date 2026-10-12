@@ -4208,3 +4208,9 @@ body {
   font-weight: inherit;
   color: var(--dz-red);
 }
+
+/* у презентации заголовок мельче общего — подпись «Материалы»
+   ближе к нему, отступ 26 px был рассчитан на крупные h2 */
+.presentation .eyebrow {
+  margin-bottom: 10px;
+}
