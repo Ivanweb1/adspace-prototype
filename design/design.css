@@ -4214,3 +4214,42 @@ body {
 .presentation .eyebrow {
   margin-bottom: 10px;
 }
+
+/* =========================================================
+   ЕДИНСТВО ПО СТРАНИЦЕ (сверка всех блоков 12.10)
+   - подпись над заголовком → заголовок: 16 px везде
+     (у тёмных блоков было 26, у презентации с мелким h2 — 10);
+   - шапка блока → содержимое: 40 px везде (было 34 / 42 / 52);
+   - подводка у заголовков: один кегль clamp(16–19 px);
+   - кнопки: одна высота 58 px и кегль 13 px.
+   ========================================================= */
+main section .eyebrow {
+  margin-bottom: 16px;
+}
+.presentation .eyebrow {
+  margin-bottom: 10px;
+}
+main .section-heading,
+#cases .section-heading,
+.builder-heading,
+.platform-heading {
+  margin-bottom: 40px;
+}
+.solutions .heading-aside p {
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.45;
+}
+.hero .button,
+.builder-form .builder-submit,
+.cases .show-copy .button,
+.showcase--cases .button,
+.cases .show-more,
+.presentation .pres-button {
+  min-height: 58px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+/* у конструктора форма добавляла свои 52 px сверху — отступ даёт шапка */
+.builder-heading + .builder-form {
+  margin-top: 0;
+}
