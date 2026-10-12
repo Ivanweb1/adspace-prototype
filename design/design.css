@@ -3335,3 +3335,36 @@ body {
 .accuracy .cost-total small {
   margin-top: 0;
 }
+
+/* =========================================================
+   Единый вертикальный ритм: у всех блоков одинаковые поля
+   сверху и снизу. Два белых блока подряд (кейсы → «Для кого»)
+   делят один отступ, чтобы между ними не было двойного.
+   ========================================================= */
+:root {
+  --dz-section-y: clamp(80px, 9vw, 128px);
+}
+.promos,
+.builder,
+.solutions,
+.accuracy,
+.cases,
+.platform,
+.presentation,
+.contact {
+  padding-block: var(--dz-section-y);
+}
+.segments {
+  padding-top: 0;
+  padding-bottom: var(--dz-section-y);
+}
+/* кейсы по-прежнему в один экран: верхнее поле выросло с 48 px
+   до общего, на столько же уменьшаем витрину */
+@media (min-width: 1181px) {
+  .cases {
+    padding-top: var(--dz-section-y);
+  }
+  .showcase--cases {
+    height: clamp(440px, calc(100vh - 340px - (var(--dz-section-y) - 48px)), 620px);
+  }
+}
