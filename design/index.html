@@ -28,7 +28,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
     />
-    <link rel="stylesheet" href="design.css?v=41" />
+    <link rel="stylesheet" href="design.css?v=44" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -384,9 +384,9 @@
           <div class="pr-page" data-cx-page>
             <article class="pr-card pr-card--main" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
-                <div class="dz-frame" style="--px: 0.52; --py: 0.4">
-                  <img src="assets/photos/promo-hotels.jpg" alt="" loading="lazy" />
-                  <span class="dz-board dz-board--hotel"><b>Ваш<br />бренд</b></span>
+                <div class="dz-frame" style="--ar: 0.6667; --px: 0.5; --py: 0.35" data-modal-bg="hotels">
+                  <img src="assets/photos/promo-hotels-v.jpg" alt="" loading="lazy" />
+                  <span class="dz-board dz-board--hotel-v"><b>Ваш<br />бренд</b></span>
                 </div>
               </div>
               <div class="pr-body">
@@ -774,7 +774,7 @@
         <div class="section-heading reveal">
           <div>
             <p class="eyebrow">Рекламные решения</p>
-            <h2 id="solutions-title">Все каналы<br />Одна система</h2>
+            <h2 id="solutions-title">Все каналы<br /><span class="dz-hl">Одна система</span></h2>
           </div>
           <div class="heading-aside">
             <p>
@@ -787,14 +787,58 @@
         <div class="solutions-grid reveal">
           <div class="solution-preview" data-preview aria-live="polite">
             <div class="preview-canvas" data-preview-canvas data-kind="outdoor">
-              <div class="pv pv--outdoor"><span>AD<br />SPACE</span><i></i></div>
-              <div class="pv pv--digital"><i></i><i></i><i></i></div>
-              <div class="pv pv--radio"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-              <div class="pv pv--tv"><span>ТВ</span></div>
-              <div class="pv pv--transit"><i></i><b></b><b></b></div>
-              <div class="pv pv--indoor"><i></i><i></i></div>
-              <div class="pv pv--lift"><i></i><span>▲</span></div>
-              <div class="pv pv--production"><i></i><b></b></div>
+              <div class="pv pv--outdoor">
+                <div class="dz-frame" style="--px: 0.5; --py: 0.15">
+                  <img src="assets/photos/outdoor.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <span class="dz-board dz-board--outdoor"><b>Ваш бренд</b></span>
+                </div>
+                <span class="dz-pv-ph">фото · outdoor.jpg</span>
+              </div>
+              <div class="pv pv--digital">
+                <div class="dz-frame" style="--px: 0.3; --py: 0.5">
+                  <img src="assets/photos/promo-federal.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                </div>
+                <span class="dz-pv-ph">фото · promo-federal.jpg</span>
+              </div>
+              <div class="pv pv--radio">
+                <div class="dz-frame" style="--px: 0.5; --py: 0.5">
+                  <img src="assets/photos/broadcast.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                </div>
+                <span class="dz-pv-ph">фото · broadcast.jpg</span>
+              </div>
+              <div class="pv pv--tv">
+                <div class="dz-frame" style="--px: 0.5; --py: 0.5">
+                  <img src="assets/photos/tv.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                </div>
+                <span class="dz-pv-ph">фото · tv.jpg</span>
+              </div>
+              <div class="pv pv--transit">
+                <div class="dz-frame" style="--px: 0.6; --py: 0.5">
+                  <img src="assets/photos/promo-transit.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <span class="dz-board dz-board--transit"><b>Ваш бренд</b></span>
+                </div>
+                <span class="dz-pv-ph">фото · promo-transit.jpg</span>
+              </div>
+              <div class="pv pv--indoor">
+                <div class="dz-frame" style="--px: 0.52; --py: 0.4">
+                  <img src="assets/photos/promo-hotels.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <span class="dz-board dz-board--hotel"><b>Ваш<br />бренд</b></span>
+                </div>
+                <span class="dz-pv-ph">фото · promo-hotels.jpg</span>
+              </div>
+              <div class="pv pv--lift">
+                <div class="dz-frame" style="--px: 0.5; --py: 0.3">
+                  <img src="assets/photos/indoor.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <span class="dz-board dz-board--indoor"><b>Ваш<br />бренд</b></span>
+                </div>
+                <span class="dz-pv-ph">фото · indoor.jpg</span>
+              </div>
+              <div class="pv pv--production">
+                <div class="dz-frame" style="--px: 0.5; --py: 0.5">
+                  <img src="assets/photos/production.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                </div>
+                <span class="dz-pv-ph">фото · production.jpg</span>
+              </div>
             </div>
             <div class="preview-meta">
               <span class="preview-index" data-preview-index>01 / 08</span>

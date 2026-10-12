@@ -2363,3 +2363,230 @@ body {
 .builder .process-step {
   padding-bottom: 18px;
 }
+
+/* =========================================================
+   04 · РЕКЛАМНЫЕ РЕШЕНИЯ — белый блок
+
+   Схема из v2: превью направления слева, список каналов справа,
+   наведение меняет превью. Подача: заголовок плакатным капсом,
+   «Одна система» — чёрной плашкой с красным текстом (как «Легко
+   заказать»), список — крупный капс между тонкими линейками,
+   активное направление красным. Превью — фото направления, на
+   поверхностях — «Ваш бренд».
+   ========================================================= */
+.solutions {
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+}
+.solutions .eyebrow {
+  color: var(--dz-black);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.solutions .section-heading h2 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(44px, 5.6vw, 92px);
+  line-height: var(--dz-lh);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+/* выделение второй строки — как плашка на первом экране */
+.dz-hl {
+  display: inline-block;
+  margin-top: 0.1em;
+  padding: var(--dz-pt, 0.06em) var(--dz-px, 0.08em) var(--dz-pb, 0.07em);
+  background: var(--dz-black);
+  color: var(--dz-red);
+  line-height: 0.86;
+}
+.solutions .heading-aside p {
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.45;
+  color: var(--dz-black);
+}
+
+/* превью: фото без подложки и скруглений */
+.solutions .solution-preview {
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+.solutions .preview-canvas {
+  border-radius: 0;
+  background: #1c1c20;
+}
+.solutions .preview-canvas::before {
+  content: none;
+}
+.solutions .pv {
+  display: block;
+  container-type: size;
+  overflow: hidden;
+}
+.solutions .pv .dz-frame {
+  transform: none;
+  transition: none;
+}
+.solutions .pv img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* пока фото направления нет — тёмное поле с подписью файла */
+.dz-pv-ph {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.dz-frame.is-empty {
+  display: none;
+}
+.solutions .preview-canvas .pv {
+  isolation: isolate;
+}
+
+.solutions .preview-meta {
+  padding-top: 20px;
+}
+.solutions .preview-index {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--dz-red);
+}
+.solutions .preview-meta strong {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(30px, 2.6vw, 42px);
+  line-height: 1;
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.solutions .preview-meta p {
+  font-size: 15px;
+  color: #3a3a40;
+}
+.solutions .text-link {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dz-black);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.solutions .text-link:hover {
+  color: var(--dz-red);
+}
+
+/* список направлений: крупный капс между линейками */
+.solutions .solution-list {
+  border-top: 2px solid var(--dz-black);
+}
+.solutions .solution-list li {
+  border-bottom: 1px solid var(--dz-black);
+}
+.solutions .solution-list button {
+  padding-block: 18px;
+  grid-template-columns: 54px 1fr 32px;
+}
+.solutions .solution-list button strong {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(28px, 3vw, 50px);
+  line-height: 1;
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.solutions .solution-list button .sol-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--dz-red);
+}
+.solutions .solution-list button i {
+  font-size: 24px;
+}
+.solutions .solution-list button.is-active strong,
+.solutions .solution-list button.is-active i {
+  color: var(--dz-red);
+}
+.solutions .solution-list button.is-active .sol-num {
+  color: var(--dz-black);
+}
+.solutions .sol-mobile-desc {
+  font-size: 14px;
+  color: #3a3a40;
+}
+
+/* старые иконки превью в v2 красят любой span внутри .pv — сбрасываем
+   для щитов «Ваш бренд» и подписи-заглушки */
+.solutions .pv .dz-board,
+.solutions .pv .dz-pv-ph {
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--dz-white);
+  letter-spacing: normal;
+  transform: none;
+}
+.solutions .pv .dz-board {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  letter-spacing: var(--dz-track);
+  line-height: 0.92;
+}
+.solutions .pv .dz-pv-ph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  padding: 0;
+  font-family: var(--dz-body);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* отель: в главной карточке вертикальный кадр 2:3, стойка по центру */
+.dz-board--hotel-v b {
+  left: 33.8%;
+  width: 33.2%;
+  top: 38.5%;
+  font-size: 7cqw;
+  transform: translateY(-50%);
+}
+
+/* метки акций — серые плашки без рамки, чтобы не путались с кнопками */
+.promos .pr-meta span {
+  padding: 5px 9px;
+  border: 0;
+  background: #eeeef0;
+  color: #55555c;
+  font-weight: 600;
+}
+.promos .pr-card--wide .pr-meta span {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+}
