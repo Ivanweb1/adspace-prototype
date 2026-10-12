@@ -4580,3 +4580,27 @@ main .section-heading,
 .platform .pv-mock .pvm-st:not(.pvm-st--busy) {
   color: var(--dz-white);
 }
+
+/* шапка «Решений» в одну строку, только если влезает: с широкими
+   шрифтами скрипт ставит is-wrapped и заголовок идёт в две строки,
+   как у остальных блоков */
+.solutions .section-heading h2.is-wrapped {
+  white-space: normal;
+}
+.cases .show-result strong {
+  max-width: 100%;
+}
+/* названия сторон платформы — одной строкой, кегль подгоняет скрипт */
+.platform .platform-side {
+  min-width: 0;
+}
+.platform .platform-role {
+  min-width: 0;
+  max-width: 100%;
+}
+/* одной строкой — только когда стороны стоят рядом */
+@media (min-width: 1181px) {
+  .platform .platform-role {
+    white-space: nowrap;
+  }
+}

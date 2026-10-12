@@ -1295,4 +1295,63 @@
     }, 2500);
   }
 
+  /* ── подгонка под выбранный шрифт заголовков ──────────
+     Шрифты разной ширины: заголовок «Решений» держим в одну
+     строку, только пока он влезает, а цифру результата кейса
+     ужимаем по ширине колонки. Пересчёт — при смене шрифта
+     (атрибут data-font на <html>), загрузке шрифтов и ресайзе. */
+  const fitOneLine = () => {
+    $$(".solutions .section-heading h2").forEach((h2) => {
+      h2.classList.remove("is-wrapped");
+      if (h2.scrollWidth > h2.clientWidth + 1) h2.classList.add("is-wrapped");
+    });
+  };
+  const fitWidth = () => {
+    const sideBySide = window.matchMedia("(min-width: 1181px)").matches;
+    $$(".cases .show-result strong" + (sideBySide ? ", .platform .platform-role" : "")).forEach((el) => {
+      el.style.fontSize = "";
+      const panel = el.closest(".show-panel");
+      const hidden = panel && !panel.classList.contains("is-shown");
+      if (hidden) panel.style.visibility = "visible";
+      let size = parseFloat(getComputedStyle(el).fontSize);
+      while (el.scrollWidth > el.clientWidth + 1 && size > 16) {
+        size -= 2;
+        el.style.fontSize = `${size}px`;
+      }
+      if (hidden) panel.style.visibility = "";
+    });
+  };
+  /* у сторон платформы кегль общий — по самому длинному названию */
+  const evenRoles = () => {
+    const roles = $$(".platform .platform-role");
+    if (!window.matchMedia("(min-width: 1181px)").matches) {
+      roles.forEach((el) => {
+        el.style.fontSize = "";
+      });
+      return;
+    }
+    if (roles.length < 2) return;
+    const min = Math.min(...roles.map((el) => parseFloat(getComputedStyle(el).fontSize)));
+    roles.forEach((el) => {
+      el.style.fontSize = `${min}px`;
+    });
+  };
+  const fitAll = () => {
+    fitOneLine();
+    fitWidth();
+    evenRoles();
+  };
+  let fitTimer = null;
+  const fitSoon = () => {
+    window.clearTimeout(fitTimer);
+    fitTimer = window.setTimeout(fitAll, 120);
+  };
+  new MutationObserver(() => {
+    if (document.fonts) document.fonts.ready.then(fitSoon);
+    fitSoon();
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-font"] });
+  window.addEventListener("resize", fitSoon);
+  if (document.fonts) document.fonts.ready.then(fitAll);
+  fitAll();
+
 })();
