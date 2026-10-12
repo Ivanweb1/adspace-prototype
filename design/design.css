@@ -3636,3 +3636,124 @@ body {
     padding-top: 96px;
   }
 }
+
+/* =========================================================
+   07 · ДЛЯ КОГО
+   Сетка 4×2 из v2 как есть. Подача — как у фактов первого экрана:
+   без коробок, у каждой карточки свой чёрный отрезок сверху,
+   промежутки между ними. Номер красный, заголовок капсом,
+   форматы — серые метки, как у акций. На наведении поверх
+   отрезка пробегает красная линия.
+   ========================================================= */
+.segments {
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+}
+#segments .eyebrow {
+  color: var(--dz-black);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+#segments .section-heading {
+  align-items: end;
+}
+#segments .section-heading h2 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: var(--dz-h2-size);
+  line-height: var(--dz-lh);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+#segments .section-heading h2 span {
+  color: var(--dz-red);
+}
+#segments .heading-aside p {
+  max-width: 460px;
+  margin: 0 0 0.2em auto;
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.45;
+  color: var(--dz-black);
+}
+.segments .segment-grid {
+  gap: 48px 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+}
+.segments .segment-grid li {
+  position: relative;
+  gap: 0;
+  min-height: 0;
+  padding: 18px 0 0;
+  border: 0;
+  border-top: 1px solid var(--dz-black);
+  background: none;
+}
+.segments .segment-grid li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 3px;
+  background: var(--dz-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.segments .segment-grid li:hover {
+  background: none;
+}
+.segments .segment-grid li:hover::before {
+  transform: none;
+}
+.segments .seg-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--dz-red);
+}
+.segments .segment-grid h3 {
+  margin: 14px 0 10px;
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(22px, 1.9vw, 30px);
+  line-height: 1;
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.segments .segment-grid p {
+  max-width: 300px;
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--dz-muted);
+}
+.segments .seg-formats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+.segments .seg-formats i {
+  padding: 5px 9px;
+  background: #eeeef0;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #55555c;
+}
+@media (max-width: 720px) {
+  .segments .segment-grid {
+    row-gap: 32px;
+  }
+  #segments .heading-aside p {
+    margin-left: 0;
+  }
+}
