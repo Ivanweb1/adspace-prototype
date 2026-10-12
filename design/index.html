@@ -24,7 +24,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link rel="stylesheet" href="design.css?v=8" />
+    <link rel="stylesheet" href="design.css?v=9" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -153,10 +153,13 @@
             <h1 class="dz-title" data-fit>
               <span class="dz-title-line">Просто выбрать</span>
               <span class="dz-title-line"
-                ><mark><span>Легко</span><span>заказать</span></mark><sup
-                  class="dz-tm"
-                  title="Зарегистрированный товарный знак"
-                  >®</sup
+                ><mark
+                  ><span>Легко</span
+                  ><span
+                    >заказать<sup class="dz-tm" title="Зарегистрированный товарный знак"
+                      >®</sup
+                    ></span
+                  ></mark
                 ></span
               >
             </h1>
@@ -235,7 +238,6 @@
                   <div class="calc-row"><span>Поверхностей</span><b>18</b></div>
                   <div class="calc-total"><span>Итого</span><b data-count-to="540000">0 ₽</b></div>
                 </div>
-                <span class="chip chip--b">расчёт онлайн</span>
               </div>
 
               <!-- сцена 5 — медиаплан -->
@@ -246,7 +248,7 @@
                   <div class="plan-row"><span>Radio</span><i style="--s: 28%; --w: 52%"></i></div>
                   <div class="plan-row"><span>Indoor</span><i style="--s: 8%; --w: 34%"></i></div>
                 </div>
-                <span class="chip chip--a">Медиаплан · 4 канала</span>
+                <span class="chip chip--a">4 канала в одном плане</span>
               </div>
 
               <!-- сцена 6 — онлайн-бронирование -->
@@ -259,7 +261,6 @@
                     <span>Кутузовский, 12</span><b class="ok">в корзине</b>
                   </div>
                 </div>
-                <span class="chip chip--b">бронирование онлайн</span>
               </div>
             </div>
 
@@ -269,22 +270,22 @@
               </div>
               <div class="stage-dots" role="tablist" aria-label="Сюжеты">
                 <button role="tab" type="button" data-stage-dot="outdoor" aria-selected="true">
-                  <span class="sr-only">Наружная реклама</span>
+                  <b>01</b><span class="dz-tab-name" aria-hidden="true">Наружка</span><span class="sr-only">Наружная реклама</span>
                 </button>
                 <button role="tab" type="button" data-stage-dot="indoor" aria-selected="false">
-                  <span class="sr-only">Indoor и лифты</span>
+                  <b>02</b><span class="dz-tab-name" aria-hidden="true">Лифты</span><span class="sr-only">Indoor и лифты</span>
                 </button>
                 <button role="tab" type="button" data-stage-dot="broadcast" aria-selected="false">
-                  <span class="sr-only">Радио и ТВ</span>
+                  <b>03</b><span class="dz-tab-name" aria-hidden="true">Радио и ТВ</span><span class="sr-only">Радио и ТВ</span>
                 </button>
                 <button role="tab" type="button" data-stage-dot="calc" aria-selected="false">
-                  <span class="sr-only">Калькулятор</span>
+                  <b>04</b><span class="dz-tab-name" aria-hidden="true">Расчёт</span><span class="sr-only">Калькулятор</span>
                 </button>
                 <button role="tab" type="button" data-stage-dot="plan" aria-selected="false">
-                  <span class="sr-only">Медиаплан</span>
+                  <b>05</b><span class="dz-tab-name" aria-hidden="true">Медиаплан</span><span class="sr-only">Медиаплан</span>
                 </button>
                 <button role="tab" type="button" data-stage-dot="booking" aria-selected="false">
-                  <span class="sr-only">Онлайн-бронирование</span>
+                  <b>06</b><span class="dz-tab-name" aria-hidden="true">Бронь</span><span class="sr-only">Онлайн-бронирование</span>
                 </button>
               </div>
             </div>
