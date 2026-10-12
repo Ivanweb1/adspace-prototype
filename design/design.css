@@ -2748,3 +2748,187 @@ body {
 .builder-heading h2 span {
   display: inline;
 }
+
+/* =========================================================
+   05 · ТОЧНЫЙ РАСЧЁТ — чёрный блок
+
+   Слева текст и кнопка, справа смета — белая карточка с
+   прямыми углами, итог шрифтом заголовков, доли статей —
+   полосами в фирменных цветах. Ниже «География присутствия»:
+   живая карта с городами и переключатель ЮФО ↔ Россия (из ТЗ).
+   ========================================================= */
+.accuracy {
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font-family: var(--dz-body);
+}
+.accuracy .eyebrow {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.accuracy h2 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: var(--dz-h2-size);
+  line-height: var(--dz-lh);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-white);
+}
+.accuracy h2 span {
+  color: var(--dz-red);
+}
+.accuracy-copy > p:not(.eyebrow) {
+  max-width: 540px;
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+.accuracy .button {
+  min-height: 58px;
+  padding: 0 22px;
+  gap: 18px;
+  border-radius: 0;
+  font-family: var(--dz-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.accuracy .button--primary {
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+.accuracy .button--primary:hover {
+  background: var(--dz-white);
+  color: var(--dz-black);
+  transform: none;
+}
+
+/* смета */
+.accuracy .cost-card {
+  border-radius: 0;
+  background: var(--dz-white);
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+}
+.accuracy .cost-head {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--dz-muted);
+}
+.accuracy .cost-head span:last-child {
+  color: var(--dz-red);
+}
+.accuracy .cost-total {
+  border-bottom-color: var(--dz-black);
+}
+.accuracy .cost-total small {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--dz-muted);
+}
+.accuracy .cost-total strong {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(48px, 5vw, 80px);
+  letter-spacing: var(--dz-track);
+}
+.accuracy .cost-line {
+  font-size: 14px;
+}
+.accuracy .cost-line b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: 18px;
+  letter-spacing: var(--dz-track);
+}
+.accuracy .cost-line i {
+  height: 8px;
+  border-radius: 0;
+  background: var(--dz-red);
+}
+.accuracy .cost-line:nth-child(2) i {
+  background: var(--dz-black);
+}
+.accuracy .cost-line:nth-child(3) i {
+  background: #8c8c94;
+}
+.accuracy .cost-line:nth-child(4) i {
+  background: #f39aab;
+}
+.accuracy .cost-foot {
+  border-top-color: var(--dz-black);
+  color: var(--dz-black);
+  font-size: 14px;
+}
+.accuracy .cost-badge {
+  padding: 6px 10px;
+  background: var(--dz-red);
+  color: var(--dz-black);
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: 18px;
+  letter-spacing: var(--dz-track);
+}
+
+/* география */
+.accuracy .geo-block {
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+}
+.accuracy .geo-head .result-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.7);
+}
+/* переключатель ЮФО / Россия — сегмент с прямыми углами */
+.dz-geo-switch {
+  display: inline-grid;
+  grid-auto-flow: column;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.dz-geo-switch button {
+  min-width: 96px;
+  padding: 10px 16px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font: 700 12px/1 var(--dz-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.dz-geo-switch button:hover {
+  color: var(--dz-white);
+}
+.dz-geo-switch button[aria-pressed="true"] {
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+.accuracy .geo-map {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  background: #1c1c20;
+}
+.accuracy .geo-map.has-map > span {
+  display: none;
+}
+.accuracy .geo-stats div {
+  border-top-color: rgba(255, 255, 255, 0.35);
+}
+.accuracy .geo-stats b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(40px, 3.6vw, 60px);
+  letter-spacing: var(--dz-track);
+  color: var(--dz-white);
+}
+.accuracy .geo-stats span {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.6);
+}

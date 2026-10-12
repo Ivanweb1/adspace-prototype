@@ -28,7 +28,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
     />
-    <link rel="stylesheet" href="design.css?v=53" />
+    <link rel="stylesheet" href="design.css?v=54" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -989,12 +989,12 @@
         <div class="section-shell accuracy-grid">
           <div class="accuracy-copy reveal">
             <p class="eyebrow eyebrow--light">Точный расчёт</p>
-            <h2 id="accuracy-title">Не «примерно»<br />По делу</h2>
+            <h2 id="accuracy-title">Не «примерно»<br /><span>По делу</span></h2>
             <p>
               Считаем размещение, количество поверхностей, сроки, производство, печать, монтаж и
               дизайн макетов. Скидки за объём и период учитываются в смете сразу.
             </p>
-            <a class="button button--light" href="#builder"
+            <a class="button button--primary" href="#builder"
               >Рассчитать рекламу <span aria-hidden="true">↗</span></a
             >
           </div>
@@ -1030,9 +1030,17 @@
         <div class="section-shell geo-block reveal" id="geo">
           <div class="geo-head">
             <span class="result-label">География присутствия</span>
+            <!-- из ТЗ: карта с переключением ЮФО ↔ Россия -->
+            <div class="dz-geo-switch" role="group" aria-label="Масштаб карты">
+              <button type="button" data-geo-view="south" aria-pressed="true">ЮФО</button>
+              <button type="button" data-geo-view="russia" aria-pressed="false">Россия</button>
+            </div>
           </div>
           <div class="geo-body">
-            <div class="geo-map" aria-hidden="true"><span>Здесь будет карта</span></div>
+            <div class="geo-map" aria-hidden="true" data-tentative="города на карте — демонстрационные">
+              <span>Здесь будет карта</span>
+              <div class="dz-map" data-dz-geo-map></div>
+            </div>
             <div class="geo-stats">
               <div data-tentative="показатель не подтверждён">
                 <b>18</b><span>городов</span>
@@ -1871,6 +1879,55 @@
           sel.addEventListener("change", sync);
           sync();
         });
+
+        // География присутствия: карта с переключением ЮФО ↔ Россия (из ТЗ).
+        // Города — демонстрационные, реальный список заказчик передаст.
+        var GEO_SOUTH = [
+          [45.0355, 38.9753], [47.2357, 39.7015], [43.5855, 39.7231], [48.708, 44.5133],
+          [44.7239, 37.7708], [46.3497, 48.0408], [44.6098, 40.1006], [44.8946, 37.3163],
+          [47.2362, 38.8969], [45.0428, 41.9734],
+        ];
+        var GEO_RUSSIA = GEO_SOUTH.concat([
+          [55.7558, 37.6173], [59.9343, 30.3351], [51.672, 39.1843], [55.7963, 49.1088],
+          [56.3269, 44.0059], [56.8389, 60.6057], [53.1959, 50.1002], [54.7388, 55.9721],
+        ]);
+        var geoEl = document.querySelector("[data-dz-geo-map]");
+        var geoMap = null, geoLayer = null, geoView = "south";
+        function drawGeo() {
+          if (!geoEl || !window.L) return;
+          if (!geoMap) {
+            geoMap = L.map(geoEl, { zoomControl: false, scrollWheelZoom: false });
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+              maxZoom: 18, attribution: "© OpenStreetMap",
+            }).addTo(geoMap);
+            L.control.zoom({ position: "bottomright" }).addTo(geoMap);
+            geoEl.closest(".geo-map").classList.add("has-map");
+            var icon = L.divIcon({ className: "dz-pin", iconSize: [14, 14] });
+            geoLayer = L.featureGroup(GEO_RUSSIA.map(function (p) { return L.marker(p, { icon: icon, keyboard: false }); })).addTo(geoMap);
+          }
+          geoMap.invalidateSize();
+          var pts = geoView === "south" ? GEO_SOUTH : GEO_RUSSIA;
+          var bounds = L.latLngBounds(pts);
+          // первый показ — сразу на место, дальше — плавный перелёт
+          if (!geoMap._loaded) geoMap.fitBounds(bounds, { padding: [40, 40] });
+          else geoMap.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+        }
+        document.querySelectorAll("[data-geo-view]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            geoView = b.dataset.geoView;
+            document.querySelectorAll("[data-geo-view]").forEach(function (x) {
+              x.setAttribute("aria-pressed", String(x === b));
+            });
+            drawGeo();
+          });
+        });
+        // карта создаётся, когда блок доезжает до экрана — тогда у неё есть размер
+        if (geoEl && "IntersectionObserver" in window) {
+          var geoIo = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) { drawGeo(); geoIo.disconnect(); }
+          });
+          geoIo.observe(geoEl);
+        }
 
         // подсказка «География» не лежит поверх первого экрана
         var heroEl = document.querySelector(".hero");
