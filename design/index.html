@@ -17,14 +17,14 @@
     <link rel="stylesheet" href="mono.css?v=1" />
     <!-- Правки по обратной связи к классической версии. Всё новое — здесь. -->
     <link rel="stylesheet" href="v2.css?v=17" />
-    <!-- Дизайн: шапка и первый экран в цвете. Остальная страница пока вайрфрейм (mono.css). -->
+    <!-- Дизайн: шапка и первый экран в цвете, композиция как в v2. Остальная страница пока вайрфрейм (mono.css). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link rel="stylesheet" href="design.css?v=3" />
+    <link rel="stylesheet" href="design.css?v=6" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -123,135 +123,188 @@
     </nav>
 
     <main id="main">
-      <!-- ─────────────────── 01 · ПЕРВЫЙ ЭКРАН (дизайн) ───────────────────
-           Красный блок во всю ширину: лента с логотипом, слоган-товарный
-           знак крупным плакатным набором, «Легко заказать» — чёрной
-           плашкой. Ниже, на белом, — витрина «Что здесь можно сделать»
-           (сюжеты прежнего окна стали карточками) и масштаб компании. -->
-      <section class="dz-hero" id="top">
-        <div class="dz-ticker" aria-hidden="true">
-          <div class="dz-ticker-track">
-            <img src="assets/logo-adspace-group-white.svg" alt="" /><i></i>
-            <img src="assets/logo-adspace-group-white.svg" alt="" /><i></i>
-            <img src="assets/logo-adspace-group-white.svg" alt="" /><i></i>
-            <img src="assets/logo-adspace-group-white.svg" alt="" /><i></i>
+      <!-- ─────────────────── 01 · ПЕРВЫЙ ЭКРАН ─────────────────── -->
+      <section class="hero section-shell" id="top">
+        <div class="hero-banner" aria-hidden="true">
+          <div class="hero-banner-track">
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
             <!-- набор дублирован для бесшовной прокрутки -->
-            <img src="assets/logo-adspace-group-white.svg" alt="" /><i></i>
-            <img src="assets/logo-adspace-group-white.svg" alt="" /><i></i>
-            <img src="assets/logo-adspace-group-white.svg" alt="" /><i></i>
-            <img src="assets/logo-adspace-group-white.svg" alt="" /><i></i>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
           </div>
         </div>
 
-        <div class="dz-hero-body">
-          <div class="dz-hero-meta">
-            <span><i class="dz-live"></i>Рекламная экосистема · 24/7</span>
-            <span class="dz-hide-sm">Outdoor · DOOH · Radio · TV · Transit · Indoor</span>
-          </div>
-
-          <h1 class="dz-title">
-            <span class="dz-title-line">Просто выбрать.</span>
-            <span class="dz-title-line"
-              ><mark><span>Легко</span><span>заказать</span></mark><sup class="dz-tm" title="Зарегистрированный товарный знак"
-                >®</sup
-              ></span
-            >
-          </h1>
-
-          <div class="dz-hero-foot">
-            <p class="dz-lead">
+        <div class="hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow"><span class="status-dot"></span> Рекламная экосистема · 24/7</p>
+            <h1 class="dz-title" data-fit>
+              <span class="dz-title-line">Просто выбрать</span>
+              <span class="dz-title-line"
+                ><mark><span>Легко</span><span>заказать</span></mark><sup
+                  class="dz-tm"
+                  title="Зарегистрированный товарный знак"
+                  >®</sup
+                ></span
+              >
+            </h1>
+            <p class="hero-lead">
               Подбираем, рассчитываем и запускаем рекламные кампании по всей России — от одной
               поверхности до комплексного медиаплана. В одном окне.
             </p>
-            <div class="dz-actions">
-              <a class="dz-btn" href="#builder">Подобрать кампанию <span aria-hidden="true">→</span></a>
-              <a class="dz-link" href="#presentation"
+            <div class="button-row">
+              <a class="button button--primary" href="#builder"
+                >Подобрать рекламную кампанию <span aria-hidden="true">↗</span></a
+              >
+              <a class="button button--dark" href="#presentation"
                 >Скачать презентацию <span aria-hidden="true">↓</span></a
               >
             </div>
+            <ul class="hero-proof">
+              <li><b>01</b> Все форматы — один договор</li>
+              <li><b>02</b> Расчёт, а не «примерно»</li>
+              <li><b>03</b> Медиаплан за минуту</li>
+            </ul>
+          </div>
+
+          <!-- Медиаобласть: несколько сюжетов, объясняющих продукт за 10–15 секунд -->
+          <div class="hero-stage reveal" data-stage aria-label="Что можно сделать на сайте">
+            <div class="stage-top">
+              <span class="stage-kicker">Что здесь можно сделать</span>
+            </div>
+
+            <div class="stage-screen" data-stage-screen>
+              <!-- сцена 1 — наружная реклама -->
+              <div class="scene scene--outdoor is-active" data-scene="outdoor">
+                <img class="scene-photo" src="assets/photos/outdoor.jpg" alt="" />
+                <div class="scene-grid" aria-hidden="true"></div>
+                <div class="billboard">
+                  <div class="billboard-screen">ВАШ<br />БРЕНД</div>
+                  <div class="billboard-leg"></div>
+                </div>
+                <span class="chip chip--a">Подбор рекламы в пару кликов</span>
+                <span class="chip chip--b">Суперсайт 15×5 · свободно с 01.09</span>
+              </div>
+
+              <!-- сцена 2 — indoor и лифты -->
+              <div class="scene scene--indoor" data-scene="indoor">
+                <img class="scene-photo" src="assets/photos/indoor.jpg" alt="" />
+                <div class="lift">
+                  <div class="lift-doors"><i></i><i></i></div>
+                  <div class="lift-panel"><span>AD</span><b>SPACE</b></div>
+                </div>
+                <span class="chip chip--a">1 240 лифтов в районе</span>
+                <span
+                  class="chip chip--b"
+                  data-demo="в финале: карта секторов лифта и превью макета на месте"
+                  >Бронирование стенда онлайн</span
+                >
+              </div>
+
+              <!-- сцена 3 — радио и ТВ -->
+              <div class="scene scene--broadcast" data-scene="broadcast">
+                <img class="scene-photo" src="assets/photos/broadcast.jpg" alt="" />
+                <div class="wave" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+                  ><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="tv-frame"><span>TV</span></div>
+                <span class="chip chip--a">Рейтинги и охват аудитории</span>
+                <span class="chip chip--b" data-tentative="показатель демонстрационный"
+                  >База дикторов · 120+ голосов</span
+                >
+              </div>
+
+              <!-- сцена 4 — калькулятор -->
+              <div class="scene scene--calc" data-scene="calc">
+                <div class="calc-ui">
+                  <div class="calc-row"><span>Формат</span><b>Outdoor · 3×6</b></div>
+                  <div class="calc-row"><span>Период</span><b>30 дней</b></div>
+                  <div class="calc-row"><span>Поверхностей</span><b>18</b></div>
+                  <div class="calc-total"><span>Итого</span><b data-count-to="540000">0 ₽</b></div>
+                </div>
+                <span class="chip chip--b">расчёт онлайн</span>
+              </div>
+
+              <!-- сцена 5 — медиаплан -->
+              <div class="scene scene--plan" data-scene="plan">
+                <div class="plan-ui">
+                  <div class="plan-row"><span>Outdoor</span><i style="--s: 0%; --w: 68%"></i></div>
+                  <div class="plan-row"><span>DOOH</span><i style="--s: 12%; --w: 46%"></i></div>
+                  <div class="plan-row"><span>Radio</span><i style="--s: 28%; --w: 52%"></i></div>
+                  <div class="plan-row"><span>Indoor</span><i style="--s: 8%; --w: 34%"></i></div>
+                </div>
+                <span class="chip chip--a">Медиаплан · 4 канала</span>
+              </div>
+
+              <!-- сцена 6 — онлайн-бронирование -->
+              <div class="scene scene--booking" data-scene="booking">
+                <div class="booking-ui">
+                  <div class="booking-row"><span>Ленина / 42</span><b class="ok">свободно</b></div>
+                  <div class="booking-row"><span>Проспект Мира</span><b class="ok">свободно</b></div>
+                  <div class="booking-row is-taken"><span>ТЦ «Галерея»</span><b>занято</b></div>
+                  <div class="booking-row is-picked">
+                    <span>Кутузовский, 12</span><b class="ok">в корзине</b>
+                  </div>
+                </div>
+                <span class="chip chip--b">бронирование онлайн</span>
+              </div>
+            </div>
+
+            <div class="stage-bottom">
+              <div class="stage-caption">
+                <strong data-stage-title>Наружная реклама</strong>
+              </div>
+              <div class="stage-dots" role="tablist" aria-label="Сюжеты">
+                <button role="tab" type="button" data-stage-dot="outdoor" aria-selected="true">
+                  <span class="sr-only">Наружная реклама</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="indoor" aria-selected="false">
+                  <span class="sr-only">Indoor и лифты</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="broadcast" aria-selected="false">
+                  <span class="sr-only">Радио и ТВ</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="calc" aria-selected="false">
+                  <span class="sr-only">Калькулятор</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="plan" aria-selected="false">
+                  <span class="sr-only">Медиаплан</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="booking" aria-selected="false">
+                  <span class="sr-only">Онлайн-бронирование</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <section class="dz-works" aria-labelledby="dz-works-title">
-        <div class="dz-works-head">
-          <h2 id="dz-works-title">Что здесь можно сделать</h2>
-          <a class="dz-works-all" href="#solutions">Все каналы <span aria-hidden="true">→</span></a>
-        </div>
-
-        <div class="dz-cards">
-          <figure class="dz-card">
-            <div class="dz-card-media">
-              <img src="assets/photos/outdoor.jpg" alt="Билборд у городской магистрали" loading="lazy" onerror="this.remove()" />
-              <span class="dz-ph">фото · outdoor.jpg</span>
-              <span class="dz-tag">Подбор в пару кликов</span>
-            </div>
-            <figcaption><b>01</b> Наружная реклама</figcaption>
-          </figure>
-
-          <figure class="dz-card">
-            <div class="dz-card-media">
-              <img src="assets/photos/indoor.jpg" alt="Рекламный экран в лифте жилого дома" loading="lazy" onerror="this.remove()" />
-              <span class="dz-ph">фото · indoor.jpg</span>
-              <span class="dz-tag">Бронирование стенда онлайн</span>
-            </div>
-            <figcaption><b>02</b> Indoor и лифты</figcaption>
-          </figure>
-
-          <figure class="dz-card">
-            <div class="dz-card-media">
-              <img src="assets/photos/broadcast.jpg" alt="Студия радиоэфира" loading="lazy" onerror="this.remove()" />
-              <span class="dz-ph">фото · broadcast.jpg</span>
-              <span class="dz-tag">Рейтинги и охват аудитории</span>
-            </div>
-            <figcaption><b>03</b> Радио и ТВ</figcaption>
-          </figure>
-
-          <figure class="dz-card dz-card--ui">
-            <div class="dz-card-media">
-              <div class="dz-calc">
-                <div><span>Формат</span><b>Outdoor · 3×6</b></div>
-                <div><span>Период</span><b>30 дней</b></div>
-                <div><span>Поверхностей</span><b>18</b></div>
-                <div class="dz-calc-total"><span>Итого</span><b>540 000 ₽</b></div>
-              </div>
-              <span class="dz-tag">Расчёт онлайн</span>
-            </div>
-            <figcaption><b>04</b> Калькулятор</figcaption>
-          </figure>
-
-          <figure class="dz-card dz-card--ui">
-            <div class="dz-card-media">
-              <div class="dz-plan">
-                <div><span>Outdoor</span><i style="--s: 0%; --w: 68%"></i></div>
-                <div><span>DOOH</span><i style="--s: 12%; --w: 46%"></i></div>
-                <div><span>Radio</span><i style="--s: 28%; --w: 52%"></i></div>
-                <div><span>Indoor</span><i style="--s: 8%; --w: 34%"></i></div>
-              </div>
-              <span class="dz-tag">4 канала в одном плане</span>
-            </div>
-            <figcaption><b>05</b> Медиаплан</figcaption>
-          </figure>
-
-          <figure class="dz-card dz-card--ui">
-            <div class="dz-card-media">
-              <ul class="dz-book">
-                <li><span>Ленина / 42</span><b>свободно</b></li>
-                <li><span>Проспект Мира</span><b>свободно</b></li>
-                <li class="is-taken"><span>ТЦ «Галерея»</span><b>занято</b></li>
-                <li class="is-picked"><span>Кутузовский, 12</span><b>в корзине</b></li>
-              </ul>
-              <span class="dz-tag">Бронирование онлайн</span>
-            </div>
-            <figcaption><b>06</b> Онлайн-бронирование</figcaption>
-          </figure>
-        </div>
-
-        <div class="dz-metrics" aria-label="Масштаб компании">
-          <div data-tentative="показатель не подтверждён"><strong>11+</strong><span>лет на рынке</span></div>
-          <div data-tentative="показатель не подтверждён"><strong>70+</strong><span>городов присутствия</span></div>
-          <div data-tentative="показатель не подтверждён"><strong>12 400</strong><span>рекламных поверхностей</span></div>
-          <div data-tentative="показатель не подтверждён"><strong>9</strong><span>рекламных каналов</span></div>
+        <!-- Масштаб компании: компактная полоса под первым экраном -->
+        <div class="metric-strip reveal" aria-label="Масштаб компании">
+          <div data-tentative="показатель не подтверждён">
+            <strong>11+</strong><span>лет на рынке</span>
+          </div>
+          <div data-tentative="показатель не подтверждён">
+            <strong>70+</strong><span>городов присутствия</span>
+          </div>
+          <div data-tentative="показатель не подтверждён">
+            <strong>12 400</strong><span>рекламных поверхностей</span>
+          </div>
+          <div data-tentative="показатель не подтверждён">
+            <strong>9</strong><span>рекламных каналов</span>
+          </div>
         </div>
       </section>
 
@@ -1406,10 +1459,29 @@
           root.setAttribute("data-font", name);
           buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.fontSet === name)); });
           try { localStorage.setItem("dz-font", name); } catch (e) {}
+          if (document.fonts) document.fonts.ready.then(fit); else fit();
+        }
+        // Слоган: каждая фраза в одну строку, размер — под ширину колонки
+        // (у шрифтов разная ширина, поэтому подгоняем, а не задаём в CSS)
+        var title = document.querySelector("[data-fit]");
+        var MAX = 112;
+        function fit() {
+          if (!title) return;
+          if (window.innerWidth <= 720) { title.style.removeProperty("--dz-fit"); return; }
+          title.style.setProperty("--dz-fit", "100px");
+          var widest = 0;
+          title.querySelectorAll(".dz-title-line").forEach(function (l) {
+            var r = document.createRange(); r.selectNodeContents(l);
+            widest = Math.max(widest, r.getBoundingClientRect().width);
+          });
+          var size = Math.min(MAX, Math.floor((title.clientWidth / widest) * 100 * 0.97));
+          title.style.setProperty("--dz-fit", size + "px");
         }
         var fromUrl = new URLSearchParams(location.search).get("font");
         apply(fromUrl || saved || "grotesk");
         buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.fontSet); }); });
+        window.addEventListener("resize", fit);
+        if (document.fonts) document.fonts.addEventListener("loadingdone", fit);
         panel.querySelector("[data-fontpick-close]").addEventListener("click", function () { panel.hidden = true; });
       })();
     </script>
