@@ -2300,3 +2300,49 @@ body {
 .builder-heading h2 span {
   display: block;
 }
+
+/* заметка под результатом: галочка, строка-заголовок, пояснение */
+.dz-note {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  max-width: 560px;
+}
+.dz-note .dz-note-icon {
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 0;
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font-size: 13px;
+  font-weight: 700;
+  vertical-align: 0;
+}
+.dz-note p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--dz-muted);
+}
+.dz-note strong {
+  display: block;
+  margin-bottom: 4px;
+  padding-top: 3px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--dz-black);
+}
+.dz-note strong b {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* описание медиаплана — одной строкой по ширине шапки результата */
+.builder-result .result-head p {
+  max-width: none;
+}
