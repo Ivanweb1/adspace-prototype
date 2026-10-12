@@ -1916,3 +1916,34 @@
     transition: none;
   }
 }
+
+/* =========================================================
+   02 · АКЦИИ · попап выше по вертикали
+
+   Заказчик: «сделать всплывающее окно чуть шире по вертикали».
+   Окно подстраивалось под текст и выходило низким. Теперь у него
+   минимальная высота; фото в левой колонке получает больше места,
+   цена и кнопка прижаты к нижнему краю.
+   ========================================================= */
+.promo-modal-panel {
+  min-height: min(86vh, 660px);
+}
+.promo-modal-media {
+  grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);
+}
+.promo-modal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.promo-modal-info .pr-tag {
+  align-self: flex-start;
+}
+.promo-modal-price {
+  margin-top: auto;
+}
+@media (max-width: 900px) {
+  .promo-modal-panel {
+    min-height: 0;
+  }
+}
