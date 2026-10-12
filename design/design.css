@@ -1573,3 +1573,11 @@ body {
     min-height: 0;
   }
 }
+
+/* листание акций — только стрелки, без «Страница 1 / 2» */
+.promos .pr-flip > span {
+  display: none;
+}
+.promos .pr-flip {
+  gap: 8px;
+}
