@@ -2197,3 +2197,106 @@ body {
 .map-drawer-points li button {
   border-radius: 0 !important;
 }
+
+/* ── своя выпадашка вместо системного списка ─────────────── */
+.dz-select {
+  position: relative;
+}
+.dz-select select {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.dz-select-btn {
+  position: relative;
+  width: 100%;
+  height: 54px;
+  padding: 0 34px 0 13px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 0;
+  background: transparent;
+  color: var(--dz-white);
+  font: 600 13px/1.2 var(--dz-body);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+/* стрелка — как у выпадашек города и вида рекламы */
+.dz-select-btn::after {
+  content: "";
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -6px;
+  border-right: 2px solid var(--dz-white);
+  border-bottom: 2px solid var(--dz-white);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease, margin 0.2s ease;
+}
+.dz-select-btn[aria-expanded="true"]::after {
+  margin-top: -2px;
+  transform: rotate(-135deg);
+}
+.dz-select-btn:hover,
+.dz-select-btn[aria-expanded="true"] {
+  border-color: var(--dz-red);
+}
+.dz-select-pop {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 100%;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: var(--dz-white);
+  color: var(--dz-black);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  font-family: var(--dz-body);
+}
+.dz-select-pop[hidden] {
+  display: none;
+}
+.dz-select-pop li {
+  position: relative;
+  padding: 11px 18px 11px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.dz-select-pop li:hover,
+.dz-select-pop li.is-active {
+  background: #f1f1f2;
+}
+/* выбранный пункт — красная черта слева и жирный текст */
+.dz-select-pop li[aria-selected="true"] {
+  font-weight: 700;
+}
+.dz-select-pop li[aria-selected="true"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 4px;
+  background: var(--dz-red);
+}
+@media (max-width: 1200px) {
+  .dz-select-btn {
+    height: 58px;
+  }
+}
+
+/* «под вашу задачу» — целиком второй строкой */
+.builder-heading h2 span {
+  display: block;
+}

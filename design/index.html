@@ -28,7 +28,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
     />
-    <link rel="stylesheet" href="design.css?v=35" />
+    <link rel="stylesheet" href="design.css?v=37" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -1738,6 +1738,93 @@
         if (drawer && "MutationObserver" in window) {
           new MutationObserver(showDrawerMap).observe(drawer, { attributes: true, attributeFilter: ["hidden"] });
         }
+
+        // Списки «Тип бизнеса» и «Период»: системный выпадающий список
+        // браузера не стилизуется, поэтому поверх — своя выпадашка в стиле
+        // сайта. Настоящий <select> остаётся (скрыт) и получает значение
+        // и событие change — логика конструктора не меняется.
+        document.querySelectorAll(".builder-form select").forEach(function (sel) {
+          var wrap = document.createElement("div");
+          wrap.className = "dz-select";
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "dz-select-btn";
+          btn.setAttribute("aria-haspopup", "listbox");
+          btn.setAttribute("aria-expanded", "false");
+          var list = document.createElement("ul");
+          list.className = "dz-select-pop";
+          list.setAttribute("role", "listbox");
+          list.hidden = true;
+          var label = sel.closest(".field") && sel.closest(".field").querySelector(".field-label");
+          if (label) btn.setAttribute("aria-label", label.textContent.trim());
+          Array.prototype.forEach.call(sel.options, function (opt, i) {
+            var li = document.createElement("li");
+            li.setAttribute("role", "option");
+            li.dataset.index = i;
+            li.textContent = opt.textContent;
+            list.appendChild(li);
+          });
+          sel.parentNode.insertBefore(wrap, sel);
+          wrap.appendChild(sel);
+          wrap.appendChild(btn);
+          wrap.appendChild(list);
+          sel.tabIndex = -1;
+          sel.setAttribute("aria-hidden", "true");
+
+          var active = sel.selectedIndex;
+          function sync() {
+            btn.textContent = sel.options[sel.selectedIndex].textContent;
+            list.querySelectorAll("li").forEach(function (li, i) {
+              li.setAttribute("aria-selected", String(i === sel.selectedIndex));
+              li.classList.toggle("is-active", i === active);
+            });
+          }
+          function open() {
+            document.querySelectorAll(".dz-select-pop").forEach(function (l) {
+              if (l !== list) { l.hidden = true; l.previousSibling.setAttribute("aria-expanded", "false"); }
+            });
+            active = sel.selectedIndex;
+            list.hidden = false;
+            btn.setAttribute("aria-expanded", "true");
+            sync();
+          }
+          function close() {
+            list.hidden = true;
+            btn.setAttribute("aria-expanded", "false");
+          }
+          function choose(i) {
+            sel.selectedIndex = i;
+            sel.dispatchEvent(new Event("input", { bubbles: true }));
+            sel.dispatchEvent(new Event("change", { bubbles: true }));
+            sync();
+            close();
+            btn.focus();
+          }
+          btn.addEventListener("click", function () { list.hidden ? open() : close(); });
+          list.addEventListener("click", function (e) {
+            var li = e.target.closest("li");
+            if (li) choose(Number(li.dataset.index));
+          });
+          btn.addEventListener("keydown", function (e) {
+            var n = sel.options.length;
+            if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+              e.preventDefault();
+              if (list.hidden) { open(); return; }
+              active = (active + (e.key === "ArrowDown" ? 1 : n - 1)) % n;
+              sync();
+            } else if ((e.key === "Enter" || e.key === " ") && !list.hidden) {
+              e.preventDefault();
+              choose(active);
+            } else if (e.key === "Escape") {
+              close();
+            }
+          });
+          document.addEventListener("click", function (e) {
+            if (!wrap.contains(e.target)) close();
+          });
+          sel.addEventListener("change", sync);
+          sync();
+        });
 
         // подсказка «География» не лежит поверх первого экрана
         var heroEl = document.querySelector(".hero");
