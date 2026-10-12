@@ -4208,3 +4208,66 @@ body {
 .contact .form-legal {
   margin-top: -4px;
 }
+
+/* =========================================================
+   ПОДВАЛ
+   Белый после чёрных «Контактов». Колонки из v2 как есть, у
+   каждой свой чёрный отрезок сверху — как у фактов первого
+   экрана и «Для кого». Слоган — капсом, «Легко заказать» —
+   чёрной плашкой с красным текстом, как на первом экране.
+   ========================================================= */
+.site-footer {
+  padding-block: clamp(56px, 6vw, 88px) 40px;
+  border-top: 0;
+  background: var(--dz-white);
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+}
+.footer-grid {
+  gap: 32px 24px;
+}
+.footer-grid > div {
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dz-black);
+}
+.footer-grid small {
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--dz-muted);
+}
+.footer-grid a {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dz-black);
+}
+.footer-grid a:hover {
+  color: var(--dz-red);
+}
+.footer-grid span {
+  font-size: 13px;
+  color: var(--dz-muted);
+}
+.footer-brand img {
+  width: 170px;
+}
+.footer-brand .footer-slogan {
+  margin-top: 14px;
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(24px, 2vw, 32px);
+  line-height: 1.15;
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.footer-brand .footer-slogan b {
+  display: inline-block;
+  margin-top: 4px;
+  padding: var(--dz-pt) var(--dz-px) var(--dz-pb);
+  background: var(--dz-black);
+  font-weight: inherit;
+  color: var(--dz-red);
+}
