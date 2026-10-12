@@ -3323,50 +3323,57 @@ body {
   text-transform: uppercase;
   color: var(--dz-black);
 }
+/* бегущая строка: два одинаковых списка подряд, лента уезжает
+   ровно на ширину одного — шов не виден; края растворяются */
+.cases .clients-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.cases .clients-track {
+  display: flex;
+  width: max-content;
+  animation: dz-clients 36s linear infinite;
+}
+.cases .clients-marquee:hover .clients-track {
+  animation-play-state: paused;
+}
+@keyframes dz-clients {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cases .clients-track {
+    animation: none;
+  }
+}
 .cases .clients-logos {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  display: flex;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .cases .clients-logos li {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
+  width: clamp(160px, 14vw, 220px);
   height: 64px;
-  padding: 0 16px;
-  border-left: 1px solid rgba(13, 13, 15, 0.16);
-}
-.cases .clients-logos li:last-child {
+  padding: 0 24px;
   border-right: 1px solid rgba(13, 13, 15, 0.16);
 }
 .cases .clients-logos img {
   display: block;
   width: 100%;
-  max-width: 132px;
+  max-width: 140px;
   height: auto;
-  filter: grayscale(1);
-  opacity: 0.55;
-  transition: filter 0.25s ease, opacity 0.25s ease;
-}
-.cases .clients-logos li:hover img {
-  filter: none;
-  opacity: 1;
 }
 @media (max-width: 900px) {
   .cases .clients-strip {
     grid-template-columns: 1fr;
     gap: 14px;
-  }
-  .cases .clients-logos {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .cases .clients-logos li {
-    border-bottom: 1px solid rgba(13, 13, 15, 0.16);
-  }
-  .cases .clients-logos li:nth-child(3n) {
-    border-right: 1px solid rgba(13, 13, 15, 0.16);
   }
 }
 
@@ -3421,38 +3428,87 @@ body {
 #cases .heading-aside p {
   margin-bottom: 0.2em;
 }
-/* цифра в кадре крупнее — это главное, что должен унести взгляд */
-.cases .show-figure,
-.showcase--cases .show-figure {
-  left: 0;
-  bottom: 0;
-  padding: 12px 20px 14px;
-  font-size: clamp(64px, 5.6vw, 96px);
-  line-height: 0.9;
-}
-/* «Результат» — та же отбивка, что у «Задачи», только красная цифра */
+/* «Результат» — главная метрика: крупная красная цифра,
+   справа подпись; та же отбивка слева, что у «Задачи» */
 .cases .show-result {
-  max-width: 520px;
-  margin-top: 8px;
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin-top: 12px;
   padding-left: 14px;
   border-left: 2px solid var(--dz-red);
+}
+.cases .show-result strong {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(44px, 3.8vw, 64px);
+  line-height: 0.85;
+  letter-spacing: var(--dz-track);
+  white-space: nowrap;
+  color: var(--dz-red);
+}
+.cases .show-result span {
+  padding-bottom: 2px;
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.35;
   color: rgba(255, 255, 255, 0.88);
 }
 .cases .show-result b {
-  margin-right: 6px;
+  display: block;
+  margin-bottom: 2px;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);
 }
-.cases .show-result strong {
-  margin-right: 4px;
-  font-weight: 700;
-  color: var(--dz-red);
+/* на телефоне и планшете фото над текстом в своих пропорциях 3:2 */
+.showcase--cases .show-visual {
+  aspect-ratio: 3 / 2;
 }
+
+/* десктоп, блок в один экран: фото на всю карточку, текст внизу
+   на затемнении — кадр 3:2 почти не режется и ничем не перекрыт */
+@media (min-width: 1181px) {
+  .showcase--cases .show-panel {
+    justify-content: flex-end;
+  }
+  .showcase--cases .show-visual {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+  .showcase--cases .show-copy {
+    position: relative;
+    z-index: 1;
+    padding-top: 72px;
+    background: linear-gradient(
+      to top,
+      rgba(13, 13, 15, 0.94) 0%,
+      rgba(13, 13, 15, 0.86) 62%,
+      rgba(13, 13, 15, 0)
+    );
+  }
+  .showcase--cases .show-facts {
+    border-top-color: rgba(255, 255, 255, 0.2);
+  }
+  /* правая колонка на всю высоту карточки: строки ленты делят
+     высоту поровну, кнопка — по нижнему краю кадра */
+  .showcase--cases .show-side {
+    display: flex;
+    flex-direction: column;
+  }
+  .showcase--cases .show-list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  .showcase--cases .show-list button {
+    flex: 1;
+  }
+}
+
 /* полоса прогресса под активным кейсом — как у сюжетов на первом экране */
 .cases .show-list button::after {
   content: "";
