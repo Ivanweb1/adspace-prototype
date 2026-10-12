@@ -3994,3 +3994,21 @@ body {
   color: var(--dz-black);
   font-weight: 600;
 }
+
+/* презентация: левая часть легче — заголовок одной строкой и
+   мельче общего h2, подводка обычным кеглем; кнопка справа по
+   центру высоты, чтобы стороны уравновешивали друг друга */
+.presentation .presentation-card {
+  align-items: center;
+  padding-block: clamp(28px, 3vw, 44px);
+}
+.presentation .presentation-card h2 {
+  font-size: clamp(26px, 2.5vw, 40px);
+}
+.presentation .pres-copy p:not(.eyebrow) {
+  margin-top: 10px;
+  font-size: 15px;
+}
+.presentation .pres-action {
+  align-self: center;
+}
