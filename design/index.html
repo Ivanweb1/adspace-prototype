@@ -24,7 +24,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link rel="stylesheet" href="design.css?v=12" />
+    <link rel="stylesheet" href="design.css?v=16" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -240,34 +240,74 @@
 
               <!-- сцена 4 — калькулятор -->
               <div class="scene scene--calc" data-scene="calc">
-                <div class="calc-ui">
-                  <div class="calc-row"><span>Формат</span><b>Outdoor · 3×6</b></div>
-                  <div class="calc-row"><span>Период</span><b>30 дней</b></div>
-                  <div class="calc-row"><span>Поверхностей</span><b>18</b></div>
-                  <div class="calc-total"><span>Итого</span><b data-count-to="540000">0 ₽</b></div>
+                <div class="dz-calc" aria-hidden="true">
+                  <div class="dz-calc-params">
+                    <div class="dz-calc-field">
+                      <span>Формат</span>
+                      <div class="dz-seg"><i class="is-on">3×6</i><i>15×5</i><i>DOOH</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Период <b>30 дней</b></span>
+                      <div class="dz-range"><i style="--v: 50%"></i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Поверхностей</span>
+                      <div class="dz-step"><i>−</i><b>18</b><i>+</i></div>
+                    </div>
+                  </div>
+                  <div class="dz-calc-total">
+                    <span>Итого за кампанию</span>
+                    <b data-count-to="540000">0 ₽</b>
+                    <small>1 000 ₽ за поверхность в день</small>
+                  </div>
                 </div>
               </div>
 
               <!-- сцена 5 — медиаплан -->
               <div class="scene scene--plan" data-scene="plan">
-                <div class="plan-ui">
-                  <div class="plan-row"><span>Outdoor</span><i style="--s: 0%; --w: 68%"></i></div>
-                  <div class="plan-row"><span>DOOH</span><i style="--s: 12%; --w: 46%"></i></div>
-                  <div class="plan-row"><span>Radio</span><i style="--s: 28%; --w: 52%"></i></div>
-                  <div class="plan-row"><span>Indoor</span><i style="--s: 8%; --w: 34%"></i></div>
+                <div class="dz-gantt" aria-hidden="true">
+                  <div class="dz-gantt-head">
+                    <span></span>
+                    <div><i>Нед. 1</i><i>Нед. 2</i><i>Нед. 3</i><i>Нед. 4</i></div>
+                  </div>
+                  <div class="dz-gantt-row">
+                    <span>Outdoor</span>
+                    <div><i style="--s: 0%; --w: 68%"><em>20 дн.</em></i></div>
+                  </div>
+                  <div class="dz-gantt-row">
+                    <span>DOOH</span>
+                    <div><i class="is-alt" style="--s: 12%; --w: 46%"><em>14 дн.</em></i></div>
+                  </div>
+                  <div class="dz-gantt-row">
+                    <span>Radio</span>
+                    <div><i style="--s: 28%; --w: 52%"><em>16 дн.</em></i></div>
+                  </div>
+                  <div class="dz-gantt-row">
+                    <span>Indoor</span>
+                    <div><i class="is-alt" style="--s: 8%; --w: 34%"><em>10 дн.</em></i></div>
+                  </div>
+                  <div class="dz-gantt-foot"><span>4 канала</span><b>30 дней</b></div>
                 </div>
                 <span class="chip chip--a">4 канала в одном плане</span>
               </div>
 
               <!-- сцена 6 — онлайн-бронирование -->
               <div class="scene scene--booking" data-scene="booking">
-                <div class="booking-ui">
-                  <div class="booking-row"><span>Ленина / 42</span><b class="ok">свободно</b></div>
-                  <div class="booking-row"><span>Проспект Мира</span><b class="ok">свободно</b></div>
-                  <div class="booking-row is-taken"><span>ТЦ «Галерея»</span><b>занято</b></div>
-                  <div class="booking-row is-picked">
-                    <span>Кутузовский, 12</span><b class="ok">в корзине</b>
+                <div class="dz-book" aria-hidden="true">
+                  <div class="dz-book-map">
+                    <i style="--x: 24%; --y: 30%"></i>
+                    <i style="--x: 62%; --y: 22%"></i>
+                    <i class="is-taken" style="--x: 40%; --y: 64%"></i>
+                    <i class="is-picked" style="--x: 72%; --y: 58%"></i>
+                    <i style="--x: 16%; --y: 78%"></i>
                   </div>
+                  <ul class="dz-book-list">
+                    <li><span>Ленина / 42</span><small>3×6</small><b>свободно</b></li>
+                    <li><span>Проспект Мира</span><small>3×6</small><b>свободно</b></li>
+                    <li class="is-taken"><span>ТЦ «Галерея»</span><small>indoor</small><b>занято</b></li>
+                    <li class="is-picked"><span>Кутузовский, 12</span><small>3×6</small><b>в корзине</b></li>
+                  </ul>
+                  <div class="dz-book-cart"><span>В корзине: 1</span><b>Забронировать →</b></div>
                 </div>
               </div>
             </div>

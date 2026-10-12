@@ -281,37 +281,31 @@ body {
   color: var(--dz-white);
 }
 
-/* три тезиса: крупный красный номер шрифтом заголовков, рядом
-   короткий текст в две строки; без вертикальных разделителей,
-   сверху одна тонкая линия */
+/* три тезиса: у каждого своя линия сверху, маленький красный
+   номер над текстом */
 .hero .hero-proof {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0 clamp(16px, 2vw, 28px);
   margin-top: auto;
   padding-top: clamp(28px, 3vw, 40px);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.005em;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
   text-transform: none;
   color: var(--dz-black);
 }
 .hero .hero-proof li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  gap: 10px;
-  padding: 14px 0 0;
+  padding: 12px 0 0;
   border-top: 1px solid var(--dz-black);
 }
 .hero .hero-proof b {
-  margin: 0;
-  font-family: var(--dz-display);
-  font-weight: var(--dz-weight);
-  font-size: 30px;
-  line-height: 0.82;
-  letter-spacing: var(--dz-track);
+  display: block;
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   color: var(--dz-red);
 }
 
@@ -629,18 +623,10 @@ body {
     padding-left: 0.08em;
   }
   .hero .hero-proof {
-    grid-template-columns: 1fr;
-    gap: 0;
+    gap: 0 12px;
   }
   .hero .hero-proof li {
-    align-items: center;
-    padding: 12px 0;
-  }
-  .hero .hero-proof li:last-child {
-    border-bottom: 1px solid var(--dz-black);
-  }
-  .hero .hero-proof b {
-    width: 44px;
+    font-size: 12px;
   }
   .hero .stage-caption {
     min-width: 0;
@@ -854,4 +840,397 @@ body {
 }
 .dz-hero-in-view .nudge.is-shown {
   transform: translateY(calc(100% + 12px));
+}
+
+/* =========================================================
+   Сюжеты-интерфейсы в окне первого экрана: калькулятор,
+   медиаплан, бронирование. Раньше — табличка посреди пустого
+   поля; теперь каждый занимает окно и похож на живой экран.
+   Цифры — те же демо, что были (дни посчитаны из длины полос,
+   цена за день — из итога: 540 000 / 18 / 30).
+   ========================================================= */
+.dz-calc,
+.dz-gantt,
+.dz-book {
+  /* в v2 содержимое сцен увеличено zoom: 1.2 — здесь свои размеры */
+  zoom: 1 !important;
+  position: absolute;
+  inset: clamp(18px, 2.2vw, 30px);
+  color: var(--dz-white);
+  font-family: var(--dz-body);
+}
+
+/* ── калькулятор ─────────────────────────────────────── */
+.dz-calc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+  align-items: stretch;
+}
+.dz-calc-params {
+  display: grid;
+  align-content: center;
+  gap: 22px;
+}
+.dz-calc-field {
+  display: grid;
+  gap: 10px;
+}
+.dz-calc-field > span {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.dz-calc-field > span b {
+  color: var(--dz-white);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 13px;
+}
+.dz-seg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.dz-seg i {
+  padding: 9px 0;
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+.dz-seg i + i {
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+}
+.dz-seg .is-on {
+  background: var(--dz-white);
+  color: var(--dz-black);
+}
+.dz-range {
+  position: relative;
+  height: 2px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.25);
+}
+.dz-range i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--v);
+  height: 100%;
+  background: var(--dz-red);
+}
+.dz-range i::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: -7px;
+  width: 16px;
+  height: 16px;
+  background: var(--dz-red);
+}
+.dz-step {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.dz-step i {
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.dz-step b {
+  padding: 8px 0;
+  border-inline: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  font-size: 15px;
+}
+.dz-calc-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: clamp(16px, 1.8vw, 24px);
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+.dz-calc-total span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.dz-calc-total b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(30px, 3.2vw, 48px);
+  line-height: 0.95;
+  letter-spacing: var(--dz-track);
+  white-space: nowrap;
+}
+.dz-calc-total small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ── медиаплан ───────────────────────────────────────── */
+.dz-gantt {
+  top: clamp(64px, 6vw, 80px);
+  display: grid;
+  grid-template-rows: auto repeat(4, 1fr) auto;
+  align-items: center;
+  --label: 74px;
+}
+.dz-gantt-head,
+.dz-gantt-row {
+  display: grid;
+  grid-template-columns: var(--label) minmax(0, 1fr);
+  align-items: center;
+}
+.dz-gantt-head > div {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.dz-gantt-head i {
+  padding: 0 0 8px 6px;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.dz-gantt-row {
+  height: 100%;
+}
+.dz-gantt-row > span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+/* вертикальные линии недель — по колонке полос */
+.dz-gantt-row > div {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.25) 0 1px,
+    transparent 1px 25%
+  );
+}
+.dz-gantt-row i {
+  height: 26px;
+  margin-left: var(--s);
+  width: var(--w);
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  background: var(--dz-red);
+  color: var(--dz-black);
+  transform-origin: left;
+  animation: growBar 0.7s var(--ease) both;
+}
+.dz-gantt-row i.is-alt {
+  background: var(--dz-white);
+}
+.dz-gantt-row:nth-child(3) i {
+  animation-delay: 0.08s;
+}
+.dz-gantt-row:nth-child(4) i {
+  animation-delay: 0.16s;
+}
+.dz-gantt-row:nth-child(5) i {
+  animation-delay: 0.24s;
+}
+.dz-gantt-row em {
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.dz-gantt-foot {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.dz-gantt-foot b {
+  color: var(--dz-white);
+}
+
+/* ── бронирование ────────────────────────────────────── */
+.dz-book {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px clamp(14px, 1.8vw, 24px);
+}
+/* схема карты: сетка улиц, проспект по диагонали, точки поверхностей */
+.dz-book-map {
+  position: relative;
+  grid-row: 1 / span 2;
+  background-color: #26262c;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(32deg, transparent 47%, rgba(255, 255, 255, 0.16) 47% 50%, transparent 50%);
+  background-size: 28px 28px, 28px 28px, 100% 100%;
+}
+.dz-book-map i {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 2px solid var(--dz-white);
+  background: #26262c;
+}
+.dz-book-map .is-taken {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.dz-book-map .is-picked {
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 0;
+  background: var(--dz-red);
+  box-shadow: 0 0 0 6px rgba(235, 34, 70, 0.3);
+}
+.dz-book-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-self: center;
+}
+.dz-book-list li {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 13px;
+}
+.dz-book-list li::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  border: 2px solid var(--dz-white);
+}
+.dz-book-list span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dz-book-list small {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.dz-book-list b {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.dz-book-list .is-taken {
+  color: rgba(255, 255, 255, 0.35);
+}
+.dz-book-list .is-taken::before {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.dz-book-list .is-taken span {
+  text-decoration: line-through;
+}
+.dz-book-list .is-picked::before {
+  border-color: var(--dz-red);
+  background: var(--dz-red);
+}
+.dz-book-list .is-picked b {
+  color: var(--dz-red);
+}
+.dz-book-cart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--dz-white);
+  color: var(--dz-black);
+  font-size: 12px;
+  font-weight: 600;
+}
+.dz-book-cart b {
+  padding: 7px 10px;
+  background: var(--dz-red);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* телефон: окно маленькое и почти квадратное — упрощаем */
+@media (max-width: 720px) {
+  .dz-calc {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 12px;
+  }
+  .dz-calc-params {
+    gap: 12px;
+  }
+  .dz-calc-field:nth-child(2) {
+    display: none;
+  }
+  .dz-calc-total {
+    padding: 12px 14px;
+  }
+  .dz-calc-total small {
+    display: none;
+  }
+  .dz-gantt {
+    --label: 64px;
+    top: 72px;
+  }
+  .dz-gantt-row > span {
+    font-size: 10px;
+    letter-spacing: 0.02em;
+  }
+  .dz-gantt-row i {
+    height: 20px;
+  }
+  .dz-gantt-row em {
+    display: none;
+  }
+  .dz-book {
+    grid-template-columns: 1fr;
+  }
+  .dz-book-map {
+    display: none;
+  }
+  .dz-book-list li {
+    padding: 8px 0;
+    font-size: 12px;
+  }
+  .dz-book-list small {
+    display: none;
+  }
 }
