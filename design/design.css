@@ -4604,3 +4604,31 @@ main .section-heading,
     white-space: nowrap;
   }
 }
+/* «Наверх» — справа в строке навигации, закрывает пустоту */
+.ft-nav .ft-up {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.ft-nav .ft-up span {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: var(--dz-black);
+  color: var(--dz-white);
+  transition: background 0.2s ease;
+}
+.ft-nav .ft-up:hover span {
+  background: var(--dz-red);
+}
+@media (max-width: 720px) {
+  .ft-nav .ft-up {
+    margin-left: 0;
+  }
+}
