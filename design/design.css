@@ -1297,3 +1297,278 @@ body {
     display: none;
   }
 }
+
+/* =========================================================
+   02 · АКЦИИ — красный блок во всю ширину
+
+   Сетка и листание — из v2. Подача — как на первом экране:
+   фирменный красный фоном, заголовок плакатным капсом, белые
+   карточки с прямыми углами, одна широкая — чёрная для ритма,
+   цифры-акценты красным, кнопки и метки — чёрные квадраты.
+   ========================================================= */
+.promos {
+  position: relative;
+  padding-block: clamp(56px, 6vw, 96px);
+  background: var(--dz-red);
+  /* фон во всю ширину экрана, сама секция остаётся в сетке */
+  box-shadow: 0 0 0 100vmax var(--dz-red);
+  clip-path: inset(0 -100vmax);
+  color: var(--dz-black);
+  font-family: var(--dz-body);
+}
+.promos .eyebrow {
+  color: var(--dz-black);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.promos .section-heading h2 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(48px, 6.4vw, 104px);
+  line-height: var(--dz-lh);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+
+/* листание: чёрные квадраты, номер страницы чёрным */
+.promos .pr-flip {
+  color: var(--dz-black);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.promos .pr-flip button {
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 0;
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font-size: 18px;
+}
+.promos .pr-flip button:hover {
+  background: var(--dz-white);
+  color: var(--dz-black);
+}
+
+/* карточки: белые, без рамок и скруглений */
+.promos .pr-card {
+  border: 0;
+  border-radius: 0;
+  background: var(--dz-white);
+  color: var(--dz-black);
+}
+.promos .pr-card:hover {
+  transform: translateY(-4px);
+}
+.promos .pr-card h3 {
+  font-family: var(--dz-body);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--dz-black);
+}
+.promos .pr-card p {
+  font-size: 14px;
+  color: #3a3a40;
+}
+.promos .pr-remark {
+  border-left-color: var(--dz-red);
+  color: var(--dz-black) !important;
+}
+.promos .pr-tag,
+.promo-modal .pr-tag {
+  background: var(--dz-black);
+  color: var(--dz-white);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.promos .pr-figure {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(40px, 3.6vw, 60px);
+  letter-spacing: var(--dz-track);
+  color: var(--dz-red);
+}
+.promos .pr-meta {
+  color: var(--dz-black);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.promos .pr-meta span {
+  border-color: var(--dz-black);
+  border-radius: 0;
+}
+.promos .pr-more {
+  border: 1px solid var(--dz-black);
+  border-radius: 0;
+  background: transparent;
+  color: var(--dz-black);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.promos .pr-more:hover {
+  background: var(--dz-black);
+  color: var(--dz-white);
+}
+
+/* главная карточка: фото во всю ширину сверху */
+.promos .pr-card--main .photo-slot {
+  min-height: 220px;
+  border-bottom: 0;
+}
+
+/* широкая карточка — чёрная: белый текст, цифра красным */
+.promos .pr-card--wide {
+  background: var(--dz-black);
+  color: var(--dz-white);
+}
+.promos .pr-card--wide h3 {
+  color: var(--dz-white);
+}
+.promos .pr-card--wide p {
+  color: rgba(255, 255, 255, 0.7);
+}
+.promos .pr-card--wide .pr-more {
+  border-color: var(--dz-white);
+  color: var(--dz-white);
+}
+.promos .pr-card--wide .pr-more:hover {
+  background: var(--dz-red);
+  border-color: var(--dz-red);
+  color: var(--dz-black);
+}
+
+.promos .pr-note {
+  max-width: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dz-black);
+}
+
+/* фото акции: пока файла нет — серая заглушка с подписью,
+   файл есть — фото во всю площадь, подпись прячется */
+.photo-slot.has-photo {
+  background-size: cover;
+  background-position: center;
+}
+.photo-slot.has-photo::after {
+  display: none;
+}
+
+/* ── попап «Подробнее» ───────────────────────────────────
+   Заказчик просил окно чуть выше по вертикали — поднят предел
+   высоты, фото в левой колонке получает больше места. */
+.promo-modal {
+  background: rgba(13, 13, 15, 0.72);
+}
+.promo-modal-panel {
+  min-height: min(86vh, 660px);
+  max-height: min(94vh, 820px);
+  border: 0;
+  border-radius: 0;
+  font-family: var(--dz-body);
+}
+.promo-modal-media {
+  grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);
+  border-right: 0;
+}
+.promo-modal-photo {
+  border-bottom: 0;
+}
+.promo-modal-map {
+  background: var(--dz-black);
+  color: var(--dz-white);
+}
+.promo-modal-map .promo-modal-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+.promo-modal-place {
+  color: var(--dz-white);
+}
+.promo-modal-canvas {
+  border-radius: 0;
+  background-color: #26262c;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.promo-modal-canvas span {
+  color: rgba(255, 255, 255, 0.55);
+}
+.promo-modal-close {
+  border: 0;
+  border-radius: 0;
+  background: var(--dz-black);
+  color: var(--dz-white);
+}
+.promo-modal-close:hover {
+  background: var(--dz-red);
+  color: var(--dz-black);
+}
+/* текст сверху, цена и кнопка — у нижнего края окна */
+.promo-modal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.promo-modal-info .pr-tag {
+  align-self: flex-start;
+}
+.promo-modal-price {
+  margin-top: auto;
+}
+.promo-modal-info h3 {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-black);
+}
+.promo-modal-lead,
+.promo-modal-label,
+.promo-price span,
+.promo-price-unit,
+.promo-modal-note {
+  color: var(--dz-muted);
+}
+.promo-modal-terms li {
+  color: var(--dz-black);
+}
+.promo-modal-terms li::before {
+  background: var(--dz-red);
+}
+.promo-modal-price {
+  border-top: 1px solid var(--dz-black);
+  border-bottom: 1px solid var(--dz-black);
+}
+.promo-price b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  letter-spacing: var(--dz-track);
+}
+.promo-price--was b {
+  color: var(--dz-muted);
+  text-decoration-color: var(--dz-red);
+}
+.promo-price--now b {
+  color: var(--dz-red);
+}
+.promo-modal-cta {
+  border-radius: 0;
+  background: var(--dz-red);
+  color: var(--dz-black);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.promo-modal-cta:hover {
+  background: var(--dz-black);
+  color: var(--dz-white);
+  transform: none;
+}
+
+@media (max-width: 900px) {
+  .promo-modal-panel {
+    min-height: 0;
+  }
+}

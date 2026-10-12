@@ -24,7 +24,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link rel="stylesheet" href="design.css?v=19" />
+    <link rel="stylesheet" href="design.css?v=22" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -379,7 +379,7 @@
           <!-- страница 1 -->
           <div class="pr-page" data-cx-page>
             <article class="pr-card pr-card--main" data-tentative="акция демонстрационная">
-              <div class="photo-slot" data-photo-label="Фото акции"></div>
+              <div class="photo-slot" data-photo-label="Фото акции" data-dz-photo="hotels"></div>
               <div class="pr-main-copy">
                 <span class="pr-tag">Спецразмещение</span>
                 <h3>Реклама в отелях 5 звёзд</h3>
@@ -429,7 +429,7 @@
           <!-- страница 2 -->
           <div class="pr-page" data-cx-page hidden>
             <article class="pr-card pr-card--main" data-tentative="акция демонстрационная">
-              <div class="photo-slot" data-photo-label="Фото акции"></div>
+              <div class="photo-slot" data-photo-label="Фото акции" data-dz-photo="federal"></div>
               <div class="pr-main-copy">
                 <span class="pr-tag">Федеральный пакет</span>
                 <h3>Одна кампания — вся страна</h3>
@@ -1529,6 +1529,29 @@
         var fromUrl = new URLSearchParams(location.search).get("font");
         apply(fromUrl || saved || "grotesk");
         buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.fontSet); }); });
+        // Фото акций: assets/photos/promo-<id>.jpg. Если файла ещё нет,
+        // остаётся серая заглушка с подписью.
+        function setPhoto(el, id) {
+          el.classList.remove("has-photo");
+          el.style.backgroundImage = "";
+          var src = "assets/photos/promo-" + id + ".jpg";
+          var img = new Image();
+          img.onload = function () {
+            el.style.backgroundImage = "url(" + src + ")";
+            el.classList.add("has-photo");
+          };
+          img.src = src;
+        }
+        document.querySelectorAll("[data-dz-photo]").forEach(function (el) {
+          setPhoto(el, el.dataset.dzPhoto);
+        });
+        var modalPhoto = document.querySelector("[data-promo-photo]");
+        document.querySelectorAll("[data-promo-open]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            if (modalPhoto) setPhoto(modalPhoto, b.dataset.promoOpen);
+          });
+        });
+
         // подсказка «География» не лежит поверх первого экрана
         var heroEl = document.querySelector(".hero");
         if (heroEl && "IntersectionObserver" in window) {
