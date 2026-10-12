@@ -307,11 +307,21 @@ body {
 .scene.is-active .scene-photo {
   transform: scale(1);
 }
+/* кадры 3:2, окно ближе к квадрату — держим в кадре главное:
+   билборд, девушку вместе с рамкой, микрофон */
 .scene--outdoor .scene-photo {
-  object-position: 50% 30%;
+  object-position: 62% 40%;
 }
 .scene--indoor .scene-photo {
-  object-position: 50% 40%;
+  object-position: 30% 50%;
+}
+.scene--broadcast .scene-photo {
+  object-position: 50% 50%;
+}
+/* в лифте слева девушка — плашку уводим на пустую стену справа */
+.hero .scene--indoor .chip--a {
+  left: auto;
+  right: 22px;
 }
 
 /* плашки-подписи как в рефе: белая и красная, без теней */
@@ -442,6 +452,9 @@ body {
   }
   .hero .stage-caption {
     min-width: 0;
+  }
+  .scene--indoor .scene-photo {
+    object-position: 18% 50%;
   }
   .hero .stage-caption strong {
     font-size: 16px;
