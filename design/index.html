@@ -8,7 +8,7 @@
     <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
     <meta
       name="description"
-      content="Прототип главной страницы ADSPACE Group — рекламной экосистемы для подбора, расчёта и заказа рекламы."
+      content="ADSPACE Group — рекламная экосистема для подбора, расчёта и заказа рекламы."
     />
     <meta name="theme-color" content="#EB2246" />
     <title>ADSPACE Group — дизайн</title>
@@ -28,7 +28,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
     />
-    <link rel="stylesheet" href="design.css?v=39" />
+    <link rel="stylesheet" href="design.css?v=41" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -460,8 +460,9 @@
           <div class="pr-page" data-cx-page hidden>
             <article class="pr-card pr-card--main" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
-                <div class="dz-frame" style="--px: 0.5; --py: 0.5">
-                  <img src="assets/photos/promo-federal.jpg" alt="" loading="lazy" />
+                <div class="dz-frame" style="--ar: 0.6667; --px: 0.5; --py: 0.45" data-modal-bg="federal">
+                  <img src="assets/photos/promo-federal-v.jpg" alt="" loading="lazy" />
+                  <span class="dz-board dz-board--federal"><b>Ваш бренд</b></span>
                 </div>
               </div>
               <div class="pr-body">
@@ -1443,12 +1444,6 @@
           <ul data-map-points></ul>
         </div>
 
-        <p
-          class="map-drawer-note"
-          data-tentative="выбор точки и бронирование подключаются к платформе наружной рекламы"
-        >
-          Выбор точки и бронирование подключаются к платформе на следующем этапе.
-        </p>
         <p class="map-drawer-status" data-map-status role="status"></p>
       </aside>
     </div>
@@ -1507,7 +1502,7 @@
 
         <div class="promo-modal-media">
           <div class="photo-slot promo-modal-photo" data-photo-label="Фото акции" data-promo-photo></div>
-          <div class="promo-modal-map" data-tentative="карта подключается на следующем этапе">
+          <div class="promo-modal-map">
             <span class="promo-modal-label">Локация</span>
             <p class="promo-modal-place" data-promo-place></p>
             <div class="promo-modal-canvas" aria-hidden="true">
@@ -1542,14 +1537,14 @@
               Забронировать <span aria-hidden="true">↗</span>
             </a>
             <p class="promo-modal-note">
-              Условия и цена демонстрационные: менеджер подтверждает наличие поверхностей.
+              Менеджер подтвердит наличие поверхностей и закрепит цену.
             </p>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="script.js?v=11"></script>
+    <script src="script.js?v=12"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <!-- Панель выбора шрифта заголовков — только для показа вариантов заказчику -->
     <div class="dz-fontpick" role="group" aria-label="Шрифт заголовков" data-fontpick>
@@ -1665,7 +1660,7 @@
             if (modalPhoto) {
               modalPhoto.querySelectorAll(".dz-frame").forEach(function (f) { f.remove(); });
               modalPhoto.style.backgroundImage = "";
-              if (frame) {
+              if (frame && !frame.dataset.modalBg) {
                 modalPhoto.appendChild(frame.cloneNode(true));
                 modalPhoto.classList.add("has-photo");
               } else {

@@ -345,8 +345,9 @@ body {
   container-type: size;
 }
 .dz-frame {
-  --fw: max(100cqw, 150cqh);
-  --fh: max(100cqh, 66.667cqw);
+  /* --ar — соотношение сторон кадра (по умолчанию 3:2) */
+  --fw: max(100cqw, calc(100cqh * var(--ar, 1.5)));
+  --fh: max(100cqh, calc(100cqw / var(--ar, 1.5)));
   /* в v2 содержимое сцен увеличено zoom: 1.2 — рамке это не нужно */
   zoom: 1 !important;
   position: absolute;
@@ -1932,7 +1933,8 @@ body {
   color: var(--dz-red);
 }
 .builder-sub {
-  max-width: 620px;
+  /* одной строкой на широком экране */
+  max-width: none;
   font-size: clamp(16px, 1.25vw, 19px);
   color: rgba(255, 255, 255, 0.72);
 }
@@ -2345,4 +2347,19 @@ body {
 /* описание медиаплана — одной строкой по ширине шапки результата */
 .builder-result .result-head p {
   max-width: none;
+}
+
+/* федеральная акция: в главной карточке вертикальный кадр 2:3 */
+.dz-board--federal b {
+  left: 30.7%;
+  width: 36.6%;
+  top: 41%;
+  font-size: 6.2cqw;
+  transform: translateY(-50%) skewY(2.5deg);
+}
+
+/* «Как работает система»: воздух между текстом и линией снизу,
+   как у подписей под цифрами первого экрана */
+.builder .process-step {
+  padding-bottom: 18px;
 }

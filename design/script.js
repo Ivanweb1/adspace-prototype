@@ -817,8 +817,7 @@
         button.closest("li").classList.add("is-picked");
         button.textContent = "В заявке";
         button.disabled = true;
-        mapStatus.textContent =
-          "Точка отложена в заявку. Это прототип: в рабочей версии отсюда идёт бронирование на платформе.";
+        mapStatus.textContent = "";
       });
     }
 
@@ -827,7 +826,7 @@
     const reviewButton = $("[data-result-review]");
     reviewButton?.addEventListener("click", () => {
       const title = $("[data-result-title]").textContent;
-      $("[data-result-review-status]").textContent = `Передали «${title}» менеджеру вместе с параметрами — он свяжется по контакту ${lead.contact}. Это прототип: данные никуда не уходят, но сценарий рабочий.`;
+      $("[data-result-review-status]").textContent = `Передали «${title}» менеджеру вместе с параметрами — он свяжется по контакту ${lead.contact}.`;
       reviewButton.disabled = true;
     });
 
@@ -882,7 +881,7 @@
   /* ── презентация ────────────────────────────────────── */
   $("[data-presentation]")?.addEventListener("click", () => {
     $("[data-presentation-status]").textContent =
-      "Файл презентации ещё не передан. В прототипе кнопка ведёт на форму запроса материалов.";
+      "Оставьте контакт в форме ниже — пришлём презентацию.";
     $("#contact")?.scrollIntoView({
       behavior: reduceMotion.matches ? "auto" : "smooth",
       block: "start",
@@ -905,7 +904,7 @@
       return;
     }
 
-    status.textContent = "Спасибо! Это прототип: заявка не отправляется, но сценарий формы работает.";
+    status.textContent = "Спасибо! Заявка принята — свяжемся с вами в ближайшее время.";
     contactForm.reset();
   });
 
@@ -965,7 +964,7 @@
       }
 
       partnerStatus.textContent =
-        "Заявка партнёра принята. Это прототип: данные никуда не уходят, но сценарий формы работает.";
+        "Заявка принята — менеджер свяжется с вами, чтобы подключить инвентарь.";
       partnerForm.reset();
     });
   }
