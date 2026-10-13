@@ -4913,23 +4913,6 @@ body:has(.dz-fontpick:not([hidden])) .dz-cookie {
   align-items: center;
   gap: 8px;
 }
-.dz-cookie-link {
-  margin-right: 8px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: rgba(255, 255, 255, 0.7);
-  font: 600 12px/1 var(--dz-body);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  cursor: pointer;
-}
-.dz-cookie-link:hover {
-  color: var(--dz-white);
-}
-.dz-cookie-link[hidden],
 .dz-cookie-btn[hidden] {
   display: none;
 }
@@ -5037,8 +5020,7 @@ body:has(.dz-fontpick:not([hidden])) .dz-cookie {
   opacity: 0.5;
 }
 .dz-cookie-row input:focus-visible + i,
-.dz-cookie-btn:focus-visible,
-.dz-cookie-link:focus-visible {
+.dz-cookie-btn:focus-visible {
   outline: 2px solid var(--dz-red);
   outline-offset: 2px;
 }
@@ -5066,10 +5048,10 @@ body:has(.dz-fontpick:not([hidden])) .dz-cookie {
   .dz-cookie-text {
     font-size: 12px;
   }
-  /* «Настроить» ссылкой слева, две кнопки делят остаток поровну */
+  /* три кнопки делят ширину поровну */
   .dz-cookie-actions {
     display: grid;
-    grid-template-columns: auto 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
   .dz-cookie-actions .dz-cookie-btn {
     min-width: 0;
@@ -5077,10 +5059,6 @@ body:has(.dz-fontpick:not([hidden])) .dz-cookie {
     font-size: 11px;
     line-height: 1.15;
     white-space: normal;
-  }
-  .dz-cookie-link {
-    margin-right: 4px;
-    font-size: 11px;
   }
   .dz-cookie.is-custom .dz-cookie-actions {
     grid-template-columns: 1fr 1fr;
