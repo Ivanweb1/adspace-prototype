@@ -24,7 +24,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link rel="stylesheet" href="design.css?v=67" />
+    <link rel="stylesheet" href="design.css?v=68" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -1693,15 +1693,10 @@
       aria-labelledby="cookie-title"
       data-tentative="тексты и состав категорий — от заказчика"
     >
-      <h2 class="dz-cookie-title" id="cookie-title">Мы используем cookie</h2>
-      <p class="dz-cookie-text">
-        Необходимые нужны, чтобы сайт работал. Остальные помогают понять, что улучшить, и показывать
-        релевантную рекламу — их можно отключить.
-        <a href="#" data-tentative="документ не передан">Подробнее о cookie</a>
-      </p>
+      <!-- категории раскрываются над строкой по «Настроить» -->
       <div class="dz-cookie-prefs" data-cookie-prefs hidden>
         <label class="dz-cookie-row">
-          <span><b>Необходимые</b><small>Работа сайта, корзина, безопасность. Всегда включены.</small></span>
+          <span><b>Необходимые</b><small>Работа сайта и корзины. Всегда включены.</small></span>
           <input type="checkbox" checked disabled /><i aria-hidden="true"></i>
         </label>
         <label class="dz-cookie-row">
@@ -1713,13 +1708,18 @@
           <input type="checkbox" name="marketing" /><i aria-hidden="true"></i>
         </label>
       </div>
-      <div class="dz-cookie-actions">
-        <button type="button" class="dz-cookie-btn dz-cookie-btn--main" data-cookie-accept>Принять все</button>
-        <button type="button" class="dz-cookie-btn" data-cookie-necessary>Только необходимые</button>
-        <button type="button" class="dz-cookie-btn dz-cookie-btn--link" data-cookie-settings aria-expanded="false">
-          Настроить
-        </button>
-        <button type="button" class="dz-cookie-btn dz-cookie-btn--main" data-cookie-save hidden>Сохранить выбор</button>
+      <div class="dz-cookie-bar">
+        <p class="dz-cookie-text">
+          <b id="cookie-title">Мы используем cookie.</b> Необходимые — для работы сайта, остальные — для
+          аналитики и рекламы, их можно отключить.
+          <a href="#" data-tentative="документ не передан">Подробнее</a>
+        </p>
+        <div class="dz-cookie-actions">
+          <button type="button" class="dz-cookie-link" data-cookie-settings aria-expanded="false">Настроить</button>
+          <button type="button" class="dz-cookie-btn" data-cookie-necessary>Только необходимые</button>
+          <button type="button" class="dz-cookie-btn" data-cookie-save hidden>Сохранить выбор</button>
+          <button type="button" class="dz-cookie-btn dz-cookie-btn--main" data-cookie-accept>Принять все</button>
+        </div>
       </div>
     </section>
 
