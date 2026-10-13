@@ -10,6 +10,27 @@
   const isMobile = () => window.matchMedia("(max-width: 720px)").matches;
   const money = (value) => `${new Intl.NumberFormat("ru-RU").format(Math.round(value))} ₽`;
 
+  /* ── согласие на обработку персональных данных ──────
+     Галочка в каждой форме. Без неё заявка не уходит: рамка
+     подсвечивается, фокус переходит на чекбокс. */
+  const CONSENT_MSG = "Подтвердите согласие на обработку персональных данных.";
+  const consentOk = (form) => {
+    const box = $('input[name="consent"]', form);
+    if (!box) return true;
+    box.closest(".dz-consent").classList.toggle("is-invalid", !box.checked);
+    if (!box.checked) box.focus();
+    return box.checked;
+  };
+  document.addEventListener("change", (event) => {
+    if (event.target.matches?.('input[name="consent"]') && event.target.checked) {
+      event.target.closest(".dz-consent").classList.remove("is-invalid");
+    }
+  });
+  // ссылки на документы внутри подписи не переключают галочку
+  $$(".dz-consent [data-doc]").forEach((link) =>
+    link.addEventListener("click", (event) => event.preventDefault())
+  );
+
   // Блоки прячутся до появления только при работающем JS
   document.documentElement.classList.add("has-js");
 
@@ -749,6 +770,10 @@
         contact.focus();
         return;
       }
+      if (!consentOk(gate)) {
+        gateStatus.textContent = CONSENT_MSG;
+        return;
+      }
 
       lead = { name: name.value.trim(), contact: value };
       gateStatus.textContent = "";
@@ -941,6 +966,10 @@
       empty[0].focus();
       return;
     }
+    if (!consentOk(contactForm)) {
+      status.textContent = CONSENT_MSG;
+      return;
+    }
 
     status.textContent = "Спасибо! Заявка принята — свяжемся с вами в ближайшее время.";
     contactForm.reset();
@@ -998,6 +1027,10 @@
       if (empty.length) {
         partnerStatus.textContent = "Заполните имя и контакт — так мы сможем ответить.";
         empty[0].focus();
+        return;
+      }
+      if (!consentOk(partnerForm)) {
+        partnerStatus.textContent = CONSENT_MSG;
         return;
       }
 
@@ -1354,4 +1387,62 @@
   if (document.fonts) document.fonts.ready.then(fitAll);
   fitAll();
 
+  /* ── плашка о cookie ──────────────────────────────────
+     Принять всё, только необходимые или выбрать категории.
+     Выбор хранится в localStorage; без хранилища плашка просто
+     показывается при каждом заходе. */
+  const cookie = $("[data-cookie]");
+  if (cookie) {
+    const KEY = "adspace-cookie-consent";
+    const prefs = $("[data-cookie-prefs]", cookie);
+    const settingsBtn = $("[data-cookie-settings]", cookie);
+    const saveBtn = $("[data-cookie-save]", cookie);
+    const optional = $$('input[name]', prefs);
+
+    const read = () => {
+      try {
+        return JSON.parse(localStorage.getItem(KEY));
+      } catch {
+        return null;
+      }
+    };
+    const setPrefsOpen = (open) => {
+      prefs.hidden = !open;
+      saveBtn.hidden = !open;
+      settingsBtn.hidden = open;
+      settingsBtn.setAttribute("aria-expanded", String(open));
+      cookie.classList.toggle("is-custom", open);
+    };
+    const show = () => {
+      const saved = read();
+      optional.forEach((box) => (box.checked = Boolean(saved?.[box.name])));
+      setPrefsOpen(false);
+      cookie.hidden = false;
+    };
+    const save = (choice) => {
+      try {
+        localStorage.setItem(KEY, JSON.stringify({ ...choice, date: new Date().toISOString() }));
+      } catch {
+        /* хранилище недоступно — выбор действует до перезагрузки */
+      }
+      cookie.hidden = true;
+    };
+
+    $("[data-cookie-accept]", cookie).addEventListener("click", () =>
+      save({ analytics: true, marketing: true })
+    );
+    $("[data-cookie-necessary]", cookie).addEventListener("click", () =>
+      save({ analytics: false, marketing: false })
+    );
+    settingsBtn.addEventListener("click", () => {
+      setPrefsOpen(true);
+      optional[0]?.focus();
+    });
+    saveBtn.addEventListener("click", () =>
+      save(Object.fromEntries(optional.map((box) => [box.name, box.checked])))
+    );
+    $$("[data-cookie-open]").forEach((btn) => btn.addEventListener("click", show));
+
+    if (!read()) show();
+  }
 })();

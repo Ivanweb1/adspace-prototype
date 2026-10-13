@@ -24,7 +24,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link rel="stylesheet" href="design.css?v=66" />
+    <link rel="stylesheet" href="design.css?v=67" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -679,9 +679,14 @@
                 Показать медиаплан <span aria-hidden="true">↗</span>
               </button>
             </div>
-            <p class="gate-consent" data-tentative="текст согласия и ссылка на политику — от заказчика">
-              Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
-            </p>
+            <label class="dz-consent gate-consent" data-tentative="текст согласия и ссылки на документы — от заказчика">
+              <input type="checkbox" name="consent" required />
+              <span class="dz-consent-box" aria-hidden="true"></span>
+              <span class="dz-consent-text"
+                >Даю согласие на <a href="#" data-doc>обработку персональных данных</a> и принимаю
+                <a href="#" data-doc>политику конфиденциальности</a></span
+              >
+            </label>
             <p class="gate-status" data-gate-status role="status"></p>
           </form>
 
@@ -1029,26 +1034,31 @@
         <div class="section-shell geo-block reveal" id="geo">
           <div class="geo-head">
             <span class="result-label">География присутствия</span>
-            <!-- из ТЗ: карта с переключением ЮФО ↔ Россия -->
-            <div class="dz-geo-switch" role="group" aria-label="Масштаб карты">
-              <button type="button" data-geo-view="south" aria-pressed="true">ЮФО</button>
-              <button type="button" data-geo-view="russia" aria-pressed="false">Россия</button>
-            </div>
           </div>
           <div class="geo-body">
-            <div class="geo-map" aria-hidden="true" data-tentative="города на карте — демонстрационные">
-              <span>Здесь будет карта</span>
-              <div class="dz-map" data-dz-geo-map></div>
+            <!-- переключатель лежит на самой карте: видно, что он меняет масштаб
+                 карты, а цифры справа подписаны тем же регионом -->
+            <div class="geo-frame">
+              <div class="geo-map" aria-hidden="true" data-tentative="города на карте — демонстрационные">
+                <span>Здесь будет карта</span>
+                <div class="dz-map" data-dz-geo-map></div>
+              </div>
+              <!-- из ТЗ: карта с переключением ЮФО ↔ Россия -->
+              <div class="dz-geo-switch" role="group" aria-label="Масштаб карты">
+                <button type="button" data-geo-view="south" aria-pressed="true">ЮФО</button>
+                <button type="button" data-geo-view="russia" aria-pressed="false">Россия</button>
+              </div>
             </div>
-            <div class="geo-stats">
+            <div class="geo-stats" aria-live="polite">
+              <p class="geo-stats-cap">Показатели · <b data-geo-caption>ЮФО</b></p>
               <div data-tentative="показатель не подтверждён">
-                <b>18</b><span>городов</span>
+                <b data-geo-south="18" data-geo-russia="70+">18</b><span>городов</span>
               </div>
               <div data-tentative="показатель не подтверждён">
-                <b>3 900</b><span>поверхностей</span>
+                <b data-geo-south="3 900" data-geo-russia="12 500">3 900</b><span>поверхностей</span>
               </div>
               <div data-tentative="показатель не подтверждён">
-                <b>24</b><span>оператора</span>
+                <b data-geo-south="24" data-geo-russia="80">24</b><span>операторов</span>
               </div>
             </div>
           </div>
@@ -1466,14 +1476,18 @@
               <span class="field-label">Коротко о задаче</span>
               <textarea name="task" rows="3" placeholder="Что и где планируете рекламировать?"></textarea>
             </label>
+            <label class="dz-consent" data-tentative="текст согласия и ссылки на документы — от заказчика">
+              <input type="checkbox" name="consent" required />
+              <span class="dz-consent-box" aria-hidden="true"></span>
+              <span class="dz-consent-text"
+                >Даю согласие на <a href="#" data-doc>обработку персональных данных</a> и принимаю
+                <a href="#" data-doc>политику конфиденциальности</a></span
+              >
+            </label>
             <button class="button button--primary" type="submit">
               Обсудить проект <span aria-hidden="true">↗</span>
             </button>
             <p class="form-status" data-form-status role="status"></p>
-            <p class="form-legal">
-              Нажимая кнопку, вы соглашаетесь с
-              <a href="#" data-tentative="документ не передан">политикой конфиденциальности</a>.
-            </p>
           </form>
         </div>
       </section>
@@ -1498,7 +1512,10 @@
         </nav>
         <div class="ft-legal">
           <span>© 2026 ADSPACE Group · <span data-tentative="юридические данные не подтверждены">ООО «ЭДСПЕЙС ГРУПП»</span></span>
-          <a href="#" data-tentative="документ не передан">Политика конфиденциальности</a>
+          <span class="ft-legal-links">
+            <a href="#" data-tentative="документ не передан">Политика конфиденциальности</a>
+            <button type="button" class="ft-cookie" data-cookie-open>Настройки cookie</button>
+          </span>
         </div>
       </div>
     </footer>
@@ -1590,6 +1607,14 @@
               placeholder="Например: 12 лифтовых стендов в Краснодаре"
             ></textarea>
           </label>
+          <label class="dz-consent" data-tentative="текст согласия и ссылки на документы — от заказчика">
+            <input type="checkbox" name="consent" required />
+            <span class="dz-consent-box" aria-hidden="true"></span>
+            <span class="dz-consent-text"
+              >Даю согласие на <a href="#" data-doc>обработку персональных данных</a> и принимаю
+              <a href="#" data-doc>политику конфиденциальности</a></span
+            >
+          </label>
           <button class="button button--primary" type="submit">
             Отправить заявку <span aria-hidden="true">↗</span>
           </button>
@@ -1658,7 +1683,47 @@
       </div>
     </div>
 
-    <script src="script.js?v=17"></script>
+    <!-- Плашка о cookie. Три пути: принять всё, оставить только необходимые
+         или выбрать категории. Выбор хранится в браузере; открыть снова —
+         «Настройки cookie» в подвале. Тексты и категории — от юриста заказчика. -->
+    <section
+      class="dz-cookie"
+      data-cookie
+      hidden
+      aria-labelledby="cookie-title"
+      data-tentative="тексты и состав категорий — от заказчика"
+    >
+      <h2 class="dz-cookie-title" id="cookie-title">Мы используем cookie</h2>
+      <p class="dz-cookie-text">
+        Необходимые нужны, чтобы сайт работал. Остальные помогают понять, что улучшить, и показывать
+        релевантную рекламу — их можно отключить.
+        <a href="#" data-tentative="документ не передан">Подробнее о cookie</a>
+      </p>
+      <div class="dz-cookie-prefs" data-cookie-prefs hidden>
+        <label class="dz-cookie-row">
+          <span><b>Необходимые</b><small>Работа сайта, корзина, безопасность. Всегда включены.</small></span>
+          <input type="checkbox" checked disabled /><i aria-hidden="true"></i>
+        </label>
+        <label class="dz-cookie-row">
+          <span><b>Аналитические</b><small>Обезличенная статистика посещений.</small></span>
+          <input type="checkbox" name="analytics" /><i aria-hidden="true"></i>
+        </label>
+        <label class="dz-cookie-row">
+          <span><b>Маркетинговые</b><small>Реклама и ретаргетинг на других сайтах.</small></span>
+          <input type="checkbox" name="marketing" /><i aria-hidden="true"></i>
+        </label>
+      </div>
+      <div class="dz-cookie-actions">
+        <button type="button" class="dz-cookie-btn dz-cookie-btn--main" data-cookie-accept>Принять все</button>
+        <button type="button" class="dz-cookie-btn" data-cookie-necessary>Только необходимые</button>
+        <button type="button" class="dz-cookie-btn dz-cookie-btn--link" data-cookie-settings aria-expanded="false">
+          Настроить
+        </button>
+        <button type="button" class="dz-cookie-btn dz-cookie-btn--main" data-cookie-save hidden>Сохранить выбор</button>
+      </div>
+    </section>
+
+    <script src="script.js?v=18"></script>
     <!-- Яндекс.Карты. Для рабочего сайта нужен бесплатный API-ключ на домен
          заказчика: добавить &apikey=… в адрес ниже. -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
@@ -1672,6 +1737,7 @@
       <button type="button" data-font-set="poster">Плакат</button>
       <button type="button" class="dz-fontpick-close" aria-label="Скрыть панель" data-fontpick-close>✕</button>
     </div>
+
     <script>
       (function () {
         var root = document.documentElement;
@@ -1984,6 +2050,12 @@
             geoView = b.dataset.geoView;
             document.querySelectorAll("[data-geo-view]").forEach(function (x) {
               x.setAttribute("aria-pressed", String(x === b));
+            });
+            // цифры справа — по тому же региону, что и карта
+            var cap = document.querySelector("[data-geo-caption]");
+            if (cap) cap.textContent = b.textContent;
+            document.querySelectorAll("[data-geo-south]").forEach(function (n) {
+              n.textContent = geoView === "south" ? n.dataset.geoSouth : n.dataset.geoRussia;
             });
             drawGeo(true);
           });
