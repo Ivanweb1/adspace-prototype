@@ -234,6 +234,9 @@ html .accuracy .geo-stats span {
   color: var(--rv-muted);
 }
 /* светлая подложка карты вместо инвертированной */
+html .dz-map {
+  background: #e7e5df;
+}
 html .dz-map [class*="ground-pane"] {
   filter: grayscale(1) brightness(1.04) contrast(0.92);
 }
