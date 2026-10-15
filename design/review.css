@@ -527,7 +527,7 @@ html:not([data-corners="sharp"]) :is(
     .pres-button,
     .cost-badge,
     .pvm-st,
-    .theme-toggle,
+    .theme-toggle-track,
     .dz-seg,
     .dz-step,
     .dz-calc-total,
@@ -536,7 +536,7 @@ html:not([data-corners="sharp"]) :is(
   ) {
   border-radius: var(--rv-r-sm);
 }
-html:not([data-corners="sharp"]) .dz-geo-switch {
+html:not([data-corners="sharp"]) :is(.dz-geo-switch, .theme-toggle-track) {
   overflow: hidden;
 }
 html:not([data-corners="sharp"]) .pr-media .pr-figure {
