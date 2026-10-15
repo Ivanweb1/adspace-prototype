@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="news">
+<html lang="ru" data-font="news" data-corners="round" data-dark="graphite" data-outline="off">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,6 +25,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
     <link rel="stylesheet" href="design.css?v=69" />
+    <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
+    <link rel="stylesheet" href="review.css?v=1" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -192,7 +194,7 @@
               <!-- сцена 1 — наружная реклама -->
               <div class="scene scene--outdoor is-active" data-scene="outdoor">
                 <div class="dz-frame" aria-hidden="true">
-                  <img class="scene-photo" src="assets/photos/outdoor.jpg" alt="" />
+                  <img class="scene-photo" src="assets/photos-light/outdoor.jpg" alt="" />
                   <span class="dz-board dz-board--outdoor"><b>Ваш бренд</b></span>
                 </div>
                 <div class="scene-grid" aria-hidden="true"></div>
@@ -207,7 +209,7 @@
               <!-- сцена 2 — indoor и лифты -->
               <div class="scene scene--indoor" data-scene="indoor">
                 <div class="dz-frame" aria-hidden="true">
-                  <img class="scene-photo" src="assets/photos/indoor.jpg" alt="" />
+                  <img class="scene-photo" src="assets/photos-light/indoor.jpg" alt="" />
                   <span class="dz-board dz-board--indoor"><b>Ваш<br />бренд</b></span>
                 </div>
                 <div class="lift">
@@ -225,7 +227,7 @@
               <!-- сцена 3 — радио и ТВ -->
               <div class="scene scene--broadcast" data-scene="broadcast">
                 <div class="dz-frame" aria-hidden="true">
-                  <img class="scene-photo" src="assets/photos/broadcast.jpg" alt="" />
+                  <img class="scene-photo" src="assets/photos-light/broadcast.jpg" alt="" />
                 </div>
                 <div class="wave" aria-hidden="true">
                   <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
@@ -381,7 +383,7 @@
             <article class="pr-card pr-card--main" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
                 <div class="dz-frame" style="--ar: 0.6667; --px: 0.5; --py: 0.35" data-modal-bg="hotels">
-                  <img src="assets/photos/promo-hotels-v.jpg" alt="" loading="lazy" />
+                  <img src="assets/photos-light/promo-hotels-v.jpg" alt="" loading="lazy" />
                   <span class="dz-board dz-board--hotel-v"><b>Ваш<br />бренд</b></span>
                 </div>
               </div>
@@ -402,7 +404,7 @@
             <article class="pr-card" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.55">
-                  <img src="assets/photos/promo-stadium.jpg" alt="" loading="lazy" />
+                  <img src="assets/photos-light/promo-stadium.jpg" alt="" loading="lazy" />
                 </div>
                 <span class="pr-figure">90&#39;</span>
               </div>
@@ -419,7 +421,7 @@
             <article class="pr-card" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.7">
-                  <img src="assets/photos/promo-launch.jpg" alt="" loading="lazy" />
+                  <img src="assets/photos-light/promo-launch.jpg" alt="" loading="lazy" />
                   <span class="dz-board dz-board--launch"><b>Ваш бренд</b></span>
                 </div>
               </div>
@@ -436,7 +438,7 @@
             <article class="pr-card pr-card--wide" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
                 <div class="dz-frame" style="--px: 0.8; --py: 0.3">
-                  <img src="assets/photos/promo-boards.jpg" alt="" loading="lazy" />
+                  <img src="assets/photos-light/promo-boards.jpg" alt="" loading="lazy" />
                   <span class="dz-board dz-board--boards"><b>Ваш бренд</b></span>
                 </div>
               </div>
@@ -457,7 +459,7 @@
             <article class="pr-card pr-card--main" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
                 <div class="dz-frame" style="--ar: 0.6667; --px: 0.5; --py: 0.45" data-modal-bg="federal">
-                  <img src="assets/photos/promo-federal-v.jpg" alt="" loading="lazy" />
+                  <img src="assets/photos-light/promo-federal-v.jpg" alt="" loading="lazy" />
                   <span class="dz-board dz-board--federal"><b>Ваш бренд</b></span>
                 </div>
               </div>
@@ -478,7 +480,7 @@
             <article class="pr-card" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.12">
-                  <img src="assets/photos/promo-lifts.jpg" alt="" loading="lazy" />
+                  <img src="assets/photos-light/promo-lifts.jpg" alt="" loading="lazy" />
                   <span class="dz-board dz-board--lifts"><b>Ваш<br />бренд</b></span>
                 </div>
               </div>
@@ -495,7 +497,7 @@
             <article class="pr-card" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
-                  <img src="assets/photos/promo-radio.jpg" alt="" loading="lazy" />
+                  <img src="assets/photos-light/promo-radio.jpg" alt="" loading="lazy" />
                 </div>
                 <span class="pr-figure">07:00</span>
               </div>
@@ -512,7 +514,7 @@
             <article class="pr-card pr-card--wide" data-tentative="акция демонстрационная">
               <div class="pr-media" aria-hidden="true">
                 <div class="dz-frame" style="--px: 0.6; --py: 0.55">
-                  <img src="assets/photos/promo-transit.jpg" alt="" loading="lazy" />
+                  <img src="assets/photos-light/promo-transit.jpg" alt="" loading="lazy" />
                   <span class="dz-board dz-board--transit"><b>Ваш бренд</b></span>
                 </div>
               </div>
@@ -790,55 +792,55 @@
             <div class="preview-canvas" data-preview-canvas data-kind="outdoor">
               <div class="pv pv--outdoor">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.15">
-                  <img src="assets/photos/outdoor.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <img src="assets/photos-light/outdoor.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
                   <span class="dz-board dz-board--outdoor"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · outdoor.jpg</span>
               </div>
               <div class="pv pv--digital">
                 <div class="dz-frame" style="--px: 0.85; --py: 0.4">
-                  <img src="assets/photos/dooh.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <img src="assets/photos-light/dooh.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
                   <span class="dz-board dz-board--dooh"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · dooh.jpg</span>
               </div>
               <div class="pv pv--radio">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
-                  <img src="assets/photos/broadcast.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <img src="assets/photos-light/broadcast.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
                 </div>
                 <span class="dz-pv-ph">фото · broadcast.jpg</span>
               </div>
               <div class="pv pv--tv">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
-                  <img src="assets/photos/tv.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <img src="assets/photos-light/tv.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
                   <span class="dz-board dz-board--tv"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · tv.jpg</span>
               </div>
               <div class="pv pv--transit">
                 <div class="dz-frame" style="--px: 0.6; --py: 0.5">
-                  <img src="assets/photos/promo-transit.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <img src="assets/photos-light/promo-transit.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
                   <span class="dz-board dz-board--transit"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · promo-transit.jpg</span>
               </div>
               <div class="pv pv--indoor">
                 <div class="dz-frame" style="--px: 0.52; --py: 0.4">
-                  <img src="assets/photos/promo-hotels.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <img src="assets/photos-light/promo-hotels.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
                   <span class="dz-board dz-board--hotel"><b>Ваш<br />бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · promo-hotels.jpg</span>
               </div>
               <div class="pv pv--lift">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.3">
-                  <img src="assets/photos/indoor.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <img src="assets/photos-light/indoor.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
                   <span class="dz-board dz-board--indoor"><b>Ваш<br />бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · indoor.jpg</span>
               </div>
               <div class="pv pv--production">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
-                  <img src="assets/photos/production.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                  <img src="assets/photos-light/production.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
                   <span class="dz-board dz-board--production"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · production.jpg</span>
@@ -1247,48 +1249,56 @@
 
         <ul class="segment-grid reveal">
           <li>
+            <div class="seg-photo" aria-hidden="true" data-demo="фото подобрано из банка проекта — финальное под сегмент"><img src="assets/photos-light/case-2.jpg" alt="" loading="lazy" style="object-position: 50% 50%" /></div>
             <span class="seg-num">01</span>
             <h3>Локальный бизнес</h3>
             <p>Один район, точка продаж, повторный контакт.</p>
             <span class="seg-formats"><i>Лифты</i><i>Indoor</i></span>
           </li>
           <li>
+            <div class="seg-photo" aria-hidden="true" data-demo="фото подобрано из банка проекта — финальное под сегмент"><img src="assets/photos-light/dooh.jpg" alt="" loading="lazy" style="object-position: 50% 40%" /></div>
             <span class="seg-num">02</span>
             <h3>Сетевые компании</h3>
             <p>Несколько городов, единый стандарт коммуникации.</p>
             <span class="seg-formats"><i>Outdoor</i><i>DOOH</i><i>Radio</i></span>
           </li>
           <li>
+            <div class="seg-photo" aria-hidden="true" data-demo="фото подобрано из банка проекта — финальное под сегмент"><img src="assets/photos-light/promo-launch.jpg" alt="" loading="lazy" style="object-position: 50% 60%" /></div>
             <span class="seg-num">03</span>
             <h3>Девелоперы</h3>
             <p>Старт продаж, объект на карте, поток в офис.</p>
             <span class="seg-formats"><i>Outdoor</i><i>Radio</i><i>Лифты</i></span>
           </li>
           <li>
+            <div class="seg-photo" aria-hidden="true" data-demo="фото подобрано из банка проекта — финальное под сегмент"><img src="assets/photos-light/case-3.jpg" alt="" loading="lazy" style="object-position: 30% 50%" /></div>
             <span class="seg-num">04</span>
             <h3>Автодилеры</h3>
             <p>Сезонные акции и заявки на тест-драйв.</p>
             <span class="seg-formats"><i>Transit</i><i>DOOH</i></span>
           </li>
           <li>
+            <div class="seg-photo" aria-hidden="true" data-demo="фото подобрано из банка проекта — финальное под сегмент"><img src="assets/photos-light/tv.jpg" alt="" loading="lazy" style="object-position: 50% 40%" /></div>
             <span class="seg-num">05</span>
             <h3>FMCG</h3>
             <p>Массовый охват и поддержка полки в сезон.</p>
             <span class="seg-formats"><i>TV</i><i>Outdoor</i><i>Radio</i></span>
           </li>
           <li>
+            <div class="seg-photo" aria-hidden="true" data-demo="фото подобрано из банка проекта — финальное под сегмент"><img src="assets/photos-light/case-4.jpg" alt="" loading="lazy" style="object-position: 50% 40%" /></div>
             <span class="seg-num">06</span>
             <h3>ТЦ и кинотеатры</h3>
             <p>Трафик к открытию, событиям и распродажам.</p>
             <span class="seg-formats"><i>Indoor</i><i>DOOH</i></span>
           </li>
           <li>
+            <div class="seg-photo" aria-hidden="true" data-demo="фото подобрано из банка проекта — финальное под сегмент"><img src="assets/photos-light/promo-federal.jpg" alt="" loading="lazy" style="object-position: 50% 50%" /></div>
             <span class="seg-num">07</span>
             <h3>Крупные рекламодатели</h3>
             <p>Федеральный медиаплан в одном окне.</p>
             <span class="seg-formats"><i>Mix 360°</i></span>
           </li>
           <li>
+            <div class="seg-photo" aria-hidden="true" data-demo="фото подобрано из банка проекта — финальное под сегмент"><img src="assets/photos-light/promo-boards.jpg" alt="" loading="lazy" style="object-position: 70% 40%" /></div>
             <span class="seg-num">08</span>
             <h3>Владельцы инвентаря</h3>
             <p>Продажи площадок и учёт размещений в платформе.</p>
@@ -1771,12 +1781,12 @@
         var fromUrl = new URLSearchParams(location.search).get("font");
         apply(fromUrl || saved || "news");
         buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.fontSet); }); });
-        // Фото акций: assets/photos/promo-<id>.jpg. Если файла ещё нет,
+        // Фото акций: assets/photos-light/promo-<id>.jpg. Если файла ещё нет,
         // остаётся серая заглушка с подписью.
         function setPhoto(el, id) {
           el.classList.remove("has-photo");
           el.style.backgroundImage = "";
-          var src = "assets/photos/promo-" + id + ".jpg";
+          var src = "assets/photos-light/promo-" + id + ".jpg";
           var img = new Image();
           img.onload = function () {
             el.style.backgroundImage = "url(" + src + ")";
@@ -1787,9 +1797,9 @@
         document.querySelectorAll("[data-dz-photo]").forEach(function (el) {
           setPhoto(el, el.dataset.dzPhoto);
         });
-        // фото кейсов: assets/photos/<файл>; нет файла — серая заглушка
+        // фото кейсов: assets/photos-light/<файл>; нет файла — серая заглушка
         document.querySelectorAll("[data-dz-src]").forEach(function (el) {
-          var src = "assets/photos/" + el.dataset.dzSrc;
+          var src = "assets/photos-light/" + el.dataset.dzSrc;
           var img = new Image();
           img.onload = function () {
             el.style.backgroundImage = "url(" + src + ")";
@@ -1900,7 +1910,7 @@
               var name = (slot.dataset.photoLabel || "").replace("Фото · ", "");
               var file = SHOT_PHOTOS[name];
               if (!file) return;
-              slot.style.backgroundImage = "url(assets/photos/" + file + ")";
+              slot.style.backgroundImage = "url(assets/photos-light/" + file + ")";
               slot.classList.add("has-photo");
             });
           }).observe(visuals, { childList: true });
@@ -2078,6 +2088,49 @@
         window.addEventListener("resize", fit);
         if (document.fonts) document.fonts.addEventListener("loadingdone", fit);
         panel.querySelector("[data-fontpick-close]").addEventListener("click", function () { panel.hidden = true; });
+      })();
+    </script>
+    <!-- Панель вариантов для показа заказчику. Состояние — в адресе
+         (?corners=round&dark=graphite&outline=off), можно слать ссылкой. -->
+    <div class="rv-panel" role="group" aria-label="Вариант оформления" data-rv-panel>
+      <div class="rv-panel-head"><span>Вариант</span><a href="variants.html">все варианты</a><button type="button" class="rv-close" aria-label="Скрыть панель" data-rv-close>✕</button></div>
+      <div class="rv-row"><span>Углы</span><div class="rv-seg" data-rv="corners"><button type="button" data-v="round">Скруглённые</button><button type="button" data-v="sharp">Острые</button></div></div>
+      <div class="rv-row"><span>Тёмный фон</span><div class="rv-seg" data-rv="dark"><button type="button" data-v="graphite">Графит</button><button type="button" data-v="deep">Тёмный графит</button><button type="button" data-v="black">Чёрный</button></div></div>
+      <div class="rv-row"><span>Буквы на красном</span><div class="rv-seg" data-rv="outline"><button type="button" data-v="off">Без контура</button><button type="button" data-v="on">С белым контуром</button></div></div>
+    </div>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var panel = document.querySelector("[data-rv-panel]");
+        var keys = ["corners", "dark", "outline"];
+        var params = new URLSearchParams(location.search);
+        keys.forEach(function (k) {
+          var v = params.get(k);
+          if (!v) { try { v = sessionStorage.getItem("rv-" + k); } catch (e) {} }
+          if (v && panel.querySelector('[data-rv="' + k + '"] [data-v="' + v + '"]')) root.setAttribute("data-" + k, v);
+        });
+        function sync() {
+          keys.forEach(function (k) {
+            panel.querySelectorAll('[data-rv="' + k + '"] button').forEach(function (b) {
+              b.setAttribute("aria-pressed", String(b.dataset.v === root.getAttribute("data-" + k)));
+            });
+          });
+        }
+        panel.addEventListener("click", function (e) {
+          var b = e.target.closest("[data-v]");
+          if (!b) return;
+          var k = b.parentNode.dataset.rv;
+          root.setAttribute("data-" + k, b.dataset.v);
+          try { sessionStorage.setItem("rv-" + k, b.dataset.v); } catch (err) {}
+          var q = new URLSearchParams(location.search);
+          q.set(k, b.dataset.v);
+          history.replaceState(null, "", "?" + q.toString() + location.hash);
+          sync();
+        });
+        panel.querySelector("[data-rv-close]").addEventListener("click", function () { panel.hidden = true; });
+        // для превью на странице вариантов — без служебных панелей и плашек
+        if (params.get("panel") === "off") { panel.hidden = true; root.classList.add("rv-clean"); }
+        sync();
       })();
     </script>
   </body>

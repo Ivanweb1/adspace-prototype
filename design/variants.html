@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
+    <title>ADSPACE Group — варианты по правкам</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Oswald:wght@600&display=swap"
+    />
+    <style>
+      :root {
+        --ink: #22242f;
+        --muted: #5f616b;
+        --line: rgba(34, 36, 47, 0.14);
+        --red: #eb2246;
+        --soft: #f4f3f0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--soft);
+        color: var(--ink);
+        font: 16px/1.5 "Inter Tight", "Segoe UI", sans-serif;
+      }
+      .wrap {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 40px clamp(16px, 3vw, 40px) 80px;
+      }
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px 32px;
+        margin-bottom: 40px;
+      }
+      header img {
+        height: 22px;
+      }
+      h1 {
+        margin: 18px 0 8px;
+        font: 600 clamp(34px, 4vw, 56px)/1 "Oswald", sans-serif;
+        text-transform: uppercase;
+      }
+      h1 span {
+        color: var(--red);
+      }
+      header p {
+        max-width: 640px;
+        margin: 0;
+        color: var(--muted);
+      }
+      .back {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      section {
+        margin-top: 48px;
+      }
+      h2 {
+        margin: 0 0 4px;
+        font: 600 26px/1.1 "Oswald", sans-serif;
+        text-transform: uppercase;
+      }
+      h2 small {
+        color: var(--red);
+        font-size: 0.6em;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+      section > p {
+        margin: 0 0 18px;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+        gap: 20px;
+      }
+      .card {
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: 0 1px 0 var(--line);
+        color: inherit;
+        text-decoration: none;
+      }
+      .shot {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        border-radius: 8px;
+        background: var(--soft);
+      }
+      /* живая страница, уменьшенная до карточки */
+      .shot iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1440px;
+        height: 900px;
+        border: 0;
+        transform-origin: 0 0;
+        transform: scale(var(--k, 0.3));
+        pointer-events: none;
+      }
+      .card b {
+        font-weight: 700;
+      }
+      .card span {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .card:hover b {
+        color: var(--red);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <img src="assets/logo-adspace-group.svg" alt="ADSPACE Group" />
+          <h1>Варианты <span>по правкам</span></h1>
+          <p>
+            Во всех вариантах учтены все правки из списка. Отличаются только углы, цвет тёмных
+            блоков и контур букв на красном. Нажмите на карточку, чтобы открыть страницу целиком.
+            На любой странице варианты можно переключать панелью «Вариант» в правом нижнем углу.
+          </p>
+        </div>
+        <a class="back" href="index.html">← Открыть главную</a>
+      </header>
+
+      <section>
+        <h2><small>01</small>Углы</h2>
+        <p>Скруглённые и острые углы у карточек, окон, кнопок и полей.</p>
+        <div class="grid">
+          <a class="card" href="index.html?corners=round&amp;dark=graphite&amp;outline=off" data-frame="index.html?corners=round&amp;dark=graphite&amp;outline=off&amp;panel=off#promos">
+            <div class="shot"></div>
+            <b>Чуть скруглённые</b><span>14 px у блоков, 10 px у кнопок</span>
+          </a>
+          <a class="card" href="index.html?corners=sharp&amp;dark=graphite&amp;outline=off" data-frame="index.html?corners=sharp&amp;dark=graphite&amp;outline=off&amp;panel=off#promos">
+            <div class="shot"></div>
+            <b>Острые</b><span>прямые углы, как в прошлой версии</span>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2><small>02</small>Тёмные блоки</h2>
+        <p>«Конструктор» и «Контакты» — единственные тёмные блоки. Чёрный против графита.</p>
+        <div class="grid">
+          <a class="card" href="index.html?corners=round&amp;dark=graphite&amp;outline=off" data-frame="index.html?corners=round&amp;dark=graphite&amp;outline=off&amp;panel=off#builder">
+            <div class="shot"></div>
+            <b>Графит</b><span>#2A2C37 — цвет с логотипа, мягче чёрного</span>
+          </a>
+          <a class="card" href="index.html?corners=round&amp;dark=deep&amp;outline=off" data-frame="index.html?corners=round&amp;dark=deep&amp;outline=off&amp;panel=off#builder">
+            <div class="shot"></div>
+            <b>Тёмный графит</b><span>#1D1F27 — между графитом и чёрным</span>
+          </a>
+          <a class="card" href="index.html?corners=round&amp;dark=black&amp;outline=off" data-frame="index.html?corners=round&amp;dark=black&amp;outline=off&amp;panel=off#builder">
+            <div class="shot"></div>
+            <b>Чёрный</b><span>#0D0D0F — как было</span>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2><small>03</small>Чёрные буквы на красном</h2>
+        <p>Бегущая строка, заголовок «Акции месяца», блок «Материалы» и красная цифра.</p>
+        <div class="grid">
+          <a class="card" href="index.html?corners=round&amp;dark=graphite&amp;outline=off" data-frame="index.html?corners=round&amp;dark=graphite&amp;outline=off&amp;panel=off#top">
+            <div class="shot"></div>
+            <b>Без контура</b><span>чистый чёрный на красном</span>
+          </a>
+          <a class="card" href="index.html?corners=round&amp;dark=graphite&amp;outline=on" data-frame="index.html?corners=round&amp;dark=graphite&amp;outline=on&amp;panel=off#top">
+            <div class="shot"></div>
+            <b>С тонким белым контуром</b><span>буквы отделяются от красного фона</span>
+          </a>
+        </div>
+      </section>
+    </div>
+    <script>
+      // превью грузим, когда карточка рядом с экраном, и вписываем по ширине
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            var card = e.target;
+            io.unobserve(card);
+            var f = document.createElement("iframe");
+            f.src = card.dataset.frame;
+            f.title = "Превью";
+            f.tabIndex = -1;
+            f.setAttribute("aria-hidden", "true");
+            card.querySelector(".shot").appendChild(f);
+          });
+        },
+        { rootMargin: "300px" }
+      );
+      function fit() {
+        document.querySelectorAll(".shot").forEach(function (s) {
+          s.style.setProperty("--k", s.clientWidth / 1440);
+        });
+      }
+      document.querySelectorAll("[data-frame]").forEach(function (c) { io.observe(c); });
+      addEventListener("resize", fit);
+      fit();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,638 @@
+/* =========================================================
+   ADSPACE Group — правки заказчика от 13.10 и 15.10.
+
+   Подключается последним, поверх design.css. Всё новое — здесь,
+   чтобы правки было легко сравнить с прошлой версией и откатить.
+
+   Три переключателя вариантов (атрибуты на <html>, панель
+   «Вариант» внизу страницы, параметры в адресе ?corners=…):
+     data-corners  = round | sharp            — углы
+     data-dark     = graphite | deep | black  — тёмные блоки
+     data-outline  = off | on                 — белый контур у
+                     чёрных букв на красном фоне
+
+   Что поменялось по списку правок:
+     1. Акции — фото в двух правых верхних карточках крупнее.
+     2. Первый экран — легче: светлое окно, кнопки в строку,
+        больше воздуха, тоньше лента.
+     3. Меньше чёрного: «Точный расчёт», «География» и «Платформа»
+        стали светлыми. Тёмными остались «Конструктор» и «Контакты»,
+        их цвет — переключатель (графит / тёмный графит / чёрный).
+     4. Поверхности на фото — светлые макеты с логотипом
+        (assets/photos-light), красная заливка «Ваш бренд» убрана.
+     5. Кейсы — фото чистое, текст на светлой карточке под ним,
+        красный только акцентами.
+     6. «Для кого» — фото у каждого сегмента.
+     7. Скруглённые углы (вариант, по умолчанию).
+     8. Белый контур у чёрных заголовков на красном (вариант).
+   ========================================================= */
+
+:root {
+  --rv-ink: #22242f; /* графит с логотипа — основной тёмный текст */
+  --rv-soft: #f4f3f0; /* тёплый светлый фон блоков */
+  --rv-line: rgba(34, 36, 47, 0.16);
+  --rv-muted: #5f616b;
+  --rv-dark: #2a2c37; /* фон тёмных блоков — по умолчанию графит */
+  --rv-dark-2: #353845; /* поля и карточки внутри тёмных блоков */
+  --rv-r: 14px; /* радиус крупных блоков */
+  --rv-r-sm: 10px; /* радиус кнопок, полей, плашек */
+}
+html[data-dark="deep"] {
+  --rv-dark: #1d1f27;
+  --rv-dark-2: #2a2c36;
+}
+html[data-dark="black"] {
+  --rv-dark: #0d0d0f;
+  --rv-dark-2: #1c1c20;
+}
+html[data-corners="sharp"] {
+  --rv-r: 0px;
+  --rv-r-sm: 0px;
+}
+
+/* ── 4 · ни одной красной заливки поверх фото ───────────── */
+.dz-board,
+.hero .billboard {
+  display: none !important;
+}
+
+/* ── 2 · первый экран: легче и воздушнее ─────────────────── */
+.hero .hero-banner {
+  margin-bottom: clamp(36px, 4vw, 64px);
+}
+.hero .hero-grid {
+  gap: clamp(32px, 5vw, 88px);
+  align-items: center;
+}
+@media (min-width: 721px) {
+  .hero .hero-copy .button-row {
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+  .hero .hero-copy .button-row .button {
+    min-height: 54px;
+    padding: 0 20px;
+    white-space: nowrap;
+  }
+}
+.hero .hero-lead {
+  max-width: 34em;
+  color: var(--rv-muted);
+}
+.hero .hero-proof li {
+  border-bottom-color: var(--rv-line);
+}
+/* окно «Что здесь можно сделать» — светлое, без чёрной рамки */
+.hero .hero-stage {
+  padding: 14px 14px 16px;
+  background: var(--rv-soft);
+  color: var(--rv-ink);
+}
+.hero .stage-top {
+  color: var(--rv-muted);
+}
+.hero .stage-dots button {
+  border-top-color: var(--rv-line);
+  color: var(--rv-muted);
+}
+.hero .stage-dots button:hover,
+.hero .stage-dots button[aria-selected="true"] {
+  color: var(--rv-ink);
+}
+/* сюжеты-интерфейсы внутри окна — на цвете тёмных блоков */
+.hero .stage-screen,
+.hero .scene--outdoor,
+.hero .scene--indoor,
+.hero .scene--broadcast {
+  background: var(--rv-dark);
+}
+.hero .metric-strip div + div::before {
+  background: var(--rv-line);
+}
+.hero .metric-strip div {
+  border-bottom-color: var(--rv-line);
+}
+
+/* ── 1 · акции: крупнее фото в маленьких карточках ──────── */
+.promos .pr-card:not(.pr-card--main):not(.pr-card--wide) .pr-media {
+  height: clamp(190px, 16vw, 250px);
+}
+.promos .pr-card--main .pr-media {
+  min-height: 420px;
+}
+/* цифра-акцент на фото и широкая карточка — без чёрного */
+.pr-media .pr-figure {
+  background: var(--dz-red);
+  color: var(--dz-white);
+}
+.promos .pr-card--wide {
+  background: var(--dz-white);
+  color: var(--rv-ink);
+}
+.promos .pr-card--wide h3,
+.promos .pr-card--wide .pr-figure {
+  color: var(--rv-ink);
+}
+.promos .pr-card--wide .pr-figure {
+  color: var(--dz-red);
+}
+.promos .pr-card--wide p {
+  color: var(--rv-muted);
+}
+.promos .pr-card--wide .pr-more {
+  border-color: var(--rv-ink);
+  color: var(--rv-ink);
+}
+.promos .pr-card--wide .pr-meta span {
+  background: #eeeef0;
+  color: var(--rv-ink);
+}
+.promos .pr-flip button {
+  background: var(--rv-ink);
+}
+
+/* ── 3 · тёмные блоки — цвет из переключателя ───────────── */
+.builder,
+.contact {
+  background: var(--rv-dark);
+}
+.builder-form select,
+.builder-form input:not([type="range"]):not([type="checkbox"]),
+.contact .contact-form input:not([type="checkbox"]),
+.contact .contact-form textarea {
+  background-color: var(--rv-dark-2);
+}
+
+/* ── 3 · «Точный расчёт» и «География» — светлые ─────────── */
+html .accuracy {
+  background: var(--rv-soft);
+  color: var(--rv-ink);
+}
+html .accuracy .eyebrow,
+html .accuracy .geo-head .result-label {
+  color: var(--rv-muted);
+}
+html .accuracy h2 {
+  color: var(--rv-ink);
+}
+html .accuracy .accuracy-copy > p:not(.eyebrow) {
+  color: var(--rv-muted);
+}
+html .accuracy .accuracy-copy li,
+html .accuracy .accuracy-list li {
+  color: var(--rv-ink);
+  border-color: var(--rv-line);
+}
+html .accuracy .button--primary:hover {
+  background: var(--rv-ink);
+  color: var(--dz-white);
+}
+html .accuracy .cost-card {
+  box-shadow: 0 1px 0 var(--rv-line), 0 18px 40px -28px rgba(34, 36, 47, 0.35);
+}
+html .accuracy .cost-line:nth-child(2) i {
+  background: var(--rv-ink);
+}
+html .accuracy .cost-badge {
+  color: var(--dz-white);
+}
+html .accuracy .geo-block {
+  border-top-color: var(--rv-line);
+}
+html .dz-geo-switch {
+  border-color: var(--rv-line);
+  background: var(--dz-white);
+}
+html .dz-geo-switch button {
+  color: var(--rv-muted);
+}
+html .dz-geo-switch button:hover {
+  color: var(--rv-ink);
+}
+html .dz-geo-switch button[aria-pressed="true"] {
+  color: var(--dz-white);
+}
+html .geo-frame .dz-geo-switch {
+  background: var(--dz-white);
+}
+html .accuracy .geo-map {
+  background: #e7e5df;
+}
+html .accuracy .geo-stats div {
+  border-top-color: var(--rv-line);
+}
+html .accuracy .geo-stats b {
+  color: var(--rv-ink);
+}
+html .geo-stats-cap {
+  color: var(--rv-muted);
+}
+html .geo-frame .dz-geo-switch {
+  box-shadow: 0 6px 20px rgba(34, 36, 47, 0.12);
+}
+html .accuracy .geo-stats span {
+  color: var(--rv-muted);
+}
+/* светлая подложка карты вместо инвертированной */
+html .dz-map [class*="ground-pane"] {
+  filter: grayscale(1) brightness(1.04) contrast(0.92);
+}
+html .dz-map .leaflet-control-attribution {
+  color: rgba(34, 36, 47, 0.4) !important;
+}
+
+/* ── 5 · кейсы: фото чистое, текст на светлой карточке ──── */
+html .cases .show-panel {
+  background: var(--rv-soft);
+  color: var(--rv-ink);
+}
+html .cases .show-copy h3 {
+  color: var(--rv-ink);
+}
+html .cases .show-task {
+  color: var(--rv-ink);
+}
+html .cases .show-task b,
+html .cases .show-facts dt,
+html .cases .show-figure small {
+  color: var(--rv-muted);
+}
+html .cases .show-facts {
+  border-top-color: var(--rv-line);
+}
+html .cases .show-facts dd {
+  color: var(--rv-ink);
+}
+html .cases .show-figure {
+  background: transparent;
+}
+html .cases .show-tag {
+  color: var(--dz-white);
+}
+html .cases .show-copy .button {
+  color: var(--dz-white);
+}
+html .cases .show-copy .button:hover {
+  background: var(--rv-ink);
+  color: var(--dz-white);
+}
+html .cases .show-list button.is-active .show-badge {
+  background: var(--rv-ink);
+}
+
+html .cases .show-task,
+html .cases .show-result span {
+  border-top-color: var(--rv-line);
+  color: var(--rv-ink);
+}
+html .cases .show-result {
+  border-top-color: var(--rv-line);
+}
+html .cases .show-task b {
+  color: var(--rv-muted);
+}
+html .cases .show-facts > div {
+  border-top-color: var(--rv-line);
+}
+/* десктоп: фото сверху без затемнения, текст — на светлой части */
+@media (min-width: 1181px) {
+  html .showcase--cases .show-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  html .cases .showcase--cases {
+    height: auto;
+  }
+  html .showcase--cases .show-visual {
+    position: relative;
+    inset: auto;
+    flex: 0 0 auto;
+    aspect-ratio: 2 / 1;
+    min-height: 0;
+    background-position: 50% 35%;
+  }
+  html .showcase--cases .show-copy {
+    flex: 0 0 auto;
+    padding: 18px 22px 20px;
+    background: var(--rv-soft);
+  }
+  html .showcase--cases .show-copy h3 {
+    margin-bottom: 4px;
+    font-size: clamp(22px, 1.7vw, 28px);
+  }
+  html .showcase--cases .show-tag {
+    margin-bottom: 8px;
+  }
+  html .cases .show-copy > .show-facts {
+    margin: 12px 0 14px;
+  }
+  html .cases .show-result strong {
+    font-size: clamp(34px, 2.8vw, 46px);
+  }
+}
+
+/* ── 6 · «Для кого»: фото у каждого сегмента ─────────────── */
+.segments .seg-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin: 0 0 18px;
+  overflow: hidden;
+  background: var(--rv-soft);
+}
+.segments .seg-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 0.75, 0.2, 1);
+}
+html .segments .segment-grid li {
+  padding-top: 0;
+  border-top: 0;
+}
+html .segments .segment-grid li::before {
+  display: none;
+}
+.segments .segment-grid li:hover .seg-photo img {
+  transform: scale(1.04);
+}
+
+/* ── 3 · «Платформа» — светлая ───────────────────────────── */
+html .platform {
+  background: var(--rv-soft);
+  color: var(--rv-ink);
+}
+html .platform .eyebrow {
+  color: var(--rv-muted);
+}
+html .platform h2,
+html .platform .platform-role {
+  color: var(--rv-ink);
+}
+html .platform-split {
+  border-top-color: var(--rv-line);
+}
+html .platform-side + .platform-side {
+  border-left-color: var(--rv-line);
+  border-top-color: var(--rv-line);
+}
+html .platform-side li {
+  border-bottom-color: var(--rv-line);
+  color: var(--rv-ink);
+}
+html .platform-side:first-child .button {
+  color: var(--dz-white);
+}
+html .platform-side:first-child .button:hover,
+html .platform-side + .platform-side .button:hover {
+  background: var(--rv-ink);
+  color: var(--dz-white);
+}
+html .platform-side + .platform-side .button {
+  color: var(--rv-ink);
+  box-shadow: inset 0 0 0 2px var(--rv-ink);
+}
+html .pf-node small {
+  color: var(--rv-muted);
+}
+html .pf-node b {
+  color: var(--rv-ink);
+}
+html .pf-node--core small {
+  color: rgba(255, 255, 255, 0.8);
+}
+html .pf-node--core b {
+  color: var(--dz-white);
+}
+html .pf-arrow {
+  border-color: rgba(34, 36, 47, 0.3);
+  color: var(--rv-muted);
+}
+html .pf-arrow::after {
+  border-color: rgba(34, 36, 47, 0.5);
+}
+html .pf-arrow--fwd {
+  color: var(--rv-ink);
+  border-bottom-color: var(--dz-red);
+}
+html .pf-arrow--fwd::after {
+  border-color: var(--dz-red);
+}
+/* окна интерфейса — белые карточки */
+html .platform .platform-visual {
+  border-color: var(--rv-line);
+  background: var(--dz-white);
+}
+html .platform .pv-bar {
+  border-bottom-color: var(--rv-line);
+}
+html .platform .pv-bar b {
+  background: rgba(34, 36, 47, 0.18);
+}
+html .platform .pv-bar b:first-child {
+  background: var(--dz-red);
+}
+html .platform .pv-bar em,
+html .platform .pv-mock .pvm-head span,
+html .pvm-cart small,
+html .pvm-table .pvm-sync {
+  color: var(--rv-muted);
+}
+html .pvm-map {
+  background-color: #f1f0ec;
+  background-image: linear-gradient(rgba(34, 36, 47, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 36, 47, 0.07) 1px, transparent 1px),
+    linear-gradient(32deg, transparent 47%, rgba(34, 36, 47, 0.08) 48%, rgba(34, 36, 47, 0.08) 52%, transparent 53%);
+}
+html .pvm-cart {
+  border-left-color: var(--rv-line);
+  border-top-color: var(--rv-line);
+}
+html .pvm-cart p,
+html .pvm-table p {
+  border-bottom-color: var(--rv-line);
+  color: var(--rv-ink);
+}
+html .pvm-cart p b {
+  color: var(--rv-muted);
+}
+html .pvm-cart strong {
+  color: var(--rv-ink);
+}
+html .pvm-cart strong em,
+html .platform .pv-mock .pvm-st--busy {
+  color: var(--dz-white);
+}
+html .platform .pv-mock .pvm-st:not(.pvm-st--busy) {
+  color: var(--rv-ink);
+  border-color: rgba(34, 36, 47, 0.4);
+}
+html .pvm-st--hold {
+  background: #eeeef0;
+}
+
+/* ── «Материалы»: чёрный текст на красном, кнопка графитом ── */
+.presentation .pres-button {
+  background: var(--rv-ink);
+}
+
+/* ── 7 · скруглённые углы (вариант) ──────────────────────── */
+html:not([data-corners="sharp"]) :is(
+    .hero .hero-stage,
+    .promos .pr-card,
+    .builder-result,
+    .solutions .solution-visual,
+    .solutions .sol-visual,
+    .accuracy .cost-card,
+    .accuracy .geo-map,
+    .cases .show-panel,
+    .segments .seg-photo,
+    .platform .platform-visual,
+    .presentation .presentation-card,
+    .promo-modal-dialog,
+    .promo-modal-photo,
+    .map-drawer
+  ) {
+  border-radius: var(--rv-r);
+  overflow: hidden;
+}
+html:not([data-corners="sharp"]) :is(
+    .hero .stage-screen,
+    .geo-frame
+  ) {
+  border-radius: calc(var(--rv-r) - 4px);
+  overflow: hidden;
+}
+html:not([data-corners="sharp"]) :is(
+    .button,
+    .pr-more,
+    .pr-flip button,
+    .pr-tag,
+    .pr-meta span,
+    .seg-formats i,
+    .chip,
+    .builder-form select,
+    .builder-form input:not([type="range"]):not([type="checkbox"]),
+    .builder-form .builder-submit,
+    .contact-form input:not([type="checkbox"]),
+    .contact-form textarea,
+    .contact-form .button,
+    .dz-geo-switch,
+    .cases .show-tag,
+    .cases .show-badge,
+    .cases .show-more,
+    .pf-node--core,
+    .pres-button,
+    .cost-badge,
+    .pvm-st,
+    .theme-toggle,
+    .dz-seg,
+    .dz-step,
+    .dz-calc-total,
+    .hero .metric-strip div:nth-child(3),
+    .geo-hint
+  ) {
+  border-radius: var(--rv-r-sm);
+}
+html:not([data-corners="sharp"]) .dz-geo-switch {
+  overflow: hidden;
+}
+html:not([data-corners="sharp"]) .pr-media .pr-figure {
+  border-top-right-radius: var(--rv-r-sm);
+}
+
+/* ── 8 · белый контур у чёрных букв на красном (вариант) ──
+   только крупный набор: на мелких подписях контур «грязнит» */
+html[data-outline="on"] :is(
+    .dz-ticker-slogan,
+    .promos .section-heading h2,
+    .presentation h2,
+    .hero .metric-strip div:nth-child(3) strong
+  ) {
+  -webkit-text-stroke: 0.06em var(--dz-white);
+  paint-order: stroke fill;
+}
+
+/* ── панель «Вариант» ────────────────────────────────────── */
+.rv-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  display: grid;
+  gap: 8px;
+  padding: 12px 12px 10px;
+  border-radius: 12px;
+  background: var(--rv-ink);
+  color: #fff;
+  font: 600 12px/1.2 var(--dz-body);
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.45);
+}
+.rv-panel[hidden] {
+  display: none;
+}
+.rv-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.rv-panel-head a {
+  color: inherit;
+}
+.rv-row {
+  display: grid;
+  grid-template-columns: 92px auto;
+  align-items: center;
+  gap: 8px;
+}
+.rv-row > span {
+  color: rgba(255, 255, 255, 0.7);
+}
+.rv-seg {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.rv-seg button {
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: rgba(255, 255, 255, 0.8);
+  font: inherit;
+  cursor: pointer;
+}
+.rv-seg button[aria-pressed="true"] {
+  background: var(--dz-red);
+  color: #fff;
+}
+.rv-close {
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+@media (max-width: 720px) {
+  .rv-panel {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+  }
+  .rv-row {
+    grid-template-columns: 80px auto;
+  }
+}
+
+/* превью на странице вариантов: без служебных панелей и плашек */
+.rv-clean :is(.dz-fontpick, .dz-cookie, .nudge) {
+  display: none !important;
+}
