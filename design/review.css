@@ -636,3 +636,13 @@ html[data-outline="on"] :is(
 .rv-clean :is(.dz-fontpick, .dz-cookie, .nudge) {
   display: none !important;
 }
+
+/* преимущества под кнопками — каждое в одну строку */
+@media (min-width: 721px) {
+  .hero .hero-proof {
+    grid-template-columns: repeat(3, minmax(max-content, 1fr));
+  }
+  .hero .hero-proof li {
+    white-space: nowrap;
+  }
+}
