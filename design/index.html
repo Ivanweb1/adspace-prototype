@@ -26,7 +26,7 @@
     />
     <link rel="stylesheet" href="design.css?v=69" />
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
-    <link rel="stylesheet" href="review.css?v=4" />
+    <link rel="stylesheet" href="review.css?v=5" />
   </head>
   <body>
     <a class="skip-link" href="#main">К содержанию</a>
@@ -2090,47 +2090,23 @@
         panel.querySelector("[data-fontpick-close]").addEventListener("click", function () { panel.hidden = true; });
       })();
     </script>
-    <!-- Панель вариантов для показа заказчику. Состояние — в адресе
-         (?corners=round&dark=graphite&outline=off), можно слать ссылкой. -->
-    <div class="rv-panel" role="group" aria-label="Вариант оформления" data-rv-panel>
-      <div class="rv-panel-head"><span>Вариант</span><a href="variants.html">все варианты</a><button type="button" class="rv-close" aria-label="Скрыть панель" data-rv-close>✕</button></div>
-      <div class="rv-row"><span>Углы</span><div class="rv-seg" data-rv="corners"><button type="button" data-v="round">Скруглённые</button><button type="button" data-v="sharp">Острые</button></div></div>
-      <div class="rv-row"><span>Тёмный фон</span><div class="rv-seg" data-rv="dark"><button type="button" data-v="graphite">Графит</button><button type="button" data-v="deep">Тёмный графит</button><button type="button" data-v="black">Чёрный</button></div></div>
-      <div class="rv-row"><span>Буквы на красном</span><div class="rv-seg" data-rv="outline"><button type="button" data-v="off">Без контура</button><button type="button" data-v="on">С белым контуром</button></div></div>
-    </div>
+    <!-- Вариант оформления задаётся ссылкой:
+         ?corners=round|sharp&dark=graphite|deep|black&outline=off|on -->
     <script>
       (function () {
         var root = document.documentElement;
-        var panel = document.querySelector("[data-rv-panel]");
-        var keys = ["corners", "dark", "outline"];
         var params = new URLSearchParams(location.search);
-        keys.forEach(function (k) {
+        var allowed = {
+          corners: ["round", "sharp"],
+          dark: ["graphite", "deep", "black"],
+          outline: ["off", "on"]
+        };
+        Object.keys(allowed).forEach(function (k) {
           var v = params.get(k);
-          if (!v) { try { v = sessionStorage.getItem("rv-" + k); } catch (e) {} }
-          if (v && panel.querySelector('[data-rv="' + k + '"] [data-v="' + v + '"]')) root.setAttribute("data-" + k, v);
+          if (v && allowed[k].indexOf(v) > -1) root.setAttribute("data-" + k, v);
         });
-        function sync() {
-          keys.forEach(function (k) {
-            panel.querySelectorAll('[data-rv="' + k + '"] button').forEach(function (b) {
-              b.setAttribute("aria-pressed", String(b.dataset.v === root.getAttribute("data-" + k)));
-            });
-          });
-        }
-        panel.addEventListener("click", function (e) {
-          var b = e.target.closest("[data-v]");
-          if (!b) return;
-          var k = b.parentNode.dataset.rv;
-          root.setAttribute("data-" + k, b.dataset.v);
-          try { sessionStorage.setItem("rv-" + k, b.dataset.v); } catch (err) {}
-          var q = new URLSearchParams(location.search);
-          q.set(k, b.dataset.v);
-          history.replaceState(null, "", "?" + q.toString() + location.hash);
-          sync();
-        });
-        panel.querySelector("[data-rv-close]").addEventListener("click", function () { panel.hidden = true; });
         // для превью на странице вариантов — без служебных панелей и плашек
-        if (params.get("panel") === "off") { panel.hidden = true; root.classList.add("rv-clean"); }
-        sync();
+        if (params.get("panel") === "off") root.classList.add("rv-clean");
       })();
     </script>
   </body>

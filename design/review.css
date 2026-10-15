@@ -4,8 +4,8 @@
    Подключается последним, поверх design.css. Всё новое — здесь,
    чтобы правки было легко сравнить с прошлой версией и откатить.
 
-   Три переключателя вариантов (атрибуты на <html>, панель
-   «Вариант» внизу страницы, параметры в адресе ?corners=…):
+   Три переключателя вариантов (атрибуты на <html>, задаются
+   параметрами в адресе ?corners=…):
      data-corners  = round | sharp            — углы
      data-dark     = graphite | deep | black  — тёмные блоки
      data-outline  = off | on                 — белый контур у
@@ -553,83 +553,6 @@ html[data-outline="on"] :is(
   ) {
   -webkit-text-stroke: 0.06em var(--dz-white);
   paint-order: stroke fill;
-}
-
-/* ── панель «Вариант» ────────────────────────────────────── */
-.rv-panel {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  z-index: 1000;
-  display: grid;
-  gap: 8px;
-  padding: 12px 12px 10px;
-  border-radius: 12px;
-  background: var(--rv-ink);
-  color: #fff;
-  font: 600 12px/1.2 var(--dz-body);
-  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.45);
-}
-.rv-panel[hidden] {
-  display: none;
-}
-.rv-panel-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-}
-.rv-panel-head a {
-  color: inherit;
-}
-.rv-row {
-  display: grid;
-  grid-template-columns: 92px auto;
-  align-items: center;
-  gap: 8px;
-}
-.rv-row > span {
-  color: rgba(255, 255, 255, 0.7);
-}
-.rv-seg {
-  display: inline-flex;
-  padding: 2px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-}
-.rv-seg button {
-  padding: 6px 10px;
-  border: 0;
-  border-radius: 6px;
-  background: none;
-  color: rgba(255, 255, 255, 0.8);
-  font: inherit;
-  cursor: pointer;
-}
-.rv-seg button[aria-pressed="true"] {
-  background: var(--dz-red);
-  color: #fff;
-}
-.rv-close {
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-@media (max-width: 720px) {
-  .rv-panel {
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-  }
-  .rv-row {
-    grid-template-columns: 80px auto;
-  }
 }
 
 /* превью на странице вариантов: без служебных панелей и плашек */
