@@ -552,6 +552,7 @@ html[data-outline="on"] :is(
     .dz-ticker-slogan,
     .promos .section-heading h2,
     .presentation h2,
+    .dz-calc-total b,
     .hero .metric-strip div:nth-child(3) strong
   ) {
   -webkit-text-stroke: 0.06em var(--dz-white);
