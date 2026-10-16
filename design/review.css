@@ -557,6 +557,10 @@ html[data-outline="on"] :is(
   -webkit-text-stroke: 0.06em var(--dz-white);
   paint-order: stroke fill;
 }
+/* белый текст внутри заголовка — без контура, иначе буквы «плывут» */
+html[data-outline="on"] .presentation h2 span {
+  -webkit-text-stroke: 0;
+}
 
 /* превью на странице вариантов: без служебных панелей и плашек */
 .rv-clean :is(.dz-fontpick, .dz-cookie, .nudge) {
