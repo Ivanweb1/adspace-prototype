@@ -37,7 +37,7 @@ for f,(cpath,p) in meta.items():
     warped=cv2.warpPerspective(cr,M,(w,h),flags=cv2.INTER_AREA,borderMode=cv2.BORDER_REPLICATE)
     S=4; mbig=np.zeros((h*S,w*S),np.uint8); cv2.fillPoly(mbig,[(p*S).astype(np.int32)],255,lineType=cv2.LINE_AA)
     mask=cv2.resize(mbig,(w,h),interpolation=cv2.INTER_AREA).astype(np.float32)/255
-    if f in ('promo-transit.jpg',):
+    if False:
         # постер не прямоугольный (арка колеса) — режем по форме исходного постера
         u8=(im*255).astype(np.uint8); hsv=cv2.cvtColor(u8,cv2.COLOR_BGR2HSV); lab=cv2.cvtColor(u8,cv2.COLOR_BGR2LAB).astype(np.float32)
         qm=np.zeros((h,w),np.uint8); cv2.fillPoly(qm,[p.astype(np.int32)],1)
