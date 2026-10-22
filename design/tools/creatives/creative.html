@@ -120,6 +120,9 @@
     .t5 .h { top:9cqh; } .t5 .sub { top:56cqh; }
     .t5 .btn { top:auto; bottom:9cqh; right:6cqw; transform:rotate(-5deg); }
   }
+  /* подписи — строки поровну, без одинокого слова в конце */
+  .sub, .t2 .lab, .t4 .h small, .t3 .tag { text-wrap: balance; }
+  .nb { white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -131,20 +134,20 @@
   const pin = (cls, col) => `<svg class="pin ${cls}" viewBox="0 0 60 80"><defs><radialGradient id="g${col}" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="${col==='r'?'#ff6f88':'#5a5d6b'}"/><stop offset=".55" stop-color="${col==='r'?'#eb2246':'#22242f'}"/><stop offset="1" stop-color="${col==='r'?'#8d0f27':'#0d0e13'}"/></radialGradient></defs><path d="M30 78C30 78 4 46 4 28A26 26 0 0 1 56 28C56 46 30 78 30 78Z" fill="url(#g${col})"/><circle cx="30" cy="28" r="10" fill="#fff"/></svg>`;
   const T = {
     1: `<span class="k d">Просто</span><span class="big d x3d">выбрать.</span>
-        <p class="sub">Вся реклама в одном окне — <b>легко заказать.</b></p>
+        <p class="sub">Вся реклама в одном окне — <b class="nb">легко заказать.</b></p>
         <span class="ring"></span>
         <svg class="cur" viewBox="0 0 60 90"><defs><linearGradient id="cg" x1="0" x2="1"><stop offset="0" stop-color="#3a3d4b"/><stop offset="1" stop-color="#15161c"/></linearGradient></defs>
         <path d="M4 4 L4 70 L20 56 L31 84 L43 79 L32 52 L54 52 Z" fill="url(#cg)" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>`,
-    2: `<span class="num d x3d-ink">12&nbsp;400</span><span class="lab d">рекламных поверхностей <span>в одном окне</span></span>
+    2: `<span class="num d x3d-ink">12&nbsp;400</span><span class="lab d">рекламных поверхностей <span class="nb">в одном окне</span></span>
         <div class="tiles">${"i,i,r,i,p,i,g,i,i,r,p,i,i,r,i,i,g,i,p,i".split(",").map(k=>`<i class="${k}"></i>`).join("")}</div>`,
-    3: `<p class="h d">Медиаплан<b>за минуту</b></p><p class="sub">Наружка, эфир, транзит и indoor — в одном расчёте</p>
+    3: `<p class="h d">Медиаплан<b>за минуту</b></p><p class="sub">Наружка, эфир, транзит и&nbsp;indoor —<br><span class="nb">в одном расчёте</span></p>
         <div class="donut"></div><span class="tag">Бюджет <em>под задачу</em></span>`,
     4: `<div class="grid"></div>
         <svg class="route" viewBox="0 0 100 60" preserveAspectRatio="none"><path d="M4 50 C 25 10, 45 55, 62 22 S 88 8, 96 14" fill="none" stroke="#eb2246" stroke-width=".7" stroke-dasharray="2 1.6"/></svg>
         <p class="h d x3d">70+<small>городов присутствия</small></p>
         ${pin("pa","g")}${pin("pb","r")}${pin("pc","g")}`,
     5: `<p class="h d">Просто выбрать.<br><b>Легко заказать.</b></p><span class="btn d">Заказать</span>
-        <p class="sub">От одной поверхности до кампании по всей России</p>`,
+        <p class="sub">От одной поверхности до&nbsp;кампании <span class="nb">по всей России</span></p>`,
   };
   c.className = "c t" + t;
   c.innerHTML = T[t] + logo;
