@@ -37,19 +37,22 @@ for f,(cpath,p) in meta.items():
     warped=cv2.warpPerspective(cr,M,(w,h),flags=cv2.INTER_AREA,borderMode=cv2.BORDER_REPLICATE)
     S=4; mbig=np.zeros((h*S,w*S),np.uint8); cv2.fillPoly(mbig,[(p*S).astype(np.int32)],255,lineType=cv2.LINE_AA)
     mask=cv2.resize(mbig,(w,h),interpolation=cv2.INTER_AREA).astype(np.float32)/255
-    if False:
+    if f in ('promo-transit.jpg',):
         # постер не прямоугольный (арка колеса) — режем по форме исходного постера
         u8=(im*255).astype(np.uint8); hsv=cv2.cvtColor(u8,cv2.COLOR_BGR2HSV); lab=cv2.cvtColor(u8,cv2.COLOR_BGR2LAB).astype(np.float32)
         qm=np.zeros((h,w),np.uint8); cv2.fillPoly(qm,[p.astype(np.int32)],1)
         Lr=np.percentile(lab[...,0][qm>0],70)
-        wh=(lab[...,0]>0.8*Lr)&(np.hypot(lab[...,1]-128,lab[...,2]-128)<18)
+        wh=(lab[...,0]>0.9*Lr)&(np.hypot(lab[...,1]-128,lab[...,2]-128)<14)
         rd=(((hsv[...,0]<12)|(hsv[...,0]>165))&(hsv[...,1]>70)&(hsv[...,2]>60))
-        sm=((wh|rd)&(cv2.dilate(qm,np.ones((9,9),np.uint8))>0)).astype(np.uint8)*255
-        sm=cv2.morphologyEx(sm,cv2.MORPH_CLOSE,np.ones((15,15),np.uint8))
+        sm=((wh|rd)&(qm>0)).astype(np.uint8)*255
+        sm=cv2.morphologyEx(sm,cv2.MORPH_CLOSE,np.ones((5,5),np.uint8))
         cs,_=cv2.findContours(sm,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
         big=max(cs,key=cv2.contourArea); sm=np.zeros((h,w),np.uint8); cv2.drawContours(sm,[big],-1,255,-1)
-        sm=cv2.GaussianBlur(sm.astype(np.float32)/255,(0,0),1.0)
-        mask=np.minimum(mask,np.clip(sm*1.15,0,1))
+        # оставляем прямые края квада, режем только там, где постера явно нет (арка)
+        cut=((qm>0)&(sm==0)).astype(np.uint8)
+        cut=cv2.morphologyEx(cut,cv2.MORPH_OPEN,np.ones((9,9),np.uint8))
+        cv2.imwrite('shots/cut.png',cut*255)
+        mask=mask*(1-cv2.GaussianBlur(cut.astype(np.float32),(0,0),0.8))
     L=cv2.cvtColor((im*255).astype(np.uint8),cv2.COLOR_BGR2GRAY).astype(np.float32)/255
     ph=max(8,int(min(np.linalg.norm(p[3]-p[0]),np.linalg.norm(p[1]-p[0]))/6))
     Lc=cv2.GaussianBlur(cv2.dilate(L,np.ones((ph,ph),np.uint8)),(0,0),ph/2)
