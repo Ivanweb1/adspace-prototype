@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="news" data-corners="round" data-dark="graphite" data-outline="off">
+<html lang="ru" data-font="news" data-corners="round" data-dark="graphite" data-outline="off" data-mid="graphite">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,9 +26,31 @@
     />
     <link rel="stylesheet" href="design.css?v=69" />
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
-    <link rel="stylesheet" href="review.css?v=9" />
+    <link rel="stylesheet" href="review.css?v=10" />
+    <!-- Правки заказчика 16.10–21.10. -->
+    <link rel="stylesheet" href="review2.css?v=1" />
+    <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
+         ?intro=on — показать снова, ?intro=off — без заставки. -->
+    <script>
+      (function () {
+        var q = new URLSearchParams(location.search), seen = false;
+        try { seen = sessionStorage.getItem("adsp-intro") === "1"; } catch (e) {}
+        var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var force = q.get("intro") === "on";
+        if (q.get("panel") === "off" || q.get("intro") === "off" || calm || (seen && !force)) return;
+        document.documentElement.classList.add("is-intro");
+      })();
+    </script>
   </head>
   <body>
+    <div class="intro" aria-hidden="true" data-intro>
+      <div class="intro-curtain"></div>
+      <div class="intro-inner">
+        <img class="intro-logo" src="assets/logo-adspace-group.svg" alt="" width="1105" height="118" />
+        <span class="intro-line"></span>
+        <p class="intro-slogan"><span>Просто выбрать.</span> <b>Легко заказать.</b></p>
+      </div>
+    </div>
     <a class="skip-link" href="#main">К содержанию</a>
 
     <!-- ───────────────────────── ШАПКА ───────────────────────── -->
@@ -793,64 +815,45 @@
               <div class="pv pv--outdoor">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.15">
                   <img src="assets/photos-light/outdoor.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
-                  <span class="dz-board dz-board--outdoor"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · outdoor.jpg</span>
               </div>
-              <div class="pv pv--digital">
-                <div class="dz-frame" style="--px: 0.85; --py: 0.4">
-                  <img src="assets/photos-light/dooh.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
-                  <span class="dz-board dz-board--dooh"><b>Ваш бренд</b></span>
-                </div>
-                <span class="dz-pv-ph">фото · dooh.jpg</span>
-              </div>
-              <div class="pv pv--radio">
-                <div class="dz-frame" style="--px: 0.5; --py: 0.5">
-                  <img src="assets/photos-light/broadcast.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
-                </div>
-                <span class="dz-pv-ph">фото · broadcast.jpg</span>
-              </div>
-              <div class="pv pv--tv">
+              <div class="pv pv--broadcast">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
                   <img src="assets/photos-light/tv.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
-                  <span class="dz-board dz-board--tv"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · tv.jpg</span>
               </div>
               <div class="pv pv--transit">
                 <div class="dz-frame" style="--px: 0.6; --py: 0.5">
                   <img src="assets/photos-light/promo-transit.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
-                  <span class="dz-board dz-board--transit"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · promo-transit.jpg</span>
               </div>
               <div class="pv pv--indoor">
-                <div class="dz-frame" style="--px: 0.52; --py: 0.4">
-                  <img src="assets/photos-light/promo-hotels.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
-                  <span class="dz-board dz-board--hotel"><b>Ваш<br />бренд</b></span>
-                </div>
-                <span class="dz-pv-ph">фото · promo-hotels.jpg</span>
-              </div>
-              <div class="pv pv--lift">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.3">
                   <img src="assets/photos-light/indoor.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
-                  <span class="dz-board dz-board--indoor"><b>Ваш<br />бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · indoor.jpg</span>
+              </div>
+              <div class="pv pv--special">
+                <div class="dz-frame" style="--px: 0.5; --py: 0.5">
+                  <img src="assets/photos-light/promo-stadium.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
+                </div>
+                <span class="dz-pv-ph">фото · promo-stadium.jpg</span>
               </div>
               <div class="pv pv--production">
                 <div class="dz-frame" style="--px: 0.5; --py: 0.5">
                   <img src="assets/photos-light/production.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('is-empty')" />
-                  <span class="dz-board dz-board--production"><b>Ваш бренд</b></span>
                 </div>
                 <span class="dz-pv-ph">фото · production.jpg</span>
               </div>
             </div>
             <div class="preview-meta">
-              <span class="preview-index" data-preview-index>01 / 08</span>
-              <strong data-preview-title>Outdoor</strong>
+              <span class="preview-index" data-preview-index>01 / 06</span>
+              <strong data-preview-title>Наружная реклама</strong>
               <p data-preview-desc>
-                Щиты, суперсайты и городские конструкции — максимальный охват и вес бренда.
+                Щиты, суперсайты и цифровые экраны в городе — максимальный охват и вес бренда.
               </p>
               <a
                 class="text-link"
@@ -867,71 +870,44 @@
                 class="is-active"
                 type="button"
                 data-solution="outdoor"
-                data-title="Outdoor"
-                data-desc="Щиты, суперсайты и городские конструкции — максимальный охват и вес бренда."
+                data-title="Наружная реклама"
+                data-desc="Щиты, суперсайты и цифровые экраны в городе — максимальный охват и вес бренда."
                 aria-expanded="true"
               >
-                <span class="sol-num">01</span><strong>Outdoor</strong>
+                <span class="sol-num">01</span><strong>Наружная реклама</strong>
+                <em class="sol-tag">OOH · DOOH</em>
                 <i aria-hidden="true">↗</i>
               </button>
               <p class="sol-mobile-desc">
-                Щиты, суперсайты и городские конструкции — максимальный охват и вес бренда.
+                Щиты, суперсайты и цифровые экраны в городе — максимальный охват и вес бренда.
               </p>
             </li>
             <li>
               <button
                 type="button"
-                data-solution="digital"
-                data-title="Digital / DOOH"
-                data-desc="Цифровые экраны с гибким расписанием: меняем сообщение по дням и часам."
+                data-solution="broadcast"
+                data-title="Эфирная реклама"
+                data-desc="Радио и телевидение: голос и картинка бренда в эфире региональных и федеральных каналов."
                 aria-expanded="false"
               >
-                <span class="sol-num">02</span><strong>Digital / DOOH</strong>
+                <span class="sol-num">02</span><strong>Эфирная реклама</strong>
+                <em class="sol-tag">Radio · TV</em>
                 <i aria-hidden="true">↗</i>
               </button>
               <p class="sol-mobile-desc">
-                Цифровые экраны с гибким расписанием: меняем сообщение по дням и часам.
-              </p>
-            </li>
-            <li>
-              <button
-                type="button"
-                data-solution="radio"
-                data-title="Radio"
-                data-desc="Голос бренда в машине и на работе. Частотный контакт на весь город."
-                aria-expanded="false"
-              >
-                <span class="sol-num">03</span><strong>Radio</strong>
-                <i aria-hidden="true">↗</i>
-              </button>
-              <p class="sol-mobile-desc">
-                Голос бренда в машине и на работе. Частотный контакт на весь город.
-              </p>
-            </li>
-            <li>
-              <button
-                type="button"
-                data-solution="tv"
-                data-title="TV"
-                data-desc="Федеральные и региональные каналы: доверие, охват и статус бренда."
-                aria-expanded="false"
-              >
-                <span class="sol-num">04</span><strong>TV</strong>
-                <i aria-hidden="true">↗</i>
-              </button>
-              <p class="sol-mobile-desc">
-                Федеральные и региональные каналы: доверие, охват и статус бренда.
+                Радио и телевидение: голос и картинка бренда в эфире региональных и федеральных каналов.
               </p>
             </li>
             <li>
               <button
                 type="button"
                 data-solution="transit"
-                data-title="Transit"
+                data-title="Транзитная реклама"
                 data-desc="Транспорт и метро — реклама, которая едет по маршрутам вашей аудитории."
                 aria-expanded="false"
               >
-                <span class="sol-num">05</span><strong>Transit</strong>
+                <span class="sol-num">03</span><strong>Транзитная реклама</strong>
+                <em class="sol-tag">Transit</em>
                 <i aria-hidden="true">↗</i>
               </button>
               <p class="sol-mobile-desc">
@@ -942,45 +918,48 @@
               <button
                 type="button"
                 data-solution="indoor"
-                data-title="Indoor"
-                data-desc="ТЦ, бизнес-центры, фитнес и кинотеатры — контакт в нужном контексте."
+                data-title="Реклама в помещениях"
+                data-desc="Лифты, ТЦ, бизнес-центры и кинотеатры — контакт в нужном контексте."
                 aria-expanded="false"
               >
-                <span class="sol-num">06</span><strong>Indoor</strong>
+                <span class="sol-num">04</span><strong>Реклама в помещениях</strong>
+                <em class="sol-tag">Indoor</em>
                 <i aria-hidden="true">↗</i>
               </button>
               <p class="sol-mobile-desc">
-                ТЦ, бизнес-центры, фитнес и кинотеатры — контакт в нужном контексте.
+                Лифты, ТЦ, бизнес-центры и кинотеатры — контакт в нужном контексте.
               </p>
             </li>
             <li>
               <button
                 type="button"
-                data-solution="lift"
-                data-title="Реклама в лифтах"
-                data-desc="Дом за домом: точная работа с районом и ежедневный повторный контакт."
+                data-solution="special"
+                data-title="Спецпроекты"
+                data-desc="Премиальные площадки и спорт: отели 5 звёзд, стадионы, события с высокой вовлечённостью."
                 aria-expanded="false"
               >
-                <span class="sol-num">07</span><strong>Реклама в лифтах</strong>
+                <span class="sol-num">05</span><strong>Спецпроекты</strong>
+                <em class="sol-tag">VIP · Sport</em>
                 <i aria-hidden="true">↗</i>
               </button>
               <p class="sol-mobile-desc">
-                Дом за домом: точная работа с районом и ежедневный повторный контакт.
+                Премиальные площадки и спорт: отели 5 звёзд, стадионы, события с высокой вовлечённостью.
               </p>
             </li>
             <li>
               <button
                 type="button"
                 data-solution="production"
-                data-title="Production"
-                data-desc="Аудио- и видеопродакшен, дизайн макетов, печать и монтаж — под ключ."
+                data-title="Производство рекламы"
+                data-desc="Печать, аудио- и видеоролики, дизайн макетов с помощью AI — под ключ."
                 aria-expanded="false"
               >
-                <span class="sol-num">08</span><strong>Production</strong>
+                <span class="sol-num">06</span><strong>Производство рекламы</strong>
+                <em class="sol-tag">Print · Audio · Video · AI</em>
                 <i aria-hidden="true">↗</i>
               </button>
               <p class="sol-mobile-desc">
-                Аудио- и видеопродакшен, дизайн макетов, печать и монтаж — под ключ.
+                Печать, аудио- и видеоролики, дизайн макетов с помощью AI — под ключ.
               </p>
             </li>
           </ul>
@@ -1243,7 +1222,10 @@
             <h2 id="segments-title">Под какие задачи<br /><span>собираем рекламу</span></h2>
           </div>
           <div class="heading-aside">
-            <p>У каждого сегмента свой сценарий: свои форматы, своя география и своя логика расчёта.</p>
+            <div class="seg-aside">
+              <p>У каждого сегмента свой сценарий: свои форматы, своя география и своя логика расчёта.</p>
+              <a class="seg-cta" href="#builder">Подобрать под мой бизнес <span aria-hidden="true">→</span></a>
+            </div>
           </div>
         </div>
 
@@ -2091,7 +2073,7 @@
       })();
     </script>
     <!-- Вариант оформления задаётся ссылкой:
-         ?corners=round|sharp&dark=graphite|deep|black&outline=off|on -->
+         ?corners=round|sharp&dark=graphite|deep|black&outline=off|on&mid=graphite|light|paper -->
     <script>
       (function () {
         var root = document.documentElement;
@@ -2099,7 +2081,8 @@
         var allowed = {
           corners: ["round", "sharp"],
           dark: ["graphite", "deep", "black"],
-          outline: ["off", "on"]
+          outline: ["off", "on"],
+          mid: ["graphite", "light", "paper"]
         };
         Object.keys(allowed).forEach(function (k) {
           var v = params.get(k);
@@ -2107,6 +2090,33 @@
         });
         // для превью на странице вариантов — без служебных панелей и плашек
         if (params.get("panel") === "off") root.classList.add("rv-clean");
+      })();
+    </script>
+    <!-- Прелоадер: убираем после заставки (или сразу, если она не нужна) -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var intro = document.querySelector("[data-intro]");
+        if (!intro) return;
+        if (!root.classList.contains("is-intro")) { intro.remove(); return; }
+        try { sessionStorage.setItem("adsp-intro", "1"); } catch (e) {}
+        var done = false;
+        function finish() {
+          if (done) return; done = true;
+          root.classList.add("is-intro-out");
+          setTimeout(function () {
+            root.classList.remove("is-intro", "is-intro-out");
+            intro.remove();
+          }, 900);
+        }
+        // заставка ~1,8 с; если страница грузится дольше — ждём, но не больше 4 с
+        var minTime = new Promise(function (r) { setTimeout(r, 1800); });
+        var loaded = new Promise(function (r) {
+          if (document.readyState === "complete") r(); else window.addEventListener("load", r);
+        });
+        Promise.all([minTime, loaded]).then(finish);
+        setTimeout(finish, 4000);
+        intro.addEventListener("click", finish);
       })();
     </script>
   </body>

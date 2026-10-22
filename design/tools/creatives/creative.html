@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter+Tight:wght@500;600;700&display=swap" />
+<style>
+  :root { --red:#eb2246; --red-d:#a3122d; --ink:#22242f; --paper:#f6f4ef; --pink:#ffd3dc; }
+  * { box-sizing:border-box; margin:0; }
+  html, body { width:100vw; height:100vh; overflow:hidden; }
+  body { font-family:"Inter Tight",sans-serif; color:var(--ink); background:var(--paper); }
+  .c { position:relative; width:100%; height:100%; overflow:hidden; container-type:size; }
+  .logo { position:absolute; height:7cqh; left:5cqw; bottom:7cqh; }
+  .d { font-family:"Oswald",sans-serif; font-weight:700; text-transform:uppercase; line-height:.9; letter-spacing:-.01em; }
+  /* объёмные буквы: слои тени = выдавливание */
+  .x3d { color:var(--red); text-shadow:
+      1px 1px 0 var(--red-d),2px 2px 0 var(--red-d),3px 3px 0 var(--red-d),4px 4px 0 var(--red-d),
+      5px 5px 0 var(--red-d),6px 6px 0 var(--red-d),7px 7px 0 #8d0f27,8px 8px 0 #8d0f27,
+      9px 9px 0 #7c0c21, 10px 10px 0 #7c0c21, 22px 26px 30px rgba(34,36,47,.28); }
+  .x3d-ink { color:var(--ink); text-shadow:
+      1px 1px 0 #0d0e13,2px 2px 0 #0d0e13,3px 3px 0 #0d0e13,4px 4px 0 #0d0e13,5px 5px 0 #0d0e13,6px 6px 0 #0d0e13,
+      16px 20px 24px rgba(34,36,47,.25); }
+
+  /* ── 1 · «Просто выбрать» + курсор ───────── */
+  .t1 { background: radial-gradient(120% 90% at 85% 10%, #fff 0%, var(--paper) 55%, #ebe7df 100%); }
+  .t1 .k { position:absolute; left:5cqw; top:9cqh; font-size:9cqh; color:var(--ink); }
+  .t1 .big { position:absolute; left:4.4cqw; top:21cqh; font-size:36cqh; }
+  .t1 .sub { position:absolute; left:5cqw; top:68cqh; font-size:5.2cqh; font-weight:600; }
+  .t1 .sub b { color:var(--red); }
+  .t1 svg.cur { position:absolute; right:6cqw; top:22cqh; height:56cqh; filter: drop-shadow(14px 22px 18px rgba(34,36,47,.35)); }
+  .t1 .ring { position:absolute; right:calc(6cqw + 3cqh); top:15cqh; width:26cqh; height:26cqh; border-radius:50%;
+     border:1.4cqh solid var(--pink); box-shadow: 0 0 0 3.2cqh rgba(255,211,220,.45); }
+  @container (aspect-ratio < 1) {
+    .t1 .k { font-size:5.4cqw; top:7cqh; } .t1 .big { font-size:18.5cqw; top:13cqh; line-height:.86; }
+    .t1 .sub { top:auto; bottom:17cqh; font-size:4.4cqw; }
+    .t1 svg.cur { right:8cqw; top:auto; bottom:26cqh; height:34cqh; }
+    .t1 .ring { right:16cqw; top:auto; bottom:47cqh; width:24cqw; height:24cqw; }
+    .logo { height:auto; width:46cqw; bottom:6cqh; }
+  }
+
+  /* ── 2 · «12 400 поверхностей» + плитки ──── */
+  .t2 { background:#fff; }
+  .t2 .num { position:absolute; left:5cqw; top:10cqh; font-size:40cqh; }
+  .t2 .lab { position:absolute; left:5.4cqw; top:52cqh; font-size:min(7cqh, 2.9cqw); max-width:62cqw; }
+  .t2 .num { font-size:min(40cqh, 17cqw) !important; }
+  .t2 .lab span { color:var(--red); }
+  .t2 .tiles { position:absolute; right:4cqw; top:14cqh; display:grid; grid-template-columns:repeat(5, 9.5cqh); gap:2cqh;
+     transform: perspective(90cqh) rotateX(22deg) rotateZ(-14deg) rotateY(-12deg); }
+  .t2 .tiles i { display:block; width:9.5cqh; height:9.5cqh; border-radius:1.6cqh; background:#e9e7e2;
+     box-shadow: 0 1.4cqh 0 #cfccc4, 0 3cqh 3cqh rgba(34,36,47,.18); }
+  .t2 .tiles i.r { background:var(--red); box-shadow:0 1.4cqh 0 var(--red-d), 0 3cqh 3cqh rgba(235,34,70,.35); }
+  .t2 .tiles i.p { background:var(--pink); box-shadow:0 1.4cqh 0 #f0aebc, 0 3cqh 3cqh rgba(34,36,47,.15); }
+  .t2 .tiles i.g { background:var(--ink); box-shadow:0 1.4cqh 0 #0d0e13, 0 3cqh 3cqh rgba(34,36,47,.3); }
+  @container (aspect-ratio < 1) {
+    .t2 .num { font-size:21cqw; top:8cqh; } .t2 .lab { top:22cqh; font-size:5.6cqw; }
+    .t2 .tiles { right:auto; left:12cqw; top:40cqh; grid-template-columns:repeat(4, 15cqw); gap:3cqw; }
+    .t2 .tiles i { width:15cqw; height:15cqw; } .t2 .tiles i:nth-child(n+17) { display:none; }
+    .logo { height:auto; width:46cqw; bottom:6cqh; }
+  }
+
+  /* ── 3 · «Медиаплан за минуту» + объёмная диаграмма ── */
+  .t3 { background: linear-gradient(120deg, #fff 0%, #fff4f6 60%, var(--pink) 100%); }
+  .t3 .h { position:absolute; left:5cqw; top:12cqh; font-size:22cqh; }
+  .t3 .h b { display:block; color:var(--red); font-weight:inherit; }
+  .t3 .sub { position:absolute; left:5cqw; top:66cqh; font-size:5.2cqh; font-weight:600; }
+  .t3 .donut { position:absolute; right:7cqw; top:50%; width:68cqh; height:68cqh; transform:translateY(-50%) rotateX(52deg); border-radius:50%;
+     background: conic-gradient(var(--red) 0 46%, var(--ink) 0 70%, #9b9ca3 0 86%, var(--pink) 0);
+     box-shadow: 0 5cqh 0 -0.4cqh #7c0c21, 0 9cqh 7cqh rgba(34,36,47,.3); }
+  .t3 .donut::after { content:""; position:absolute; inset:27%; border-radius:50%; background:#fff3f5; box-shadow: inset 0 2.5cqh 0 rgba(34,36,47,.18); }
+  .t3 .tag { position:absolute; right:calc(7cqw + 22cqh); top:13cqh; padding:1.6cqh 2.4cqh; background:#fff; border-radius:1.4cqh;
+     font-weight:700; font-size:5cqh; box-shadow:0 2cqh 4cqh rgba(34,36,47,.18); }
+  .t3 .tag em { color:var(--red); font-style:normal; }
+  @container (aspect-ratio < 1) {
+    .t3 .h { font-size:14cqw; top:8cqh; } .t3 .sub { top:auto; bottom:17cqh; font-size:4.4cqw; }
+    .t3 .donut { width:70cqw; height:70cqw; right:15cqw; top:56cqh; }
+    .t3 .tag { right:8cqw; top:39cqh; font-size:4.4cqw; }
+    .logo { height:auto; width:46cqw; bottom:6cqh; }
+  }
+
+  /* ── 4 · «70+ городов» + объёмная метка ── */
+  .t4 { background: linear-gradient(180deg,#fff 0%, #f1efea 100%); }
+  .t4 .grid { position:absolute; inset:0; background-image: linear-gradient(rgba(34,36,47,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(34,36,47,.06) 1px, transparent 1px);
+     background-size: 6cqh 6cqh; mask-image: radial-gradient(70% 90% at 75% 50%, #000, transparent); }
+  .t4 .route { position:absolute; right:4cqw; top:16cqh; width:56cqw; height:70cqh; }
+  .t4 .h { position:absolute; left:5cqw; top:12cqh; font-size:36cqh; }
+  .t4 .h small { display:block; font-size:.27em; color:var(--ink); text-shadow:none; margin-top:4.5cqh; letter-spacing:0; }
+  .t4 .pin { position:absolute; filter: drop-shadow(1cqh 3cqh 2.4cqh rgba(34,36,47,.35)); }
+  .t4 .pa { left:52cqw; top:56cqh; height:22cqh; } .t4 .pb { left:66cqw; top:22cqh; height:34cqh; } .t4 .pc { left:84cqw; top:10cqh; height:20cqh; }
+  @container (aspect-ratio < 1) {
+    .t4 .h { font-size:24cqw; top:8cqh; } .t4 .h small { font-size:.24em; } .t4 .route { right:2cqw; width:96cqw; top:40cqh; height:40cqh; }
+    .t4 .pa { left:10cqw; top:62cqh; height:13cqh; } .t4 .pb { left:42cqw; top:36cqh; height:21cqh; } .t4 .pc { left:76cqw; top:42cqh; height:12cqh; }
+    .logo { height:auto; width:46cqw; bottom:6cqh; }
+  }
+
+  /* ── 5 · «Легко заказать» — графитовая карточка-кнопка ── */
+  .t5 { background: radial-gradient(90% 120% at 15% 0%, #fff 0%, var(--paper) 60%, #e8e4dc 100%); }
+  .t5 .h { position:absolute; left:5cqw; top:12cqh; font-size:19cqh; }
+  .t5 .h b { color:var(--red); font-weight:inherit; }
+  .t5 .btn { position:absolute; right:6cqw; top:46%; transform:translateY(-50%) rotate(-6deg); padding:5cqh 6cqh; border-radius:4cqh;
+     background: linear-gradient(180deg,#ff3a5d,var(--red)); color:#fff; font-size:8.5cqh;
+     box-shadow: 0 3cqh 0 var(--red-d), 0 7cqh 7cqh rgba(235,34,70,.35); }
+  .t5 .btn::after { content:"↗"; margin-left:2.4cqh; font-family:"Inter Tight"; }
+  .t5 .sub { position:absolute; left:5cqw; top:66cqh; font-size:5.2cqh; font-weight:600; }
+  @container (aspect-ratio < 1) {
+    .t5 .h { font-size:15cqw; top:8cqh; } .t5 .btn { right:auto; left:10cqw; top:58cqh; font-size:7.6cqw; padding:4.6cqw 6cqw; border-radius:4cqw; }
+    .t5 .sub { top:auto; bottom:17cqh; font-size:4.4cqw; }
+    .logo { height:auto; width:46cqw; bottom:6cqh; }
+  }
+
+  /* очень широкие поверхности: размеры ограничены ещё и шириной */
+  @container (aspect-ratio >= 1) {
+    .t1 .big { font-size:min(36cqh, 13cqw); } .t1 svg.cur { height:min(56cqh, 20cqw); }
+    .t3 .h { font-size:min(22cqh, 9.6cqw); } .t3 .donut { width:min(64cqh, 30cqw); height:min(64cqh, 30cqw); right:6cqw; top:56%; }
+    .t3 .tag { right:6cqw; top:7cqh; } .t3 .sub { font-size:min(5.2cqh, 2.6cqw); max-width:54cqw; }
+    .t5 .h { font-size:min(19cqh, 9cqw); } .t5 .btn { font-size:min(8.5cqh, 4cqw); }
+    .t5 .sub { font-size:min(5.2cqh, 2.6cqw); }
+    .t4 .h { font-size:min(36cqh, 12cqw); }
+  }
+  /* горизонтальные, но не слишком широкие (≈2:1): кнопка — вниз вправо */
+  @container (1 <= aspect-ratio < 2.4) {
+    .t5 .h { top:9cqh; } .t5 .sub { top:56cqh; }
+    .t5 .btn { top:auto; bottom:9cqh; right:6cqw; transform:rotate(-5deg); }
+  }
+</style>
+</head>
+<body>
+<div class="c" id="c"></div>
+<script>
+  const t = new URLSearchParams(location.search).get("t") || "1";
+  const c = document.getElementById("c");
+  const logo = '<img class="logo" src="logo.svg" alt="">';
+  const pin = (cls, col) => `<svg class="pin ${cls}" viewBox="0 0 60 80"><defs><radialGradient id="g${col}" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="${col==='r'?'#ff6f88':'#5a5d6b'}"/><stop offset=".55" stop-color="${col==='r'?'#eb2246':'#22242f'}"/><stop offset="1" stop-color="${col==='r'?'#8d0f27':'#0d0e13'}"/></radialGradient></defs><path d="M30 78C30 78 4 46 4 28A26 26 0 0 1 56 28C56 46 30 78 30 78Z" fill="url(#g${col})"/><circle cx="30" cy="28" r="10" fill="#fff"/></svg>`;
+  const T = {
+    1: `<span class="k d">Просто</span><span class="big d x3d">выбрать.</span>
+        <p class="sub">Вся реклама в одном окне — <b>легко заказать.</b></p>
+        <span class="ring"></span>
+        <svg class="cur" viewBox="0 0 60 90"><defs><linearGradient id="cg" x1="0" x2="1"><stop offset="0" stop-color="#3a3d4b"/><stop offset="1" stop-color="#15161c"/></linearGradient></defs>
+        <path d="M4 4 L4 70 L20 56 L31 84 L43 79 L32 52 L54 52 Z" fill="url(#cg)" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>`,
+    2: `<span class="num d x3d-ink">12&nbsp;400</span><span class="lab d">рекламных поверхностей <span>в одном окне</span></span>
+        <div class="tiles">${"i,i,r,i,p,i,g,i,i,r,p,i,i,r,i,i,g,i,p,i".split(",").map(k=>`<i class="${k}"></i>`).join("")}</div>`,
+    3: `<p class="h d">Медиаплан<b>за минуту</b></p><p class="sub">Наружка, эфир, транзит и indoor — в одном расчёте</p>
+        <div class="donut"></div><span class="tag">Бюджет <em>под задачу</em></span>`,
+    4: `<div class="grid"></div>
+        <svg class="route" viewBox="0 0 100 60" preserveAspectRatio="none"><path d="M4 50 C 25 10, 45 55, 62 22 S 88 8, 96 14" fill="none" stroke="#eb2246" stroke-width=".7" stroke-dasharray="2 1.6"/></svg>
+        <p class="h d x3d">70+<small>городов присутствия</small></p>
+        ${pin("pa","g")}${pin("pb","r")}${pin("pc","g")}`,
+    5: `<p class="h d">Просто выбрать.<br><b>Легко заказать.</b></p><span class="btn d">Заказать</span>
+        <p class="sub">От одной поверхности до кампании по всей России</p>`,
+  };
+  c.className = "c t" + t;
+  c.innerHTML = T[t] + logo;
+</script>
+</body>
+</html>

@@ -164,39 +164,39 @@ html[data-corners="sharp"] {
 }
 
 /* ── 3 · «Точный расчёт» и «География» — светлые ─────────── */
-html .accuracy {
+html[data-mid="paper"] .accuracy {
   background: var(--rv-soft);
   color: var(--rv-ink);
 }
-html .accuracy .eyebrow,
-html .accuracy .geo-head .result-label {
+html[data-mid="paper"] .accuracy .eyebrow,
+html[data-mid="paper"] .accuracy .geo-head .result-label {
   color: var(--rv-muted);
 }
-html .accuracy h2 {
+html[data-mid="paper"] .accuracy h2 {
   color: var(--rv-ink);
 }
-html .accuracy .accuracy-copy > p:not(.eyebrow) {
+html[data-mid="paper"] .accuracy .accuracy-copy > p:not(.eyebrow) {
   color: var(--rv-muted);
 }
-html .accuracy .accuracy-copy li,
-html .accuracy .accuracy-list li {
+html[data-mid="paper"] .accuracy .accuracy-copy li,
+html[data-mid="paper"] .accuracy .accuracy-list li {
   color: var(--rv-ink);
   border-color: var(--rv-line);
 }
-html .accuracy .button--primary:hover {
+html[data-mid="paper"] .accuracy .button--primary:hover {
   background: var(--rv-ink);
   color: var(--dz-white);
 }
-html .accuracy .cost-card {
+html[data-mid="paper"] .accuracy .cost-card {
   box-shadow: 0 1px 0 var(--rv-line), 0 18px 40px -28px rgba(34, 36, 47, 0.35);
 }
-html .accuracy .cost-line:nth-child(2) i {
+html[data-mid="paper"] .accuracy .cost-line:nth-child(2) i {
   background: var(--rv-ink);
 }
-html .accuracy .cost-badge {
+html[data-mid="paper"] .accuracy .cost-badge {
   color: var(--dz-white);
 }
-html .accuracy .geo-block {
+html[data-mid="paper"] .accuracy .geo-block {
   border-top-color: var(--rv-line);
 }
 html .dz-geo-switch {
@@ -215,13 +215,13 @@ html .dz-geo-switch button[aria-pressed="true"] {
 html .geo-frame .dz-geo-switch {
   background: var(--dz-white);
 }
-html .accuracy .geo-map {
+html[data-mid="paper"] .accuracy .geo-map {
   background: #e7e5df;
 }
-html .accuracy .geo-stats div {
+html[data-mid="paper"] .accuracy .geo-stats div {
   border-top-color: var(--rv-line);
 }
-html .accuracy .geo-stats b {
+html[data-mid="paper"] .accuracy .geo-stats b {
   color: var(--rv-ink);
 }
 html .geo-stats-cap {
@@ -230,7 +230,7 @@ html .geo-stats-cap {
 html .geo-frame .dz-geo-switch {
   box-shadow: 0 6px 20px rgba(34, 36, 47, 0.12);
 }
-html .accuracy .geo-stats span {
+html[data-mid="paper"] .accuracy .geo-stats span {
   color: var(--rv-muted);
 }
 /* светлая подложка карты вместо инвертированной */
@@ -363,64 +363,64 @@ html .segments .segment-grid li::before {
 }
 
 /* ── 3 · «Платформа» — светлая ───────────────────────────── */
-html .platform {
+html[data-mid="paper"] .platform {
   background: var(--rv-soft);
   color: var(--rv-ink);
 }
-html .platform .eyebrow {
+html[data-mid="paper"] .platform .eyebrow {
   color: var(--rv-muted);
 }
-html .platform h2,
-html .platform .platform-role {
+html[data-mid="paper"] .platform h2,
+html[data-mid="paper"] .platform .platform-role {
   color: var(--rv-ink);
 }
-html .platform-split {
+html[data-mid="paper"] .platform-split {
   border-top-color: var(--rv-line);
 }
-html .platform-side + .platform-side {
+html[data-mid="paper"] .platform-side + .platform-side {
   border-left-color: var(--rv-line);
   border-top-color: var(--rv-line);
 }
-html .platform-side li {
+html[data-mid="paper"] .platform-side li {
   border-bottom-color: var(--rv-line);
   color: var(--rv-ink);
 }
-html .platform-side:first-child .button {
+html[data-mid="paper"] .platform-side:first-child .button {
   color: var(--dz-white);
 }
-html .platform-side:first-child .button:hover,
-html .platform-side + .platform-side .button:hover {
+html[data-mid="paper"] .platform-side:first-child .button:hover,
+html[data-mid="paper"] .platform-side + .platform-side .button:hover {
   background: var(--rv-ink);
   color: var(--dz-white);
 }
-html .platform-side + .platform-side .button {
+html[data-mid="paper"] .platform-side + .platform-side .button {
   color: var(--rv-ink);
   box-shadow: inset 0 0 0 2px var(--rv-ink);
 }
-html .pf-node small {
+html[data-mid="paper"] .pf-node small {
   color: var(--rv-muted);
 }
-html .pf-node b {
+html[data-mid="paper"] .pf-node b {
   color: var(--rv-ink);
 }
-html .pf-node--core small {
+html[data-mid="paper"] .pf-node--core small {
   color: rgba(255, 255, 255, 0.8);
 }
-html .pf-node--core b {
+html[data-mid="paper"] .pf-node--core b {
   color: var(--dz-white);
 }
-html .pf-arrow {
+html[data-mid="paper"] .pf-arrow {
   border-color: rgba(34, 36, 47, 0.3);
   color: var(--rv-muted);
 }
-html .pf-arrow::after {
+html[data-mid="paper"] .pf-arrow::after {
   border-color: rgba(34, 36, 47, 0.5);
 }
-html .pf-arrow--fwd {
+html[data-mid="paper"] .pf-arrow--fwd {
   color: var(--rv-ink);
   border-bottom-color: var(--dz-red);
 }
-html .pf-arrow--fwd::after {
+html[data-mid="paper"] .pf-arrow--fwd::after {
   border-color: var(--dz-red);
 }
 /* окна интерфейса — белые карточки */
