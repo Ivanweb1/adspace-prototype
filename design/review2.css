@@ -136,7 +136,8 @@ html:not([data-mid="paper"]) .platform .platform-visual {
   align-items: center;
 }
 .solutions .solution-list button strong {
-  font-size: clamp(26px, 2.5vw, 42px);
+  font-size: clamp(22px, 2.05vw, 40px);
+  white-space: nowrap; /* название направления — всегда в одну строку */
 }
 .solutions .solution-list .sol-tag {
   justify-self: end;
@@ -161,7 +162,8 @@ html:not([data-corners="sharp"]) .solutions .sol-tag {
 }
 @media (max-width: 720px) {
   .solutions .solution-list button {
-    grid-template-columns: 34px minmax(0, 1fr) 24px;
+    grid-template-columns: 30px minmax(0, 1fr) 22px;
+    column-gap: 10px;
     row-gap: 6px;
   }
   .solutions .solution-list .sol-tag {
@@ -172,6 +174,10 @@ html:not([data-corners="sharp"]) .solutions .sol-tag {
   .solutions .solution-list button i {
     grid-column: 3;
     grid-row: 1;
+    font-size: 20px;
+  }
+  .solutions .solution-list button strong {
+    font-size: min(22px, 5.9vw);
   }
 }
 
