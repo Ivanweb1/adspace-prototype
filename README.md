@@ -160,3 +160,10 @@ python -m http.server 4287
 - А — `?corners=sharp&dark=deep&outline=off` — тёмный графит, острые углы (основной, открывается по ссылке без параметров);
 - Б — `?corners=sharp&dark=graphite&outline=off` — графит, острые углы;
 - В — `?corners=round&dark=graphite&outline=off` — скруглённые углы, шрифт «Газетный».
+
+### Дневные фото (правка 13, 22.10)
+
+Исходники с пустыми постерами — `design/assets/photos-day/`, готовые с креативами —
+`design/assets/photos-light/day-*.jpg` (скрипт `design/tools/creatives/comp_day.py`).
+Заменены ночные кадры: кейсы 1, 3, 4 и сегменты «Локальный бизнес», «Крупные
+рекламодатели», «Владельцы инвентаря». Ночные файлы остались в папке для сравнения.
