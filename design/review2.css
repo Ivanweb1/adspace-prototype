@@ -372,3 +372,8 @@ html.is-intro-out .intro {
   from { opacity: 0; transform: translateY(24px) scale(0.97); }
   to { opacity: 1; transform: none; }
 }
+
+/* Яндекс.Карты: без ссылки «Создать свою карту» (копирайт и «Условия» остаются) */
+[class*="ymaps"][class*="gototech"] {
+  display: none !important;
+}

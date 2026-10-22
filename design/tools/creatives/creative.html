@@ -123,6 +123,14 @@
   /* подписи — строки поровну, без одинокого слова в конце */
   .sub, .t2 .lab, .t4 .h small, .t3 .tag { text-wrap: balance; }
   .nb { white-space: nowrap; }
+  /* очень узкие высокие поверхности (пилоны, ~1:2.5 и уже): больше воздуха, крупнее */
+  @container (aspect-ratio < 0.5) {
+    .t5 .h { left:9cqw; right:9cqw; top:7cqh; font-size:14cqw; line-height:1.02; }
+    .t5 .btn { left:9cqw; right:auto; top:auto; bottom:28cqh; transform:rotate(-4deg); font-size:7.4cqw; padding:4.2cqw 6cqw; border-radius:3.4cqw; }
+    .t5 .sub { left:9cqw; right:9cqw; top:auto; bottom:14cqh; font-size:4.6cqw; line-height:1.35; }
+    .logo { left:9cqw; width:52cqw; bottom:6cqh; }
+    .t1 .k, .t1 .big, .t1 .sub, .t2 .num, .t2 .lab, .t3 .h, .t3 .sub, .t4 .h { left:9cqw; }
+  }
 </style>
 </head>
 <body>

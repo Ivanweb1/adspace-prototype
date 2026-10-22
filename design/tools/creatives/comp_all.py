@@ -1,6 +1,6 @@
 import cv2, numpy as np, json, subprocess, sys, os
 O='orig/'; DST='final_out/'; os.makedirs(DST,exist_ok=True); os.makedirs('cr/r',exist_ok=True)
-R=json.load(open('refined.json'))
+R=json.load(open(os.environ.get('QJ','refined.json')))
 ASSIGN={'outdoor.jpg':1,'dooh.jpg':2,'tv.jpg':3,'auto-dealer.jpg':5,'case-1.jpg':4,'case-2.jpg':1,'case-4.jpg':2,
  'indoor.jpg':5,'promo-hotels.jpg':3,'promo-hotels-v.jpg':3,'promo-lifts.jpg':1,'promo-launch.jpg':4,'promo-transit.jpg':5,
  'promo-boards.jpg':2,'promo-federal.jpg':4,'production.jpg':1,'seg-auto.jpg':2,'seg-chain.jpg':5,'seg-cinema.jpg':3,

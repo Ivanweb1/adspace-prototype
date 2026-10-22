@@ -11,7 +11,11 @@ def poster_like(im, p):
     red=(((hsv[...,0]<10)|(hsv[...,0]>168))&(hsv[...,1]>90)&(hsv[...,2]>70))
     return (white|red).astype(np.float32)
 def edges(im,p,N=60):
-    P=poster_like(im,p); c=p.mean(0); lines=[]; dbg=[]
+    P=poster_like(im,p)
+    Lm=cv2.cvtColor(im,cv2.COLOR_BGR2LAB)[...,0].astype(np.float32)
+    hsv=cv2.cvtColor(im,cv2.COLOR_BGR2HSV)
+    R=((((hsv[...,0]<10)|(hsv[...,0]>168))&(hsv[...,1]>90)&(hsv[...,2]>70))).astype(np.float32)
+    c=p.mean(0); lines=[]; dbg=[]
     for i in range(4):
         a,b=p[i],p[(i+1)%4]; d=b-a; L=np.linalg.norm(d); u=d/L; n=np.array([-u[1],u[0]])
         if np.dot(c-a,n)>0: n=-n
@@ -21,21 +25,28 @@ def edges(im,p,N=60):
         pts=[]
         for t in np.linspace(0.01,0.99,N):
             base=a+d*t; xy=base[None,:]+offs[:,None]*n[None,:]
-            v=cv2.remap(P,xy[:,0:1].astype(np.float32),xy[:,1:2].astype(np.float32),cv2.INTER_LINEAR).ravel()
-            # идём от внутренней точки наружу, пока пиксель «как постер» (допускаем дырки до 1.5px)
-            k=0; miss=0; last=0
-            for j,vv in enumerate(v):
-                if vv>0.5: last=j; miss=0
+            mx=xy[:,0:1].astype(np.float32); my=xy[:,1:2].astype(np.float32)
+            v=cv2.remap(P,mx,my,cv2.INTER_LINEAR).ravel()
+            lv=cv2.remap(Lm,mx,my,cv2.INTER_LINEAR).ravel()
+            rv=cv2.remap(R,mx,my,cv2.INTER_LINEAR).ravel()
+            ref=np.median(lv[:max(3,int(len(lv)*0.25))])
+            last=0; miss=0; prev=lv[0]
+            for j in range(len(v)):
+                isred=rv[j]>0.5
+                # шаг яркости (край рамки) — стоп, если это не красная полоса
+                jump=abs(lv[j]-prev)>14 and not isred and offs[j]>-ins*0.3
+                ok=(v[j]>0.5 or isred) and (isred or abs(lv[j]-ref)<22) and not jump
+                if ok: last=j; miss=0; prev=lv[j]
                 else:
                     miss+=1
-                    if miss>3 and offs[j]>-ins*0.5: break
+                    if miss>2 and offs[j]>-ins*0.5: break
             pts.append(base+offs[last]*n)
         pts=np.array(pts,np.float32)
         vx,vy,x0,y0=cv2.fitLine(pts,cv2.DIST_HUBER,0,0.01,0.01).ravel()
-        nn=np.array([-vy,vx]);
+        nn=np.array([-vy,vx])
         if np.dot(c-np.array([x0,y0]),nn)>0: nn=-nn
         res=(pts-np.array([x0,y0]))@nn
-        sh=float(np.clip(np.percentile(res,97),0,0.02*span+2))
+        sh=float(np.clip(np.percentile(res,90),0,0.015*span+2))
         lines.append((vx,vy,x0+nn[0]*sh,y0+nn[1]*sh)); dbg.append(pts)
     q=np.array([inter(lines[(i-1)%4],lines[i]) for i in range(4)],np.float32)
     return q,dbg
