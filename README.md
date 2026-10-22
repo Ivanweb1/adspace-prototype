@@ -125,8 +125,8 @@ python -m http.server 4287
 
 | Параметр | Значения | Что меняет |
 | --- | --- | --- |
-| `corners` | `round` (по умолчанию), `sharp` | углы блоков, кнопок, полей |
-| `dark` | `graphite` (по умолчанию), `deep`, `black` | фон тёмных блоков |
+| `corners` | `sharp` (по умолчанию), `round` | углы блоков, кнопок, полей |
+| `dark` | `deep` (по умолчанию), `graphite`, `black` | фон тёмных блоков |
 | `outline` | `off` (по умолчанию), `on` | белый контур у чёрных букв на красном |
 
 Например: `design/index.html?corners=sharp&dark=black&outline=on`. `&panel=off` скрывает служебные плашки (для превью).
@@ -157,6 +157,6 @@ python -m http.server 4287
 
 Три варианта для показа (`design/variants.html`):
 
-- А — `?corners=sharp&dark=deep&outline=off` — тёмный графит, острые углы (основной);
+- А — `?corners=sharp&dark=deep&outline=off` — тёмный графит, острые углы (основной, открывается по ссылке без параметров);
 - Б — `?corners=sharp&dark=graphite&outline=off` — графит, острые углы;
 - В — `?corners=round&dark=graphite&outline=off` — скруглённые углы, шрифт «Газетный».
