@@ -249,6 +249,7 @@ html.is-intro .intro {
 .intro-curtain {
   position: absolute;
   inset: 0;
+  z-index: 2; /* шторка поверх логотипа, иначе красные части сливаются с фоном */
   background: var(--dz-red);
   transform: translateY(100%);
 }
