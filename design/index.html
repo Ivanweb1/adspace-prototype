@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-font="news" data-corners="sharp" data-dark="deep" data-outline="off" data-mid="graphite">
+<html lang="ru" data-font="news" data-corners="sharp" data-dark="deep" data-outline="off" data-mid="deep">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +28,7 @@
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
     <link rel="stylesheet" href="review.css?v=10" />
     <!-- Правки заказчика 16.10–21.10. -->
-    <link rel="stylesheet" href="review2.css?v=9" />
+    <link rel="stylesheet" href="review2.css?v=10" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
          ?intro=on — показать снова, ?intro=off — без заставки. -->
     <script>
@@ -2073,7 +2073,7 @@
       })();
     </script>
     <!-- Вариант оформления задаётся ссылкой:
-         ?corners=round|sharp&dark=graphite|deep|black&outline=off|on&mid=graphite|light|paper -->
+         ?corners=round|sharp&dark=graphite|deep|black&outline=off|on&mid=deep|graphite|light|paper -->
     <script>
       (function () {
         var root = document.documentElement;
@@ -2082,7 +2082,7 @@
           corners: ["round", "sharp"],
           dark: ["graphite", "deep", "black"],
           outline: ["off", "on"],
-          mid: ["graphite", "light", "paper"]
+          mid: ["deep", "graphite", "light", "paper"]
         };
         Object.keys(allowed).forEach(function (k) {
           var v = params.get(k);
