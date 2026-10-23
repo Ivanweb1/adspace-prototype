@@ -74,11 +74,16 @@ html:not([data-mid="paper"]) .hero .hero-lead {
 html:not([data-mid="paper"]) .hero .hero-proof li {
   border-bottom-color: var(--rv-mid-line);
 }
+/* «Скачать презентацию» — белая сразу, при наведении — контур */
 html:not([data-mid="paper"]) .hero .button--dark {
-  color: var(--dz-white);
+  background: var(--dz-white);
+  color: var(--rv-ink);
   box-shadow: inset 0 0 0 2px var(--dz-white);
 }
-html:not([data-mid="paper"]) .hero .button--dark:hover,
+html:not([data-mid="paper"]) .hero .button--dark:hover {
+  background: transparent;
+  color: var(--dz-white);
+}
 html:not([data-mid="paper"]) .hero .button--primary:hover {
   background: var(--dz-white);
   color: var(--rv-ink);
