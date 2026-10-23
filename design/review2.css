@@ -56,8 +56,10 @@ html:not([data-mid="paper"]) .hero :is(.stage-screen, .scene--outdoor, .scene--i
 
 /* ── 23.10 · графит — фон всего первого экрана, окно белое
    (как белые карточки в раскрытом «Собрать кампанию») ──── */
-/* секция в узком контейнере — фон тянем на всю ширину экрана тенью */
-html:not([data-mid="paper"]) .hero {
+/* графит — только сетка с заголовком и окном: белые промежутки
+   до красной ленты сверху и до цифр/акций снизу остаются.
+   Сетка в узком контейнере — фон тянем на всю ширину экрана тенью */
+html:not([data-mid="paper"]) .hero .hero-grid {
   background: var(--rv-mid);
   box-shadow: 0 0 0 100vmax var(--rv-mid);
   clip-path: inset(0 -100vmax);
@@ -80,19 +82,6 @@ html:not([data-mid="paper"]) .hero .button--dark:hover,
 html:not([data-mid="paper"]) .hero .button--primary:hover {
   background: var(--dz-white);
   color: var(--rv-ink);
-}
-html:not([data-mid="paper"]) .hero .metric-strip strong {
-  color: var(--dz-white);
-}
-html:not([data-mid="paper"]) .hero .metric-strip span {
-  color: var(--rv-mid-muted);
-}
-html:not([data-mid="paper"]) .hero .metric-strip div:nth-child(3) :is(strong, span) {
-  color: var(--dz-black);
-}
-html:not([data-mid="paper"]) .hero .metric-strip div::after,
-html:not([data-mid="paper"]) .hero .metric-strip div + div::before {
-  background: var(--rv-mid-line);
 }
 html:not([data-mid="paper"]) .hero .hero-stage {
   background: var(--dz-white);
