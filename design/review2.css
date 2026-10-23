@@ -74,6 +74,10 @@ html:not([data-mid="paper"]) .hero .hero-lead {
 html:not([data-mid="paper"]) .hero .hero-proof li {
   border-bottom-color: var(--rv-mid-line);
 }
+/* белый отступ над цифрами — такой же, как под ними до акций */
+html:not([data-mid="paper"]) .hero .metric-strip {
+  margin-top: clamp(28px, 3vw, 44px);
+}
 /* «Скачать презентацию» — белая сразу, при наведении — контур */
 html:not([data-mid="paper"]) .hero .button--dark {
   background: var(--dz-white);
