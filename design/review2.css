@@ -54,6 +54,65 @@ html:not([data-mid="paper"]) .hero :is(.stage-screen, .scene--outdoor, .scene--i
   background: var(--rv-mid-2);
 }
 
+/* ── 23.10 · графит — фон всего первого экрана, окно белое
+   (как белые карточки в раскрытом «Собрать кампанию») ──── */
+/* секция в узком контейнере — фон тянем на всю ширину экрана тенью */
+html:not([data-mid="paper"]) .hero {
+  background: var(--rv-mid);
+  box-shadow: 0 0 0 100vmax var(--rv-mid);
+  clip-path: inset(0 -100vmax);
+  color: var(--dz-white);
+}
+html:not([data-mid="paper"]) .hero :is(.eyebrow, .dz-title, .dz-tm, .hero-proof) {
+  color: var(--dz-white);
+}
+html:not([data-mid="paper"]) .hero .hero-lead {
+  color: var(--rv-mid-muted);
+}
+html:not([data-mid="paper"]) .hero .hero-proof li {
+  border-bottom-color: var(--rv-mid-line);
+}
+html:not([data-mid="paper"]) .hero .button--dark {
+  color: var(--dz-white);
+  box-shadow: inset 0 0 0 2px var(--dz-white);
+}
+html:not([data-mid="paper"]) .hero .button--dark:hover,
+html:not([data-mid="paper"]) .hero .button--primary:hover {
+  background: var(--dz-white);
+  color: var(--rv-ink);
+}
+html:not([data-mid="paper"]) .hero .metric-strip strong {
+  color: var(--dz-white);
+}
+html:not([data-mid="paper"]) .hero .metric-strip span {
+  color: var(--rv-mid-muted);
+}
+html:not([data-mid="paper"]) .hero .metric-strip div:nth-child(3) :is(strong, span) {
+  color: var(--dz-black);
+}
+html:not([data-mid="paper"]) .hero .metric-strip div::after,
+html:not([data-mid="paper"]) .hero .metric-strip div + div::before {
+  background: var(--rv-mid-line);
+}
+html:not([data-mid="paper"]) .hero .hero-stage {
+  background: var(--dz-white);
+  color: var(--rv-ink);
+}
+html:not([data-mid="paper"]) .hero .stage-top {
+  color: var(--rv-muted);
+}
+html:not([data-mid="paper"]) .hero .stage-dots button {
+  border-top-color: var(--rv-line);
+  color: var(--rv-muted);
+}
+html:not([data-mid="paper"]) .hero .stage-dots button:hover,
+html:not([data-mid="paper"]) .hero .stage-dots button[aria-selected="true"] {
+  color: var(--rv-ink);
+}
+html:not([data-mid="paper"]) .hero :is(.stage-screen, .scene--outdoor, .scene--indoor, .scene--broadcast) {
+  background: var(--rv-soft);
+}
+
 /* ── 16 · скруглённый вариант: снаружи скругление,
    фото внутри — с прямыми углами (как в медиаплане) ───── */
 html:not([data-corners="sharp"]) .hero .stage-screen {
