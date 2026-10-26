@@ -384,7 +384,8 @@
     width: auto;
   }
 }
-@media (prefers-reduced-motion: reduce) {
+/* Анимации работают у всех, даже если в системе включено «уменьшить движение». */
+@media not all {
   .nudge {
     transition: none;
   }
@@ -1368,7 +1369,8 @@
     overflow-y: auto;
   }
 }
-@media (prefers-reduced-motion: reduce) {
+/* Анимации работают у всех, даже если в системе включено «уменьшить движение». */
+@media not all {
   .promo-modal,
   .promo-modal-panel {
     transition: none;
@@ -1910,7 +1912,8 @@
   line-height: 1.5;
   color: var(--ink);
 }
-@media (prefers-reduced-motion: reduce) {
+/* Анимации работают у всех, даже если в системе включено «уменьшить движение». */
+@media not all {
   .map-drawer-panel,
   .map-drawer-backdrop {
     transition: none;

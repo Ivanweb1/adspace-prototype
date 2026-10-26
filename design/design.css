@@ -690,7 +690,8 @@ body {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* Анимации работают у всех, даже если в системе включено «уменьшить движение». */
+@media not all {
   .hero .status-dot,
   .hero .stage-dots button[aria-selected="true"]::before {
     animation: none;
@@ -3343,7 +3344,8 @@ body {
     transform: translateX(-50%);
   }
 }
-@media (prefers-reduced-motion: reduce) {
+/* Анимации работают у всех, даже если в системе включено «уменьшить движение». */
+@media not all {
   .cases .clients-track {
     animation: none;
   }

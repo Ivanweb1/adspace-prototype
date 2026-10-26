@@ -389,7 +389,8 @@ html.is-intro-out .intro {
 }
 
 /* ── 16 · первый экран «зажигается» сразу после заставки ─── */
-@media (prefers-reduced-motion: no-preference) {
+/* Анимации работают у всех, даже если в системе включено «уменьшить движение». */
+@media all {
   html.has-js .hero .dz-title-line {
     display: block;
     animation: hero-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;

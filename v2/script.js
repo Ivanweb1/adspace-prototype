@@ -6,7 +6,8 @@
 
   const $ = (sel, scope = document) => scope.querySelector(sel);
   const $$ = (sel, scope = document) => [...scope.querySelectorAll(sel)];
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  // Анимации работают у всех, даже если в системе включено «уменьшить движение».
+  const reduceMotion = { matches: false };
   const isMobile = () => window.matchMedia("(max-width: 720px)").matches;
   const money = (value) => `${new Intl.NumberFormat("ru-RU").format(Math.round(value))} ₽`;
 

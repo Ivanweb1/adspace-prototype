@@ -12,11 +12,11 @@
     />
     <meta name="theme-color" content="#EB2246" />
     <title>ADSPACE Group — дизайн</title>
-    <link rel="stylesheet" href="styles.css?v=1" />
+    <link rel="stylesheet" href="styles.css?v=2" />
     <!-- Черно-белый режим для первого показа. Чтобы вернуть цвет — удалите строку ниже. -->
     <link rel="stylesheet" href="mono.css?v=1" />
     <!-- Правки по обратной связи к классической версии. Всё новое — здесь. -->
-    <link rel="stylesheet" href="v2.css?v=17" />
+    <link rel="stylesheet" href="v2.css?v=18" />
     <!-- Дизайн: шапка и первый экран в цвете, композиция как в v2. Остальная страница пока вайрфрейм (mono.css). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,20 +24,19 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Russo+One&family=Unbounded:wght@700;800;900&family=Dela+Gothic+One&display=swap"
     />
-    <link rel="stylesheet" href="design.css?v=69" />
+    <link rel="stylesheet" href="design.css?v=70" />
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
     <link rel="stylesheet" href="review.css?v=10" />
     <!-- Правки заказчика 16.10–21.10. -->
-    <link rel="stylesheet" href="review2.css?v=10" />
+    <link rel="stylesheet" href="review2.css?v=11" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
          ?intro=on — показать снова, ?intro=off — без заставки. -->
     <script>
       (function () {
         var q = new URLSearchParams(location.search), seen = false;
         try { seen = sessionStorage.getItem("adsp-intro") === "1"; } catch (e) {}
-        var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
         var force = q.get("intro") === "on";
-        if (q.get("panel") === "off" || q.get("intro") === "off" || calm || (seen && !force)) return;
+        if (q.get("panel") === "off" || q.get("intro") === "off" || (seen && !force)) return;
         document.documentElement.classList.add("is-intro");
       })();
     </script>
@@ -1715,7 +1714,7 @@
       </div>
     </section>
 
-    <script src="script.js?v=18"></script>
+    <script src="script.js?v=19"></script>
     <!-- Яндекс.Карты. Для рабочего сайта нужен бесплатный API-ключ на домен
          заказчика: добавить &apikey=… в адрес ниже. -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>

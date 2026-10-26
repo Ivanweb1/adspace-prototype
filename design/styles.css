@@ -2940,7 +2940,8 @@ body.modal-open {
 }
 
 /* ── уважение к настройкам движения ─────────────────────── */
-@media (prefers-reduced-motion: reduce) {
+/* Анимации работают у всех, даже если в системе включено «уменьшить движение». */
+@media not all {
   html {
     scroll-behavior: auto;
   }
