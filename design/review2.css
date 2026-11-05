@@ -494,3 +494,11 @@ html[data-corners="sharp"] .partner-modal-panel,
 html[data-corners="sharp"] .partner-modal-panel :is(input, textarea, button) {
   border-radius: 0;
 }
+
+/* ── 23 · лента: логотип по центру полосы (правка 23.10) ──
+   Хвост «р» в Group опускает рамку картинки, поэтому заглавные
+   стояли выше слогана и точек. Сдвиг — доля высоты логотипа:
+   центр заглавных (47,5 из 118 по viewBox) → центр полосы. */
+.hero-banner-track img {
+  transform: translateY(9.75%);
+}
