@@ -89,23 +89,60 @@
       });
     });
 
-    /* ── А · барабан ─────────────────────────────────────── */
+    /* ── А · барабан ───────────────────────────────────────
+       Страница стоит на месте: колесо над барабаном крутит только
+       карточки (прокрутку страницы гасим). На первой и последней
+       акции колесо снова листает страницу — чтобы не застрять.
+       Телефон: свайп вбок (вертикальная прокрутка страницы не ломается). */
     var STEP = 26; // градусов между карточками на цилиндре
     var drumIndex = 0;
-    var ticking = false;
+    var pos = 0; // текущее положение барабана (дробное, для плавности)
+    var target = 0; // куда барабан доворачивается
+    var running = false;
+    var snapTimer = null;
+    var last = cards.length - 1;
 
-    function drumMetrics() {
-      var w = wrap.getBoundingClientRect();
-      var travel = Math.max(1, wrap.offsetHeight - stage.offsetHeight);
-      return { top: w.top, travel: travel };
-    }
-    function drawDrum() {
-      ticking = false;
+    function spin() {
+      running = false;
       if (fx() !== "drum") return;
-      var m = drumMetrics();
-      var stickTop = parseFloat(getComputedStyle(stage).top) || 0;
-      var progress = Math.min(1, Math.max(0, (stickTop - m.top) / m.travel));
-      var p = progress * (cards.length - 1);
+      pos += (target - pos) * 0.16;
+      if (Math.abs(target - pos) < 0.002) pos = target;
+      drawDrum();
+      if (pos !== target) { running = true; requestAnimationFrame(spin); }
+    }
+    function go(next) {
+      target = Math.min(last, Math.max(0, next));
+      if (!running) { running = true; requestAnimationFrame(spin); }
+    }
+    // после паузы в прокрутке — доводка до ближайшей карточки
+    function snapLater() {
+      clearTimeout(snapTimer);
+      snapTimer = setTimeout(function () { go(Math.round(target)); }, 140);
+    }
+    stage.addEventListener("wheel", function (e) {
+      if (fx() !== "drum") return;
+      var dy = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaY;
+      // упёрлись в край — отдаём колесо странице
+      if ((dy < 0 && target <= 0) || (dy > 0 && target >= last)) return;
+      e.preventDefault();
+      go(target + dy / 260);
+      snapLater();
+    }, { passive: false });
+
+    var touchX = null;
+    stage.addEventListener("touchstart", function (e) {
+      if (fx() === "drum") touchX = e.touches[0].clientX;
+    }, { passive: true });
+    stage.addEventListener("touchend", function (e) {
+      if (fx() !== "drum" || touchX === null) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) > 40) go(Math.round(target) + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    function drawDrum() {
+      if (fx() !== "drum") return;
+      var p = pos;
       var h = cards[0] ? cards[0].offsetHeight : 400;
       var radius = h / 2 / Math.tan((STEP / 2) * Math.PI / 180);
       cards.forEach(function (card, i) {
@@ -124,28 +161,18 @@
       var label = "Акция <b>" + pad(drumIndex + 1) + "</b> / " + pad(cards.length);
       if (flipLabel) flipLabel.innerHTML = label;
       // заголовок с листалкой уезжает вверх — счётчик дублируем под барабаном
-      if (hint) hint.innerHTML = label + (touch ? " · листайте" : " · крутите колесо");
+      if (hint) hint.innerHTML = label + (touch ? " · листайте вбок" : " · крутите колесо");
     }
-    function onScroll() {
-      if (ticking || fx() !== "drum") return;
-      ticking = true;
-      requestAnimationFrame(drawDrum);
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", function () { if (fx() === "drum") drawDrum(); });
 
-    // стрелки в барабане — к соседней акции прокруткой страницы
+    // стрелки в барабане — к соседней акции, страница не двигается
     promos.addEventListener("click", function (e) {
       if (fx() !== "drum") return;
       var prev = e.target.closest && e.target.closest("[data-cx-prev]");
       var next = e.target.closest && e.target.closest("[data-cx-next]");
       if (!prev && !next) return;
       e.stopPropagation();
-      var target = Math.min(cards.length - 1, Math.max(0, drumIndex + (next ? 1 : -1)));
-      var m = drumMetrics();
-      var stickTop = parseFloat(getComputedStyle(stage).top) || 0;
-      var y = window.scrollY + m.top - stickTop + (target / (cards.length - 1)) * m.travel;
-      window.scrollTo({ top: y + 1, behavior: "smooth" });
+      go(Math.round(target) + (next ? 1 : -1));
     }, true);
 
     function leaveDrum() {

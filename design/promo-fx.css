@@ -66,16 +66,17 @@ html[data-promofx="cutout"] .promos .pr-card:hover .pr-media .dz-frame {
 }
 
 /* ── А · барабан ───────────────────────────────────────── */
-/* высота обёртки — путь прокрутки: ~половина экрана на акцию */
-html[data-promofx="drum"] .promos .pr-wrap {
-  height: calc(100vh + 8 * 42vh);
-}
+/* барабан — обычный блок своей высоты: страница не едет,
+   колесо над ним крутит карточки (см. promo-fx.js) */
 html[data-promofx="drum"] .promos .pr-stage {
-  position: sticky;
-  top: 68px;
-  height: calc(100vh - 68px);
+  position: relative;
+  height: clamp(460px, 72vh, 660px);
   perspective: 1800px;
   overflow: hidden;
+}
+/* подпись «Цена уже с учётом…» в барабане не нужна */
+html[data-promofx="drum"] .promos .pr-note {
+  display: none;
 }
 html[data-promofx="drum"] .promos .pr-page,
 html[data-promofx="drum"] .promos .pr-page[hidden] {
@@ -146,8 +147,7 @@ html[data-promofx="drum"] .promos .pr-note {
 /* телефон: в барабане фото сверху, текст снизу */
 @media (max-width: 720px) {
   html[data-promofx="drum"] .promos .pr-stage {
-    top: 60px;
-    height: calc(100vh - 60px);
+    height: min(80vh, 640px);
     perspective: 1200px;
   }
   html[data-promofx="drum"] .promos .pr-card,
