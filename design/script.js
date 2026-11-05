@@ -71,7 +71,7 @@
   if (stage) {
     const titles = {
       outdoor: "Наружная реклама",
-      indoor: "Indoor и лифты",
+      indoor: "Реклама в лифтах",
       broadcast: "Радио и ТВ",
       calc: "Калькулятор кампании",
       plan: "Готовый медиаплан",
@@ -83,16 +83,17 @@
     let index = 0;
     let timer = null;
 
-    const countUp = (node) => {
-      const target = Number(node.dataset.countTo);
+    const plain = (value) => new Intl.NumberFormat("ru-RU").format(Math.round(value));
+    const countUp = (node, format = money) => {
+      const target = Number(node.dataset.countTo || node.dataset.countNum);
       if (reduceMotion.matches) {
-        node.textContent = money(target);
+        node.textContent = format(target);
         return;
       }
       const start = performance.now();
       const step = (now) => {
         const progress = Math.min((now - start) / 900, 1);
-        node.textContent = money(target * (1 - Math.pow(1 - progress, 3)));
+        node.textContent = format(target * (1 - Math.pow(1 - progress, 3)));
         if (progress < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
@@ -105,6 +106,8 @@
       caption.textContent = titles[scenes[index].dataset.scene] || "";
       const counter = $("[data-count-to]", scenes[index]);
       if (counter) countUp(counter);
+      // числа без ₽ — в сценах «Лифты» и «Радио и ТВ»
+      $$("[data-count-num]", scenes[index]).forEach((node) => countUp(node, plain));
     };
 
     const play = () => {

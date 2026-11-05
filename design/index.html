@@ -28,7 +28,7 @@
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
     <link rel="stylesheet" href="review.css?v=10" />
     <!-- Правки заказчика 16.10–21.10. -->
-    <link rel="stylesheet" href="review2.css?v=13" />
+    <link rel="stylesheet" href="review2.css?v=15" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
          ?intro=on — показать снова, ?intro=off — без заставки. -->
     <script>
@@ -227,38 +227,73 @@
                 <span class="chip chip--b">Суперсайт 15×5 · свободно с 01.09</span>
               </div>
 
-              <!-- сцена 2 — indoor и лифты -->
-              <div class="scene scene--indoor" data-scene="indoor">
-                <div class="dz-frame" aria-hidden="true">
-                  <img class="scene-photo" src="assets/photos-light/indoor.jpg" alt="" />
-                  <span class="dz-board dz-board--indoor"><b>Ваш<br />бренд</b></span>
+              <!-- сцена 2 — лифты: подбор по районам (правка 25, 24.10).
+                   Как на сайте: город, формат, срок → лифты по районам.
+                   Цифры демонстрационные. -->
+              <div class="scene scene--ui scene--lifts" data-scene="indoor">
+                <div class="dz-mix" aria-hidden="true" data-tentative="районы и число лифтов — демо">
+                  <div class="dz-mix-params">
+                    <div class="dz-calc-field">
+                      <span>Город</span>
+                      <div class="dz-pick">Краснодар <i>▾</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Формат</span>
+                      <div class="dz-seg"><i class="is-on">А3</i><i>А4</i><i>Экран</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Срок <b>2 недели</b></span>
+                      <div class="dz-range"><i style="--v: 35%"></i></div>
+                    </div>
+                  </div>
+                  <div class="dz-mix-body">
+                    <div class="dz-donut" style="--donut: conic-gradient(var(--m1) 0 34%, var(--m2) 0 62%, var(--m3) 0 84%, var(--m4) 0)">
+                      <span><b data-count-num="1240">0</b>лифтов</span>
+                    </div>
+                    <ul class="dz-bars">
+                      <li style="--c: var(--m1); --w: 34%"><b>Центральный</b><span><i></i></span><em>34%</em></li>
+                      <li style="--c: var(--m2); --w: 28%"><b>Прикубанский</b><span><i></i></span><em>28%</em></li>
+                      <li style="--c: var(--m3); --w: 22%"><b>Карасунский</b><span><i></i></span><em>22%</em></li>
+                      <li style="--c: var(--m4); --w: 16%"><b>Западный</b><span><i></i></span><em>16%</em></li>
+                    </ul>
+                  </div>
+                  <div class="dz-gantt-foot"><span>Лифты по районам</span><b>4 района</b></div>
                 </div>
-                <div class="lift">
-                  <div class="lift-doors"><i></i><i></i></div>
-                  <div class="lift-panel"><span>AD</span><b>SPACE</b></div>
-                </div>
-                <span class="chip chip--a">1 240 лифтов в районе</span>
-                <span
-                  class="chip chip--b"
-                  data-demo="в финале: карта секторов лифта и превью макета на месте"
-                  >Бронирование стенда онлайн</span
-                >
               </div>
 
-              <!-- сцена 3 — радио и ТВ -->
-              <div class="scene scene--broadcast" data-scene="broadcast">
-                <div class="dz-frame" aria-hidden="true">
-                  <img class="scene-photo" src="assets/photos-light/broadcast.jpg" alt="" />
+              <!-- сцена 3 — радио и ТВ: выходы по часам (правка 25, 24.10).
+                   Как на сайте: канал, хронометраж, выходы → когда звучит
+                   ролик и сколько людей его слышат. Цифры демонстрационные. -->
+              <div class="scene scene--ui scene--radio" data-scene="broadcast">
+                <div class="dz-mix" aria-hidden="true" data-tentative="аудитория и охват — демо">
+                  <div class="dz-mix-params">
+                    <div class="dz-calc-field">
+                      <span>Канал</span>
+                      <div class="dz-seg dz-seg--2"><i class="is-on">Радио</i><i>ТВ</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Ролик</span>
+                      <div class="dz-seg"><i>15 с</i><i class="is-on">20 с</i><i>30 с</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Выходов в день</span>
+                      <div class="dz-step"><i>−</i><b>6</b><i>+</i></div>
+                    </div>
+                  </div>
+                  <div class="dz-mix-body dz-mix-body--air">
+                    <div class="dz-air-head"><span>Аудитория по часам</span><span class="dz-air-key">ваши выходы</span></div>
+                    <div class="dz-air">
+                      <i style="--h: 22%"></i><i class="is-on" style="--h: 58%"></i><i class="is-on" style="--h: 86%"></i
+                      ><i class="is-on" style="--h: 74%"></i><i style="--h: 50%"></i><i style="--h: 44%"></i
+                      ><i style="--h: 46%"></i><i style="--h: 48%"></i><i style="--h: 42%"></i
+                      ><i style="--h: 40%"></i><i style="--h: 46%"></i><i class="is-on" style="--h: 70%"></i
+                      ><i class="is-on" style="--h: 92%"></i><i class="is-on" style="--h: 80%"></i><i style="--h: 54%"></i
+                      ><i style="--h: 40%"></i><i style="--h: 30%"></i><i style="--h: 18%"></i>
+                    </div>
+                    <div class="dz-air-axis"><i>6:00</i><i>9:00</i><i>12:00</i><i>15:00</i><i>18:00</i><i>21:00</i></div>
+                  </div>
+                  <div class="dz-gantt-foot"><span>Охват за 2 недели</span><b><span data-count-num="1200000">0</span><span class="dz-hide-sm"> слушателей</span></b></div>
                 </div>
-                <div class="wave" aria-hidden="true">
-                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
-                  ><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                </div>
-                <div class="tv-frame"><span>TV</span></div>
-                <span class="chip chip--a">Рейтинги и охват аудитории</span>
-                <span class="chip chip--b" data-tentative="показатель демонстрационный"
-                  >База дикторов · 120+ голосов</span
-                >
               </div>
 
               <!-- сцена 4 — калькулятор -->
@@ -1714,7 +1749,7 @@
       </div>
     </section>
 
-    <script src="script.js?v=19"></script>
+    <script src="script.js?v=20"></script>
     <!-- Яндекс.Карты. Для рабочего сайта нужен бесплатный API-ключ на домен
          заказчика: добавить &apikey=… в адрес ниже. -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>

@@ -502,3 +502,290 @@ html[data-corners="sharp"] .partner-modal-panel :is(input, textarea, button) {
 .hero-banner-track img {
   transform: translateY(9.75%);
 }
+
+/* ── 25 · «Лифты» и «Радио и ТВ» — не фото, а интерфейс сайта
+   (правка 24.10): как пользователь сам подбирает размещение.
+   Подача как у «Расчёта» и «Медиаплана», график — как
+   «Медиамикс» в результате конструктора. ───────────────────── */
+.hero .scene--ui {
+  background: #1c1c20;
+  color: var(--dz-white);
+}
+.dz-mix {
+  zoom: 1 !important;
+  position: absolute;
+  inset: clamp(18px, 2.2vw, 30px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(14px, 1.6vw, 22px);
+  color: var(--dz-white);
+  font-family: var(--dz-body);
+  /* тона каналов на тёмном поле: белый, красный, серый, розовый */
+  --m1: var(--dz-white);
+  --m2: var(--dz-red);
+  --m3: #8c8c94;
+  --m4: #f39aab;
+}
+.dz-mix-params {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+  align-items: end;
+}
+.dz-pick {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 13px;
+  font-weight: 600;
+}
+.dz-pick i {
+  font-style: normal;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.dz-seg--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.dz-mix-body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(18px, 2.6vw, 40px);
+  align-items: center;
+  min-height: 0;
+}
+
+/* кольцо: сектора прорисовываются по кругу при показе сцены */
+@property --sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 360deg;
+}
+@keyframes dzSweep {
+  from {
+    --sweep: 0deg;
+  }
+}
+.dz-donut {
+  position: relative;
+  width: clamp(120px, 12vw, 176px);
+  aspect-ratio: 1;
+}
+.dz-donut::after,
+.dz-donut::before,
+.dz-donut span {
+  position: absolute;
+  border-radius: 50%;
+}
+.dz-donut::after {
+  content: "";
+  inset: 0;
+  z-index: 0;
+  background: var(--donut);
+  -webkit-mask: conic-gradient(#000 var(--sweep), transparent 0);
+  mask: conic-gradient(#000 var(--sweep), transparent 0);
+}
+.scene.is-active .dz-donut::after {
+  animation: dzSweep 1s var(--ease) both;
+}
+.dz-donut::before {
+  content: "";
+  inset: 22%;
+  z-index: 1;
+  background: #1c1c20;
+}
+.dz-donut span {
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.dz-donut b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  letter-spacing: var(--dz-track);
+  font-size: clamp(26px, 2.5vw, 38px);
+  line-height: 1;
+  color: var(--dz-white);
+}
+
+/* полосы по районам */
+.dz-bars {
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dz-bars li {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+}
+.dz-bars b {
+  font-weight: 600;
+}
+.dz-bars span {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.dz-bars span i {
+  display: block;
+  height: 100%;
+  /* самая большая доля занимает ~3/4 дорожки, как в «Медиамиксе» */
+  width: calc(var(--w) * 2.2);
+  background: var(--c);
+  transform-origin: left;
+}
+.scene.is-active .dz-bars span i {
+  animation: growBar 0.7s var(--ease) both;
+}
+.dz-bars li:nth-child(2) i {
+  animation-delay: 0.08s !important;
+}
+.dz-bars li:nth-child(3) i {
+  animation-delay: 0.16s !important;
+}
+.dz-bars li:nth-child(4) i {
+  animation-delay: 0.24s !important;
+}
+.dz-bars em {
+  font-style: normal;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* радио: аудитория по часам, выходы ролика — красным */
+.dz-mix-body--air {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: stretch;
+}
+.dz-air-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.dz-air-key::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  vertical-align: -1px;
+  background: var(--dz-red);
+}
+.dz-air {
+  display: grid;
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+  gap: 4px;
+  align-items: end;
+  min-height: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+.dz-air i {
+  height: var(--h);
+  background: rgba(255, 255, 255, 0.28);
+  transform-origin: bottom;
+}
+.dz-air i.is-on {
+  background: var(--dz-red);
+}
+@keyframes dzRise {
+  from {
+    transform: scaleY(0);
+  }
+}
+.scene.is-active .dz-air i {
+  animation: dzRise 0.7s var(--ease) both;
+}
+.scene.is-active .dz-air i:nth-child(3n + 2) {
+  animation-delay: 0.06s;
+}
+.scene.is-active .dz-air i:nth-child(3n) {
+  animation-delay: 0.12s;
+}
+.dz-air-axis {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+.dz-air-axis i {
+  font-style: normal;
+}
+
+/* скруглённый вариант: поля и плашки — как в «Расчёте» */
+html:not([data-corners="sharp"]) :is(.dz-pick, .dz-mix .dz-seg, .dz-mix .dz-step) {
+  border-radius: var(--rv-r-sm);
+  overflow: hidden;
+}
+
+/* телефон: окно почти квадратное — третье поле прячем */
+@media (max-width: 720px) {
+  .dz-mix {
+    gap: 12px;
+  }
+  .dz-mix-params {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .dz-mix-params .dz-calc-field:nth-child(3) {
+    display: none;
+  }
+  .dz-mix-body {
+    gap: 14px;
+  }
+  .dz-donut {
+    width: 92px;
+  }
+  .dz-donut b {
+    font-size: 22px;
+  }
+  .dz-donut span {
+    font-size: 9px;
+  }
+  .dz-bars {
+    gap: 9px;
+  }
+  .dz-bars li {
+    grid-template-columns: 76px minmax(0, 1fr) 30px;
+    gap: 8px;
+    font-size: 11px;
+  }
+  .dz-bars span {
+    height: 8px;
+  }
+  .dz-air {
+    gap: 2px;
+  }
+  .dz-air-axis i:nth-child(even) {
+    visibility: hidden;
+  }
+}
+@media (max-width: 720px) {
+  .dz-mix .dz-gantt-foot {
+    gap: 10px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .dz-hide-sm {
+    display: none;
+  }
+}
