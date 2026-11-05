@@ -870,3 +870,54 @@ html.is-intro-out .intro-curtain {
 html.is-intro-out .intro {
   animation: intro-out 0.7s 0.7s cubic-bezier(0.7, 0, 0.2, 1) forwards;
 }
+
+/* ── 26 · первый экран светлее (правка 28.10): «больше светлого,
+   не теряя идентичности». Композиция прототипа та же, фон экрана —
+   тёплый светлый, текст тёмный, графит остаётся только в окне.
+   Прежний графитовый экран — data-hero="dark" (кнопка в панели, ?hero=dark). */
+html:not([data-hero="dark"]) .hero .hero-grid {
+  background: var(--rv-soft);
+  box-shadow: 0 0 0 100vmax var(--rv-soft);
+  color: var(--rv-ink);
+}
+html:not([data-hero="dark"]) .hero :is(.eyebrow, .dz-title, .dz-tm, .hero-proof) {
+  color: var(--rv-ink);
+}
+html:not([data-hero="dark"]) .hero .hero-lead {
+  color: var(--rv-muted);
+}
+html:not([data-hero="dark"]) .hero .hero-proof li {
+  border-bottom-color: var(--rv-line);
+}
+html:not([data-hero="dark"]) .hero .button--primary:hover {
+  background: var(--rv-ink);
+  color: var(--dz-white);
+}
+html:not([data-hero="dark"]) .hero .button--dark {
+  background: transparent;
+  color: var(--rv-ink);
+  box-shadow: inset 0 0 0 2px var(--rv-ink);
+}
+html:not([data-hero="dark"]) .hero .button--dark:hover {
+  background: var(--rv-ink);
+  color: var(--dz-white);
+}
+/* окно — единственное тёмное пятно экрана */
+html:not([data-hero="dark"]) .hero .hero-stage {
+  background: var(--rv-mid);
+  color: var(--dz-white);
+}
+html:not([data-hero="dark"]) .hero .stage-top {
+  color: var(--rv-mid-muted);
+}
+html:not([data-hero="dark"]) .hero .stage-dots button {
+  border-top-color: var(--rv-mid-line);
+  color: var(--rv-mid-muted);
+}
+html:not([data-hero="dark"]) .hero .stage-dots button:hover,
+html:not([data-hero="dark"]) .hero .stage-dots button[aria-selected="true"] {
+  color: var(--dz-white);
+}
+html:not([data-hero="dark"]) .hero :is(.stage-screen, .scene--outdoor, .scene--indoor, .scene--broadcast) {
+  background: var(--rv-mid-2);
+}

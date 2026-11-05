@@ -28,7 +28,7 @@
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
     <link rel="stylesheet" href="review.css?v=10" />
     <!-- Правки заказчика 16.10–21.10. -->
-    <link rel="stylesheet" href="review2.css?v=18" />
+    <link rel="stylesheet" href="review2.css?v=19" />
     <!-- Правка 29 (29.10): эффекты блока «Акции», ?promofx=drum|cutout|fly -->
     <link rel="stylesheet" href="promo-fx.css?v=5" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
@@ -1787,6 +1787,9 @@
       <span>Углы</span>
       <button type="button" data-corners-set="sharp">Острые</button>
       <button type="button" data-corners-set="round">Скруглённые</button>
+      <span>Первый экран</span>
+      <button type="button" data-hero-set="light">Светлый</button>
+      <button type="button" data-hero-set="dark">Прежний</button>
       <span>Акции</span>
       <button type="button" data-promofx-set="base">Как сейчас</button>
       <button type="button" data-promofx-set="drum">А · Барабан</button>
@@ -1835,6 +1838,23 @@
           b.addEventListener("click", function () {
             applyCorners(b.dataset.cornersSet);
             try { localStorage.setItem("dz-corners", b.dataset.cornersSet); } catch (e) {}
+          });
+        });
+
+        // правка 26: первый экран светлый по умолчанию, прежний графитовый — для сравнения
+        var heroButtons = panel.querySelectorAll("[data-hero-set]");
+        var savedHero;
+        try { savedHero = localStorage.getItem("dz-hero-v2"); } catch (e) {}
+        function applyHero(name) {
+          root.setAttribute("data-hero", name);
+          heroButtons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.heroSet === name)); });
+        }
+        var heroUrl = new URLSearchParams(location.search).get("hero");
+        applyHero(heroUrl === "dark" || heroUrl === "light" ? heroUrl : savedHero === "dark" ? "dark" : "light");
+        heroButtons.forEach(function (b) {
+          b.addEventListener("click", function () {
+            applyHero(b.dataset.heroSet);
+            try { localStorage.setItem("dz-hero-v2", b.dataset.heroSet); } catch (e) {}
           });
         });
         // Фото акций: assets/photos-light/promo-<id>.jpg. Если файла ещё нет,
