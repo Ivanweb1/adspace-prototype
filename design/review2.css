@@ -441,3 +441,56 @@ html.is-intro-out .intro {
 [class*="ymaps"][class*="gototech"] {
   display: none !important;
 }
+
+/* ── 22 · скруглённый вариант — единый принцип (правка 23.10) ──
+   Крупные блоки и карточки — var(--rv-r) (14 px),
+   всё, что вложено внутрь (фото, окна, поля, кнопки, плашки), —
+   var(--rv-r-sm) (10 px). В остром варианте обе переменные = 0. */
+html:not([data-corners="sharp"]) :is(
+    .hero .hero-grid,
+    .promos.section-shell,
+    .solutions .preview-canvas,
+    .geo-frame,
+    .partner-modal-panel,
+    .promo-modal-panel
+  ) {
+  border-radius: var(--rv-r);
+}
+html:not([data-corners="sharp"]) :is(
+    .solutions .preview-canvas,
+    .partner-modal-panel,
+    .promo-modal-panel
+  ) {
+  overflow: hidden;
+}
+html:not([data-corners="sharp"]) :is(
+    .hero .stage-screen,
+    .promos .pr-media,
+    .accuracy .geo-map,
+    .platform .pvm-map,
+    .promo-modal-photo,
+    .promo-modal-canvas,
+    .map-drawer-canvas,
+    .result-visuals .photo-slot
+  ) {
+  border-radius: var(--rv-r-sm);
+  overflow: hidden;
+}
+html:not([data-corners="sharp"]) :is(
+    .dz-select-btn,
+    .dz-select-pop,
+    .picker-button,
+    .picker-pop,
+    .budget-track,
+    .pvm-cart strong em,
+    .partner-modal-panel :is(input, textarea, button),
+    .dz-cookie,
+    .dz-cookie-btn
+  ) {
+  border-radius: var(--rv-r-sm);
+}
+/* в остром варианте окно партнёра тоже без скругления */
+html[data-corners="sharp"] .partner-modal-panel,
+html[data-corners="sharp"] .partner-modal-panel :is(input, textarea, button) {
+  border-radius: 0;
+}
