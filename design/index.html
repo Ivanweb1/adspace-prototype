@@ -1718,14 +1718,13 @@
     <!-- Яндекс.Карты. Для рабочего сайта нужен бесплатный API-ключ на домен
          заказчика: добавить &apikey=… в адрес ниже. -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
-    <!-- Панель выбора шрифта заголовков — только для показа вариантов заказчику -->
-    <div class="dz-fontpick" role="group" aria-label="Шрифт заголовков" data-fontpick>
-      <span>Шрифт</span>
-      <button type="button" data-font-set="grotesk">Гротеск</button>
-      <button type="button" data-font-set="news">Газетный</button>
-      <button type="button" data-font-set="logo">Как логотип</button>
-      <button type="button" data-font-set="wide">Широкий</button>
-      <button type="button" data-font-set="poster">Плакат</button>
+    <!-- Правки 23.10: остаются два варианта — тёмный графит с острыми
+         и со скруглёнными углами, оба с шрифтом «Газетный».
+         Панель — только для показа вариантов заказчику. -->
+    <div class="dz-fontpick" role="group" aria-label="Вариант углов" data-fontpick>
+      <span>Углы</span>
+      <button type="button" data-corners-set="sharp">Острые</button>
+      <button type="button" data-corners-set="round">Скруглённые</button>
       <button type="button" class="dz-fontpick-close" aria-label="Скрыть панель" data-fontpick-close>✕</button>
     </div>
 
@@ -1733,15 +1732,16 @@
       (function () {
         var root = document.documentElement;
         var panel = document.querySelector("[data-fontpick]");
-        var buttons = panel.querySelectorAll("[data-font-set]");
-        var saved;
-        // ключ v2: «Газетный» стал шрифтом по умолчанию — старый выбор сбрасываем
-        try { saved = localStorage.getItem("dz-font-v2"); } catch (e) {}
-        function apply(name) {
-          root.setAttribute("data-font", name);
-          buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.fontSet === name)); });
-          try { localStorage.setItem("dz-font-v2", name); } catch (e) {}
-          if (document.fonts) document.fonts.ready.then(fit); else fit();
+        var buttons = panel.querySelectorAll("[data-corners-set]");
+        // шрифт заголовков утверждён — «Газетный» (правки 23.10)
+        root.setAttribute("data-font", "news");
+        if (document.fonts) document.fonts.ready.then(fit); else fit();
+        // углы: острые или скруглённые; ?corners= в ссылке важнее сохранённого выбора
+        var savedCorners;
+        try { savedCorners = localStorage.getItem("dz-corners"); } catch (e) {}
+        function applyCorners(name) {
+          root.setAttribute("data-corners", name);
+          buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.cornersSet === name)); });
         }
         // Слоган: каждая фраза в одну строку, размер — под ширину колонки
         // (у шрифтов разная ширина, поэтому подгоняем, а не задаём в CSS)
@@ -1759,9 +1759,14 @@
           var size = Math.min(MAX, Math.floor((title.clientWidth / widest) * 100 * 0.97));
           title.style.setProperty("--dz-fit", size + "px");
         }
-        var fromUrl = new URLSearchParams(location.search).get("font");
-        apply(fromUrl || saved || "news");
-        buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.fontSet); }); });
+        var cornersUrl = new URLSearchParams(location.search).get("corners");
+        applyCorners(cornersUrl === "round" || cornersUrl === "sharp" ? cornersUrl : savedCorners === "round" ? "round" : "sharp");
+        buttons.forEach(function (b) {
+          b.addEventListener("click", function () {
+            applyCorners(b.dataset.cornersSet);
+            try { localStorage.setItem("dz-corners", b.dataset.cornersSet); } catch (e) {}
+          });
+        });
         // Фото акций: assets/photos-light/promo-<id>.jpg. Если файла ещё нет,
         // остаётся серая заглушка с подписью.
         function setPhoto(el, id) {
