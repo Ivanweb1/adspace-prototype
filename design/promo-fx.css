@@ -1,0 +1,163 @@
+/* =========================================================
+   ADSPACE Group — правка 29 (29.10): эффекты блока «Акции».
+   Переключатель — data-promofx на <html> (см. promo-fx.js).
+   ========================================================= */
+
+.pr-drum-hint {
+  display: none;
+}
+
+/* ── В · вылет: карточки влетают по очереди, фото «садится» ── */
+@keyframes fxCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(48px) scale(0.94);
+  }
+}
+@keyframes fxPhotoIn {
+  from {
+    transform: scale(1.5);
+  }
+}
+html[data-promofx="fly"] .pr-page.is-enter .pr-card {
+  animation: fxCardIn 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--n, 0) * 110ms);
+}
+html[data-promofx="fly"] .pr-page.is-enter .pr-media .dz-frame {
+  animation: fxPhotoIn 1.3s cubic-bezier(0.16, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--n, 0) * 110ms);
+}
+/* наведение: карточка поднимается, фото крупнее */
+html[data-promofx="fly"] .promos .pr-card {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
+}
+html[data-promofx="fly"] .promos .pr-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 26px 50px rgba(60, 0, 12, 0.35);
+}
+html[data-promofx="fly"] .promos .pr-card:hover .pr-media .dz-frame {
+  transform: scale(1.14);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* ── Б · вырезка из газеты ─────────────────────────────── */
+html[data-promofx="cutout"] .promos .pr-card {
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.35s ease, filter 0.35s ease,
+    box-shadow 0.4s ease, outline-color 0.3s ease;
+  outline: 2px dashed transparent;
+  outline-offset: 8px;
+}
+/* остальные гаснут, «вырезанная» — поднимается с тенью и наклоном,
+   вокруг — пунктир линии отреза */
+/* гаснут в серый, а не прозрачностью: иначе розовеют на красном */
+html[data-promofx="cutout"] .pr-page:has(.pr-card:hover) .pr-card:not(:hover) {
+  filter: grayscale(0.9) brightness(0.8) contrast(0.9);
+  transform: scale(0.98);
+}
+html[data-promofx="cutout"] .promos .pr-card:hover {
+  z-index: 3;
+  transform: translateY(-12px) rotate(-1.4deg) scale(1.03);
+  box-shadow: 0 32px 60px rgba(40, 0, 8, 0.45);
+  outline-color: rgba(255, 255, 255, 0.95);
+}
+html[data-promofx="cutout"] .promos .pr-card:hover .pr-media .dz-frame {
+  transform: scale(1.06);
+}
+
+/* ── А · барабан ───────────────────────────────────────── */
+/* высота обёртки — путь прокрутки: ~половина экрана на акцию */
+html[data-promofx="drum"] .promos .pr-wrap {
+  height: calc(100vh + 8 * 42vh);
+}
+html[data-promofx="drum"] .promos .pr-stage {
+  position: sticky;
+  top: 68px;
+  height: calc(100vh - 68px);
+  perspective: 1800px;
+  overflow: hidden;
+}
+html[data-promofx="drum"] .promos .pr-page,
+html[data-promofx="drum"] .promos .pr-page[hidden] {
+  display: contents;
+}
+html[data-promofx="drum"] .promos .pr-card,
+html[data-promofx="drum"] .promos .pr-card--main,
+html[data-promofx="drum"] .promos .pr-card--wide {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(980px, 100%);
+  height: clamp(300px, 52vh, 460px);
+  min-height: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  backface-visibility: hidden;
+  transition: none;
+  will-change: transform, opacity;
+  box-shadow: 0 30px 60px rgba(40, 0, 8, 0.3);
+}
+html[data-promofx="drum"] .promos .pr-card .pr-media,
+html[data-promofx="drum"] .promos .pr-card--wide .pr-media,
+html[data-promofx="drum"] .promos .pr-card:not(.pr-card--main):not(.pr-card--wide) .pr-media {
+  position: relative;
+  inset: auto;
+  width: auto;
+  height: 100%;
+  min-height: 0;
+  order: 0;
+}
+html[data-promofx="drum"] .promos .pr-card .pr-body {
+  order: 1;
+  overflow: hidden;
+}
+html[data-promofx="drum"] .promos .pr-card:hover {
+  transform: none;
+}
+/* подсказка под барабаном */
+html[data-promofx="drum"] .pr-drum-hint {
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  margin: 0;
+  transform: translateX(-50%);
+  font: 600 12px/1 var(--dz-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dz-black);
+  white-space: nowrap;
+  z-index: 200;
+}
+html[data-promofx="drum"] .pr-drum-hint b {
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: 18px;
+  letter-spacing: 0;
+}
+html[data-promofx="drum"] .pr-drum-hint::after {
+  content: " ↓";
+}
+html[data-promofx="drum"] .promos .pr-note {
+  margin-top: 0;
+}
+
+/* телефон: в барабане фото сверху, текст снизу */
+@media (max-width: 720px) {
+  html[data-promofx="drum"] .promos .pr-stage {
+    top: 60px;
+    height: calc(100vh - 60px);
+    perspective: 1200px;
+  }
+  html[data-promofx="drum"] .promos .pr-card,
+  html[data-promofx="drum"] .promos .pr-card--main,
+  html[data-promofx="drum"] .promos .pr-card--wide {
+    height: min(64vh, 520px);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 42% minmax(0, 1fr);
+  }
+  html[data-promofx="drum"] .promos .pr-card .pr-remark {
+    display: none;
+  }
+}

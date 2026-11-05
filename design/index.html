@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="review.css?v=10" />
     <!-- Правки заказчика 16.10–21.10. -->
     <link rel="stylesheet" href="review2.css?v=17" />
+    <!-- Правка 29 (29.10): эффекты блока «Акции», ?promofx=drum|cutout|fly -->
+    <link rel="stylesheet" href="promo-fx.css?v=3" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
          ?intro=on — показать снова, ?intro=off — без заставки. -->
     <script>
@@ -436,7 +438,11 @@
           </div>
         </div>
 
-        <div class="reveal">
+        <div class="reveal pr-wrap" data-pr-wrap>
+          <!-- правка 29: сцена для эффектов акций (?promofx=fly|cutout|drum);
+               в обычном виде — просто обёртка разворотов -->
+          <div class="pr-stage" data-pr-stage>
+          <p class="pr-drum-hint" aria-hidden="true">Крутите колесо — акции сменяются</p>
           <!-- страница 1 -->
           <div class="pr-page" data-cx-page>
             <article class="pr-card pr-card--main" data-tentative="акция демонстрационная">
@@ -586,6 +592,7 @@
               </div>
             </article>
 
+          </div>
           </div>
 
           <p class="pr-note">
@@ -1753,6 +1760,7 @@
     </section>
 
     <script src="script.js?v=20"></script>
+    <script src="promo-fx.js?v=3"></script>
     <!-- Яндекс.Карты. Для рабочего сайта нужен бесплатный API-ключ на домен
          заказчика: добавить &apikey=… в адрес ниже. -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
@@ -1763,6 +1771,11 @@
       <span>Углы</span>
       <button type="button" data-corners-set="sharp">Острые</button>
       <button type="button" data-corners-set="round">Скруглённые</button>
+      <span>Акции</span>
+      <button type="button" data-promofx-set="base">Как сейчас</button>
+      <button type="button" data-promofx-set="drum">А · Барабан</button>
+      <button type="button" data-promofx-set="cutout">Б · Вырезка</button>
+      <button type="button" data-promofx-set="fly">В · Вылет</button>
       <button type="button" class="dz-fontpick-close" aria-label="Скрыть панель" data-fontpick-close>✕</button>
     </div>
 
