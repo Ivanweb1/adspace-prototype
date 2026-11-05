@@ -789,3 +789,54 @@ html:not([data-corners="sharp"]) :is(.dz-pick, .dz-mix .dz-seg, .dz-mix .dz-step
     display: none;
   }
 }
+
+/* ── 27 · «Бронь» в окне первого экрана — светлая карта,
+   как в «Географии присутствия» (правка 28.10) ─────────────── */
+.dz-book-map {
+  overflow: hidden;
+  background-color: #e7e5df;
+  background-image: linear-gradient(rgba(34, 36, 47, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 36, 47, 0.08) 1px, transparent 1px),
+    linear-gradient(32deg, transparent 47%, #ffffff 47% 50%, transparent 50%);
+}
+/* запасная схема (пока карта грузится): квадраты на светлом */
+.dz-book-map i {
+  border-color: var(--rv-ink);
+  background: var(--dz-white);
+}
+.dz-book-map .is-taken {
+  border-color: #a9aab0;
+  background: #d4d3ce;
+}
+.dz-book-map.has-map > i {
+  display: none;
+}
+/* карта без кнопок и подписей — это показ, а не рабочая карта */
+.dz-book-map [class*="controls__control"],
+.dz-book-map [class*="copyrights-pane"] {
+  display: none !important;
+}
+.dz-pin--free {
+  background: var(--dz-white);
+  box-shadow: 0 0 0 2px var(--rv-ink);
+}
+.dz-pin--taken {
+  background: #b9b9be;
+  box-shadow: none;
+}
+
+/* ── 28 · окно «Что здесь можно сделать» крупнее (правка 28.10):
+   в сюжетах теперь графики с подписями — им нужно место.
+   Колонку слогана не сужаем (кнопки в один ряд), окно растёт
+   в высоту и за счёт промежутка между колонками. ─────────── */
+@media (min-width: 1181px) {
+  .hero-grid {
+    gap: 28px;
+  }
+  .hero .stage-screen {
+    min-height: clamp(400px, 31vw, 470px);
+  }
+}
+html:not([data-corners="sharp"]) .dz-book-map {
+  border-radius: var(--rv-r-sm);
+}

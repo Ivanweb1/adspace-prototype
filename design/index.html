@@ -28,7 +28,7 @@
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
     <link rel="stylesheet" href="review.css?v=10" />
     <!-- Правки заказчика 16.10–21.10. -->
-    <link rel="stylesheet" href="review2.css?v=15" />
+    <link rel="stylesheet" href="review2.css?v=17" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
          ?intro=on — показать снова, ?intro=off — без заставки. -->
     <script>
@@ -353,6 +353,9 @@
               <div class="scene scene--booking" data-scene="booking">
                 <div class="dz-book" aria-hidden="true">
                   <div class="dz-book-map">
+                    <!-- правка 27: светлая Яндекс.Карта, как в «Географии»;
+                         квадраты ниже — запасная схема, пока карта не загрузилась -->
+                    <div class="dz-map" data-dz-book-map></div>
                     <i style="--x: 24%; --y: 30%"></i>
                     <i style="--x: 62%; --y: 22%"></i>
                     <i class="is-taken" style="--x: 40%; --y: 64%"></i>
@@ -2067,6 +2070,46 @@
           [55.7558, 37.6173], [59.9343, 30.3351], [51.672, 39.1843], [55.7963, 49.1088],
           [56.3269, 44.0059], [56.8389, 60.6057], [53.1959, 50.1002], [54.7388, 55.9721],
         ]);
+        // Сюжет «Бронь» в окне первого экрана: та же светлая карта, точки
+        // в трёх состояниях — свободно, занято, в корзине (как список справа).
+        // Адреса демонстрационные.
+        var BOOK_POINTS = [
+          [[55.7352, 37.5932], "free"],    // Ленина / 42
+          [[55.7812, 37.6335], "free"],    // Проспект Мира
+          [[55.7603, 37.6051], "taken"],   // ТЦ «Галерея»
+          [[55.7496, 37.5601], "picked"],  // Кутузовский, 12
+          [[55.7705, 37.5752], "free"],
+        ];
+        var bookEl = document.querySelector("[data-dz-book-map]");
+        var bookMap = null;
+        function drawBook() {
+          ymapsReady.then(function () {
+            if (bookMap) { bookMap.container.fitToViewport(); return; }
+            bookMap = createYMap(bookEl, ".dz-book-map");
+            bookMap.behaviors.disable(["drag", "dblClickZoom", "multiTouch"]);
+            var layouts = {};
+            ["free", "taken", "picked"].forEach(function (k) {
+              layouts[k] = ymaps.templateLayoutFactory.createClass('<div class="dz-pin dz-pin--' + k + '"></div>');
+            });
+            BOOK_POINTS.forEach(function (p) {
+              bookMap.geoObjects.add(new ymaps.Placemark(p[0], {}, {
+                iconLayout: layouts[p[1]],
+                iconShape: { type: "Rectangle", coordinates: [[-8, -8], [8, 8]] },
+              }));
+            });
+            bookMap.setBounds(ymaps.util.bounds.fromPoints(BOOK_POINTS.map(function (p) { return p[0]; })), {
+              checkZoomRange: true, zoomMargin: 48,
+            });
+          });
+        }
+        // карта создаётся, когда сюжет впервые показан: до этого у него нет размера
+        var bookScene = bookEl && bookEl.closest(".scene");
+        if (bookScene && "MutationObserver" in window) {
+          new MutationObserver(function () {
+            if (bookScene.classList.contains("is-active")) setTimeout(drawBook, 80);
+          }).observe(bookScene, { attributes: true, attributeFilter: ["class"] });
+        }
+
         var geoEl = document.querySelector("[data-dz-geo-map]");
         var geoMap = null, geoView = "south";
         function drawGeo(animate) {
