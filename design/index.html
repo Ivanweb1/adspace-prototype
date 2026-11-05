@@ -28,7 +28,7 @@
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
     <link rel="stylesheet" href="review.css?v=10" />
     <!-- Правки заказчика 16.10–21.10. -->
-    <link rel="stylesheet" href="review2.css?v=17" />
+    <link rel="stylesheet" href="review2.css?v=18" />
     <!-- Правка 29 (29.10): эффекты блока «Акции», ?promofx=drum|cutout|fly -->
     <link rel="stylesheet" href="promo-fx.css?v=3" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
@@ -47,7 +47,7 @@
     <div class="intro" aria-hidden="true" data-intro>
       <div class="intro-curtain"></div>
       <div class="intro-inner">
-        <img class="intro-logo" src="assets/logo-adspace-group.svg" alt="" width="1105" height="118" />
+        <img class="intro-logo" src="assets/logo-adspace-group-on-dark.svg" alt="" width="1105" height="118" />
         <span class="intro-line"></span>
         <p class="intro-slogan"><span>Просто выбрать.</span> <b>Легко заказать.</b></p>
       </div>
@@ -2202,15 +2202,15 @@
           setTimeout(function () {
             root.classList.remove("is-intro", "is-intro-out");
             intro.remove();
-          }, 900);
+          }, 1500);
         }
-        // заставка ~1,8 с; если страница грузится дольше — ждём, но не больше 4 с
-        var minTime = new Promise(function (r) { setTimeout(r, 1800); });
+        // заставка ~3 с (правка 30: медленнее); если страница грузится дольше — ждём, но не больше 6 с
+        var minTime = new Promise(function (r) { setTimeout(r, 3000); });
         var loaded = new Promise(function (r) {
           if (document.readyState === "complete") r(); else window.addEventListener("load", r);
         });
         Promise.all([minTime, loaded]).then(finish);
-        setTimeout(finish, 4000);
+        setTimeout(finish, 6000);
         intro.addEventListener("click", finish);
       })();
     </script>

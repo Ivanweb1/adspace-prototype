@@ -840,3 +840,33 @@ html:not([data-corners="sharp"]) :is(.dz-pick, .dz-mix .dz-seg, .dz-mix .dz-step
 html:not([data-corners="sharp"]) .dz-book-map {
   border-radius: var(--rv-r-sm);
 }
+
+/* ── 30 · прелоадер на тёмном фоне и медленнее (правка 29.10) ──
+   Фон — тёмный графит первого экрана, логотип — «ADSPACE» белым,
+   «Group» красным. Все шаги ~в 1,6 раза медленнее: заставка
+   держится ~3 с, уход ~1,5 с (тайминги в скрипте в index.html). */
+html.is-intro .intro {
+  background: var(--rv-mid);
+}
+.intro-slogan {
+  color: var(--dz-white);
+}
+.intro-logo {
+  animation: intro-wipe 1.4s 0.25s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+.intro-line {
+  animation: intro-line 1.1s 0.9s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+.intro-slogan span,
+.intro-slogan b {
+  animation: intro-up 0.8s 1.6s ease forwards;
+}
+.intro-slogan b {
+  animation-delay: 1.95s;
+}
+html.is-intro-out .intro-curtain {
+  animation: intro-curtain 0.8s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+html.is-intro-out .intro {
+  animation: intro-out 0.7s 0.7s cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
