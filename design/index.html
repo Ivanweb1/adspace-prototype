@@ -30,7 +30,7 @@
     <!-- Правки заказчика 16.10–21.10. -->
     <link rel="stylesheet" href="review2.css?v=18" />
     <!-- Правка 29 (29.10): эффекты блока «Акции», ?promofx=drum|cutout|fly -->
-    <link rel="stylesheet" href="promo-fx.css?v=3" />
+    <link rel="stylesheet" href="promo-fx.css?v=5" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
          ?intro=on — показать снова, ?intro=off — без заставки. -->
     <script>
@@ -429,7 +429,7 @@
         <div class="section-heading reveal">
           <div>
             <p class="eyebrow">Актуально сейчас</p>
-            <h2 id="promos-title">Акции месяца</h2>
+            <h2 id="promos-title" data-promos-title>Афиша акций и спецпредложений</h2>
           </div>
           <div class="pr-flip">
             <button type="button" data-cx-prev aria-label="Предыдущая страница">←</button>
@@ -446,10 +446,26 @@
           <!-- страница 1 -->
           <div class="pr-page" data-cx-page>
             <article class="pr-card pr-card--main" data-tentative="акция демонстрационная">
-              <div class="pr-media" aria-hidden="true">
-                <div class="dz-frame" style="--ar: 0.6667; --px: 0.5; --py: 0.35" data-modal-bg="hotels">
-                  <img src="assets/photos-light/promo-hotels-v.jpg" alt="" loading="lazy" />
-                  <span class="dz-board dz-board--hotel-v"><b>Ваш<br />бренд</b></span>
+              <!-- правка 32: видео вместо фото, подача как у сторис.
+                   Ролик пока собран из наших фото — заменить файлом заказчика
+                   (вертикальный 9:16, без звука, до ~15 с). -->
+              <div class="pr-media pr-story" aria-hidden="true" data-story>
+                <video
+                  class="pr-story-video"
+                  src="assets/video/promo-hotels-story.mp4"
+                  poster="assets/video/promo-hotels-story.jpg"
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                ></video>
+                <div class="pr-story-ui">
+                  <div class="pr-story-bars" data-story-bars><i></i><i></i><i></i></div>
+                  <div class="pr-story-head">
+                    <span class="pr-story-ava"><img src="assets/logo-adspace-group-white.svg" alt="" /></span>
+                    <b>ADSPACE Group</b>
+                    <small>Спецразмещение</small>
+                  </div>
                 </div>
               </div>
               <div class="pr-body">
@@ -1760,7 +1776,7 @@
     </section>
 
     <script src="script.js?v=20"></script>
-    <script src="promo-fx.js?v=3"></script>
+    <script src="promo-fx.js?v=4"></script>
     <!-- Яндекс.Карты. Для рабочего сайта нужен бесплатный API-ключ на домен
          заказчика: добавить &apikey=… в адрес ниже. -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
@@ -1776,6 +1792,9 @@
       <button type="button" data-promofx-set="drum">А · Барабан</button>
       <button type="button" data-promofx-set="cutout">Б · Вырезка</button>
       <button type="button" data-promofx-set="fly">В · Вылет</button>
+      <span>Заголовок</span>
+      <button type="button" data-ptitle-set="long">Афиша акций…</button>
+      <button type="button" data-ptitle-set="short">Афиша</button>
       <button type="button" class="dz-fontpick-close" aria-label="Скрыть панель" data-fontpick-close>✕</button>
     </div>
 

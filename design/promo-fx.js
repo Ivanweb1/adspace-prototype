@@ -174,6 +174,53 @@
         try { localStorage.setItem("dz-promofx", b.dataset.promofxSet); } catch (e) {}
       });
     });
+
+    /* ── правка 32: видео-сторис в главной карточке ───────────
+       Полоски сверху — сцены ролика (границы в секундах), заполняются
+       по времени видео. Вне экрана ролик на паузе. */
+    var story = promos.querySelector("[data-story]");
+    var video = story && story.querySelector("video");
+    var bars = story ? story.querySelectorAll("[data-story-bars] i") : [];
+    var CUTS = [0, 3.25, 6.25, 9.5];
+    function paintBars() {
+      if (!video) return;
+      var t = video.currentTime;
+      bars.forEach(function (bar, i) {
+        var p = (t - CUTS[i]) / (CUTS[i + 1] - CUTS[i]);
+        bar.style.setProperty("--p", Math.min(1, Math.max(0, p)));
+      });
+      if (!video.paused) requestAnimationFrame(paintBars);
+    }
+    if (video) {
+      video.addEventListener("play", paintBars);
+      var play = function () { var r = video.play(); if (r && r.catch) r.catch(function () {}); };
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) play(); else video.pause();
+        }, { threshold: 0.2 }).observe(story);
+      } else {
+        play();
+      }
+    }
+
+    /* ── правка 32: название блока — «Афиша акций и спецпредложений» или «Афиша» ── */
+    var TITLES = { long: "Афиша акций и спецпредложений", short: "Афиша" };
+    var titleEl = promos.querySelector("[data-promos-title]");
+    var titleButtons = panel ? panel.querySelectorAll("[data-ptitle-set]") : [];
+    function applyTitle(name) {
+      if (titleEl) titleEl.textContent = TITLES[name];
+      titleButtons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.ptitleSet === name)); });
+    }
+    var savedTitle;
+    try { savedTitle = localStorage.getItem("dz-ptitle"); } catch (e) {}
+    var titleUrl = new URLSearchParams(location.search).get("ptitle");
+    applyTitle(TITLES[titleUrl] ? titleUrl : TITLES[savedTitle] ? savedTitle : "long");
+    titleButtons.forEach(function (b) {
+      b.addEventListener("click", function () {
+        applyTitle(b.dataset.ptitleSet);
+        try { localStorage.setItem("dz-ptitle", b.dataset.ptitleSet); } catch (e) {}
+      });
+    });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();

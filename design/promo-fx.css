@@ -161,3 +161,83 @@ html[data-promofx="drum"] .promos .pr-note {
     display: none;
   }
 }
+
+/* ── правка 32: видео-сторис в главной карточке акций ───── */
+.pr-story {
+  background: #1c1c20;
+}
+.pr-story-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* затемнение сверху — чтобы читались полоски и подпись */
+.pr-story-ui {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  padding: 12px 12px 36px;
+  background: linear-gradient(180deg, rgba(10, 10, 14, 0.55), rgba(10, 10, 14, 0));
+  color: var(--dz-white);
+  pointer-events: none;
+}
+.pr-story-bars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.pr-story-bars i {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.pr-story-bars i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--dz-white);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+}
+.pr-story-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  align-items: center;
+  margin-top: 12px;
+}
+.pr-story-ava {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--dz-red);
+  box-shadow: 0 0 0 2px var(--dz-white);
+  overflow: hidden;
+}
+.pr-story-ava img {
+  width: 80%;
+  height: auto;
+}
+.pr-story-head b {
+  font: 700 13px/1.2 var(--dz-body);
+}
+.pr-story-head small {
+  font: 500 11px/1.2 var(--dz-body);
+  color: rgba(255, 255, 255, 0.75);
+}
+/* общее правило фото карточки (.pr-media img — на весь блок) аватару не нужно */
+.pr-media .pr-story-ava img {
+  position: static;
+  inset: auto;
+  width: 80%;
+  height: auto;
+  transform: none;
+}
