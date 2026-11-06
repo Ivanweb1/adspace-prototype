@@ -921,3 +921,68 @@ html:not([data-hero="dark"]) .hero .stage-dots button[aria-selected="true"] {
 html:not([data-hero="dark"]) .hero :is(.stage-screen, .scene--outdoor, .scene--indoor, .scene--broadcast) {
   background: var(--rv-mid-2);
 }
+
+/* ── 33 · скругления, которых не хватало (правка 06.11) ──────
+   Тот же принцип, что в «22»: крупная панель — --rv-r,
+   всё вложенное — --rv-r-sm. В остром варианте переменные = 0. */
+
+/* корзина в «Брони» на первом экране */
+html:not([data-corners="sharp"]) .dz-book-cart {
+  border-radius: var(--rv-r-sm);
+}
+html:not([data-corners="sharp"]) .dz-book-cart b {
+  border-radius: calc(var(--rv-r-sm) - 4px);
+}
+
+/* «Рассчитать этот формат» в «Решениях» — кнопка, как остальные */
+html:not([data-corners="sharp"]) .solutions .preview-meta .text-link {
+  border-radius: var(--rv-r-sm);
+}
+
+/* шаг контакта в конструкторе: панель, крестик, плашки параметров, поля */
+html:not([data-corners="sharp"]) .builder-gate {
+  border-radius: var(--rv-r);
+}
+html:not([data-corners="sharp"]) :is(
+    .gate-close,
+    .result-head button,
+    .gate-summary li,
+    .builder-gate input:not([type="checkbox"])
+  ) {
+  border-radius: var(--rv-r-sm) !important;
+}
+
+/* окно акции: тёмная колонка (фото + карта) — одна скруглённая
+   карточка; фото внутри неё без своих углов, шов с картой прямой */
+html:not([data-corners="sharp"]) .promo-modal-media {
+  border-radius: var(--rv-r);
+  overflow: hidden;
+}
+html:not([data-corners="sharp"]) .promo-modal-media .promo-modal-photo {
+  border-radius: 0;
+}
+
+/* флажок согласия: квадрат по центру первой строки, галочка по центру квадрата */
+.dz-consent {
+  align-items: flex-start;
+}
+.dz-consent-box {
+  margin-top: calc((1.45em - 18px) / 2);
+}
+.dz-consent input[type="checkbox"] {
+  top: calc((1.45em - 18px) / 2);
+  left: 0;
+}
+.dz-consent-box::after {
+  left: 50%;
+  top: 45%;
+  width: 5px;
+  height: 9px;
+  transform: translate(-50%, -50%) rotate(45deg) scale(0.4);
+}
+.dz-consent input:checked + .dz-consent-box::after {
+  transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+html:not([data-corners="sharp"]) .dz-consent-box {
+  border-radius: 4px;
+}

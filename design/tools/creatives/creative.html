@@ -106,6 +106,17 @@
     .logo { height:auto; width:46cqw; bottom:6cqh; }
   }
 
+
+  /* ── 6 · «−15% осенью на щиты 3×6» — для акции «Осенний тариф» (правка 06.11) ── */
+  .t6 { background: radial-gradient(110% 120% at 85% 0%, #fff 0%, var(--paper) 60%, #ebe7df 100%); }
+  .t6 .k { position:absolute; left:5cqw; top:10cqh; font-size:min(9cqh, 3.6cqw); color:var(--ink); }
+  .t6 .big { position:absolute; left:4.2cqw; top:20cqh; font-size:min(50cqh, 20cqw); }
+  .t6 .r { position:absolute; right:6cqw; top:14cqh; width:40cqw; text-align:right; }
+  .t6 .r .fmt { display:block; font-size:min(34cqh, 13cqw); color:var(--ink); }
+  .t6 .r .fmt small { display:block; font-size:.36em; letter-spacing:.02em; margin-bottom:2cqh; color:var(--red); }
+  .t6 .sub { position:absolute; right:6cqw; bottom:9cqh; width:40cqw; text-align:right; font-size:min(5.6cqh, 2.4cqw); font-weight:600; }
+  .t6 .sub b { color:var(--red); }
+
   /* очень широкие поверхности: размеры ограничены ещё и шириной */
   @container (aspect-ratio >= 1) {
     .t1 .big { font-size:min(36cqh, 13cqw); } .t1 svg.cur { height:min(56cqh, 20cqw); }
@@ -156,6 +167,9 @@
         ${pin("pa","g")}${pin("pb","r")}${pin("pc","g")}`,
     5: `<p class="h d">Просто выбрать.<br><b>Легко заказать.</b></p><span class="btn d">Заказать</span>
         <p class="sub">От одной поверхности до&nbsp;кампании <span class="nb">по всей России</span></p>`,
+    6: `<span class="k d">Осенний тариф</span><span class="big d x3d">−15%</span>
+        <div class="r"><span class="fmt d"><small>щиты</small>3×6</span></div>
+        <p class="sub">Скидка за длительный период<br><b class="nb">при брони до конца месяца</b></p>`,
   };
   c.className = "c t" + t;
   c.innerHTML = T[t] + logo;
