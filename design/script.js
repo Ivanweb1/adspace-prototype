@@ -77,9 +77,19 @@
       plan: "Готовый медиаплан",
       booking: "Онлайн-бронирование",
     };
+    // правка 34: что клиент делает сам — крупная строка в шапке окна
+    const ctas = {
+      outdoor: "Вы сами выбираете поверхности",
+      indoor: "Вы сами выбираете место на стенде в лифте",
+      broadcast: "Вы сами считаете радио и выбираете дикторов",
+      calc: "Вы сразу видите точный расчёт",
+      plan: "Вы получаете готовый медиаплан",
+      booking: "Вы сами бронируете онлайн",
+    };
     const scenes = $$("[data-scene]", stage);
     const dots = $$("[data-stage-dot]", stage);
     const caption = $("[data-stage-title]", stage);
+    const cta = $("[data-stage-cta]", stage);
     let index = 0;
     let timer = null;
 
@@ -104,6 +114,12 @@
       scenes.forEach((scene, i) => scene.classList.toggle("is-active", i === index));
       dots.forEach((dot, i) => dot.setAttribute("aria-selected", String(i === index)));
       caption.textContent = titles[scenes[index].dataset.scene] || "";
+      if (cta) {
+        cta.textContent = ctas[scenes[index].dataset.scene] || "";
+        cta.classList.remove("is-in");
+        void cta.offsetWidth;
+        cta.classList.add("is-in");
+      }
       const counter = $("[data-count-to]", scenes[index]);
       if (counter) countUp(counter);
       // числа без ₽ — в сценах «Лифты» и «Радио и ТВ»

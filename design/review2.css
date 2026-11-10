@@ -986,3 +986,36 @@ html:not([data-corners="sharp"]) .promo-modal-media .promo-modal-photo {
 html:not([data-corners="sharp"]) .dz-consent-box {
   border-radius: 4px;
 }
+
+/* ── 34 · что клиент делает сам (правка 10.11) ─────────────
+   крупная строка под «Что здесь можно сделать», меняется вместе со сюжетом */
+.hero .stage-top {
+  display: grid;
+  gap: 8px;
+}
+.hero .dz-stage-cta {
+  margin: 0 0 4px;
+  font-family: var(--dz-display);
+  font-weight: var(--dz-weight);
+  font-size: clamp(20px, 1.75vw, 26px);
+  line-height: 1.1;
+  letter-spacing: var(--dz-track);
+  text-transform: uppercase;
+  color: var(--dz-white);
+}
+/* вариант «Прежний»: окно белое — строка тёмная */
+html[data-hero="dark"] .hero .dz-stage-cta {
+  color: var(--rv-ink);
+}
+.hero .dz-stage-cta.is-in {
+  animation: dz-cta-in 0.45s ease both;
+}
+@keyframes dz-cta-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 760px) {
+  .hero .dz-stage-cta {
+    font-size: 18px;
+  }
+}
