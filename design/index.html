@@ -28,7 +28,7 @@
     <!-- Правки заказчика 13.10–15.10 и переключатели вариантов. -->
     <link rel="stylesheet" href="review.css?v=10" />
     <!-- Правки заказчика 16.10–21.10. -->
-    <link rel="stylesheet" href="review2.css?v=23" />
+    <link rel="stylesheet" href="review2.css?v=24" />
     <!-- Правка 29 (29.10): эффекты блока «Акции», ?promofx=drum|cutout|fly -->
     <link rel="stylesheet" href="promo-fx.css?v=7" />
     <!-- Прелоадер: показываем один раз за сессию, до первой отрисовки.
@@ -222,6 +222,9 @@
                   <img class="scene-photo" src="assets/photos-light/outdoor.jpg" alt="" />
                   <span class="dz-board dz-board--outdoor"><b>Ваш бренд</b></span>
                 </div>
+                <!-- правка 35 (12.11): ролик платформы заказчика как есть, поверх фото -->
+                <video class="dz-scene-video" data-scene-video src="assets/video/outdoor-platform.mp4"
+                  poster="assets/video/outdoor-platform.jpg" muted playsinline preload="auto" aria-hidden="true"></video>
                 <div class="scene-grid" aria-hidden="true"></div>
                 <div class="billboard">
                   <div class="billboard-screen">ВАШ<br />БРЕНД</div>
@@ -1777,7 +1780,7 @@
       </div>
     </section>
 
-    <script src="script.js?v=21"></script>
+    <script src="script.js?v=22"></script>
     <script src="promo-fx.js?v=5"></script>
     <!-- Яндекс.Карты. Для рабочего сайта нужен бесплатный API-ключ на домен
          заказчика: добавить &apikey=… в адрес ниже. -->

@@ -1019,3 +1019,22 @@ html[data-hero="dark"] .hero .dz-stage-cta {
     font-size: 18px;
   }
 }
+
+/* ── 35. «Наружка» — ролик платформы заказчика (12.11) ──────
+   Видео как есть, на весь кадр окна; фото, щит и плашки под ним скрыты.
+   Слайд держится до конца ролика, потом листание идёт дальше (script.js). */
+.scene--outdoor .dz-scene-video {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ролик как есть, без обрезки */
+  background: #2b2f36;
+}
+.scene--outdoor:has(.dz-scene-video) .dz-frame,
+.scene--outdoor:has(.dz-scene-video) .billboard,
+.scene--outdoor:has(.dz-scene-video) .chip,
+.scene--outdoor:has(.dz-scene-video) .scene-grid {
+  display: none;
+}

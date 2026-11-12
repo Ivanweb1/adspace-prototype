@@ -120,6 +120,15 @@
         void cta.offsetWidth;
         cta.classList.add("is-in");
       }
+      // правка 35: ролик в «Наружке» — играет только на своём слайде, с начала
+      $$("[data-scene-video]", stage).forEach((v) => {
+        if (v.closest("[data-scene]") === scenes[index]) {
+          v.currentTime = 0;
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
       const counter = $("[data-count-to]", scenes[index]);
       if (counter) countUp(counter);
       // числа без ₽ — в сценах «Лифты» и «Радио и ТВ»
@@ -129,8 +138,19 @@
     const play = () => {
       if (reduceMotion.matches) return;
       stop();
-      timer = window.setInterval(() => showScene(index + 1), 4200);
+      // слайд с роликом не листаем по таймеру — ждём конца ролика
+      if ($("[data-scene-video]", scenes[index])) return;
+      timer = window.setInterval(() => {
+        showScene(index + 1);
+        if ($("[data-scene-video]", scenes[index])) stop();
+      }, 4200);
     };
+    $$("[data-scene-video]", stage).forEach((v) =>
+      v.addEventListener("ended", () => {
+        showScene(index + 1);
+        play();
+      })
+    );
     const stop = () => {
       if (timer) window.clearInterval(timer);
       timer = null;
