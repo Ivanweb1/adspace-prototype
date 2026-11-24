@@ -1,0 +1,410 @@
+/* =========================================================
+   ADSPACE Group — новый первый экран (вариант 1)
+   «Окно управляется слева» + рабочий переключатель Светлая / Тёмная тема.
+   Подключается поверх design.css, review.css, review2.css.
+   ========================================================= */
+
+/* ── 1 · Левый управляемый пульт «В одном окне — вы сами» ──
+   Архитектурная сетка 2 × 3 с общим заголовком: все 6 пунктов строго
+   в одну строку без переносов, активная ячейка выделяется поверхностью,
+   красным индексом и живой полосой прогресса 4,2 с. */
+.hero .hero-steps-wrap {
+  width: 100%;
+  align-self: stretch;
+  margin: auto 0 0;
+  padding-top: clamp(14px, 1.5vw, 22px);
+}
+
+/* выравниваем правый край кнопок и таблицы пультом вровень по 100% колонки */
+@media (min-width: 721px) {
+  .hero .hero-copy .button-row {
+    width: 100%;
+    align-self: stretch;
+  }
+  .hero .hero-copy .button-row .button--primary {
+    flex: 1 1 auto;
+  }
+}
+
+.hero .hero-steps-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rv-muted);
+}
+
+.hero .hero-steps-head b {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--dz-red);
+}
+
+.hero .hero-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--rv-line);
+  border: 1px solid var(--rv-line);
+}
+
+.hero .hero-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-width: 0;
+  padding: 9px 11px;
+  border: 0;
+  background: var(--rv-soft);
+  color: var(--rv-muted);
+  font-family: inherit;
+  font-size: 12.5px;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* нижняя красная полоса прогресса — как во вкладках окна справа */
+.hero .hero-step::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--dz-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+}
+
+.hero .hero-step[aria-selected="true"]::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.hero .hero-step[aria-selected="true"].is-running::after {
+  animation: hero-step-progress 4.2s linear forwards;
+}
+
+.hero .hero-steps-wrap:hover .hero-step[aria-selected="true"].is-running::after,
+.hero .hero-steps-wrap:focus-within .hero-step[aria-selected="true"].is-running::after,
+.hero .hero-grid:has(.hero-stage:hover) .hero-step[aria-selected="true"].is-running::after {
+  animation-play-state: paused;
+}
+
+@keyframes hero-step-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero .hero-step b {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 20px;
+  border: 1px solid var(--rv-line);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.hero .hero-step span {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.hero .hero-step:hover {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--rv-ink);
+}
+
+.hero .hero-step:hover b {
+  border-color: var(--rv-ink);
+}
+
+.hero .hero-step[aria-selected="true"] {
+  background: var(--dz-white);
+  color: var(--rv-ink);
+}
+
+.hero .hero-step[aria-selected="true"] b {
+  background: var(--dz-red);
+  border-color: var(--dz-red);
+  color: var(--dz-white);
+}
+
+.hero .hero-step[aria-selected="true"] span {
+  font-weight: 600;
+}
+
+.hero .hero-step:focus-visible {
+  outline: 2px solid var(--dz-red);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* скруглённые углы, если включён data-corners="round" */
+html:not([data-corners="sharp"]) .hero .hero-steps {
+  border-radius: var(--rv-r-sm);
+  overflow: hidden;
+}
+html:not([data-corners="sharp"]) .hero .hero-step b {
+  border-radius: 3px;
+}
+
+/* сохраняем композицию v2: левая и правая колонки выровнены по высоте,
+   весь первый экран с полосой цифр вписывается в экран по высоте */
+@media (min-width: 1121px) {
+  .hero .hero-grid {
+    padding: clamp(20px, 2vw, 32px) 0 clamp(20px, 2vw, 28px);
+    align-items: stretch;
+  }
+  .hero .hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .hero .eyebrow {
+    margin-bottom: clamp(12px, 1.3vw, 20px);
+  }
+  .hero .hero-lead {
+    margin-top: clamp(12px, 1.2vw, 18px);
+    margin-bottom: 0;
+  }
+  .hero .button-row {
+    margin-top: clamp(16px, 1.6vw, 22px);
+  }
+  .hero .metric-strip {
+    margin-top: clamp(18px, 1.8vw, 26px) !important;
+  }
+}
+
+/* ── 2 · Шапка и нижняя полоса окна справа ─────────────────
+   На десктопе управление полностью сосредоточено в левом пульте,
+   поэтому снизу окна оставляем лаконичный 6-сегментный индикатор
+   без дублирования подписей (на мобильных подписи остаются). */
+.hero .stage-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hero .stage-counter {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
+@media (min-width: 1121px) {
+  .hero .stage-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 10px;
+  }
+  .hero .stage-caption {
+    flex: 0 0 auto;
+    font-size: 13px;
+  }
+  .hero .stage-dots {
+    flex: 1 1 auto;
+    max-width: 240px;
+    gap: 6px;
+  }
+  .hero .stage-dots button {
+    padding: 8px 0 0;
+  }
+  .hero .stage-dots button b,
+  .hero .stage-dots button .dz-tab-name {
+    display: none;
+  }
+}
+
+/* ── 3 · Тёмная тема (основная концепция) ──────────────────
+   Светлая версия: data-theme="light" + data-hero="light"
+   Тёмная версия:  data-theme="dark"  + data-hero="dark"    */
+html[data-theme="dark"] {
+  background: #15171e;
+  color: var(--dz-white);
+}
+
+html[data-theme="dark"] body {
+  background: #15171e;
+  color: var(--dz-white);
+}
+
+/* шапка в тёмной теме */
+html[data-theme="dark"] .site-header {
+  background: rgba(29, 31, 39, 0.94);
+  border-bottom-color: var(--rv-mid-line);
+  color: var(--dz-white);
+}
+
+html[data-theme="dark"] .desktop-nav a,
+html[data-theme="dark"] .header-phone {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+html[data-theme="dark"] .desktop-nav a:hover,
+html[data-theme="dark"] .header-phone:hover {
+  color: var(--dz-white);
+}
+
+html[data-theme="dark"] .menu-button span {
+  background: var(--dz-white);
+}
+
+html[data-theme="dark"] .mobile-menu {
+  background: var(--rv-mid);
+  border-bottom-color: var(--rv-mid-line);
+}
+
+html[data-theme="dark"] .mobile-menu a,
+html[data-theme="dark"] .mobile-menu .theme-toggle {
+  color: var(--dz-white);
+  border-color: var(--rv-mid-line);
+}
+
+/* логотип в шапке переключается между светлым и тёмным */
+.brand .brand-logo--dark {
+  display: none;
+}
+html[data-theme="dark"] .brand .brand-logo--light {
+  display: none;
+}
+html[data-theme="dark"] .brand .brand-logo--dark {
+  display: block;
+}
+
+/* переключатель темы в тёмной шапке */
+html[data-theme="dark"] .theme-toggle-track {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.72);
+}
+html[data-theme="dark"] .theme-toggle-thumb {
+  background: var(--dz-red);
+}
+html[data-theme="dark"] .theme-toggle[aria-pressed="true"] .theme-icon--moon {
+  color: var(--dz-white);
+}
+
+/* левый пульт «В одном окне — вы сами» в тёмной теме */
+html[data-hero="dark"] .hero .hero-steps-head {
+  color: var(--rv-mid-muted);
+}
+
+html[data-hero="dark"] .hero .hero-steps {
+  background: var(--rv-mid-line);
+  border-color: var(--rv-mid-line);
+}
+
+html[data-hero="dark"] .hero .hero-step {
+  background: var(--rv-mid);
+  color: var(--rv-mid-muted);
+}
+
+html[data-hero="dark"] .hero .hero-step b {
+  border-color: var(--rv-mid-line);
+}
+
+html[data-hero="dark"] .hero .hero-step:hover {
+  background: #232631;
+  color: var(--dz-white);
+}
+
+html[data-hero="dark"] .hero .hero-step:hover b {
+  border-color: rgba(255, 255, 255, 0.36);
+}
+
+html[data-hero="dark"] .hero .hero-step[aria-selected="true"] {
+  background: var(--rv-mid-2);
+  color: var(--dz-white);
+}
+
+html[data-hero="dark"] .hero .hero-step[aria-selected="true"] b {
+  background: var(--dz-red);
+  border-color: var(--dz-red);
+  color: var(--dz-white);
+}
+
+/* полоса цифр внизу в тёмной теме */
+html[data-theme="dark"] .hero .metric-strip {
+  border-top-color: var(--rv-mid-line);
+  border-bottom-color: var(--rv-mid-line);
+}
+
+html[data-theme="dark"] .hero .metric-strip > div {
+  border-color: var(--rv-mid-line);
+}
+
+html[data-theme="dark"] .hero .metric-strip strong {
+  color: var(--dz-white);
+}
+
+html[data-theme="dark"] .hero .metric-strip span {
+  color: var(--rv-mid-muted);
+}
+
+/* компактный нижний отступ для отдельной страницы первого экрана */
+body.hero-standalone .hero {
+  padding-bottom: clamp(20px, 2.5vw, 36px);
+}
+
+/* ссылка обратно в нижней панели */
+.dz-fontpick .dz-fontpick-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  margin-left: 4px;
+}
+.dz-fontpick .dz-fontpick-link:hover {
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .hero .hero-steps {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .hero .hero-step {
+    font-size: 13px;
+    padding: 8px 0;
+  }
+  .hero .stage-top {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+}

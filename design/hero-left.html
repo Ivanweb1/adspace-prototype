@@ -1,0 +1,889 @@
+<!doctype html>
+<html
+  lang="ru"
+  data-font="news"
+  data-corners="sharp"
+  data-dark="deep"
+  data-outline="off"
+  data-mid="deep"
+  data-theme="light"
+  data-hero="light"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow, noarchive, noimageindex" />
+    <meta
+      name="description"
+      content="ADSPACE Group — новый первый экран: окно управляется слева, светлая и тёмная темы."
+    />
+    <meta name="theme-color" content="#EB2246" />
+    <title>ADSPACE Group — первый экран (управление слева)</title>
+    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="mono.css?v=1" />
+    <link rel="stylesheet" href="v2.css?v=18" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="design.css?v=70" />
+    <link rel="stylesheet" href="review.css?v=10" />
+    <link rel="stylesheet" href="review2.css?v=24" />
+    <link rel="stylesheet" href="hero-left.css?v=5" />
+  </head>
+  <body class="hero-standalone">
+    <a class="skip-link" href="#main">К содержанию</a>
+
+    <!-- ───────────────────────── ШАПКА ───────────────────────── -->
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="ADSPACE Group — на главную">
+        <img
+          class="brand-logo--light"
+          src="assets/logo-adspace-group.svg"
+          alt="ADSPACE Group"
+          width="1105"
+          height="118"
+        />
+        <img
+          class="brand-logo--dark"
+          src="assets/logo-adspace-group-on-dark.svg"
+          alt="ADSPACE Group"
+          width="1105"
+          height="118"
+        />
+      </a>
+
+      <button
+        class="theme-toggle"
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="Переключить тему: светлая / тёмная"
+        title="Переключить тему (Светлая / Тёмная)"
+      >
+        <span class="theme-toggle-track">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="theme-toggle-thumb"></span>
+        </span>
+      </button>
+
+      <nav class="desktop-nav" aria-label="Основная навигация">
+        <a href="index.html#promos">Акции</a>
+        <a href="index.html#builder">Конструктор</a>
+        <a href="index.html#solutions">Решения</a>
+        <a href="index.html#cases">Кейсы</a>
+        <a href="index.html#platform">Платформа</a>
+      </nav>
+
+      <div class="header-side">
+        <a class="header-phone" href="tel:+74951876485">+7 495 187-64-85</a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span class="sr-only">Открыть меню</span>
+        </button>
+      </div>
+    </header>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Мобильная навигация" hidden>
+      <button
+        class="theme-toggle theme-toggle--mobile"
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="Тёмная тема"
+      >
+        <span>Тёмная тема</span>
+        <span class="theme-toggle-track">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="theme-toggle-thumb"></span>
+        </span>
+      </button>
+      <a href="index.html#promos">Акции</a>
+      <a href="index.html#builder">Конструктор</a>
+      <a href="index.html#solutions">Решения</a>
+      <a href="index.html#cases">Кейсы</a>
+      <a href="index.html#platform">Платформа</a>
+      <a href="index.html#contact">Контакты</a>
+      <a class="mobile-menu-phone" href="tel:+74951876485">+7 495 187-64-85</a>
+    </nav>
+
+    <main id="main">
+      <!-- ─────────────────── 01 · ПЕРВЫЙ ЭКРАН (ВАРИАНТ 1) ─────────────────── -->
+      <section class="hero section-shell" id="top">
+        <!-- Лента сверху (сохраняется как в v2) -->
+        <div class="hero-banner" aria-hidden="true">
+          <div class="hero-banner-track">
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <span class="dz-ticker-slogan">Просто выбрать. Легко заказать<sup>®</sup></span>
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <span class="dz-ticker-slogan">Просто выбрать. Легко заказать<sup>®</sup></span>
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <span class="dz-ticker-slogan">Просто выбрать. Легко заказать<sup>®</sup></span>
+            <span class="hero-banner-dot"></span>
+            <img src="assets/logo-adspace-group-white.svg" alt="" />
+            <span class="hero-banner-dot"></span>
+            <span class="dz-ticker-slogan">Просто выбрать. Легко заказать<sup>®</sup></span>
+            <span class="hero-banner-dot"></span>
+          </div>
+        </div>
+
+        <div class="hero-grid">
+          <!-- Левая колонка: слоган, кнопки и 6 интерактивных строк «Вы сами…» -->
+          <div class="hero-copy reveal is-visible">
+            <p class="eyebrow"><span class="status-dot"></span> Рекламная экосистема · 24/7</p>
+            <h1 class="dz-title" data-fit>
+              <span class="dz-title-line">Просто выбрать</span>
+              <span class="dz-title-line"
+                ><mark
+                  ><span>Легко</span
+                  ><span
+                    >заказать<sup class="dz-tm" title="Зарегистрированный товарный знак"
+                      >®</sup
+                    ></span
+                  ></mark
+                ></span
+              >
+            </h1>
+            <p class="hero-lead">
+              Подбираем, рассчитываем и запускаем рекламные кампании по всей России — от одной
+              поверхности до комплексного медиаплана. В одном окне.
+            </p>
+            <div class="button-row">
+              <a class="button button--primary" href="index.html#builder"
+                >Подобрать рекламную кампанию <span aria-hidden="true">↗</span></a
+              >
+              <a class="button button--dark" href="index.html#presentation"
+                >Скачать презентацию <span aria-hidden="true">↓</span></a
+              >
+            </div>
+
+            <!-- 6 пунктов из правки 34: общий заголовок «Вы сами» + 6 действий в одну строку -->
+            <div class="hero-steps-wrap" data-hero-steps>
+              <div class="hero-steps-head">
+                <span>В одном окне — вы сами</span>
+                <b data-steps-index>01 / 06</b>
+              </div>
+              <div class="hero-steps" role="tablist" aria-label="Что вы делаете сами">
+                <button
+                  type="button"
+                  role="tab"
+                  class="hero-step"
+                  data-hero-step="outdoor"
+                  aria-selected="true"
+                >
+                  <b>01</b>
+                  <span>Выбираете поверхности</span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="hero-step"
+                  data-hero-step="indoor"
+                  aria-selected="false"
+                >
+                  <b>02</b>
+                  <span>Выбираете место в лифте</span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="hero-step"
+                  data-hero-step="broadcast"
+                  aria-selected="false"
+                >
+                  <b>03</b>
+                  <span>Считаете радио и дикторов</span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="hero-step"
+                  data-hero-step="calc"
+                  aria-selected="false"
+                >
+                  <b>04</b>
+                  <span>Сразу видите точный расчёт</span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="hero-step"
+                  data-hero-step="plan"
+                  aria-selected="false"
+                >
+                  <b>05</b>
+                  <span>Получаете готовый медиаплан</span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  class="hero-step"
+                  data-hero-step="booking"
+                  aria-selected="false"
+                >
+                  <b>06</b>
+                  <span>Бронируете онлайн</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Правая колонка: окно с шестью сюжетами -->
+          <div class="hero-stage reveal is-visible" data-stage aria-label="Что можно сделать на сайте">
+            <div class="stage-top">
+              <span class="stage-kicker">Что здесь можно сделать</span>
+              <span class="stage-counter" data-stage-counter aria-live="polite"
+                >01 / 06 · Наружная реклама</span
+              >
+            </div>
+
+            <div class="stage-screen" data-stage-screen>
+              <!-- сцена 1 — наружная реклама -->
+              <div class="scene scene--outdoor is-active" data-scene="outdoor">
+                <div class="dz-frame" aria-hidden="true">
+                  <img class="scene-photo" src="assets/photos-light/outdoor.jpg" alt="" />
+                  <span class="dz-board dz-board--outdoor"><b>Ваш бренд</b></span>
+                </div>
+                <video
+                  class="dz-scene-video"
+                  data-scene-video
+                  src="assets/video/outdoor-platform.mp4"
+                  poster="assets/video/outdoor-platform.jpg"
+                  muted
+                  playsinline
+                  preload="auto"
+                  aria-hidden="true"
+                ></video>
+                <div class="scene-grid" aria-hidden="true"></div>
+                <div class="billboard">
+                  <div class="billboard-screen">ВАШ<br />БРЕНД</div>
+                  <div class="billboard-leg"></div>
+                </div>
+                <span class="chip chip--a">Подбор рекламы в пару кликов</span>
+                <span class="chip chip--b">Суперсайт 15×5 · свободно с 01.09</span>
+              </div>
+
+              <!-- сцена 2 — лифты -->
+              <div class="scene scene--ui scene--lifts" data-scene="indoor">
+                <div class="dz-mix" aria-hidden="true">
+                  <div class="dz-mix-params">
+                    <div class="dz-calc-field">
+                      <span>Город</span>
+                      <div class="dz-pick">Краснодар <i>▾</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Формат</span>
+                      <div class="dz-seg"><i class="is-on">А3</i><i>А4</i><i>Экран</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Срок <b>2 недели</b></span>
+                      <div class="dz-range"><i style="--v: 35%"></i></div>
+                    </div>
+                  </div>
+                  <div class="dz-mix-body">
+                    <div
+                      class="dz-donut"
+                      style="
+                        --donut: conic-gradient(
+                          var(--m1) 0 34%,
+                          var(--m2) 0 62%,
+                          var(--m3) 0 84%,
+                          var(--m4) 0
+                        );
+                      "
+                    >
+                      <span><b data-count-num="1240">0</b>лифтов</span>
+                    </div>
+                    <ul class="dz-bars">
+                      <li style="--c: var(--m1); --w: 34%">
+                        <b>Центральный</b><span><i></i></span><em>34%</em>
+                      </li>
+                      <li style="--c: var(--m2); --w: 28%">
+                        <b>Прикубанский</b><span><i></i></span><em>28%</em>
+                      </li>
+                      <li style="--c: var(--m3); --w: 22%">
+                        <b>Карасунский</b><span><i></i></span><em>22%</em>
+                      </li>
+                      <li style="--c: var(--m4); --w: 16%">
+                        <b>Западный</b><span><i></i></span><em>16%</em>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="dz-gantt-foot"><span>Лифты по районам</span><b>4 района</b></div>
+                </div>
+              </div>
+
+              <!-- сцена 3 — радио и ТВ -->
+              <div class="scene scene--ui scene--radio" data-scene="broadcast">
+                <div class="dz-mix" aria-hidden="true">
+                  <div class="dz-mix-params">
+                    <div class="dz-calc-field">
+                      <span>Канал</span>
+                      <div class="dz-seg dz-seg--2"><i class="is-on">Радио</i><i>ТВ</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Ролик</span>
+                      <div class="dz-seg"><i>15 с</i><i class="is-on">20 с</i><i>30 с</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Выходов в день</span>
+                      <div class="dz-step"><i>−</i><b>6</b><i>+</i></div>
+                    </div>
+                  </div>
+                  <div class="dz-mix-body dz-mix-body--air">
+                    <div class="dz-air-head">
+                      <span>Аудитория по часам</span><span class="dz-air-key">ваши выходы</span>
+                    </div>
+                    <div class="dz-air">
+                      <i style="--h: 22%"></i><i class="is-on" style="--h: 58%"></i
+                      ><i class="is-on" style="--h: 86%"></i><i class="is-on" style="--h: 74%"></i
+                      ><i style="--h: 50%"></i><i style="--h: 44%"></i><i style="--h: 46%"></i
+                      ><i style="--h: 48%"></i><i style="--h: 42%"></i><i style="--h: 40%"></i
+                      ><i style="--h: 46%"></i><i class="is-on" style="--h: 70%"></i
+                      ><i class="is-on" style="--h: 92%"></i><i class="is-on" style="--h: 80%"></i
+                      ><i style="--h: 54%"></i><i style="--h: 40%"></i><i style="--h: 30%"></i
+                      ><i style="--h: 18%"></i>
+                    </div>
+                    <div class="dz-air-axis">
+                      <i>6:00</i><i>9:00</i><i>12:00</i><i>15:00</i><i>18:00</i><i>21:00</i>
+                    </div>
+                  </div>
+                  <div class="dz-gantt-foot">
+                    <span>Охват за 2 недели</span
+                    ><b
+                      ><span data-count-num="1200000">0</span
+                      ><span class="dz-hide-sm"> слушателей</span></b
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- сцена 4 — калькулятор -->
+              <div class="scene scene--calc" data-scene="calc">
+                <div class="dz-calc" aria-hidden="true">
+                  <div class="dz-calc-params">
+                    <div class="dz-calc-field">
+                      <span>Формат</span>
+                      <div class="dz-seg"><i class="is-on">3×6</i><i>15×5</i><i>DOOH</i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Период <b>30 дней</b></span>
+                      <div class="dz-range"><i style="--v: 50%"></i></div>
+                    </div>
+                    <div class="dz-calc-field">
+                      <span>Поверхностей</span>
+                      <div class="dz-step"><i>−</i><b>18</b><i>+</i></div>
+                    </div>
+                  </div>
+                  <div class="dz-calc-total">
+                    <span>Итого за кампанию</span>
+                    <b data-count-to="540000">0 ₽</b>
+                    <small>1 000 ₽ за поверхность в день</small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- сцена 5 — медиаплан -->
+              <div class="scene scene--plan" data-scene="plan">
+                <div class="dz-gantt" aria-hidden="true">
+                  <div class="dz-gantt-head">
+                    <span></span>
+                    <div><i>Нед. 1</i><i>Нед. 2</i><i>Нед. 3</i><i>Нед. 4</i></div>
+                  </div>
+                  <div class="dz-gantt-row">
+                    <span>Outdoor</span>
+                    <div>
+                      <i style="--s: 0%; --w: 68%"><em>20 дн.</em></i>
+                    </div>
+                  </div>
+                  <div class="dz-gantt-row">
+                    <span>DOOH</span>
+                    <div>
+                      <i class="is-alt" style="--s: 12%; --w: 46%"><em>14 дн.</em></i>
+                    </div>
+                  </div>
+                  <div class="dz-gantt-row">
+                    <span>Radio</span>
+                    <div>
+                      <i style="--s: 28%; --w: 52%"><em>16 дн.</em></i>
+                    </div>
+                  </div>
+                  <div class="dz-gantt-row">
+                    <span>Indoor</span>
+                    <div>
+                      <i class="is-alt" style="--s: 8%; --w: 34%"><em>10 дн.</em></i>
+                    </div>
+                  </div>
+                  <div class="dz-gantt-foot"><span>4 канала</span><b>30 дней</b></div>
+                </div>
+                <span class="chip chip--a">4 канала в одном плане</span>
+              </div>
+
+              <!-- сцена 6 — онлайн-бронирование -->
+              <div class="scene scene--booking" data-scene="booking">
+                <div class="dz-book" aria-hidden="true">
+                  <div class="dz-book-map">
+                    <div class="dz-map" data-dz-book-map></div>
+                    <i style="--x: 24%; --y: 30%"></i>
+                    <i style="--x: 62%; --y: 22%"></i>
+                    <i class="is-taken" style="--x: 40%; --y: 64%"></i>
+                    <i class="is-picked" style="--x: 72%; --y: 58%"></i>
+                    <i style="--x: 16%; --y: 78%"></i>
+                  </div>
+                  <ul class="dz-book-list">
+                    <li><span>Ленина / 42</span><small>3×6</small><b>свободно</b></li>
+                    <li><span>Проспект Мира</span><small>3×6</small><b>свободно</b></li>
+                    <li class="is-taken"><span>ТЦ «Галерея»</span><small>indoor</small><b>занято</b></li>
+                    <li class="is-picked">
+                      <span>Кутузовский, 12</span><small>3×6</small><b>в корзине</b>
+                    </li>
+                  </ul>
+                  <div class="dz-book-cart"><span>В корзине: 1</span><b>Забронировать →</b></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stage-bottom">
+              <div class="stage-caption">
+                <strong data-stage-title>Наружная реклама</strong>
+              </div>
+              <div class="stage-dots" role="tablist" aria-label="Сюжеты">
+                <button role="tab" type="button" data-stage-dot="outdoor" aria-selected="true">
+                  <b>01</b><span class="dz-tab-name" aria-hidden="true">Наружка</span
+                  ><span class="sr-only">Наружная реклама</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="indoor" aria-selected="false">
+                  <b>02</b><span class="dz-tab-name" aria-hidden="true">Лифты</span
+                  ><span class="sr-only">Indoor и лифты</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="broadcast" aria-selected="false">
+                  <b>03</b><span class="dz-tab-name" aria-hidden="true">Радио и ТВ</span
+                  ><span class="sr-only">Радио и ТВ</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="calc" aria-selected="false">
+                  <b>04</b><span class="dz-tab-name" aria-hidden="true">Расчёт</span
+                  ><span class="sr-only">Калькулятор</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="plan" aria-selected="false">
+                  <b>05</b><span class="dz-tab-name" aria-hidden="true">Медиаплан</span
+                  ><span class="sr-only">Медиаплан</span>
+                </button>
+                <button role="tab" type="button" data-stage-dot="booking" aria-selected="false">
+                  <b>06</b><span class="dz-tab-name" aria-hidden="true">Бронь</span
+                  ><span class="sr-only">Онлайн-бронирование</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Полоса цифр снизу (сохраняется как в v2) -->
+        <div class="metric-strip reveal is-visible" aria-label="Масштаб компании">
+          <div><strong>11<i>+</i></strong><span>лет на рынке</span></div>
+          <div><strong>70<i>+</i></strong><span>городов присутствия</span></div>
+          <div><strong>12 400</strong><span>рекламных поверхностей</span></div>
+          <div><strong>9</strong><span>рекламных каналов</span></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Компактная панель переключения для показа заказчику -->
+    <div class="dz-fontpick" role="group" aria-label="Настройки показа" data-fontpick>
+      <span>Тема</span>
+      <button type="button" data-theme-set="light">Светлая</button>
+      <button type="button" data-theme-set="dark">Тёмная</button>
+      <span>Углы</span>
+      <button type="button" data-corners-set="sharp">Острые</button>
+      <button type="button" data-corners-set="round">Скруглённые</button>
+      <a class="dz-fontpick-link" href="index.html">← Основной прототип</a>
+      <button type="button" class="dz-fontpick-close" aria-label="Скрыть панель" data-fontpick-close>
+        ✕
+      </button>
+    </div>
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU"></script>
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const $ = (sel, ctx = document) => ctx.querySelector(sel);
+        const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const money = (v) => new Intl.NumberFormat("ru-RU").format(Math.round(v)) + " ₽";
+        const plain = (v) => new Intl.NumberFormat("ru-RU").format(Math.round(v));
+
+        /* ── Мобильное меню ─────────────────────────────────── */
+        const menuBtn = $(".menu-button");
+        const mobileMenu = $("#mobile-menu");
+        if (menuBtn && mobileMenu) {
+          const setMenu = (open) => {
+            menuBtn.setAttribute("aria-expanded", String(open));
+            mobileMenu.hidden = !open;
+          };
+          menuBtn.addEventListener("click", () => {
+            setMenu(menuBtn.getAttribute("aria-expanded") !== "true");
+          });
+          $$("a", mobileMenu).forEach((a) => a.addEventListener("click", () => setMenu(false)));
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") setMenu(false);
+          });
+        }
+
+        /* ── Переключатель цветовой темы (Светлая / Тёмная) ───
+           Светлая версия = светлый первый экран (data-hero="light").
+           Тёмная версия  = текущая тёмная основная концепция (data-hero="dark"). */
+        const themeToggles = $$("[data-theme-toggle]");
+        const themePanelBtns = $$("[data-theme-set]");
+
+        const applyTheme = (mode, save = true) => {
+          const isDark = mode === "dark";
+          const next = isDark ? "dark" : "light";
+          root.setAttribute("data-theme", next);
+          root.setAttribute("data-hero", next);
+          themeToggles.forEach((btn) => btn.setAttribute("aria-pressed", String(isDark)));
+          themePanelBtns.forEach((btn) =>
+            btn.setAttribute("aria-pressed", String(btn.dataset.themeSet === next))
+          );
+          if (save) {
+            try {
+              localStorage.setItem("adsp-hero-left-theme", next);
+            } catch (e) {}
+          }
+        };
+
+        const params = new URLSearchParams(location.search);
+        const urlTheme = params.get("theme") || params.get("hero");
+        let savedTheme = null;
+        try {
+          savedTheme = localStorage.getItem("adsp-hero-left-theme");
+        } catch (e) {}
+        applyTheme(
+          urlTheme === "dark" || urlTheme === "light"
+            ? urlTheme
+            : savedTheme === "dark"
+              ? "dark"
+              : "light",
+          false
+        );
+
+        themeToggles.forEach((btn) =>
+          btn.addEventListener("click", () => {
+            const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            applyTheme(next);
+          })
+        );
+        themePanelBtns.forEach((btn) =>
+          btn.addEventListener("click", () => applyTheme(btn.dataset.themeSet))
+        );
+
+        /* ── Углы (острые / скруглённые) + скрытие панели ──── */
+        const cornerBtns = $$("[data-corners-set]");
+        const applyCorners = (name, save = true) => {
+          root.setAttribute("data-corners", name);
+          cornerBtns.forEach((b) =>
+            b.setAttribute("aria-pressed", String(b.dataset.cornersSet === name))
+          );
+          if (save) {
+            try {
+              localStorage.setItem("dz-corners", name);
+            } catch (e) {}
+          }
+        };
+        const urlCorners = params.get("corners");
+        let savedCorners = null;
+        try {
+          savedCorners = localStorage.getItem("dz-corners");
+        } catch (e) {}
+        applyCorners(
+          urlCorners === "round" || urlCorners === "sharp"
+            ? urlCorners
+            : savedCorners === "round"
+              ? "round"
+              : "sharp",
+          false
+        );
+        cornerBtns.forEach((b) =>
+          b.addEventListener("click", () => applyCorners(b.dataset.cornersSet))
+        );
+
+        const panel = $("[data-fontpick]");
+        const closeBtn = $("[data-fontpick-close]");
+        if (panel && params.get("panel") === "off") panel.hidden = true;
+        if (panel && closeBtn) {
+          closeBtn.addEventListener("click", () => {
+            panel.hidden = true;
+          });
+        }
+
+        /* ── Подгонка размера слогана под ширину колонки ────── */
+        const title = $("[data-fit]");
+        const MAX_FIT = 104;
+        const fitTitle = () => {
+          if (!title) return;
+          if (window.innerWidth <= 720) {
+            title.style.removeProperty("--dz-fit");
+            return;
+          }
+          title.style.setProperty("--dz-fit", "100px");
+          let widest = 0;
+          $$(".dz-title-line", title).forEach((line) => {
+            const range = document.createRange();
+            range.selectNodeContents(line);
+            widest = Math.max(widest, range.getBoundingClientRect().width);
+          });
+          if (widest > 0) {
+            const size = Math.min(MAX_FIT, Math.floor((title.clientWidth / widest) * 100 * 0.97));
+            title.style.setProperty("--dz-fit", size + "px");
+          }
+        };
+        if (document.fonts) document.fonts.ready.then(fitTitle);
+        else fitTitle();
+        window.addEventListener("resize", fitTitle);
+
+        /* ── Первый экран: синхронизация левого списка и окна ── */
+        const stage = $("[data-stage]");
+        const stepsWrap = $("[data-hero-steps]");
+        if (stage) {
+          const titles = {
+            outdoor: "Наружная реклама",
+            indoor: "Реклама в лифтах",
+            broadcast: "Радио и ТВ",
+            calc: "Калькулятор кампании",
+            plan: "Готовый медиаплан",
+            booking: "Онлайн-бронирование",
+          };
+          const scenes = $$("[data-scene]", stage);
+          const dots = $$("[data-stage-dot]", stage);
+          const steps = stepsWrap ? $$("[data-hero-step]", stepsWrap) : [];
+          const stepsIndexEl = stepsWrap ? $("[data-steps-index]", stepsWrap) : null;
+          const caption = $("[data-stage-title]", stage);
+          const counterEl = $("[data-stage-counter]", stage);
+          let index = 0;
+          let timer = null;
+
+          const countUp = (node, format = money) => {
+            const target = Number(node.dataset.countTo || node.dataset.countNum);
+            if (reduceMotion.matches) {
+              node.textContent = format(target);
+              return;
+            }
+            const start = performance.now();
+            const tick = (now) => {
+              const p = Math.min((now - start) / 900, 1);
+              node.textContent = format(target * (1 - Math.pow(1 - p, 3)));
+              if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          };
+
+          const showScene = (next) => {
+            index = (next + scenes.length) % scenes.length;
+            const key = scenes[index].dataset.scene;
+            const label = titles[key] || "";
+            const num = String(index + 1).padStart(2, "0");
+            const total = String(scenes.length).padStart(2, "0");
+            const hasVideo = Boolean($("[data-scene-video]", scenes[index]));
+
+            scenes.forEach((scene, i) => scene.classList.toggle("is-active", i === index));
+            dots.forEach((dot, i) => dot.setAttribute("aria-selected", String(i === index)));
+            steps.forEach((step, i) => {
+              const active = i === index;
+              step.setAttribute("aria-selected", String(active));
+              // перезапуск анимации полосы прогресса при повторном выборе
+              if (active) {
+                step.classList.remove("is-running");
+                void step.offsetWidth;
+                if (!hasVideo) step.classList.add("is-running");
+              } else {
+                step.classList.remove("is-running");
+              }
+            });
+            if (stepsWrap) stepsWrap.classList.toggle("is-video", hasVideo);
+            if (stepsIndexEl) stepsIndexEl.textContent = `${num} / ${total}`;
+
+            if (caption) caption.textContent = label;
+            if (counterEl) {
+              counterEl.textContent = `${num} / ${total} · ${label}`;
+            }
+
+            // ролик в «Наружке» играет только на своём слайде, с начала
+            $$("[data-scene-video]", stage).forEach((v) => {
+              if (v.closest("[data-scene]") === scenes[index]) {
+                v.currentTime = 0;
+                v.play().catch(() => {});
+              } else {
+                v.pause();
+              }
+            });
+
+            const moneyCounter = $("[data-count-to]", scenes[index]);
+            if (moneyCounter) countUp(moneyCounter, money);
+            $$("[data-count-num]", scenes[index]).forEach((node) => countUp(node, plain));
+          };
+
+          const stop = () => {
+            if (timer) window.clearInterval(timer);
+            timer = null;
+          };
+
+          const play = () => {
+            if (reduceMotion.matches) return;
+            stop();
+            if ($("[data-scene-video]", scenes[index])) return;
+            timer = window.setInterval(() => {
+              showScene(index + 1);
+              if ($("[data-scene-video]", scenes[index])) stop();
+            }, 4200);
+          };
+
+          $$("[data-scene-video]", stage).forEach((v) =>
+            v.addEventListener("ended", () => {
+              showScene(index + 1);
+              play();
+            })
+          );
+
+          // клик и плавное переключение по наведению (hover-preview ~120 мс на десктопе)
+          const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+          let hoverTimer = null;
+          const clearHover = () => {
+            if (hoverTimer) window.clearTimeout(hoverTimer);
+            hoverTimer = null;
+          };
+
+          steps.forEach((step, i) => {
+            step.addEventListener("click", () => {
+              clearHover();
+              showScene(i);
+              play();
+            });
+            step.addEventListener("mouseenter", () => {
+              if (!finePointer.matches || i === index) return;
+              clearHover();
+              hoverTimer = window.setTimeout(() => {
+                showScene(i);
+              }, 120);
+            });
+            step.addEventListener("mouseleave", clearHover);
+            step.addEventListener("focus", () => {
+              if (i !== index) showScene(i);
+            });
+          });
+
+          // клик по вкладкам внизу окна
+          dots.forEach((dot, i) =>
+            dot.addEventListener("click", () => {
+              showScene(i);
+              play();
+            })
+          );
+
+          // пауза при наведении/фокусе на окно или на левый список
+          [stage, stepsWrap].filter(Boolean).forEach((el) => {
+            el.addEventListener("mouseenter", stop);
+            el.addEventListener("mouseleave", play);
+            el.addEventListener("focusin", stop);
+            el.addEventListener("focusout", play);
+          });
+
+          showScene(0);
+          play();
+        }
+
+        /* ── Яндекс.Карта в 6-м сюжете («Бронь») ───────────── */
+        const bookEl = $("[data-dz-book-map]");
+        const bookScene = bookEl && bookEl.closest(".scene");
+        let bookMap = null;
+        const BOOK_POINTS = [
+          [[55.7352, 37.5932], "free"],
+          [[55.7812, 37.6335], "free"],
+          [[55.7603, 37.6051], "taken"],
+          [[55.7496, 37.5601], "picked"],
+          [[55.7705, 37.5752], "free"],
+        ];
+
+        const drawBookMap = () => {
+          if (!window.ymaps || !bookEl) return;
+          ymaps.ready(() => {
+            if (bookMap) {
+              bookMap.container.fitToViewport();
+              return;
+            }
+            bookMap = new ymaps.Map(
+              bookEl,
+              { center: [55.75, 37.6], zoom: 11, controls: [] },
+              { suppressMapOpenBlock: true }
+            );
+            bookMap.behaviors.disable(["drag", "dblClickZoom", "multiTouch"]);
+            bookEl.closest(".dz-book-map")?.classList.add("is-ymap");
+            const layouts = {};
+            ["free", "taken", "picked"].forEach((k) => {
+              layouts[k] = ymaps.templateLayoutFactory.createClass(
+                `<div class="dz-pin dz-pin--${k}"></div>`
+              );
+            });
+            BOOK_POINTS.forEach(([coords, kind]) => {
+              bookMap.geoObjects.add(
+                new ymaps.Placemark(
+                  coords,
+                  {},
+                  {
+                    iconLayout: layouts[kind],
+                    iconShape: { type: "Rectangle", coordinates: [[-8, -8], [8, 8]] },
+                  }
+                )
+              );
+            });
+            bookMap.setBounds(
+              ymaps.util.bounds.fromPoints(BOOK_POINTS.map((p) => p[0])),
+              { checkZoomRange: true, zoomMargin: 48 }
+            );
+          });
+        };
+
+        if (bookScene && "MutationObserver" in window) {
+          new MutationObserver(() => {
+            if (bookScene.classList.contains("is-active")) setTimeout(drawBookMap, 80);
+          }).observe(bookScene, { attributes: true, attributeFilter: ["class"] });
+        }
+      })();
+    </script>
+  </body>
+</html>
