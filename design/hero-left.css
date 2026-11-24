@@ -394,17 +394,47 @@ body.hero-standalone .hero {
   color: #fff;
 }
 
-@media (max-width: 600px) {
-  .hero .hero-steps {
-    grid-template-columns: 1fr;
-    gap: 2px;
+@media (max-width: 720px) {
+  .hero .hero-grid {
+    padding: 24px 0 24px;
+    gap: 24px;
   }
-  .hero .hero-step {
-    font-size: 13px;
-    padding: 8px 0;
+  .hero .hero-steps-wrap {
+    padding-top: 20px;
   }
   .hero .stage-top {
     flex-wrap: wrap;
     gap: 4px 12px;
+  }
+  body.hero-standalone .hero {
+    padding-bottom: 84px;
+  }
+  .dz-fontpick {
+    max-width: calc(100vw - 16px);
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 4px;
+  }
+  .dz-fontpick .dz-fontpick-link {
+    border-left: 0;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero .hero-copy .button-row {
+    width: 100%;
+  }
+  .hero .hero-copy .button-row .button {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .hero .hero-steps {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+  .hero .hero-step {
+    font-size: 13px;
+    padding: 10px 12px;
   }
 }
