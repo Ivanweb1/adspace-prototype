@@ -15,6 +15,12 @@
   padding-top: clamp(14px, 1.5vw, 22px);
 }
 
+/* одинаковая стрелка в обеих кнопках: тот же глиф ↓ из Inter Tight, повёрнутый на ↗ */
+.hero .btn-arrow-ne {
+  display: inline-block;
+  transform: rotate(-135deg);
+}
+
 /* выравниваем правый край кнопок и таблицы пультом вровень по 100% колонки */
 @media (min-width: 721px) {
   .hero .hero-copy .button-row {
